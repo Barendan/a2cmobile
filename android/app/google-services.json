@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "781379701999",
+    "project_id": "a2cmobileapp",
+    "storage_bucket": "a2cmobileapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:781379701999:android:81828408474a9aa5ac9f1a",
+        "android_client_info": {
+          "package_name": "com.a2cmobile"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "781379701999-ktjk5kjvjhapcv425h6opg6h0ugoqoj9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBgopC1PivneMSMN6qVQFcUA-KtUt8Z6zA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "781379701999-ktjk5kjvjhapcv425h6opg6h0ugoqoj9.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "781379701999-5nbk6aeo0rr51qlijn96740jm8cmtd2k.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "org.reactjs.native.example.A2CMobile"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
