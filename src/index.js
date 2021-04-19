@@ -3,7 +3,7 @@ import {
   checkPermission,
   foregroundNotifications,
   backgroundAndQuitStateNotifications,
-} from './src/services/PushNotifications';
+} from './services/PushNotifications';
 import Navigator from '_navigations';
 
 const App = () => {
