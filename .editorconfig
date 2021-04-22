@@ -1,6 +1,6 @@
 # Remove the line below or set to "false" if you want to inherit .editorconfig settings from higher directories
 # If "root = true", .editorconfig settings will not be inherited from parent directories
-#root = true
+root = true
 
 
 # Default for all files, unless overridden below
