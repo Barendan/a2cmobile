@@ -21,9 +21,9 @@ namespace A2CMobile.Api.Infrastructure.Installers
                     .AddUrlGroup(new Uri(config["ApiResourceBaseUrls:SampleApi"]),
                                 name: "External Api",
                                 failureStatus: HealthStatus.Degraded)
-                    .AddNpgSql(config["ConnectionStrings:PostgreSQLConnectionString"],
-                                name: "PostgreSQL",
-                                failureStatus: HealthStatus.Unhealthy)
+                    //.AddNpgSql(config["ConnectionStrings:PostgreSQLConnectionString"],
+                    //            name: "PostgreSQL",
+                    //            failureStatus: HealthStatus.Unhealthy)
                     .AddSqlServer(
                                 connectionString: config["ConnectionStrings:SQLDBConnectionString"],
                                 healthQuery: "SELECT 1;",
