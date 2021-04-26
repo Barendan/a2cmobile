@@ -2,6 +2,7 @@ import {createBottomTabNavigator} from 'react-navigation-tabs';
 
 import HomeScreen from '_scenes/home';
 import AboutScreen from '_scenes/about';
+import RegistrationScreen from '_scenes/registration';
 
 const TabNavigatorConfig = {
   initialRouteName: 'Home',
@@ -10,11 +11,14 @@ const TabNavigatorConfig = {
 };
 
 const RouteConfigs = {
-  Home:{
-    screen:HomeScreen,
+  Home: {
+    screen: HomeScreen,
   },
-  About:{
-    screen:AboutScreen,
+  About: {
+    screen: AboutScreen,
+  },
+  Registration: {
+    screen: RegistrationScreen,
   },
 };
 
