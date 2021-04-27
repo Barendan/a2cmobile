@@ -1,23 +1,23 @@
-import {createBottomTabNavigator} from 'react-navigation-tabs';
+// import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 
-import HomeScreen from '_scenes/home';
-import AboutScreen from '_scenes/about';
+// import HomeScreen from '_scenes/home';
+// import AboutScreen from '_scenes/about';
 
-const TabNavigatorConfig = {
-  initialRouteName: 'Home',
-  header: null,
-  headerMode: 'none',
-};
+// const TabNavigatorConfig = {
+//   initialRouteName: 'Home',
+//   header: null,
+//   headerMode: 'none',
+// };
 
-const RouteConfigs = {
-  Home:{
-    screen:HomeScreen,
-  },
-  About:{
-    screen:AboutScreen,
-  },
-};
+// const RouteConfigs = {
+//   Home:{
+//     screen:HomeScreen,
+//   },
+//   About:{
+//     screen:AboutScreen,
+//   },
+// };
 
-const AppNavigator = createBottomTabNavigator(RouteConfigs, TabNavigatorConfig);
+// const AppNavigator = createBottomTabNavigator(RouteConfigs, TabNavigatorConfig);
 
-export default AppNavigator;
+// export default AppNavigator;
