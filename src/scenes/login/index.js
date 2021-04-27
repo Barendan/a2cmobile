@@ -1,5 +1,5 @@
 import React from 'react';
-import {SafeAreaView, Text, TouchableHighlight} from 'react-native';
+import { SafeAreaView, Text, TouchableHighlight } from 'react-native';
 
 const LoginScreen = ({navigation}) => (
   <SafeAreaView>
