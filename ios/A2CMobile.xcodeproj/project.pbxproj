@@ -42,6 +42,7 @@
 		71619376A748A4FE79FB43BF /* Pods-A2CMobile.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-A2CMobile.release.xcconfig"; path = "Target Support Files/Pods-A2CMobile/Pods-A2CMobile.release.xcconfig"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = A2CMobile/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9DCA5384524F9B1F97B1971B /* Pods-A2CMobile-A2CMobileTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-A2CMobile-A2CMobileTests.release.xcconfig"; path = "Target Support Files/Pods-A2CMobile-A2CMobileTests/Pods-A2CMobile-A2CMobileTests.release.xcconfig"; sourceTree = "<group>"; };
+		C1472AF2263855400065EB60 /* Ionicons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Ionicons.ttf; path = "../../node_modules/react-native-vector-icons/Fonts/Ionicons.ttf"; sourceTree = "<group>"; };
 		C1F29B1C2620A86300E3CCD3 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		DB5B3ABE88592B2573E91598 /* Pods-A2CMobile.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-A2CMobile.debug.xcconfig"; path = "Target Support Files/Pods-A2CMobile/Pods-A2CMobile.debug.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
@@ -88,6 +89,7 @@
 		13B07FAE1A68108700A75B9A /* A2CMobile */ = {
 			isa = PBXGroup;
 			children = (
+				C1472AF1263854B40065EB60 /* Fonts */,
 				C1F29B1C2620A86300E3CCD3 /* GoogleService-Info.plist */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
@@ -149,6 +151,14 @@
 				9DCA5384524F9B1F97B1971B /* Pods-A2CMobile-A2CMobileTests.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		C1472AF1263854B40065EB60 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				C1472AF2263855400065EB60 /* Ionicons.ttf */,
+			);
+			path = Fonts;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
