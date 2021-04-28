@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
 import {View, Text} from 'react-native';
 import {Input, Button} from '@ui-kitten/components';
-
 import styles from './styles';
 
 const Step1 = ({back, next, saveState}) => {
@@ -20,9 +19,6 @@ const Step1 = ({back, next, saveState}) => {
 
   return (
     <View style={[styles.container, styles.step1]}>
-      <View>
-        <Text style={styles.title}>Register Account</Text>
-      </View>
       <View style={styles.formContainer}>
         <Input
           style={styles.input}
@@ -42,8 +38,8 @@ const Step1 = ({back, next, saveState}) => {
           style={styles.input}
           onChangeText={text => setText(text)}
           value={text}
-          label="Address Zip Code*"
-          placeholder="Address Zip Code"
+          label="Zip Code*"
+          placeholder="Zip Code"
         />
         <View style={[{width: '85%'}]}>
           <Button
