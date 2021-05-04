@@ -15,7 +15,7 @@ const RequestApi = axios.create({
 RequestApi.interceptors.request.use(
   config => {
     const selectedLanguage = localStorage.getItem('i18nextLng') || 'en';
-    config.headers['X-App-LAnguage'] = `${selectedLanguage}`;
+    config.headers['X-App-Language'] = `${selectedLanguage}`;
 
     const token = localStorage.getItem('token');
 
