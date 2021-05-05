@@ -20,9 +20,6 @@ const Step1 = ({back, next, saveState}) => {
 
   return (
     <View style={[styles.container, styles.step3]}>
-      <View>
-        <Text style={styles.title}>Register Account</Text>
-      </View>
       <View style={styles.formContainer}>
         <View
           style={[
