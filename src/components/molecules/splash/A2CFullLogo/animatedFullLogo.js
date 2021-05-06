@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import { StyleSheet } from 'react-native';
-import SplashFullLogo from '../../../atoms/splash/fullLogo';
 import Animated, {
   useAnimatedStyle,
   withTiming,
@@ -9,7 +8,8 @@ import Animated, {
 import { useNavigation } from '@react-navigation/native';
 
 // atoms
-import SplashOverlay from '../../../atoms/splash/overlay';
+import SplashOverlay from '_atoms/splash/overlay';
+import SplashFullLogo from '_atoms/splash/fullLogo';
 
 const styles = StyleSheet.create({
   overlay: {

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Image, StyleSheet } from 'react-native';
-import { scaleSize } from '../../../styles/mixins';
+import { scaleSize } from '_styles/mixins';
 
 const styles = StyleSheet.create({
   imageSize: {
@@ -12,7 +12,7 @@ const styles = StyleSheet.create({
 const SplashLogo = () =>
   <Image
     style={styles.imageSize}
-    source={require('../../../assets/images/A2CLogo.png')}
+    source={require('_assets/images/A2CLogo.png')}
   />
 
 export default SplashLogo;

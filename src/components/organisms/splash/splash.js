@@ -14,12 +14,12 @@ import Animated, {
 } from 'react-native-reanimated';
 
 // molecules
-import {AnimatedLogo} from '../../molecules/splash/A2CLogo/index';
-import {AnimatedFullLogo} from '../../molecules/splash/A2CFullLogo/index';
+import { AnimatedLogo } from '_molecules/splash/A2CLogo/index';
+import { AnimatedFullLogo } from '_molecules/splash/A2CFullLogo/index';
 
 // styles
-import {WHITE} from '../../../styles/colors';
-import {scaleFont} from '../../../styles/mixins';
+import { WHITE } from '_styles/colors';
+import { scaleFont } from '_styles/mixins';
 
 const styles = StyleSheet.create({
   container: {

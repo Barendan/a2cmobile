@@ -1,9 +1,13 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-import Splash from '../components/organisms/splash/splash';
+import Tabs from './tabs';
+
+// organisms
+import Splash from '_organisms/splash/splash';
+
+// screens
 import LoginScreen from '_scenes/login';
 import HomeScreen from '_scenes/home';
-import Tabs from './tabs';
 
 const Stack = createStackNavigator();
 

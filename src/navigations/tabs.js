@@ -3,8 +3,8 @@ import { createMaterialBottomTabNavigator } from '@react-navigation/material-bot
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 // styles
-import { PRIMARY, SECONDARY, WHITE } from '../styles/colors';
-import { scaleFont } from '../styles/mixins';
+import { PRIMARY, SECONDARY, WHITE } from '_styles/colors';
+import { scaleFont } from '_styles/mixins';
 
 // screens
 import HomeScreen from '_scenes/home';
