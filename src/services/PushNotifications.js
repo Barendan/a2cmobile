@@ -1,7 +1,7 @@
-import {Alert} from 'react-native';
+import { Alert } from 'react-native';
 import messaging from '@react-native-firebase/messaging';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-// import NavigationService from './navigationService';
+import * as NavigationService from './NavigationService';
 
 export const foregroundNotifications = () => {
   const unsubscribe = messaging().onMessage(async remoteMessage => {
@@ -12,7 +12,7 @@ export const foregroundNotifications = () => {
         {text: 'Dismiss'},
         {
           text: 'View',
-          // onPress: () => NavigationService.navigate(remoteMessage.data.screen),
+          onPress: () => NavigationService.navigate(remoteMessage.data.screen),
         },
       ],
     );
@@ -29,7 +29,7 @@ export const backgroundAndQuitStateNotifications = () => {
       'Notification caused app to open from background state:',
       remoteMessage.notification,
     );
-    // NavigationService.navigate(remoteMessage.data.screen);
+    NavigationService.navigate(remoteMessage.data.screen);
   });
 
   // Check whether an initial notification is available
@@ -42,7 +42,7 @@ export const backgroundAndQuitStateNotifications = () => {
           remoteMessage.notification,
         );
         if (remoteMessage.data.screen) {
-          // NavigationService.navigate(remoteMessage.data.screen);
+          NavigationService.navigate(remoteMessage.data.screen);
         }
       }
     });

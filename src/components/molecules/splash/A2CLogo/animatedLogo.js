@@ -9,8 +9,8 @@ import Animated, {
 import { mix } from 'react-native-redash';
 
 // atoms
-import SplashLogo from '../../../atoms/splash/logo';
-import SplashOverlay from '../../../atoms/splash/overlay';
+import SplashLogo from '_atoms/splash/logo';
+import SplashOverlay from '_atoms/splash/overlay';
 
 const styles = StyleSheet.create({
   overlay: {
