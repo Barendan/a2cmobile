@@ -7,6 +7,8 @@ import Splash from '_organisms/splash/splash';
 
 // screens
 import LoginScreen from '_scenes/login';
+import RegistrationScreen from '_scenes/registration';
+
 import HomeScreen from '_scenes/home';
 
 const Stack = createStackNavigator();
@@ -22,6 +24,11 @@ const RootStack = () => {
       <Stack.Screen
         name="Login"
         component={LoginScreen}
+        options={{ title: null, headerShown: false }}
+      />
+      <Stack.Screen
+        name="Registration"
+        component={RegistrationScreen}
         options={{ title: null, headerShown: false }}
       />
       <Stack.Screen
