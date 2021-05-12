@@ -18,6 +18,7 @@
                     "_atoms": "./src/components/atoms",
                     "_molecules": "./src/components/molecules",
                     "_organisms": "./src/components/organisms",
+                    "_context": "./src/context",
                     "_navigations": "./src/navigations",
                     "_scenes": "./src/scenes",
                     "_services": "./src/services",

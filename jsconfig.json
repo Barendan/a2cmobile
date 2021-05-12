@@ -10,6 +10,8 @@
         "_navigations": ["src/navigations/*"],
         "_scenes": ["src/scenes/*"],
         "_services": ["src/services/*"],
+        "_storage": ["src/storage/*"],
+        "_store": ["src/store/*"],
         "_styles": ["src/styles/*"],
         "_utils": ["src/utils/*"]
       }
