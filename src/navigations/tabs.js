@@ -7,7 +7,7 @@ import { PRIMARY, SECONDARY, WHITE } from '_styles/colors';
 import { scaleFont } from '_styles/mixins';
 
 // screens
-import HomeScreen from '_scenes/home';
+import DashboardScreen from '_scenes/dashboard';
 import AboutScreen from '_scenes/about';
 
 const Tab = createMaterialBottomTabNavigator();
@@ -42,9 +42,9 @@ const Tabs = () => {
       barStyle={{backgroundColor: WHITE}}
     >
       <Tab.Screen
-        name="Home"
-        component={HomeScreen}
-        options={{ tabBarLabel: 'Home' }}
+        name="Dashboard"
+        component={DashboardScreen}
+        options={{ tabBarLabel: 'dashboard' }}
       />
       <Tab.Screen
         name="About"

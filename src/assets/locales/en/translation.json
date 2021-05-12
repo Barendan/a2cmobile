@@ -24,5 +24,14 @@
     "account_password_text": "Please choose the password for your account",
     "password": "Password",
     "confirm_password": "Confirm Password",
-    "of_text": "of"
+    "of_text": "of",
+    "dashboard": "Dashboard",
+    "saved_locations": "Saved Locations",
+    "account_settings": "Account Settings",
+    "security_settings": "Security Settings",
+    "app_info": "App Info",
+    "privacy": "Privacy",
+    "terms": "Terms",
+    "faqs": "FAQs",
+    "preferences": "Preferences",
 }

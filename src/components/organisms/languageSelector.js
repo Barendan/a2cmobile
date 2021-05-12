@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
         color: 'black',
         fontSize: 18,
         marginBottom: 10,
-    },
+    }
 });
 
 
@@ -43,6 +43,7 @@ const LanguageSelector = (props) => {
 
     const { t } = useTranslation();
 
+      
     return (
         <View>
             <TouchableHighlight onPress={() => setDisplayLanguageModal(!displayLanguageModal)}>
@@ -50,6 +51,7 @@ const LanguageSelector = (props) => {
             </TouchableHighlight>
             <DraggablePanel
                 visible={displayLanguageModal}
+                onDismiss={()=>setDisplayLanguageModal(false)}
             >
                 <Inset all={16}>
                     <View style={styles.titleWrapper}>
@@ -60,7 +62,7 @@ const LanguageSelector = (props) => {
                     {Object.keys(languageMap)?.map(item => (
                         <TouchableHighlight key={languageMap[item].label} onPress={() => {
                             i18next.changeLanguage(item);
-                            setDisplayLanguageModal(false);
+                            setDisplayLanguageModal(false);                            
                         }}>
                             <>
                                 <Text style={styles.touchableText}>{languageMap[item].label}</Text>
