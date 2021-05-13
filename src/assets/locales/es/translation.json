@@ -19,6 +19,7 @@
     "resend_temp_code": "Reenviar código temporal",
     "validate_temp_code": "Validar código temporal",
     "login_option": "Seleccione la opción de inicio de sesión:",
+    "login": "Acceso",
     "email": "Correo electrónico",
     "phone_number": "Número de teléfono",
     "account_password_text": "Elija la contraseña de su cuenta",
@@ -33,5 +34,7 @@
     "privacy": "Intimidad",
     "terms": "Condiciones",
     "faqs": "Preguntas frecuentes",
-    "preferences": "Preferencias",    
+    "preferences": "Preferencias",
+    "close": "CERCA",
+    "log_out": "Cerrar Sesión",
 }

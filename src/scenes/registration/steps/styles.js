@@ -17,6 +17,7 @@ export default StyleSheet.create({
     width: '100%',
     marginTop: '6%',
     backgroundColor: '#FFFFFF',
+    flex: 1
   },
   step1: {
     flex: 1,
@@ -43,5 +44,12 @@ export default StyleSheet.create({
   btn: {
     height: 40,
     borderColor: '#F5F5F5',
+  },
+  bottomButtonContainer: {
+    width: '90%',
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+    flex: 2,
+    backgroundColor: 'red'
   },
 });

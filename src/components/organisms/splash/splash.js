@@ -70,6 +70,12 @@ const Splash = () => {
     toggleColor();
   }, [toggled]);
 
+  React.useEffect(() => {
+    setTimeout(() => {
+      setToggled(true);
+    }, 500);
+  }, []);
+
   return (
     <SafeAreaView style={styles.container}>
       <Animated.View style={[styles.splashContainer, style]}>
@@ -86,9 +92,9 @@ const Splash = () => {
         {
           !toggled ?
             <View style={styles.touchableContainer}>
-              <TouchableOpacity onPress={() => setToggled(true)}>
+              {/* <TouchableOpacity onPress={() => setToggled(true)}>
                 <Text style={styles.touchableText}>Go to Login</Text>
-              </TouchableOpacity>
+              </TouchableOpacity> */}
             </View>
           : null
         }
