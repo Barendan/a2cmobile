@@ -1,23 +1,24 @@
 import axios from 'axios';
 // import { store } from 'react-notifications-component';
-import { NetworkSettings } from 'utils';
+import { AppSettings, NetworkSettings } from '_utils';
 
 const RequestApi = axios.create({
-  baseURL: NetworkSettings.fullApiURL,
+  baseURL: NetworkSettings.fullApiURL + NetworkSettings.apiBaseEndpointVersion,
   timeout: 5000,
   headers: {
     'Content-Type': 'application/json',
     'Access-Control-Allow-Origin': '*',
     'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
+    'X-App-Key': AppSettings.appKey
   },
 });
 
 RequestApi.interceptors.request.use(
   config => {
-    const selectedLanguage = localStorage.getItem('i18nextLng') || 'en';
+    const selectedLanguage = 'en';
     config.headers['X-App-Language'] = `${selectedLanguage}`;
 
-    const token = localStorage.getItem('token');
+    const token = 'test';
 
     if (token) {
       config.headers['Authorization'] = `Token ${token}`;
@@ -29,10 +30,10 @@ RequestApi.interceptors.request.use(
 
 RequestApi.interceptors.response.use(
   response => {
-    return response.data.result;
+    return response.data;
   },
   error => {
-    return Promise.reject(error.response.data);
+    return Promise.reject(error.response);
   },
 );
 

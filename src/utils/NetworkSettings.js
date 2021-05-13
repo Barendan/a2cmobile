@@ -3,7 +3,14 @@
 // export const geoLocationAPI = '';
 
 // PROD
-export const apiBaseEndpointVersion = 'v1';
-export const fullApiURl = ``;
-export const tokenAuthPath = 'oauth/token';
-export const googleGeoCodeAddressURL = '';
+const apiBaseEndpointVersion = 'v1';
+const fullApiURL = 'https://integratedservices.amr.net/a2cmobile/api/';
+const tokenAuthPath = 'oauth/token';
+const googleGeoCodeAddressURL = '';
+
+export default {
+    apiBaseEndpointVersion,
+    fullApiURL,
+    tokenAuthPath,
+    googleGeoCodeAddressURL
+};

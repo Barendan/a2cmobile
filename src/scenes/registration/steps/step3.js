@@ -34,6 +34,7 @@ const Step1 = ({back, next, saveState}) => {
         </View>
         <Input
           style={styles.input}
+          secureTextEntry={true}
           onChangeText={text => setText(text)}
           value={text}
           label={t('password')+"*"}
@@ -41,12 +42,14 @@ const Step1 = ({back, next, saveState}) => {
         />
         <Input
           style={styles.input}
+          secureTextEntry={true}
           onChangeText={text => setText(text)}
           value={text}
           label={t('confirm_password')+"*"}
           placeholder={t('confirm_password')}
         />
-        <View style={[{width: '85%'}]}>
+      </View>
+      <View style={[{width: '85%'}]}>
           <Button
             title="Validate"
             size="large"
@@ -55,7 +58,6 @@ const Step1 = ({back, next, saveState}) => {
             {t('complete_registration')}
           </Button>
         </View>
-      </View>
     </View>
   );
 };

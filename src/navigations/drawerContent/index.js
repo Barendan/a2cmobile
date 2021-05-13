@@ -16,17 +16,19 @@ import {
   Switch,
   Card,
 } from 'react-native-paper';
+import { Inset, Stack } from "react-native-spacing-system";
 
 import { useTranslation } from "react-i18next";
 
 import { PreferencesContext } from '_context';
-import { LanguageSelector } from '_organisms';
+import { LanguageSelector, FullScreenPanel } from '_organisms';
+import { AppInfoService } from '_services';
 
 import { useDispatch, useSelector } from 'react-redux';
 
-import { logout } from './../../store/user';
+import { logout } from '_store/user';
 
-export function DrawerContent({navigation}) {
+export function DrawerContent({ navigation }) {
   const { t } = useTranslation();
 
   const paperTheme = useTheme();
@@ -42,6 +44,56 @@ export function DrawerContent({navigation}) {
     dispatch(logout());
   }
 
+  const [panelDetails, setPanelDetails] = React.useState({ panelVisible: false, panelDataLoading: false, header: "", body: "", isHTML: false });
+
+  const updatePanelDetails = React.useCallback((key, value) => {
+    setPanelDetails((panelDetails) => {
+      return ({
+        ...panelDetails,
+        [key]: value
+      });
+    });
+  }, []);
+
+  const onPanelDismiss = () => {
+    updatePanelDetails('panelVisible', false);
+  }
+
+  const getLatestAppInfo = (header, type) => {
+    updatePanelDetails('panelDataLoading', true);
+    updatePanelDetails('panelVisible', true);
+
+    AppInfoService.getAppInformation(type)
+      .then((data) => {
+
+        var response = null;
+
+        switch (type) {
+          case 'terms':
+            response = data.terms;
+            break;
+          case 'privacy':
+            response = data.privacy;
+            break;
+          case 'faqs':
+            response = data.faqs;
+            break;
+        }
+
+
+        updatePanelDetails('panelDataLoading', false);
+        updatePanelDetails('panelVisible', true);
+        updatePanelDetails('header', header);
+        updatePanelDetails('body', response.caption);
+        updatePanelDetails('isHTML', true);
+
+      })
+      .catch((err) => {
+        alert(err)
+        updatePanelDetails('panelDataLoading', false);
+      });
+  }
+
   return (
     <View
       style={
@@ -55,19 +107,28 @@ export function DrawerContent({navigation}) {
           }
         >
           <View style={styles.userInfoSection}>
-            <Title style={styles.title}>{user.name}</Title>
-            <View>
+            <Drawer.Section>
+              <Title style={styles.title}>{t('greeting-text')} {user.firstName} {user.lastName}</Title>
+            </Drawer.Section>
 
-              <Image
-                style={{
-                  resizeMode: "cover",
-                  height: 100,
-                  width: 230
-                }}
-                source={{ uri: 'https://www.bmcanada.ca/wp-content/uploads/2014/05/placeholder-blue.png' }}
-              />
+            <Drawer.Section>
+              <Stack size={12} />
+              <View>
+              {user.contractLogo && <Image
+                  style={{
+                    resizeMode: "contain",
+                    height: 100,
+                    width: 230
+                  }}
+                  source={{ uri: `data:image/jpg;base64,${user.contractLogo}` }}
 
-            </View>
+                // source={{ uri: user.contractLogo ? user.contractLogo : 'https://www.bmcanada.ca/wp-content/uploads/2014/05/placeholder-blue.png' }}
+                /> }
+
+                <Title style={styles.subTitle}>{user.contractName}</Title>
+
+              </View> 
+            </Drawer.Section>
 
             {/* <View style={styles.row}>
             <View style={styles.section}>
@@ -105,15 +166,15 @@ export function DrawerContent({navigation}) {
           <Drawer.Section title={t('app_info')}>
             <DrawerItem
               label={t('privacy')}
-              onPress={() => { }}
+              onPress={() => getLatestAppInfo(t('privacy'), 'privacy')}
             />
             <DrawerItem
               label={t('terms')}
-              onPress={() => { }}
+              onPress={() => getLatestAppInfo(t('terms'), 'terms')}
             />
             <DrawerItem
               label={t('faqs')}
-              onPress={() => { }}
+              onPress={() => getLatestAppInfo(t('faqs'), 'faqs')}
             />
 
           </Drawer.Section>
@@ -143,7 +204,7 @@ export function DrawerContent({navigation}) {
 
           <View style={styles.row}>
             <View style={styles.section}>
-              <Text style={styles.signOutTitle}>Log Out</Text>
+              <Text style={styles.signOutTitle}>{t('log_out')}</Text>
             </View>
             <View style={styles.section}>
               <Caption style={styles.caption}>v1.0</Caption>
@@ -152,6 +213,15 @@ export function DrawerContent({navigation}) {
 
         </TouchableHighlight>
       </View>
+
+      <FullScreenPanel
+        isHTML={panelDetails.isHTML}
+        displayPanel={panelDetails.panelVisible}
+        panelHeader={panelDetails.header}
+        panelBody={panelDetails.body}
+        onPanelDismiss={onPanelDismiss}
+      />
+
     </View>
   );
 }
@@ -166,6 +236,11 @@ const styles = StyleSheet.create({
   title: {
     marginTop: 20,
     fontWeight: 'bold',
+  },
+  subTitle: {
+    fontSize: 14,
+    marginTop: 5,
+    fontWeight: 'bold'
   },
   caption: {
     fontSize: 14,

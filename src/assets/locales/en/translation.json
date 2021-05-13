@@ -19,6 +19,7 @@
     "resend_temp_code": "Resend Temporary Code",
     "validate_temp_code": "Validate Temporary Code",
     "login_option": "Please select login option:",
+    "login": "Login",
     "email": "Email",
     "phone_number": "Phone Number",
     "account_password_text": "Please choose the password for your account",
@@ -34,4 +35,6 @@
     "terms": "Terms",
     "faqs": "FAQs",
     "preferences": "Preferences",
+    "close": "CLOSE",
+    "log_out": "Log Out",
 }

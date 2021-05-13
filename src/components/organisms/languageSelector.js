@@ -4,6 +4,7 @@ import DraggablePanel from 'react-native-draggable-panel';
 import { Inset, Stack } from "react-native-spacing-system";
 import { useTranslation } from "react-i18next";
 import i18next from "i18next";
+import { PreferencesContext } from '_context';
 
 // styles
 import { WHITE } from '_styles/colors';
@@ -17,7 +18,7 @@ const styles = StyleSheet.create({
         padding: 16,
     },
     touchableText: {
-        fontSize: scaleFont(24),
+        fontSize: scaleFont(18),
         fontWeight: 'bold',
     },
     titleWrapper: {

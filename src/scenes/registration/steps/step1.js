@@ -45,7 +45,8 @@ const Step1 = ({back, next, saveState}) => {
           label={t('zipcode') + "*"}
           placeholder={t('zipcode')}
         />
-        <View style={[{width: '85%'}]}>
+      </View>
+      <View style={[{width: '85%'}]}>
           <Button
             title={t('validate')}
             size="large"
@@ -54,7 +55,6 @@ const Step1 = ({back, next, saveState}) => {
             {t('validate')}
           </Button>
         </View>
-      </View>
     </View>
   );
 };

@@ -5,9 +5,9 @@ import {
   checkPermission,
   foregroundNotifications,
   backgroundAndQuitStateNotifications,
-} from './services/PushNotifications';
-import { AuthStackScreen, AppDrawerScreen } from './navigations/index';
-import { navigationRef, isReadyRef } from '_services/NavigationService';
+} from './helpers/PushNotifications';
+import { AuthStackScreen, AppDrawerScreen } from '_navigations';
+import { NavigationService } from './helpers';
 import { PreferencesContext } from '_context';
 
 import { I18nextProvider } from 'react-i18next';
@@ -28,8 +28,6 @@ import {
 
 import * as eva from '@eva-design/eva';
 import { ApplicationProvider } from '@ui-kitten/components';
-
-
 
 const CombinedDefaultTheme = {
   ...PaperDefaultTheme,
@@ -56,7 +54,7 @@ const Application = () => {
 
   const appIsReady = () => {
     return () => {
-      isReadyRef.current = false
+      NavigationService.isReadyRef.current = false
     };
   }
 
@@ -85,9 +83,9 @@ const Application = () => {
           <PaperProvider theme={theme}>
 
           <NavigationContainer
-            ref={navigationRef}
+            ref={NavigationService.navigationRef}
             onReady={() => {
-                isReadyRef.current = true;
+              NavigationService.isReadyRef.current = true;
             }}
             theme={theme}
         >
