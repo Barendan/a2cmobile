@@ -1,10 +1,10 @@
-import React, {useState} from 'react';
-import {View, Text} from 'react-native';
-import {Input, Button} from '@ui-kitten/components';
+import React, { useState } from 'react';
+import { View, Text } from 'react-native';
+import { Input, Button } from '@ui-kitten/components';
 import { useTranslation } from "react-i18next";
 import styles from './styles';
 
-const Step1 = ({back, next, saveState}) => {
+const Step1 = ({ back, next, saveState }) => {
 
   const { t } = useTranslation();
 
@@ -13,7 +13,7 @@ const Step1 = ({back, next, saveState}) => {
   const nextStep = () => {
     //const {next, saveState} = this.props;
     // Save state for use in other steps
-    saveState({name: 'samad'});
+    saveState({ name: 'samad' });
     next();
   };
 
@@ -46,15 +46,15 @@ const Step1 = ({back, next, saveState}) => {
           placeholder={t('zipcode')}
         />
       </View>
-      <View style={[{width: '85%'}]}>
-          <Button
-            title={t('validate')}
-            size="large"
-            className={styles.btn}
-            onPress={nextStep}>
-            {t('validate')}
-          </Button>
-        </View>
+      <View style={[{ width: '85%' }]}>
+        <Button
+          title={t('validate')}
+          size="large"
+          className={styles.btn}
+          onPress={nextStep}>
+          {t('validate')}
+        </Button>
+      </View>
     </View>
   );
 };

@@ -34,6 +34,7 @@
     "react-native": "0.64.0",
     "react-native-animated-multistep": "^1.1.1",
     "react-native-draggable-panel": "^1.2.3",
+    "react-native-dropdownalert": "^4.3.0",
     "react-native-gesture-handler": "^1.10.3",
     "react-native-paper": "^4.8.1",
     "react-native-progress-circle": "^2.1.0",

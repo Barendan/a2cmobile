@@ -98,10 +98,10 @@ const LoginScreen = ({ navigation }) => {
 
       </View>
 
-      <Spinner 
-        isVisible={loading} 
-        size={50} 
-        type={'ThreeBounce'} 
+      <Spinner
+        isVisible={loading}
+        size={50}
+        type={'ThreeBounce'}
         color={APP_COLOR}
       />
 

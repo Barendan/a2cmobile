@@ -5,6 +5,17 @@ const loginUser = payload => {
     return RequestApi.post(`/users?type=login`,payload);
 };
  
+const updateUser = payload => {
+    return RequestApi.put(`/users?type=login`,payload);
+};
+
+const getUserRecord= (value) => {
+    return RequestApi.get(`/users?type=userRecord&value=${value}`);
+};
+ 
+ 
 export default {
-    loginUser
+    loginUser,
+    updateUser,
+    getUserRecord
 };

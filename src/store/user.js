@@ -66,7 +66,6 @@ const slice = createSlice({
         data: action.payload,
         expires: null
       });
-
     },
     logoutSuccess: (state, action) =>  {
       state.user = null;
@@ -75,11 +74,20 @@ const slice = createSlice({
         id: 'currentUser'
       });
     },
+    updateSuccess: (state, action) => {
+      state.user = action.payload;
+      storage.save({
+        key: 'user', // Note: Do not use underscore("_") in key!
+        id: 'currentUser', // Note: Do not use underscore("_") in id!
+        data: action.payload,
+        expires: null
+      });
+    },    
   },
 });
 export default slice.reducer;
 // Actions
-const { loginSuccess, logoutSuccess } = slice.actions;
+const { loginSuccess, logoutSuccess, updateSuccess } = slice.actions;
 export const login = (currentUser) => async dispatch => {
   try {
     // const res = await api.post('/api/auth/login/', { username, password })
@@ -92,6 +100,14 @@ export const logout = () => async dispatch => {
   try {
     // const res = await api.post('/api/auth/logout/')
     return dispatch(logoutSuccess())
+  } catch (e) {
+    return console.error(e.message);
+  }
+}
+export const update = (currentUser) => async dispatch => {
+  try {
+    // const res = await api.post('/api/auth/login/', { username, password })
+    dispatch(updateSuccess(currentUser));
   } catch (e) {
     return console.error(e.message);
   }
