@@ -3,6 +3,7 @@ import {SafeAreaView, View, Text} from 'react-native';
 import styles from './styles';
 import FaqList from '_molecules/FAQ/FaqList';
 import {Input} from '@ui-kitten/components';
+import Fuse from 'fuse.js';
 
 const data = [
   {id: 1, question: 'Question 1', answer: 'Answer 1'},
@@ -12,8 +13,19 @@ const data = [
   {id: 5, question: 'Question 5', answer: 'Answer 5'},
 ];
 
+const options = {
+  includeScore: true,
+  // Search in `author` and in `tags` array
+  keys: ['question', 'answer'],
+};
+
 const FaqScreen = ({navigation}) => {
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchTerm, setSearchTerm] = useState('Question 1');
+
+  const fuse = new Fuse(data, options);
+  const result = fuse.search(searchTerm);
+
+  console.log('search: ', result);
 
   return (
     <SafeAreaView style={styles.root}>
