@@ -34,6 +34,8 @@
     "react-native-animated-multistep": "^1.1.1",
     "react-native-draggable-panel": "^1.2.3",
     "react-native-dropdownalert": "^4.3.0",
+    "react-native-geocoding": "^0.5.0",
+    "react-native-geolocation-service": "^5.3.0-beta.1",
     "react-native-gesture-handler": "^1.10.3",
     "react-native-paper": "^4.8.1",
     "react-native-progress-circle": "^2.1.0",
