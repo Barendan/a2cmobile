@@ -1,4 +1,5 @@
 import React from 'react';
+<<<<<<< HEAD
 import { SafeAreaView, View, TouchableHighlight, StyleSheet, Platform } from 'react-native';
 import { Input, Button, Text, Divider } from '@ui-kitten/components';
 import { LanguageSelector } from '_organisms';
@@ -122,3 +123,24 @@ const LoginScreen = ({ navigation }) => {
 }
 
 export default LoginScreen;
+=======
+import {SafeAreaView, Text, TouchableHighlight} from 'react-native';
+
+const LoginScreen = ({navigation}) => (
+  <SafeAreaView>
+    <Text>Screen: Login</Text>
+
+    <TouchableHighlight onPress={() => navigation.navigate('Home')}>
+      <Text>Go to home</Text>
+    </TouchableHighlight>
+    <TouchableHighlight onPress={() => navigation.navigate('Registration')}>
+      <Text>Go to Registration</Text>
+    </TouchableHighlight>
+    <TouchableHighlight onPress={() => navigation.navigate('Faq')}>
+      <Text>Go to FAQ</Text>
+    </TouchableHighlight>
+  </SafeAreaView>
+);
+
+export default LoginScreen;
+>>>>>>> cmorales/FAQ
