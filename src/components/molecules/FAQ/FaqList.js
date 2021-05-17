@@ -3,7 +3,7 @@ import {Drawer} from '@ui-kitten/components';
 import FaqItem from './FaqItem';
 
 const FaqList = ({data}) => {
-  const [selectedIndex, setSelectedIndex] = useState(0);
+  const [selectedIndex, setSelectedIndex] = useState(null);
 
   return (
     <Drawer
