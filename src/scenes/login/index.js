@@ -11,6 +11,9 @@ const LoginScreen = ({navigation}) => (
     <TouchableHighlight onPress={() => navigation.navigate('Registration')}>
       <Text>Go to Registration</Text>
     </TouchableHighlight>
+    <TouchableHighlight onPress={() => navigation.navigate('Faq')}>
+      <Text>Go to FAQ</Text>
+    </TouchableHighlight>
   </SafeAreaView>
 );
 
