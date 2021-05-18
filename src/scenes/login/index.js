@@ -1,9 +1,14 @@
 import React from 'react';
-<<<<<<< HEAD
-import { SafeAreaView, View, TouchableHighlight, StyleSheet, Platform } from 'react-native';
+import {
+  SafeAreaView,
+  View,
+  TouchableHighlight,
+  StyleSheet,
+  Platform,
+} from 'react-native';
 import { Input, Button, Text, Divider } from '@ui-kitten/components';
 import { LanguageSelector } from '_organisms';
-import { useTranslation } from "react-i18next";
+import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import Spinner from 'react-native-spinkit';
 import { AppInfoService } from '_services';
@@ -16,18 +21,16 @@ import { WHITE, APP_COLOR } from '_styles/colors';
 import { scaleFont } from '_styles/mixins';
 import { MemberService } from '_services';
 
-
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    color: WHITE
+    color: WHITE,
   },
   mainContainer: {
     ...StyleSheet.absoluteFillObject,
     justifyContent: 'space-between',
     alignItems: 'center',
-    flex: 1
+    flex: 1,
   },
   touchableContainer: {
     alignItems: 'center',
@@ -42,12 +45,11 @@ const styles = StyleSheet.create({
     height: 40,
     width: '85%',
     borderColor: '#F5F5F5',
-    backgroundColor: 'red'
+    backgroundColor: 'red',
   },
 });
 
 const LoginScreen = ({ navigation }) => {
-
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const [loading, setLoading] = React.useState(false);
@@ -57,26 +59,23 @@ const LoginScreen = ({ navigation }) => {
       login: 'eware4190@gmail.com',
       password: 'NovoTech1!',
       appOS: Platform.OS,
-      appVersion: AppSettings.appVersion
+      appVersion: AppSettings.appVersion,
     };
 
     setLoading(true);
     MemberService.loginUser(payload)
-      .then((data) => {
+      .then(data => {
         setLoading(false);
         dispatch(login(data.user));
       })
-      .catch((err) => {
-        alert(err)
+      .catch(err => {
+        alert(err);
         setLoading(false);
       });
-  }
+  };
 
   return (
     <SafeAreaView style={styles.mainContainer}>
-
-
-
       {/* <Input
           style={styles.input}
           label={t('login') + "*"}
@@ -89,14 +88,9 @@ const LoginScreen = ({ navigation }) => {
           placeholder={t('password')}
         /> */}
       <View style={[styles.touchableContainer]}>
-
-        <Button
-          title="Validate"
-          size="large"
-          onPress={loginCurrentUser}>
+        <Button title="Validate" size="large" onPress={loginCurrentUser}>
           {t('login')}
         </Button>
-
       </View>
 
       <Spinner
@@ -106,41 +100,17 @@ const LoginScreen = ({ navigation }) => {
         color={APP_COLOR}
       />
 
-
-
-
-      <TouchableHighlight key={'go_to_registration'} onPress={() => navigation.navigate('Registration')}>
+      <TouchableHighlight
+        key={'go_to_registration'}
+        onPress={() => navigation.navigate('Registration')}>
         <Text style={styles.text}>{t('go_to_registration')}</Text>
       </TouchableHighlight>
-
 
       <View style={[styles.touchableContainer]}>
         <LanguageSelector headerStyle={styles.text} />
       </View>
-
     </SafeAreaView>
   );
-}
+};
 
 export default LoginScreen;
-=======
-import {SafeAreaView, Text, TouchableHighlight} from 'react-native';
-
-const LoginScreen = ({navigation}) => (
-  <SafeAreaView>
-    <Text>Screen: Login</Text>
-
-    <TouchableHighlight onPress={() => navigation.navigate('Home')}>
-      <Text>Go to home</Text>
-    </TouchableHighlight>
-    <TouchableHighlight onPress={() => navigation.navigate('Registration')}>
-      <Text>Go to Registration</Text>
-    </TouchableHighlight>
-    <TouchableHighlight onPress={() => navigation.navigate('Faq')}>
-      <Text>Go to FAQ</Text>
-    </TouchableHighlight>
-  </SafeAreaView>
-);
-
-export default LoginScreen;
->>>>>>> cmorales/FAQ
