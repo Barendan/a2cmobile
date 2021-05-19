@@ -1,116 +1,141 @@
 import React from 'react';
-import {
-  SafeAreaView,
-  View,
-  TouchableHighlight,
-  StyleSheet,
-  Platform,
-} from 'react-native';
-import { Input, Button, Text, Divider } from '@ui-kitten/components';
-import { LanguageSelector } from '_organisms';
-import { useTranslation } from 'react-i18next';
-import { useDispatch, useSelector } from 'react-redux';
-import Spinner from 'react-native-spinkit';
-import { AppInfoService } from '_services';
-import { AppSettings } from '_utils';
+import {View, Text, Switch, KeyboardAvoidingView, Platform} from 'react-native';
+import Icon from "react-native-vector-icons/Ionicons"
+import TextContent from '../../components/textContent';
+import styles from './styles';
+import Input from '../../components/input';
+import Button from '../../components/button';
+import { Colors } from '../../libs/color';
 
-import { login } from './../../store/user';
+const LoginScreen = ({navigation, route}) => {
 
-// styles
-import { WHITE, APP_COLOR } from '_styles/colors';
-import { scaleFont } from '_styles/mixins';
-import { MemberService } from '_services';
+  const [password, setPassword] = React.useState("");
+  const [email, setEmail] = React.useState("");
+  const [isEnabled, setIsEnabled] = React.useState(false);
+  const [isVisible, setVisible] = React.useState(false);
+  const toggleSwitch = () => setIsEnabled(previousState => !previousState);
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    color: WHITE,
-  },
-  mainContainer: {
-    ...StyleSheet.absoluteFillObject,
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    flex: 1,
-  },
-  touchableContainer: {
-    alignItems: 'center',
-    justifyContent: 'flex-end',
-    flex: 2,
-  },
-  text: {
-    fontSize: scaleFont(24),
-    fontWeight: 'bold',
-  },
-  btn: {
-    height: 40,
-    width: '85%',
-    borderColor: '#F5F5F5',
-    backgroundColor: 'red',
-  },
-});
-
-const LoginScreen = ({ navigation }) => {
-  const { t } = useTranslation();
-  const dispatch = useDispatch();
-  const [loading, setLoading] = React.useState(false);
-
-  const loginCurrentUser = (header, type) => {
-    var payload = {
-      login: 'eware4190@gmail.com',
-      password: 'NovoTech1!',
-      appOS: Platform.OS,
-      appVersion: AppSettings.appVersion,
-    };
-
-    setLoading(true);
-    MemberService.loginUser(payload)
-      .then(data => {
-        setLoading(false);
-        dispatch(login(data.user));
-      })
-      .catch(err => {
-        alert(err);
-        setLoading(false);
-      });
-  };
+  async function onLogin() {
+    
+  }
 
   return (
-    <SafeAreaView style={styles.mainContainer}>
-      {/* <Input
-          style={styles.input}
-          label={t('login') + "*"}
-          placeholder={t('login')}
+  <KeyboardAvoidingView
+    behavior={Platform.OS === "ios" ? "padding" : "height" }
+    style={styles.keyboardAvoidViewing}
+  >
+    <View style={styles.container}>
+      <View style={styles.topContainer}>
+        <TextContent
+            fontSize={50}
+            style={styles.title}
+          >
+            Mercy Care 
+        </TextContent>
+      </View>
+      <View style={styles.spacing}>
+        <Input 
+          placeholder={'email'}
+          containerStyle={{ backgroundColor: Colors.Grey}}
+          value={email}
+          onChange={setEmail}
+          leftComponent={<Icon size={18} name="person-outline" />}
         />
-        <Input
-          style={styles.input}
-          secureTextEntry={true}
-          label={t('password') + "*"}
-          placeholder={t('password')}
-        /> */}
-      <View style={[styles.touchableContainer]}>
-        <Button title="Validate" size="large" onPress={loginCurrentUser}>
-          {t('login')}
-        </Button>
       </View>
-
-      <Spinner
-        isVisible={loading}
-        size={50}
-        type={'ThreeBounce'}
-        color={APP_COLOR}
-      />
-
-      <TouchableHighlight
-        key={'go_to_registration'}
-        onPress={() => navigation.navigate('Registration')}>
-        <Text style={styles.text}>{t('go_to_registration')}</Text>
-      </TouchableHighlight>
-
-      <View style={[styles.touchableContainer]}>
-        <LanguageSelector headerStyle={styles.text} />
+      <View style={styles.spacing}>
+        <Input 
+          placeholder={'password'}
+          secureTextEntry={!isVisible}
+          containerStyle={{ backgroundColor: Colors.Grey}}
+          value={password}
+          onChange={setPassword}
+          leftComponent={<Icon size={18} name="lock-closed-outline" />}
+          rightComponent={<Icon onPress={() => setVisible(previousState => !previousState)} size={18} name= {isVisible ? "eye-off-outline" : "eye-outline"} />}
+        />
       </View>
-    </SafeAreaView>
-  );
-};
+      <Button style={{ marginTop: 10 }} onClick={onLogin} state="primary" variant="solid">
+        <TextContent
+          color={Colors.White}
+          fontWeight={'700'}
+          textAlign="center"
+        >
+          Sign In 
+        </TextContent>
+      </Button>
+
+      <View style={styles.forgotPass}>
+        <TextContent
+            color={Colors.Brand}
+            fontWeight={'400'}
+            textAlign="center"
+          >
+           Forgot Password
+          </TextContent>
+          <View style={styles.thumbContainer}>
+            <TextContent
+              color={Colors.Brand}
+              fontWeight={'400'}
+              textAlign="center"
+              style={{ marginRight: 5 }}
+            >
+              Save login
+            </TextContent>
+            <Switch
+              trackColor={{ false: Colors.Green, true: "#81b0ff" }}
+              thumbColor={isEnabled ? "#f5dd4b" : "#f4f3f4"}
+              ios_backgroundColor={Colors.Green}
+              onValueChange={toggleSwitch}
+              value={isEnabled}
+            />
+          </View>
+      </View>
+      <View style={styles.footer}>
+            <TextContent
+                fontWeight={'400'}
+                textAlign="center"
+                style={{ marginRight: 5 }}
+              >
+                By registering, you agree to our
+              </TextContent>
+              <View style={styles.toRow}>
+                <TextContent
+                  color={Colors.Brand}
+                  fontWeight={'500'}
+                  textAlign="center"
+                  style={{ marginRight: 5 }}
+                >
+                  Terms of Service
+                </TextContent>
+                <TextContent
+                  fontWeight={'400'}
+                  textAlign="center"
+                  style={{ marginRight: 5 }}
+                >
+                  and
+                </TextContent>
+                <TextContent
+                  color={Colors.Brand}
+                  fontWeight={'500'}
+                  textAlign="center"
+                  style={{ marginRight: 5 }}
+                >
+                  privacy policy
+                </TextContent>
+              </View>
+              <TextContent
+                color={Colors.Brand}
+                fontWeight={'400'}
+                textAlign="center"
+                style={{ marginTop: 8 }}
+              >
+                FAQs
+              </TextContent>
+          </View>
+
+    </View>
+   
+  </KeyboardAvoidingView>
+)
+  }
 
 export default LoginScreen;

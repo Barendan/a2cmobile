@@ -4,7 +4,7 @@ import { Input, Button, Text } from '@ui-kitten/components';
 import { useTranslation } from 'react-i18next';
 import styles from './styles';
 
-const Step1 = ({ back, next, saveState }) => {
+const Step3 = ({ back, next, saveState }) => {
   const { t } = useTranslation();
 
   const [text, setText] = useState('');
