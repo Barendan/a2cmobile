@@ -1,11 +1,12 @@
 import React from 'react';
 import {View, Text, Switch, KeyboardAvoidingView, Platform} from 'react-native';
 import Icon from "react-native-vector-icons/Ionicons"
-import TextContent from '../../components/textContent';
+import TextContent from '_atoms/textContent';
 import styles from './styles';
-import Input from '../../components/input';
-import Button from '../../components/button';
-import { Colors } from '../../libs/color';
+import Input from '_atoms/input';
+import Button from '_atoms/button';
+import { WHITE, APP_COLOR, GREEN, GREY  } from '_styles/colors';
+
 
 const LoginScreen = ({navigation, route}) => {
 
@@ -36,7 +37,7 @@ const LoginScreen = ({navigation, route}) => {
       <View style={styles.spacing}>
         <Input 
           placeholder={'email'}
-          containerStyle={{ backgroundColor: Colors.Grey}}
+          containerStyle={{ backgroundColor: GREY}}
           value={email}
           onChange={setEmail}
           leftComponent={<Icon size={18} name="person-outline" />}
@@ -46,7 +47,7 @@ const LoginScreen = ({navigation, route}) => {
         <Input 
           placeholder={'password'}
           secureTextEntry={!isVisible}
-          containerStyle={{ backgroundColor: Colors.Grey}}
+          containerStyle={{ backgroundColor: GREY}}
           value={password}
           onChange={setPassword}
           leftComponent={<Icon size={18} name="lock-closed-outline" />}
@@ -55,7 +56,7 @@ const LoginScreen = ({navigation, route}) => {
       </View>
       <Button style={{ marginTop: 10 }} onClick={onLogin} state="primary" variant="solid">
         <TextContent
-          color={Colors.White}
+          color={WHITE}
           fontWeight={'700'}
           textAlign="center"
         >
@@ -65,7 +66,7 @@ const LoginScreen = ({navigation, route}) => {
 
       <View style={styles.forgotPass}>
         <TextContent
-            color={Colors.Brand}
+            color={APP_COLOR}
             fontWeight={'400'}
             textAlign="center"
           >
@@ -73,7 +74,7 @@ const LoginScreen = ({navigation, route}) => {
           </TextContent>
           <View style={styles.thumbContainer}>
             <TextContent
-              color={Colors.Brand}
+              color={APP_COLOR}
               fontWeight={'400'}
               textAlign="center"
               style={{ marginRight: 5 }}
@@ -81,9 +82,9 @@ const LoginScreen = ({navigation, route}) => {
               Save login
             </TextContent>
             <Switch
-              trackColor={{ false: Colors.Green, true: "#81b0ff" }}
+              trackColor={{ false: GREEN, true: "#81b0ff" }}
               thumbColor={isEnabled ? "#f5dd4b" : "#f4f3f4"}
-              ios_backgroundColor={Colors.Green}
+              ios_backgroundColor={GREEN}
               onValueChange={toggleSwitch}
               value={isEnabled}
             />
@@ -99,7 +100,7 @@ const LoginScreen = ({navigation, route}) => {
               </TextContent>
               <View style={styles.toRow}>
                 <TextContent
-                  color={Colors.Brand}
+                  color={APP_COLOR}
                   fontWeight={'500'}
                   textAlign="center"
                   style={{ marginRight: 5 }}
@@ -114,7 +115,7 @@ const LoginScreen = ({navigation, route}) => {
                   and
                 </TextContent>
                 <TextContent
-                  color={Colors.Brand}
+                  color={APP_COLOR}
                   fontWeight={'500'}
                   textAlign="center"
                   style={{ marginRight: 5 }}
@@ -123,7 +124,7 @@ const LoginScreen = ({navigation, route}) => {
                 </TextContent>
               </View>
               <TextContent
-                color={Colors.Brand}
+                color={APP_COLOR}
                 fontWeight={'400'}
                 textAlign="center"
                 style={{ marginTop: 8 }}

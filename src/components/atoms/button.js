@@ -1,6 +1,6 @@
 import React from 'react';
 import { ActivityIndicator, TouchableOpacity, View, StyleSheet } from 'react-native';
-import { GREY, WHITE, APP_COLOR, SUCCESS, ERROR  } from '_styles/colors';
+import { WHITE, APP_COLOR, SUCCESS, ERROR  } from '_styles/colors';
 
 const styles = StyleSheet.create({
     container: {
