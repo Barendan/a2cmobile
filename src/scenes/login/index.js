@@ -8,7 +8,8 @@ import Spinner from 'react-native-spinkit';
 import { AppInfoService } from '_services';
 import { AppSettings } from '_utils';
 
-import { login } from './../../store/user';
+import { login } from '_store/user';
+import { updatePlan, setMemberPlans } from '_store/plan';
 
 // styles
 import { WHITE, APP_COLOR } from '_styles/colors';
@@ -63,6 +64,10 @@ const LoginScreen = ({ navigation }) => {
     MemberService.loginUser(payload)
       .then((data) => {
         setLoading(false);
+        if(data.user && data.user.MemberPlans && data.user.MemberPlans.length > 0) {
+          dispatch(setMemberPlans(data.user.MemberPlans));
+          dispatch(updatePlan(data.user.MemberPlans[0])); //default to first plan
+        }
         dispatch(login(data.user));
       })
       .catch((err) => {

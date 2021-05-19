@@ -5,6 +5,7 @@ import { Inset, Stack } from "react-native-spacing-system";
 import { useTranslation } from "react-i18next";
 import i18next from "i18next";
 import { PreferencesContext } from '_context';
+import { CloseButton } from '_atoms'
 
 // styles
 import { WHITE } from '_styles/colors';
@@ -27,7 +28,7 @@ const styles = StyleSheet.create({
     },
     title: {
         fontWeight: 'bold',
-        color: 'black',
+        color: '#366999',
         fontSize: 18,
         marginBottom: 10,
     }
@@ -35,7 +36,6 @@ const styles = StyleSheet.create({
 
 
 const LanguageSelector = (props) => {
-    const selected = "en";
     const languageMap = {
         en: { label: "English", dir: "ltr", active: true },
         es: { label: "Español", dir: "ltr", active: false }
@@ -54,6 +54,9 @@ const LanguageSelector = (props) => {
                 visible={displayLanguageModal}
                 onDismiss={()=>setDisplayLanguageModal(false)}
             >
+                <CloseButton
+                    onPress={()=> setDisplayLanguageModal(false)}
+                />
                 <Inset all={16}>
                     <View style={styles.titleWrapper}>
                         <Text style={styles.title}>{t('change_language')}</Text>

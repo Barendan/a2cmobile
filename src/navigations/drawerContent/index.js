@@ -37,7 +37,7 @@ export function DrawerContent({ navigation }) {
   );
 
   const { user } = useSelector(state => state.user);
-
+  const { plan } = useSelector(state => state.plan);
 
   const dispatch = useDispatch();
   const logOutCurrentUser = () => {
@@ -114,20 +114,20 @@ export function DrawerContent({ navigation }) {
             <Drawer.Section>
               <Stack size={12} />
               <View>
-              {user.contractLogo && <Image
+                {plan.contractLogo && <Image
                   style={{
                     resizeMode: "contain",
                     height: 100,
                     width: 230
                   }}
-                  source={{ uri: `data:image/jpg;base64,${user.contractLogo}` }}
+                  source={{ uri: `data:image/jpg;base64,${plan.contractLogo}` }}
 
                 // source={{ uri: user.contractLogo ? user.contractLogo : 'https://www.bmcanada.ca/wp-content/uploads/2014/05/placeholder-blue.png' }}
-                /> }
+                />}
 
-                <Title style={styles.subTitle}>{user.contractName}</Title>
+                <Title style={styles.subTitle}>{plan.contractName}</Title>
 
-              </View> 
+              </View>
             </Drawer.Section>
 
             {/* <View style={styles.row}>
@@ -149,18 +149,30 @@ export function DrawerContent({ navigation }) {
             <DrawerItem
               label={t('dashboard')}
               onPress={() => navigation.navigate('Home')}
+              icon={() =>
+                <Avatar.Icon size={30} icon="home" color="black" style={styles.drawerIcon} />
+              }
             />
             <DrawerItem
               label={t('saved_locations')}
               onPress={() => navigation.navigate('Locations')}
+              icon={() =>
+                <Avatar.Icon size={30} icon="map" color="black" style={styles.drawerIcon} />
+              }
             />
             <DrawerItem
               label={t('account_settings')}
               onPress={() => navigation.navigate('Account')}
+              icon={() =>
+                <Avatar.Icon size={30} icon="account" color="black" style={styles.drawerIcon} />
+              }
             />
             <DrawerItem
               label={t('security_settings')}
               onPress={() => navigation.navigate('Security')}
+              icon={() =>
+                <Avatar.Icon size={30} icon="security" color="black" style={styles.drawerIcon} />
+              }
             />
           </Drawer.Section>
           <Drawer.Section title={t('app_info')}>
@@ -291,5 +303,9 @@ const styles = StyleSheet.create({
   },
   drawerSectionText: {
     color: 'red'
+  },
+  drawerIcon: {
+    backgroundColor: "white",
+    marginRight: -30
   },
 });

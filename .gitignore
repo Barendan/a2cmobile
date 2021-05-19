@@ -429,7 +429,6 @@ FodyWeavers.xsd
 *.gho
 *.ori
 *.orig
-*.tmp
 
 
 ##########################
@@ -664,7 +663,8 @@ $RECYCLE.BIN/
 .LSOverride
 
 # Icon must end with two carriage returns: \r
-Icon
+Icon
+
 # Thumbnails
 ._*
 
@@ -850,3 +850,4 @@ fabric.properties
 
 # Android studio 3.1+ serialized cache file
 .idea/caches/build_file_checksums.ser
+/package-lock.json

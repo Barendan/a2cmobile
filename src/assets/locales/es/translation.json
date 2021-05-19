@@ -1,6 +1,7 @@
 {
     "greeting-text": "Hola",
     "change_language": "Cambiar idioma",
+    "change_plan": "Cambio de plan", 
     "screen": "Pantalla",
     "go_to_home": "Ir a casa",
     "go_to_registration": "Registro",
@@ -52,4 +53,11 @@
     "push_notifications_enabled": "Notificaciones push habilitadas",
     "sms_notifications_enabled": "Notificaciones por SMS habilitadas",
     "email_notifications_enabled": "Notificaciones por correo electrónico habilitadas",
+    "please_be_Ready": "POR FAVOR ESTÉ LISTO",
+    "one_hour": "1 HORA",
+    "before_appt_time": "ANTES DE SU CITA",  
+    "trip_no": "Número de Viaje",
+    "special_needs": "Necesidades Especiales",
+    "none": "Nada",
+    "cancel_trip": "Cancelar Viaje",
 }
