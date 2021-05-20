@@ -1,15 +1,12 @@
 import Fuse from 'fuse.js';
 import isEqual from 'lodash.isequal';
-import {useEffect, useRef, useState} from 'react';
+import { useEffect, useRef, useState } from 'react';
 
-export const useFuzzySearch = ({list, options, term}) => {
-  const [query, setQuery] =
-    (useState < string) |
-    (undefined >
-      (() => {
-        if (term) return term;
-        return undefined;
-      }));
+export const useFuzzySearch = ({ list, options, term }) => {
+  const [query, setQuery] = useState(() => {
+    if (term) return term;
+    return undefined;
+  });
   const [results, setResults] = useState(list);
 
   const fuseRef = useRef();
@@ -24,7 +21,7 @@ export const useFuzzySearch = ({list, options, term}) => {
     }
 
     const newResults = query
-      ? fuseRef.current.search(query).map(({item}) => item)
+      ? fuseRef.current.search(query).map(({ item }) => item)
       : list;
     if (isEqual(results, newResults)) {
       return;

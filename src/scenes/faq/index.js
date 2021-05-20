@@ -1,31 +1,28 @@
-import React, {useState} from 'react';
-import {SafeAreaView, View, Text} from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { SafeAreaView, View, Text } from 'react-native';
 import styles from './styles';
 import FaqList from '_molecules/FAQ/FaqList';
-import {Input} from '@ui-kitten/components';
+import { Input } from '@ui-kitten/components';
 import Fuse from 'fuse.js';
 
 const data = [
-  {id: 1, question: 'Question 1', answer: 'Answer 1'},
-  {id: 2, question: 'Question 2', answer: 'Answer 2'},
-  {id: 3, question: 'Question 3', answer: 'Answer 3'},
-  {id: 4, question: 'Question 4', answer: 'Answer 4'},
-  {id: 5, question: 'Question 5', answer: 'Answer 5'},
+  { id: 1, question: 'Apple', answer: 'Answer 1' },
+  { id: 2, question: 'Orange', answer: 'Answer 2' },
+  { id: 3, question: 'Kiwi', answer: 'Answer 3' },
+  { id: 4, question: 'Melon', answer: 'Answer 4' },
+  { id: 5, question: 'Banana', answer: 'Answer 5' },
 ];
 
 const options = {
-  includeScore: true,
-  // Search in `author` and in `tags` array
-  keys: ['question', 'answer'],
+  keys: ['question'],
+  threshold: 0.2,
 };
 
-const FaqScreen = ({navigation}) => {
-  const [searchTerm, setSearchTerm] = useState('Question 1');
-
+const FaqScreen = () => {
+  const [searchTerm, setSearchTerm] = useState('');
   const fuse = new Fuse(data, options);
-  const result = fuse.search(searchTerm);
-
-  console.log('search: ', result);
+  const query = fuse.search(searchTerm);
+  const result = searchTerm === '' ? data : query.map(({ item }) => item);
 
   return (
     <SafeAreaView style={styles.root}>
@@ -43,11 +40,12 @@ const FaqScreen = ({navigation}) => {
         }}>
         <Input
           placeholder="Search..."
-          onChange={e => setSearchTerm(e.target.value)}
+          value={searchTerm}
+          onChangeText={text => setSearchTerm(text)}
         />
       </View>
 
-      <FaqList data={data} />
+      <FaqList data={result} />
     </SafeAreaView>
   );
 };
