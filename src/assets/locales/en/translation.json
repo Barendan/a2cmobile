@@ -60,4 +60,6 @@
     "special_needs": "Special Needs",
     "none": "None",
     "cancel_trip": "Cancel Trip",
+    "request_new_trip": "Request New Trip",
+    "request_trip": "Request New Trip",
 }

@@ -60,4 +60,6 @@
     "special_needs": "Necesidades Especiales",
     "none": "Nada",
     "cancel_trip": "Cancelar Viaje",
+    "request_new_trip": "Solicitar Nuevo Viaje",
+    "request_trip": "Solicitar Viaje",    
 }

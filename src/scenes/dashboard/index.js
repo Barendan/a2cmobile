@@ -5,7 +5,7 @@ import { Avatar, Card, IconButton, Divider, FAB, Portal } from 'react-native-pap
 import Spinner from 'react-native-spinkit';
 import { useTranslation } from "react-i18next";
 import { useSelector } from 'react-redux';
-import { PlanSelector, TripDetails, FullTripDetails } from '_organisms';
+import { PlanSelector, TripDetails, FullTripDetails, RequestNewTrip } from '_organisms';
 import { TripService } from '_services';
 
 // styles
@@ -46,6 +46,7 @@ const DashboardScreen = () => {
   const [memberTrips, setMemberTrips] = React.useState([]);
   const [viewMemberPlans, setViewMemberPlans] = React.useState(false);
   const [currentTrip, setCurrentTrip] = React.useState(null);
+  const [requestNewTrip, setRequestNewTrip] = React.useState(false);
 
   React.useEffect(() => {
     getLatestMemberTrips();
@@ -127,7 +128,7 @@ const DashboardScreen = () => {
         style={styles.fab}
         large
         icon="plus"
-        onPress={() => alert('Pressed')}
+        onPress={() => setRequestNewTrip(true)}
       />
 
       <FullTripDetails
@@ -135,6 +136,11 @@ const DashboardScreen = () => {
         currentTrip={currentTrip}
         onPanelDismiss={() => setCurrentTrip(null)}
       />
+
+      <RequestNewTrip
+       displayPanel={requestNewTrip}
+       onPanelDismiss={() => setRequestNewTrip(false)}
+     />      
 
       <PlanSelector
         displayPanel={viewMemberPlans}
