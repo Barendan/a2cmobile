@@ -1,9 +1,6 @@
 import React from 'react';
 import { View, StyleSheet, TouchableHighlight, Image } from 'react-native';
-import {
-  DrawerItem,
-  DrawerContentScrollView,
-} from '@react-navigation/drawer';
+import { DrawerItem, DrawerContentScrollView } from '@react-navigation/drawer';
 import {
   useTheme,
   Avatar,
@@ -16,9 +13,9 @@ import {
   Switch,
   Card,
 } from 'react-native-paper';
-import { Inset, Stack } from "react-native-spacing-system";
+import { Inset, Stack } from 'react-native-spacing-system';
 
-import { useTranslation } from "react-i18next";
+import { useTranslation } from 'react-i18next';
 
 import { PreferencesContext } from '_context';
 import { LanguageSelector, FullScreenPanel } from '_organisms';
@@ -32,9 +29,8 @@ export function DrawerContent({ navigation }) {
   const { t } = useTranslation();
 
   const paperTheme = useTheme();
-  const { rtl, theme, toggleRTL, toggleTheme } = React.useContext(
-    PreferencesContext
-  );
+  const { rtl, theme, toggleRTL, toggleTheme } =
+    React.useContext(PreferencesContext);
 
   const { user } = useSelector(state => state.user);
   const { plan } = useSelector(state => state.plan);
@@ -42,30 +38,35 @@ export function DrawerContent({ navigation }) {
   const dispatch = useDispatch();
   const logOutCurrentUser = () => {
     dispatch(logout());
-  }
+  };
 
-  const [panelDetails, setPanelDetails] = React.useState({ panelVisible: false, panelDataLoading: false, header: "", body: "", isHTML: false });
+  const [panelDetails, setPanelDetails] = React.useState({
+    panelVisible: false,
+    panelDataLoading: false,
+    header: '',
+    body: '',
+    isHTML: false,
+  });
 
   const updatePanelDetails = React.useCallback((key, value) => {
-    setPanelDetails((panelDetails) => {
-      return ({
+    setPanelDetails(panelDetails => {
+      return {
         ...panelDetails,
-        [key]: value
-      });
+        [key]: value,
+      };
     });
   }, []);
 
   const onPanelDismiss = () => {
     updatePanelDetails('panelVisible', false);
-  }
+  };
 
   const getLatestAppInfo = (header, type) => {
     updatePanelDetails('panelDataLoading', true);
     updatePanelDetails('panelVisible', true);
 
     AppInfoService.getAppInformation(type)
-      .then((data) => {
-
+      .then(data => {
         var response = null;
 
         switch (type) {
@@ -80,53 +81,48 @@ export function DrawerContent({ navigation }) {
             break;
         }
 
-
         updatePanelDetails('panelDataLoading', false);
         updatePanelDetails('panelVisible', true);
         updatePanelDetails('header', header);
         updatePanelDetails('body', response.caption);
         updatePanelDetails('isHTML', true);
-
       })
-      .catch((err) => {
-        alert(err)
+      .catch(err => {
+        alert(err);
         updatePanelDetails('panelDataLoading', false);
       });
-  }
+  };
 
   return (
-    <View
-      style={
-        styles.drawerContent
-      }
-    >
+    <View style={styles.drawerContent}>
       <DrawerContentScrollView>
-        <View
-          style={
-            styles.drawerContent
-          }
-        >
+        <View style={styles.drawerContent}>
           <View style={styles.userInfoSection}>
             <Drawer.Section>
-              <Title style={styles.title}>{t('greeting-text')} {user.firstName} {user.lastName}</Title>
+              <Title style={styles.title}>
+                {t('greeting-text')} {user.firstName} {user.lastName}
+              </Title>
             </Drawer.Section>
 
             <Drawer.Section>
               <Stack size={12} />
               <View>
-                {plan.contractLogo && <Image
-                  style={{
-                    resizeMode: "contain",
-                    height: 100,
-                    width: 230
-                  }}
-                  source={{ uri: `data:image/jpg;base64,${plan.contractLogo}` }}
+                {plan.contractLogo && (
+                  <Image
+                    style={{
+                      resizeMode: 'contain',
+                      height: 100,
+                      width: 230,
+                    }}
+                    source={{
+                      uri: `data:image/jpg;base64,${plan.contractLogo}`,
+                    }}
 
-                // source={{ uri: user.contractLogo ? user.contractLogo : 'https://www.bmcanada.ca/wp-content/uploads/2014/05/placeholder-blue.png' }}
-                />}
+                    // source={{ uri: user.contractLogo ? user.contractLogo : 'https://www.bmcanada.ca/wp-content/uploads/2014/05/placeholder-blue.png' }}
+                  />
+                )}
 
                 <Title style={styles.subTitle}>{plan.contractName}</Title>
-
               </View>
             </Drawer.Section>
 
@@ -149,30 +145,50 @@ export function DrawerContent({ navigation }) {
             <DrawerItem
               label={t('dashboard')}
               onPress={() => navigation.navigate('Home')}
-              icon={() =>
-                <Avatar.Icon size={30} icon="home" color="black" style={styles.drawerIcon} />
-              }
+              icon={() => (
+                <Avatar.Icon
+                  size={30}
+                  icon="home"
+                  color="black"
+                  style={styles.drawerIcon}
+                />
+              )}
             />
             <DrawerItem
               label={t('saved_locations')}
               onPress={() => navigation.navigate('Locations')}
-              icon={() =>
-                <Avatar.Icon size={30} icon="map" color="black" style={styles.drawerIcon} />
-              }
+              icon={() => (
+                <Avatar.Icon
+                  size={30}
+                  icon="map"
+                  color="black"
+                  style={styles.drawerIcon}
+                />
+              )}
             />
             <DrawerItem
               label={t('account_settings')}
               onPress={() => navigation.navigate('Account')}
-              icon={() =>
-                <Avatar.Icon size={30} icon="account" color="black" style={styles.drawerIcon} />
-              }
+              icon={() => (
+                <Avatar.Icon
+                  size={30}
+                  icon="account"
+                  color="black"
+                  style={styles.drawerIcon}
+                />
+              )}
             />
             <DrawerItem
               label={t('security_settings')}
               onPress={() => navigation.navigate('Security')}
-              icon={() =>
-                <Avatar.Icon size={30} icon="security" color="black" style={styles.drawerIcon} />
-              }
+              icon={() => (
+                <Avatar.Icon
+                  size={30}
+                  icon="security"
+                  color="black"
+                  style={styles.drawerIcon}
+                />
+              )}
             />
           </Drawer.Section>
           <Drawer.Section title={t('app_info')}>
@@ -188,7 +204,6 @@ export function DrawerContent({ navigation }) {
               label={t('faqs')}
               onPress={() => getLatestAppInfo(t('faqs'), 'faqs')}
             />
-
           </Drawer.Section>
           <Drawer.Section title={t('preferences')}>
             {/* <TouchableRipple onPress={toggleTheme}>
@@ -212,8 +227,9 @@ export function DrawerContent({ navigation }) {
         </View>
       </DrawerContentScrollView>
       <View style={[styles.signOutContainer]}>
-        <TouchableHighlight key={'go_to_registration'} onPress={logOutCurrentUser}>
-
+        <TouchableHighlight
+          key={'go_to_registration'}
+          onPress={logOutCurrentUser}>
           <View style={styles.row}>
             <View style={styles.section}>
               <Text style={styles.signOutTitle}>{t('log_out')}</Text>
@@ -222,7 +238,6 @@ export function DrawerContent({ navigation }) {
               <Caption style={styles.caption}>v1.0</Caption>
             </View>
           </View>
-
         </TouchableHighlight>
       </View>
 
@@ -233,14 +248,13 @@ export function DrawerContent({ navigation }) {
         panelBody={panelDetails.body}
         onPanelDismiss={onPanelDismiss}
       />
-
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   drawerContent: {
-    flex: 1
+    flex: 1,
   },
   userInfoSection: {
     paddingLeft: 20,
@@ -252,7 +266,7 @@ const styles = StyleSheet.create({
   subTitle: {
     fontSize: 14,
     marginTop: 5,
-    fontWeight: 'bold'
+    fontWeight: 'bold',
   },
   caption: {
     fontSize: 14,
@@ -294,7 +308,7 @@ const styles = StyleSheet.create({
   },
   signOutTitle: {
     fontWeight: 'bold',
-    color: '#ab263e'
+    color: '#ab263e',
   },
   image: {
     flex: 1,
@@ -302,10 +316,10 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
   },
   drawerSectionText: {
-    color: 'red'
+    color: 'red',
   },
   drawerIcon: {
-    backgroundColor: "white",
-    marginRight: -30
+    backgroundColor: 'white',
+    marginRight: -30,
   },
 });
