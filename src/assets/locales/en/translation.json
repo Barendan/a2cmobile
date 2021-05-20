@@ -1,6 +1,7 @@
 {
     "greeting-text": "Hello",
     "change_language": "Change Language",
+    "change_plan": "Change Plan",
     "screen": "Screen",
     "go_to_home": "Go to home",
     "go_to_registration": "Registration",
@@ -52,4 +53,13 @@
     "push_notifications_enabled": "Push Notifications Enabled",
     "sms_notifications_enabled": "SMS Notifications Enabled",
     "email_notifications_enabled": "Email Notifications Enabled",
+    "please_be_Ready": "PLEASE BE READY",
+    "one_hour": "1 HOUR",
+    "before_appt_time": "BEFORE YOUR APPOINTMENT TIME",
+    "trip_no": "Trip No.",
+    "special_needs": "Special Needs",
+    "none": "None",
+    "cancel_trip": "Cancel Trip",
+    "request_new_trip": "Request New Trip",
+    "request_trip": "Request New Trip",
 }

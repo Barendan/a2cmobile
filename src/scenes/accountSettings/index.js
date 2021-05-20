@@ -45,7 +45,6 @@ const AccountSettings = () => {
     setPageLoaded(true);
   }, []);
 
-
   React.useEffect(() => {
     if (pageLoaded) {
       var payload = {

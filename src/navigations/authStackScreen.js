@@ -14,7 +14,7 @@ import Splash from '_organisms/splash/splash';
 // screens
 import LoginScreen from '_scenes/login';
 import RegistrationScreen from '_scenes/registration';
-
+import FaqScreen from '_scenes/faq';
 import DashboardScreen from '_scenes/dashboard';
 
 const Stack = createStackNavigator();
@@ -35,6 +35,11 @@ const AuthStackScreen = () => {
       <Stack.Screen
         name="Registration"
         component={RegistrationScreen}
+        options={{ title: null, headerShown: false }}
+      />
+      <Stack.Screen
+        name="FAQs"
+        component={FaqScreen}
         options={{ title: null, headerShown: false }}
       />
      
