@@ -9,11 +9,14 @@ export const WARNING = '#ffae00';
 export const ALERT = '#cc4b37';
 export const CANCEL = '#e35462';
 export const BLUE = '#007aff';
+export const ERROR = "#FF3B5F"
 
 // GRAYSCALE
 export const GRAY_LIGHT = '#e6e6e6';
 export const GRAY_MEDIUM = '#cacaca';
 export const GRAY_DARK = '#8a8a8a';
+export const GREEN = "#00ff00";
+export const GREY = "#E3E2E3";
 
 //MAIN APP COLOR
 export const APP_COLOR = '#276092';
