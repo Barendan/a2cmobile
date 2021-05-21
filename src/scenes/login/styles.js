@@ -1,5 +1,6 @@
 import { StyleSheet } from 'react-native';
-import { Colors } from '../../libs/color';
+import { WHITE, GREY } from '_styles/colors';
+
 
 export default StyleSheet.create({
     keyboardAvoidViewing: { flex: 1 },
@@ -14,7 +15,7 @@ export default StyleSheet.create({
         paddingBottom: 32,
         flex: 1, 
         justifyContent: "center",
-        backgroundColor: Colors.White,
+        backgroundColor: WHITE,
     },
     title: {
         justifyContent: 'center',
@@ -28,7 +29,7 @@ export default StyleSheet.create({
         flexDirection: 'row',
         marginTop: 10,
         borderBottomWidth: 1,
-        borderBottomColor: Colors.Grey,
+        borderBottomColor: GREY,
         paddingVertical: 19
     },
     thumbContainer: {
