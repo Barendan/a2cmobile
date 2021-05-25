@@ -1,14 +1,19 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, Button, StyleSheet, ScrollView, useWindowDimensions } from 'react-native';
+import { View, Text, TouchableOpacity, Button, StyleSheet, ScrollView, TouchableHighlight } from 'react-native';
+import AnimatedMultistep from 'react-native-animated-multistep';
 import DraggablePanel from 'react-native-draggable-panel';
 import { Inset, Stack } from "react-native-spacing-system";
 import { Divider } from 'react-native-paper';
 import { useTranslation } from "react-i18next";
-import { CloseButton } from '_atoms'
-
+import { CloseButton, ProgressBar } from '_atoms'
+import { LocationService } from '_helpers'
+import { LocationSearchCard, CheckboxCard, NumericCountCard, DateTimePickerCard, DropDownPickerCard, TextInputCard } from '_organisms';
+import { MemberService } from '_services';
+import Spinner from 'react-native-spinkit';
+import { useSelector } from 'react-redux';
 
 // styles
-import { CANCEL, GRAY_LIGHT, GRAY_DARK } from '_styles/colors';
+import { CANCEL, GRAY_BLUE, APP_COLOR } from '_styles/colors';
 import { scaleFont } from '_styles/mixins';
 
 const styles = StyleSheet.create({
@@ -72,12 +77,173 @@ const styles = StyleSheet.create({
         paddingVertical: 10,
         borderRadius: 30,
         width: '100%',
+    },
+    loadingView: {
+        justifyContent: 'center',
+        alignItems: 'center'
     }
 });
 
 
 const RequestNewTrip = (props) => {
     const { t } = useTranslation();
+    const { user } = useSelector(state => state.user);
+
+    //
+    const allSteps = [
+        { name: 'Where are you going?', component: <View>Pick Up Address</View> },
+        { name: 'Appointment Details', component: <View>Special Needs</View> },
+        { name: 'Review', component: <View>Review</View> },
+    ];
+
+    const [currentStep, setCurrentStep] = useState(1);
+    const [loading, setLoading] = React.useState(false);
+
+    const onNext = () => {
+        setCurrentStep(currentStep + 1);
+        console.log('Next');
+    };
+
+    const onBack = () => {
+        console.log('Back');
+    };
+
+    const finish = finalState => {
+        console.log(finalState);
+    };
+
+    const [tripReasons, setTripReasons] = useState([
+        { label: 'Apple', value: 'apple' },
+        { label: 'Banana', value: 'banana' },
+        { label: 'Apple', value: 'apple' },
+        { label: 'Banana', value: 'banana' },
+        { label: 'Apple', value: 'apple' },
+        { label: 'Banana', value: 'banana' },
+    ]);
+
+    //Trip Details
+    const [tripDetails, setTripDetails] = React.useState({
+        pickupAddress: null,
+        tripStops: [],
+        destinationAddress: null,
+        isRoundTrip: false,
+        additionalPassengers: 0,
+        wheelchairRequired: false,
+        appointmentDateTime: null,
+        appointmentDate: '',
+        appointmentTime: '',
+        tripReason: '',
+        specialNeeds: ''
+    });
+
+    const updateTripDetails = React.useCallback((key, value) => {
+        setTripDetails(tripDetails => {
+            return {
+                ...tripDetails,
+                [key]: value,
+            };
+        });
+    }, []);
+
+    const onAddressSelected = (type, value) => {
+        if (type.toLowerCase() === "tripstops") {
+            updateTripDetails("tripStops", [...tripDetails.tripStops, value]);
+        } else {
+            updateTripDetails(type, value);
+        }
+    };
+
+    const deleteTripStop = (index) => {
+        let newTripStops = tripDetails.tripStops;
+        updateTripDetails("tripStops", newTripStops);
+    }
+
+    const onRoundTripChecked = (value) => {
+        updateTripDetails('isRoundTrip', value);
+    };
+
+    const onAdditionPassengersChange = (value) => {
+        updateTripDetails('additionalPassengers', value);
+    };
+
+    const onWheelchairRequiredChecked = (value) => {
+        updateTripDetails('wheelchairRequired', value);
+    };
+
+    const onAppointmentDateTimeChange = (type, value) => {
+        switch (type) {
+            case 'date':
+                updateTripDetails('appointmentDate', value);
+                break;
+            case 'time':
+                updateTripDetails('appointmentTime', value);
+                break;
+            case 'datetime':
+                updateTripDetails('appointmentDateTime', value);
+                break;
+            default:
+                console.log('Unknown type. Only Date and Time Required')
+        }
+    };
+
+    const onTripReasonSelected = (selected) => {
+        updateTripDetails('tripReason', selected.value);
+    };
+
+    const onSpecialNeedsEntered = (value) => {
+        updateTripDetails('specialNeeds', value);
+    };
+
+
+    const onRequestTrip = () => {
+        var payload = {
+            memberID: user.memberID,
+            NETMember_ID: user.NETMember_ID,
+            pickupAddress: tripDetails.pickupAddress.FormattedAddress,
+            pickupAddressLat: tripDetails.pickupAddress.Latitude,
+            pickupAddressLng: tripDetails.pickupAddress.Longitude,
+            pickupAddress1: tripDetails.pickupAddress.AddressLine1,
+            pickupAddress2: tripDetails.pickupAddress.AddressLine2,
+            pickupAddressCity: tripDetails.pickupAddress.City,
+            pickupAddressState: tripDetails.pickupAddress.State,
+            pickupAddressCounty: tripDetails.pickupAddress.County,
+            pickupAddressZip: tripDetails.pickupAddress.ZipCode,
+            pickupAddressCountry: tripDetails.pickupAddress.Country,
+            destinationAddress: tripDetails.destinationAddress.FormattedAddress,
+            destinationAddressLat: tripDetails.destinationAddress.Latitude,
+            destinationAddressLng: tripDetails.destinationAddress.Longitude,
+            destinationAddress1: tripDetails.destinationAddress.AddressLine1,
+            destinationAddress2: tripDetails.destinationAddress.AddressLine2,
+            destinationAddressCity: tripDetails.destinationAddress.City,
+            destinationAddressState: tripDetails.destinationAddress.State,
+            destinationAddressCounty: tripDetails.destinationAddress.County,
+            destinationAddressZip: tripDetails.destinationAddress.ZipCode,
+            destinationAddressCountry: tripDetails.destinationAddress.Country,            
+            tripStops: tripDetails.tripStops,
+            isRoundTrip: tripDetails.isRoundTrip,
+            additionalPassengers: tripDetails.additionalPassengers,
+            wheelchair:  tripDetails.wheelchairRequired ? "yes" : "no",
+            appointmentDateTime: tripDetails.appointmentDateTime,
+            appointmentDate: tripDetails.appointmentDate,
+            appointmentTime: tripDetails.appointmentTime,
+            tripReason: tripDetails.tripReason,
+            specialNeeds: tripDetails.specialNeeds,
+        };
+
+        console.log(JSON.stringify(payload))
+
+        setLoading(true);
+        MemberService.requestTrip(payload)
+        .then((data) => {
+            setLoading(false);
+            alert(JSON.stringify(data))
+        })
+        .catch((err) => {
+            alert(JSON.stringify(err))
+
+            setLoading(false);
+        });
+    }
 
     const {
         panelHeader,
@@ -90,40 +256,101 @@ const RequestNewTrip = (props) => {
             <DraggablePanel
                 visible={displayPanel}
                 onDismiss={onPanelDismiss}
-                initialHeight={600}
+                initialHeight={800}
                 expandable
             >
-                <CloseButton
-                    onPress={onPanelDismiss}
-                />
-                <Inset all={16}>
-                        <View>
+                {loading && <View style={styles.loadingView}>
+                    <Spinner
+                        isVisible={loading}
+                        size={50}
+                        type={'ThreeBounce'}
+                        color={APP_COLOR}
+                    />
+                    <Text>Requesting Trip...</Text>
+                </View> }
 
-                            <View style={styles.titleWrapper}>
-                                <Text style={styles.title}>{t('request_new_trip')}</Text>
-                            </View>
+
+                {!loading && <>
+                    <CloseButton
+                        onPress={onPanelDismiss}
+                    />
+
+
+
+                    <Inset all={16}>
+
+                        <View style={styles.titleWrapper}>
+                            <Text style={styles.title}>{t('request_new_trip')}</Text>
+                        </View>
+                        <Stack size={12} />
+
+
+                        <ProgressBar small={true} currentStep={currentStep} stepCount={allSteps.length} title={allSteps[currentStep - 1].name} subtitle={currentStep !== allSteps.length && t('go_to_next') + ': ' + allSteps[currentStep].name} />
+                        <Stack size={12} />
+
+                        <Divider />
+                        <Stack size={12} />
+                        <ScrollView showsVerticalScrollIndicator={false}>
+
+                            <Text>Step 1</Text>
+
+                            <LocationSearchCard locationIndex={0} title={'Pickup Address'} description={tripDetails.pickupAddress ? tripDetails.pickupAddress.FormattedAddress : 'This is the location where you will be picked up from'} onAddressSelected={(addr) => onAddressSelected('pickupAddress', addr)} />
+
+                            {tripDetails.tripStops.map((currentStop, index) => (<>
+                                <LocationSearchCard disableClick={true} icon={'minus'} iconColor={GRAY_BLUE} showBorder={true} title={'Trip Stop ' + (index + 1)} description={currentStop.FormattedAddress} onPress={() => deleteTripStop(index)} />
+                            </>))}
+
+                            <LocationSearchCard showBorder={true} dashedBorder={true} title={'Add A Stop (Optional)'} description={'Add a stop address on your way to your destination'} onAddressSelected={(addr) => onAddressSelected('tripStops', addr)} />
+
+                            <LocationSearchCard locationIndex={1} title={'Destination Address'} description={tripDetails.destinationAddress ? tripDetails.destinationAddress.FormattedAddress : 'This is the location where you will be dropped off'} onAddressSelected={(addr) => onAddressSelected('destinationAddress', addr)} />
+                            <CheckboxCard cardIcon={'swap-horizontal'} title={'Is this a round trip?'} checkedValue={tripDetails.isRoundTrip} onChecked={(value) => onRoundTripChecked(value)} />
+
+                            <Text>Step 2</Text>
+
+                            <NumericCountCard cardIcon={'account-multiple-outline'} title={'Additional Passengers'} count={tripDetails.additionalPassengers} onCountChange={(value) => onAdditionPassengersChange(value)} />
+                            <CheckboxCard cardIcon={'wheelchair-accessibility'} title={'Do you need a Wheelchair?'} checkedValue={tripDetails.wheelchairRequired} onChecked={(value) => onWheelchairRequiredChecked(value)} />
+                            <DateTimePickerCard cardIcon={'calendar-clock'} title={'Appointment Date & Time'} description={tripDetails.appointmentDateTime && <>{tripDetails.appointmentDate} {tripDetails.appointmentDate && tripDetails.appointmentTime ? 'at ' + tripDetails.appointmentTime : tripDetails.appointmentTime}</>} minimumDate={new Date()} showDatePicker={true} showTimePicker={true} dateValue={tripDetails.appointmentDate} timeValue={tripDetails.appointmentTime} onDateTimeChange={(type, value) => onAppointmentDateTimeChange(type, value)} />
+                            <DropDownPickerCard cardIcon={'information-outline'} title={'Trip Reason'} multiple={false} optionsList={tripReasons} selectedValue={tripDetails.tripReason} onOptionSelected={(value) => onTripReasonSelected(value)} />
+
+                            <Text>Step 3</Text>
+
+                            <TextInputCard cardIcon={'handshake'} title={'Special Needs'} placeholder={'Provide all the special needs you will require'} textValue={tripDetails.specialNeeds} onChangeText={(value) => onSpecialNeedsEntered(value)} />
+
                             <Stack size={12} />
 
-                            <Divider style={{ backgroundColor: GRAY_DARK }} />
 
-
-                            <View>
-                                <View style={styles.callToActionBtnHolder}>
-                                    <Inset all={16}>
-                                        <TouchableOpacity
-                                            style={styles.customBtnBG}
-                                            onPress={() => { }}
-                                        >
-                                            <Text style={styles.customBtnText}>{t('request_trip')}</Text>
-                                        </TouchableOpacity>
-                                    </Inset>
-                                </View>
+                            <View style={styles.callToActionBtnHolder}>
+                                <Inset all={16}>
+                                <TouchableOpacity
+                                        style={styles.customBtnBG}
+                                        onPress={() => onRequestTrip()}
+                                    >
+                                        <Text style={styles.customBtnText}>{t('request_trip')}</Text>
+                                    </TouchableOpacity>
+                                </Inset>
                             </View>
+              
+                        <Stack size={120} />
 
+                        </ScrollView>
+                       
+              
+                     
+                        {/* 
 
-                    </View>
+                            <AnimatedMultistep
+        steps={allSteps}
+        onFinish={finish}
+        onBack={onBack}
+        onNext={onNext}
+      /> */}
 
-                </Inset>
+                
+                    
+                  
+
+                    </Inset>
+                </>}
 
             </DraggablePanel>
         </View>

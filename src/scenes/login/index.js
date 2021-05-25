@@ -162,15 +162,15 @@ const LoginScreen = ({ navigation, route }) => {
               textAlign="center"
               style={{ marginRight: 5 }}
             >
-              privacy policy
+              {t('privacy_policy')}
                 </TextContent>
           </View>
           <TouchableHighlight
-            onPress={() => navigation.navigate('FAQs')}
+            onPress={() => navigation.navigate('Registration')}
           >
             <Text>FAQs</Text>
           </TouchableHighlight>
-
+          <LanguageSelector />
         </View>
 
       </View>

@@ -118,7 +118,7 @@ export function DrawerContent({ navigation }) {
                       uri: `data:image/jpg;base64,${plan.contractLogo}`,
                     }}
 
-                    // source={{ uri: user.contractLogo ? user.contractLogo : 'https://www.bmcanada.ca/wp-content/uploads/2014/05/placeholder-blue.png' }}
+                  // source={{ uri: user.contractLogo ? user.contractLogo : 'https://www.bmcanada.ca/wp-content/uploads/2014/05/placeholder-blue.png' }}
                   />
                 )}
 

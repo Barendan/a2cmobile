@@ -1,6 +1,6 @@
 {
     "greeting-text": "Hola",
-    "change_language": "Cambiar idioma",
+    "change_language": "Change Language",
     "change_plan": "Cambio de plan", 
     "screen": "Pantalla",
     "go_to_home": "Ir a casa",
@@ -37,7 +37,7 @@
     "terms": "Condiciones",
     "faqs": "Preguntas frecuentes",
     "preferences": "Preferencias",
-    "close": "CERCA",
+    "close": "CERRAR",
     "log_out": "Cerrar Sesión",
     "security_questions_text": "Establezca 3 preguntas de seguridad únicas. Debe recordar las respuestas a estas preguntas si alguna vez necesita restablecer su contraseña.",
     "account_questions_text": "Seleccione sus opciones de cuenta preferidas.",
@@ -61,5 +61,8 @@
     "none": "Nada",
     "cancel_trip": "Cancelar Viaje",
     "request_new_trip": "Solicitar Nuevo Viaje",
-    "request_trip": "Solicitar Viaje",    
+    "request_trip": "Solicitar Viaje", 
+    "privacy_policy": "Política de privacidad",
+    "search_location": "Ubicación de Búsqueda",
+    "use_current_location": "Usar Ubicación Actual",
 }

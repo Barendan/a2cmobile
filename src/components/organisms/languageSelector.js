@@ -5,7 +5,7 @@ import { Inset, Stack } from "react-native-spacing-system";
 import { useTranslation } from "react-i18next";
 import i18next from "i18next";
 import { PreferencesContext } from '_context';
-import { CloseButton } from '_atoms'
+import { CloseButton, AvatarButton } from '_atoms'
 
 // styles
 import { WHITE } from '_styles/colors';
@@ -31,7 +31,17 @@ const styles = StyleSheet.create({
         color: '#366999',
         fontSize: 18,
         marginBottom: 10,
-    }
+    },
+    headerHolder: {
+        flex: 1,
+        flexDirection: 'row'
+    },
+    icon: {
+        marginTop: 5,
+        marginLeft: 20,
+        backgroundColor: 'white',
+        marginRight: -15,
+    },
 });
 
 
@@ -40,22 +50,33 @@ const LanguageSelector = (props) => {
         en: { label: "English", dir: "ltr", active: true },
         es: { label: "Español", dir: "ltr", active: false }
     };
-    const [displayLanguageModal, setDisplayLanguageModal] = useState(false);
 
+    const [displayLanguageModal, setDisplayLanguageModal] = useState(false);
     const { t } = useTranslation();
 
-      
+    const changeLanguage = () => {
+        if (Object.keys(languageMap).length == 2) {
+            let languageOptions = Object.keys(languageMap);
+            let index = languageOptions.indexOf(i18next.language.toLocaleLowerCase());
+
+            let selectedLanguage = languageOptions[index === 0 ? 1 : 0];
+            i18next.changeLanguage(selectedLanguage);
+            setDisplayLanguageModal(false);
+        }
+        else {
+            setDisplayLanguageModal(true);
+        }
+    }
+
     return (
         <View>
-            <TouchableHighlight onPress={() => setDisplayLanguageModal(!displayLanguageModal)}>
-                <Text style={props.headerStyle}>{t('change_language')}</Text>
-            </TouchableHighlight>
+            <AvatarButton icon={"translate"} iconColor="black"  buttonText={t('change_language')} onPress={() => changeLanguage()} />
             <DraggablePanel
                 visible={displayLanguageModal}
-                onDismiss={()=>setDisplayLanguageModal(false)}
+                onDismiss={() => setDisplayLanguageModal(false)}
             >
                 <CloseButton
-                    onPress={()=> setDisplayLanguageModal(false)}
+                    onPress={() => setDisplayLanguageModal(false)}
                 />
                 <Inset all={16}>
                     <View style={styles.titleWrapper}>
@@ -66,7 +87,7 @@ const LanguageSelector = (props) => {
                     {Object.keys(languageMap)?.map(item => (
                         <TouchableHighlight key={languageMap[item].label} onPress={() => {
                             i18next.changeLanguage(item);
-                            setDisplayLanguageModal(false);                            
+                            setDisplayLanguageModal(false);
                         }}>
                             <>
                                 <Text style={styles.touchableText}>{languageMap[item].label}</Text>

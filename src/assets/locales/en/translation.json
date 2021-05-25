@@ -1,6 +1,6 @@
 {
     "greeting-text": "Hello",
-    "change_language": "Change Language",
+    "change_language": "Cambiar idioma",
     "change_plan": "Change Plan",
     "screen": "Screen",
     "go_to_home": "Go to home",
@@ -62,4 +62,7 @@
     "cancel_trip": "Cancel Trip",
     "request_new_trip": "Request New Trip",
     "request_trip": "Request New Trip",
+    "privacy_policy": "Privacy Policy",
+    "search_location": "Search Location",
+    "use_current_location": "Use Current Location",
 }

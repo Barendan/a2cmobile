@@ -12,10 +12,20 @@ const updateUser = payload => {
 const getUserRecord= (value) => {
     return RequestApi.get(`/users?type=userRecord&value=${value}`);
 };
+
+const requestTrip = (value) => {
+    return RequestApi.post(`/members?type=requestTrip&value=${value}`);
+};
+ 
+const cancelTrip = (value) => {
+    return RequestApi.post(`/members?type=cancel&value=${value}`);
+};
  
  
 export default {
     loginUser,
     updateUser,
-    getUserRecord
+    getUserRecord,
+    requestTrip,
+    cancelTrip
 };

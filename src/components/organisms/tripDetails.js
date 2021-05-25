@@ -5,7 +5,7 @@ import { Avatar, Card, Title, IconButton, Divider, List } from 'react-native-pap
 import { useTranslation } from "react-i18next";
 
 // styles
-import { GRAY_DARK } from '_styles/colors';
+import { GRAY_DARK, START_LOCATION_COLOR, MID_LOCATION_COLOR, END_LOCATION_COLOR } from '_styles/colors';
 
 const TripDetails = (props) => {
     const { t } = useTranslation();
@@ -120,13 +120,13 @@ const styles = StyleSheet.create({
         marginTop: -9
     },
     startLocationIcon: {
-        backgroundColor: "#a26bb0",
+        backgroundColor: START_LOCATION_COLOR,
     },
     midLocationIcon: {
-        backgroundColor: "#aeb0b4",
+        backgroundColor: MID_LOCATION_COLOR,
     },
     endLocationIcon: {
-        backgroundColor: "#3c588f",
+        backgroundColor: END_LOCATION_COLOR,
     },
 });
 

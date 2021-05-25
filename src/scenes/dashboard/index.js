@@ -1,5 +1,5 @@
 import React from 'react';
-import { SafeAreaView, View, ScrollView, TouchableHighlight, StyleSheet } from 'react-native';
+import { SafeAreaView, View, ScrollView, TouchableHighlight, StyleSheet, Text } from 'react-native';
 import { Inset, Stack } from "react-native-spacing-system";
 import { Avatar, Card, IconButton, Divider, FAB, Portal } from 'react-native-paper';
 import Spinner from 'react-native-spinkit';
@@ -10,6 +10,7 @@ import { TripService } from '_services';
 
 // styles
 import { APP_COLOR } from '_styles/colors';
+import user from '_store';
 
 
 const styles = StyleSheet.create({
@@ -118,7 +119,6 @@ const DashboardScreen = () => {
 
           <Stack size={100} />
         </ScrollView>
-
 
 
       </Inset>

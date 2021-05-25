@@ -10,6 +10,7 @@ const ProgressBar = ({
   subtitle,
   color = '#3399FF',
   shadowColor = '#999',
+  small = false
 }) => {
   const { t } = useTranslation();
   const perecentage = Math.floor((currentStep / stepCount) * 100);
@@ -19,18 +20,18 @@ const ProgressBar = ({
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        marginTop: '5%',
+        marginTop: small ? '0%' : '5%',
         marginLeft: '5%',
         width: '90%'
       }}>
       <ProgressCircle
         percent={perecentage}
-        radius={40}
+        radius={small ? 30 : 40}
         borderWidth={8}
         color={color}
         shadowColor={shadowColor}
         bgColor="#fff">
-        <Text style={{ fontSize: 18 }}>{`${currentStep} ${t('of_text')} ${stepCount} `}</Text>
+        <Text style={{ fontSize: small ? 12 : 18 }}>{`${currentStep} ${t('of_text')} ${stepCount} `}</Text>
       </ProgressCircle>
       <View 
       style={{
