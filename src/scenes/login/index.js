@@ -8,6 +8,7 @@ import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from 'react-redux';
 import styles from './styles';
 import { APP_COLOR, GREEN } from '_styles/colors';
+import Spinner from 'react-native-spinkit';
 
 
 import { login } from '_store/user';
@@ -92,9 +93,18 @@ const LoginScreen = ({ navigation, route }) => {
           right={<TextInput.Icon onPress={() => setVisible(previousState => !previousState) } name={isVisible ? 'eye-off-outline' : 'eye' }/>}
         />
       </View>
-      <Button color={APP_COLOR} mode='contained' onPress={onLogin}>
+      <Button color={APP_COLOR} mode='contained' onPress={onLogin} disabled={loading}>
         {t('sign_in')}
       </Button>
+
+      {loading && <View style={styles.loadingView}>
+                    <Spinner
+                        isVisible={loading}
+                        size={50}
+                        type={'ThreeBounce'}
+                        color={APP_COLOR}
+                    />
+                </View> }
       
       <View style={styles.authArea}>
 

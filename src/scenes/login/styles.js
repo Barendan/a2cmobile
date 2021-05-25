@@ -71,5 +71,9 @@ export default StyleSheet.create({
     toRow: {
         flexDirection: 'row',
         paddingVertical: 5
+    },
+    loadingView: {
+        justifyContent: 'center',
+        alignItems: 'center'
     }
 })
