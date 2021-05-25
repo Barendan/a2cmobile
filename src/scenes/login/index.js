@@ -1,20 +1,19 @@
 import React from 'react';
 import { View, Text, Switch, TouchableHighlight, KeyboardAvoidingView, Platform } from 'react-native';
-import Icon from "react-native-vector-icons/Ionicons"
+import Icon from "react-native-vector-icons/Ionicons";
+import MatIcon from "react-native-vector-icons/MaterialCommunityIcons";
+import { TextInput, Button } from 'react-native-paper';
 import { LanguageSelector } from '_organisms';
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from 'react-redux';
-import TextContent from '../../components/textContent';
 import styles from './styles';
-import Input from '../../components/input';
-import Button from '../../components/button';
-import { Colors } from '../../libs/color';
+import { APP_COLOR, GREEN } from '_styles/colors';
+
 
 import { login } from '_store/user';
 import { updatePlan, setMemberPlans } from '_store/plan';
 
 // styles
-import { WHITE, APP_COLOR } from '_styles/colors';
 import { scaleFont } from '_styles/mixins';
 import { MemberService } from '_services';
 import { AppSettings } from '_utils';
@@ -69,112 +68,110 @@ const LoginScreen = ({ navigation, route }) => {
     >
       <View style={styles.container}>
         <View style={styles.topContainer}>
-          <TextContent
-            fontSize={50}
+          <Text
             style={styles.title}
           >
-            Mercy Care
-        </TextContent>
-        </View>
-        <View style={styles.spacing}>
-          <Input
-            placeholder={'email'}
-            containerStyle={{ backgroundColor: Colors.Grey }}
-            value={email}
-            onChange={setEmail}
-            leftComponent={<Icon size={18} name="person-outline" />}
-          />
-        </View>
-        <View style={styles.spacing}>
-          <Input
-            placeholder={'password'}
-            secureTextEntry={!isVisible}
-            containerStyle={{ backgroundColor: Colors.Grey }}
-            value={password}
-            onChange={setPassword}
-            leftComponent={<Icon size={18} name="lock-closed-outline" />}
-            rightComponent={<Icon onPress={() => setVisible(previousState => !previousState)} size={18} name={isVisible ? "eye-off-outline" : "eye-outline"} />}
-          />
-        </View>
-        <Button disabled={loading} style={{ marginTop: 10 }} onClick={onLogin} state="primary" variant="solid">
-          <TextContent
-            color={Colors.White}
-            fontWeight={'700'}
-            textAlign="center"
-          >
-            {loading ? "Loading..." : "Sign In"}
-        </TextContent>
-        </Button>
+            {t('mercy_care')}
+        </Text>
+      </View>
+      <View style={styles.spacing}>
+        <TextInput 
+          label='email'
+          value={email}
+          onChangeText={setEmail}
+          left={<TextInput.Icon  name={'account'}/>}
+        />
+      </View>
+      <View style={[styles.spacing, { marginBottom: 20 }]}>
+        <TextInput 
+          label='password'
+          value={password}
+          secureTextEntry={!isVisible}
+          onChangeText={setPassword}
+          left={<TextInput.Icon  name={'lock'}/>}
+          right={<TextInput.Icon onPress={() => setVisible(previousState => !previousState) } name={isVisible ? 'eye-off-outline' : 'eye' }/>}
+        />
+      </View>
+      <Button color={APP_COLOR} mode='contained' onPress={onLogin}>
+        {t('sign_in')}
+      </Button>
+      
+      <View style={styles.authArea}>
 
-        <View style={styles.forgotPass}>
-          <TextContent
-            color={Colors.Brand}
-            fontWeight={'400'}
-            textAlign="center"
+      <View style={styles.forgotPass}>
+        <Text
+            style={styles.pText}
           >
-            Forgot Password
-          </TextContent>
+            {t('forgot_password')}
+          </Text>
           <View style={styles.thumbContainer}>
-            <TextContent
-              color={Colors.Brand}
-              fontWeight={'400'}
-              textAlign="center"
-              style={{ marginRight: 5 }}
+            <Text
+              style={[styles.pText, { marginRight: 5 }]}
             >
-              Save login
-            </TextContent>
+              {t('save_login')}
+            </Text>
             <Switch
-              trackColor={{ false: Colors.Green, true: "#81b0ff" }}
+              trackColor={{ false: GREEN, true: "#81b0ff" }}
               thumbColor={isEnabled ? "#f5dd4b" : "#f4f3f4"}
-              ios_backgroundColor={Colors.Green}
+              ios_backgroundColor={GREEN}
               onValueChange={toggleSwitch}
               value={isEnabled}
             />
           </View>
         </View>
-        <View style={styles.footer}>
-          <TextContent
-            fontWeight={'400'}
-            textAlign="center"
-            style={{ marginRight: 5 }}
-          >
-            By registering, you agree to our
-              </TextContent>
-          <View style={styles.toRow}>
-            <TextContent
-              color={Colors.Brand}
-              fontWeight={'500'}
-              textAlign="center"
-              style={{ marginRight: 5 }}
-            >
-              Terms of Service
-                </TextContent>
-            <TextContent
-              fontWeight={'400'}
-              textAlign="center"
-              style={{ marginRight: 5 }}
-            >
-              and
-                </TextContent>
-            <TextContent
-              color={Colors.Brand}
-              fontWeight={'500'}
-              textAlign="center"
-              style={{ marginRight: 5 }}
-            >
-              {t('privacy_policy')}
-                </TextContent>
+        <View style={styles.alternativeLogin}>
+          <Text style={{ color: APP_COLOR}}>{t('or_signin_using')}</Text>
+          <View style={{ flexDirection: 'row'}}>
+            <View style={styles.altLoginBtn}>
+              <Button contentStyle={styles.btnContent}  mode='outlined'>
+                <Icon size={24} name='finger-print' />
+              </Button>
+            </View>
+            <View style={styles.altLoginBtn}>
+              <Button contentStyle={styles.btnContent} mode='outlined'>
+                <MatIcon size={25} name={'face-recognition'}/>
+              </Button>
+            </View>
           </View>
-          <TouchableHighlight
-            onPress={() => navigation.navigate('Registration')}
-          >
-            <Text>FAQs</Text>
-          </TouchableHighlight>
-          <LanguageSelector />
         </View>
 
       </View>
 
+        <View style={styles.footer}>
+          <Text
+            fontWeight={'400'}
+            textAlign="center"
+            style={[{ marginRight: 5 }]}
+          >
+            {t('by_registering_you_agree')}
+              </Text>
+              <View style={styles.toRow}>
+                <Text
+                  style={[styles.bText,{ marginRight: 5 }]}
+                >
+                  {t('terms_of_service')}
+                </Text>
+                <Text
+                  style={{ marginRight: 5 }}
+                >
+                  {t('and')}
+                </Text>
+                <Text
+                  style={styles.bText}
+                >
+                  {t('privacy_policy')}
+                </Text>
+              </View>
+              <TouchableHighlight
+                onPress={() => navigation.navigate('FAQs')}
+              >
+                <Text style={styles.bText}>{t('faq')}</Text>
+              </TouchableHighlight>
+              <LanguageSelector />
+          </View>
+          
+
+        </View>
     </KeyboardAvoidingView>
   )
 }

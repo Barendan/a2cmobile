@@ -1,5 +1,6 @@
 import { StyleSheet } from 'react-native';
-import { Colors } from '../../libs/color';
+import { WHITE, GREY, APP_COLOR } from '_styles/colors';
+import { scaleFont } from '_styles/mixins';
 
 export default StyleSheet.create({
     keyboardAvoidViewing: { flex: 1 },
@@ -14,11 +15,12 @@ export default StyleSheet.create({
         paddingBottom: 32,
         flex: 1, 
         justifyContent: "center",
-        backgroundColor: Colors.White,
+        backgroundColor: WHITE,
     },
     title: {
         justifyContent: 'center',
         alignItems: 'center',
+        fontSize: scaleFont(50)
     },
     spacing: {
         marginVertical: 10,
@@ -26,10 +28,35 @@ export default StyleSheet.create({
     forgotPass: {
         justifyContent: 'space-between',
         flexDirection: 'row',
+        alignItems: 'center',
         marginTop: 10,
-        borderBottomWidth: 1,
-        borderBottomColor: Colors.Grey,
         paddingVertical: 19
+    },
+    alternativeLogin: {
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    authArea: {
+        borderBottomWidth: 1,
+        borderBottomColor: GREY,
+        paddingBottom: 10,
+    },
+    btnContent: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        flexDirection: 'row',
+    },
+    altLoginBtn: {
+        margin: 5
+    },
+
+    pText: {
+        color: APP_COLOR,
+        fontWeight: '400'
+    },
+    bText: {
+        color: APP_COLOR,
+        fontWeight: '500'
     },
     thumbContainer: {
         flexDirection: 'row',

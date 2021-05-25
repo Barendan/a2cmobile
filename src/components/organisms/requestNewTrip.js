@@ -113,12 +113,9 @@ const RequestNewTrip = (props) => {
     };
 
     const [tripReasons, setTripReasons] = useState([
-        { label: 'Apple', value: 'apple' },
-        { label: 'Banana', value: 'banana' },
-        { label: 'Apple', value: 'apple' },
-        { label: 'Banana', value: 'banana' },
-        { label: 'Apple', value: 'apple' },
-        { label: 'Banana', value: 'banana' },
+        { label: 'Routine Checkup', value: 'Routine Checkup' },
+        { label: 'Monthly Appointment', value: 'Monthly Appointment' },
+        { label: 'Yearly Physical', value: 'Yearly Physical' }
     ]);
 
     //Trip Details
