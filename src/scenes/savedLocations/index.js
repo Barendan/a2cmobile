@@ -7,6 +7,7 @@ import {
   Modal,
   Alert,
 } from 'react-native';
+import { useTranslation } from 'react-i18next';
 
 import { Input, Layout, Button } from '@ui-kitten/components';
 import { Inset } from 'react-native-spacing-system';
@@ -14,16 +15,30 @@ import { APP_COLOR } from '_styles/colors';
 
 import Spinner from 'react-native-spinkit';
 
+import { MemberService } from '_services';
+import { useSelector } from 'react-redux';
+
 const SavedLocations = () => {
+  const { t } = useTranslation();
   const [loading, setLoading] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [disableSubmit, setDisableSubmit] = useState(true);
   const [errorMessage, setErrorMessage] = useState(false);
   const [savedLocations, setSavedLocations] = useState([]);
+  const [locationName, setLocationName] = useState('');
+  const [locationAddress, setlocationAddress] = useState('');
+
+  const { user } = useSelector(state => state.user);
 
   useEffect(() => {
     // getSavedLocations();
+  });
+
+  useEffect(() => {
+    if (locationName.length > 0 && locationAddress.length > 0) {
+      setDisableSubmit(false);
+    }
   });
 
   const getSavedLocations = () => {
@@ -36,9 +51,57 @@ const SavedLocations = () => {
       })
       .catch(err => {
         // alert(err);
-        console.log('an error occurred while fetching locations:', err);
         setLoading(false);
       });
+  };
+
+  const addSavedLocation = payload => {
+    console.log('added location:', payload);
+    // Passed down to Modal component
+    // onSubmit function that takes in payload (user typed data)
+    // api call to add new location (payload) to specific user
+  };
+
+  const editSavedLocation = (id, payload) => {
+    console.log('edited location', id);
+
+    // Pass down to modal component as handleSubmit for edit option
+    // make api call, selecting location with :id and passing a payload
+  };
+
+  const deleteSavedLocation = id => {
+    // api call to delete User's savedLocation using id
+    // MemberService.updateSavedLocations(id, {} )
+    // delete location with id in local state
+    setSavedLocations(savedLocations.filter(item => item.id !== id));
+  };
+
+  const confirmDelete = id => {
+    return Alert.alert(
+      'Delete Confirmation',
+      'Are you sure you want to delete this saved location?',
+      [
+        {
+          text: 'Cancel',
+          onPress: () => console.log('Cancel Pressed'),
+          style: 'cancel',
+        },
+        { text: 'Yes', onPress: id => deleteSavedLocation(id) },
+      ],
+    );
+  };
+
+  const startAddLocation = () => {
+    // open modal with empty fields
+    // onSubmit send call to api
+    setModalVisible(true);
+  };
+
+  const startEditLocation = id => {
+    // passed down to listItem component for edit option onPress
+    // takes id of location item that it's triggered on
+    // open modal and pre populate fields with id.data
+    setModalVisible(true);
   };
 
   const displaySavedLocations = () => {
