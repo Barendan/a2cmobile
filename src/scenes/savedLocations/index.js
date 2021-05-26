@@ -92,7 +92,7 @@ const SavedLocations = () => {
     );
   };
 
-  const submitLocation = () => {
+  const onSubmit = () => {
     // make api call and send payload
   };
 
@@ -162,6 +162,10 @@ const SavedLocations = () => {
           <View style={{ margin: 10 }} />
         </View>
       </Modal>
+
+      <Pressable style={styles.addButton} onPress={() => setModalVisible(true)}>
+        <Text>Add Location</Text>
+      </Pressable>
     </SafeAreaView>
   );
 };
