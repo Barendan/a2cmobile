@@ -159,7 +159,7 @@ const SavedLocations = () => {
             loading={loading}
             style={styles.button}
             color="white"
-            title="Confirm Saved Location"
+            title="Save Location"
             backgroundColor={APP_COLOR}
           />
           <View style={{ margin: 10 }} />
