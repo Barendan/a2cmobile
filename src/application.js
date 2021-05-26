@@ -28,6 +28,7 @@ import {
 
 import * as eva from '@eva-design/eva';
 import { ApplicationProvider, IconRegistry } from '@ui-kitten/components';
+import { EvaIconsPack } from '@ui-kitten/eva-icons';
 
 const CombinedDefaultTheme = {
   ...PaperDefaultTheme,
