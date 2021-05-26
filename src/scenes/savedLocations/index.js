@@ -104,6 +104,10 @@ const SavedLocations = () => {
     setModalVisible(true);
   };
 
+  const submitLocation = () => {
+    // make api call and send payload
+  };
+
   const displaySavedLocations = () => {
     // .map each location to listItem component
     return <Text>Here are your saved locations.</Text>;
@@ -125,6 +129,42 @@ const SavedLocations = () => {
           <Text>You do not have any saved locations.</Text>
         </Inset>
       )}
+
+      <Modal
+        animationType="slide"
+        transparent={false}
+        visible={modalVisible}
+        onRequestClose={() => {
+          setModalVisible(false);
+        }}>
+        <View style={styles.formContainer}>
+          <Text style={styles.headerText}>Create a new Saved Location</Text>
+          <View style={styles.inputPadding}>
+            <Input
+              value={locationName}
+              placeholder="Name this location"
+              label="Nickname"
+              onTextChange={text => setLocationName(text)}
+            />
+            <Input
+              value={locationAddress}
+              placeholder="Enter Here"
+              label="Location Address"
+              onTextChange={text => setlocationAddress(text)}
+            />
+          </View>
+          <Button
+            // disabled={!email || !id}
+            // onPress={() => submitLocation()}
+            loading={loading}
+            style={styles.button}
+            color="white"
+            title="Confirm Saved Location"
+            backgroundColor={APP_COLOR}
+          />
+          <View style={{ margin: 10 }} />
+        </View>
+      </Modal>
     </SafeAreaView>
   );
 };
