@@ -14,6 +14,7 @@ import { Inset } from 'react-native-spacing-system';
 import { APP_COLOR } from '_styles/colors';
 
 import Spinner from 'react-native-spinkit';
+import LocationItem from './LocationItem';
 
 import { MemberService } from '_services';
 import { useSelector } from 'react-redux';
@@ -33,13 +34,13 @@ const SavedLocations = () => {
 
   useEffect(() => {
     // getSavedLocations();
-  });
+  }, []);
 
   useEffect(() => {
     if (locationName.length > 0 && locationAddress.length > 0) {
       setDisableSubmit(false);
     }
-  });
+  }, [locationName, locationAddress]);
 
   const getSavedLocations = () => {
     setLoading(true);
@@ -71,7 +72,7 @@ const SavedLocations = () => {
 
   const deleteSavedLocation = id => {
     // api call to delete User's savedLocation using id
-    // MemberService.updateSavedLocations(id, {} )
+    MemberService.updateSavedLocations(id, {});
     // delete location with id in local state
     setSavedLocations(savedLocations.filter(item => item.id !== id));
   };
@@ -91,27 +92,23 @@ const SavedLocations = () => {
     );
   };
 
-  const startAddLocation = () => {
-    // open modal with empty fields
-    // onSubmit send call to api
-    setModalVisible(true);
-  };
-
-  const startEditLocation = id => {
-    // passed down to listItem component for edit option onPress
-    // takes id of location item that it's triggered on
-    // open modal and pre populate fields with id.data
-    setModalVisible(true);
-  };
-
   const submitLocation = () => {
     // make api call and send payload
   };
 
-  const displaySavedLocations = () => {
-    // .map each location to listItem component
-    return <Text>Here are your saved locations.</Text>;
-  };
+  const displaySavedLocations = () => (
+    <FlatList
+      data={savedLocations}
+      keyExtractor={(item, index) => `${index}`}
+      renderItem={({ item, index }) => (
+        <LocationItem
+          location={item}
+          handleEdit={startEditLocation}
+          handleDelete={confirmDelete}
+        />
+      )}
+    />
+  );
 
   return (
     <SafeAreaView>
@@ -137,8 +134,8 @@ const SavedLocations = () => {
         onRequestClose={() => {
           setModalVisible(false);
         }}>
-        <View style={styles.formContainer}>
-          <Text style={styles.headerText}>Create a new Saved Location</Text>
+        <View style={styles.modalContainer}>
+          <Text style={styles.headerText}>Add a new saved location</Text>
           <View style={styles.inputPadding}>
             <Input
               value={locationName}
@@ -146,6 +143,7 @@ const SavedLocations = () => {
               label="Nickname"
               onTextChange={text => setLocationName(text)}
             />
+
             <Input
               value={locationAddress}
               placeholder="Enter Here"
@@ -154,12 +152,11 @@ const SavedLocations = () => {
             />
           </View>
           <Button
-            // disabled={!email || !id}
-            // onPress={() => submitLocation()}
-            loading={loading}
+            // onPress={() => onSubmit(name, address)}
+            // loading={loading}
             style={styles.button}
             color="white"
-            title="Save Location"
+            title="View Checklist"
             backgroundColor={APP_COLOR}
           />
           <View style={{ margin: 10 }} />
@@ -170,9 +167,32 @@ const SavedLocations = () => {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    marginTop: 15,
+  headerText: {
+    fontSize: 23,
+    textAlign: 'center',
+    paddingBottom: 50,
+    color: APP_COLOR.primaryTitle,
+  },
+  addButton: {
+    borderRadius: 20,
+    padding: 10,
+    elevation: 2,
+    alignSelf: 'flex-end',
+  },
+  modalContainer: {
+    margin: 20,
+    backgroundColor: 'white',
+    borderRadius: 20,
+    padding: 35,
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
   },
 });
 
