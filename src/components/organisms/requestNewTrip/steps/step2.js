@@ -1,19 +1,17 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import { useTranslation } from 'react-i18next';
-import { Inset, Stack } from 'react-native-spacing-system';
+import { Inset } from 'react-native-spacing-system';
 import {
-  LocationSearchCard,
   CheckboxCard,
   NumericCountCard,
   DateTimePickerCard,
   DropDownPickerCard,
-  TextInputCard,
 } from '_organisms';
 import styles from './styles';
 import { useTripDetails } from './useTripDetails';
 
-const step2 = ({ back, next, saveState }) => {
+const step2 = ({ back, next }) => {
   const {
     tripDetails,
     tripReasons,
@@ -21,17 +19,6 @@ const step2 = ({ back, next, saveState }) => {
     onWheelchairRequiredChecked,
   } = useTripDetails();
   const { t } = useTranslation();
-
-  const nextStep = () => {
-    // Save state for use in other steps
-    // Go to next step
-    next();
-  };
-
-  const goBack = () => {
-    // Go to previous step
-    back();
-  };
 
   return (
     <View style={[styles.container, styles.step2]}>
