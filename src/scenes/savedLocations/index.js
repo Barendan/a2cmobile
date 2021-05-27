@@ -28,6 +28,7 @@ const SavedLocations = () => {
   const [disableSubmit, setDisableSubmit] = useState(true);
   const [errorMessage, setErrorMessage] = useState(false);
   const [savedLocations, setSavedLocations] = useState([]);
+  const [locationId, setLocationId] = useState('');
   const [locationName, setLocationName] = useState('');
   const [locationAddress, setlocationAddress] = useState('');
 
@@ -91,16 +92,28 @@ const SavedLocations = () => {
     MemberService.updateUserLocation(id, payload)
       .then(data => {
         setLoading(false);
+        setModalVisible(false);
         // alert user of success
         // dispatch update to store
         setLocationName('');
         setLocationAddress('');
-        setModalVisible(false);
       })
       .catch(err => {
         alert(err);
         setLoading(false);
       });
+  };
+
+  const handleEdit = id => {
+    setIsEditing(true);
+    setModalVisible(true);
+
+    const selectedLocation = savedLocations.find(
+      location => location.id === id,
+    );
+    setLocationId(selectedLocation.id);
+    setLocationName(selectedLocation.name);
+    setLocationAddress(selectedLocation.address);
   };
 
   const deleteSavedLocation = id => {
@@ -123,17 +136,6 @@ const SavedLocations = () => {
         { text: 'Yes', onPress: id => deleteSavedLocation(id) },
       ],
     );
-  };
-
-  const handleEdit = () => {
-    setIsEditing(true);
-    setModalVisible(true);
-
-    const selectedLocation = savedLocations.find(
-      location => location.id === id,
-    );
-    setLocationName(selectedLocation.name);
-    setLocationAddress(selectedLocation.address);
   };
 
   const displaySavedLocations = () => (
@@ -175,7 +177,7 @@ const SavedLocations = () => {
           setModalVisible(false);
         }}>
         <View style={styles.modalContainer}>
-          <Text style={styles.headerText}>Add a new saved location</Text>
+          <Text style={styles.headerText}>Save location</Text>
           <View style={styles.inputPadding}>
             <Input
               value={locationName}
@@ -191,8 +193,10 @@ const SavedLocations = () => {
             />
           </View>
           <Button
-            // loading={loading}
-            onPress={isEditing ? editSavedLocation : addSavedLocation}
+            loading={loading}
+            onPress={
+              isEditing ? editSavedLocation(locationId) : addSavedLocation
+            }
             style={styles.button}
             color="white"
             title="Save Location"
