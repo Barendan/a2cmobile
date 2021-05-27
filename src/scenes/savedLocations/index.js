@@ -183,13 +183,13 @@ const SavedLocations = () => {
               value={locationName}
               placeholder="Name this location"
               label="Nickname"
-              onTextChange={text => setLocationName(text)}
+              onChangeText={text => setLocationName(text)}
             />
             <Input
               value={locationAddress}
               placeholder="Enter Here"
               label="Location Address"
-              onTextChange={text => setlocationAddress(text)}
+              onChangeText={text => setlocationAddress(text)}
             />
           </View>
           <Button
