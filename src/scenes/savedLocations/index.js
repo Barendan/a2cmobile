@@ -6,6 +6,7 @@ import {
   Text,
   Modal,
   Alert,
+  Pressable,
 } from 'react-native';
 import { useTranslation } from 'react-i18next';
 
@@ -56,18 +57,49 @@ const SavedLocations = () => {
       });
   };
 
-  const addSavedLocation = payload => {
-    console.log('added location:', payload);
-    // Passed down to Modal component
-    // onSubmit function that takes in payload (user typed data)
-    // api call to add new location (payload) to specific user
+  const addSavedLocation = () => {
+    let payload = {
+      // id: Math.random(), how will ID be determined?
+      name: locationName,
+      address: locationAddress,
+    };
+
+    // api call to add new location to specific user
+    MemberService.updateUser(payload)
+      .then(data => {
+        setLoading(false);
+        // alert user of success
+        // dispatch update to store
+        setLocationName('');
+        setLocationAddress('');
+      })
+      .catch(err => {
+        alert(err);
+        setLoading(false);
+      });
   };
 
-  const editSavedLocation = (id, payload) => {
-    console.log('edited location', id);
+  const editSavedLocation = id => {
+    let payload = {
+      name: locationName,
+      address: locationAddress,
+    };
+    setLoading(true);
 
-    // Pass down to modal component as handleSubmit for edit option
     // make api call, selecting location with :id and passing a payload
+    MemberService.updateUserLocation(id, payload)
+      .then(data => {
+        setLoading(false);
+        // alert user of success
+        // dispatch update to store
+        setLocationName('');
+        setLocationAddress('');
+        setModalVisible(false);
+      })
+      .catch(err => {
+        alert(err);
+        setLoading(false);
+      });
   };
 
   const deleteSavedLocation = id => {
