@@ -72,6 +72,7 @@ const SavedLocations = () => {
         // dispatch update to store
         setLocationName('');
         setLocationAddress('');
+        setModalVisible(false);
       })
       .catch(err => {
         alert(err);
@@ -109,7 +110,7 @@ const SavedLocations = () => {
     setSavedLocations(savedLocations.filter(item => item.id !== id));
   };
 
-  const confirmDelete = id => {
+  const handleDelete = id => {
     return Alert.alert(
       'Delete Confirmation',
       'Are you sure you want to delete this saved location?',
@@ -124,8 +125,15 @@ const SavedLocations = () => {
     );
   };
 
-  const onSubmit = () => {
-    // make api call and send payload
+  const handleEdit = () => {
+    setIsEditing(true);
+    setModalVisible(true);
+
+    const selectedLocation = savedLocations.find(
+      location => location.id === id,
+    );
+    setLocationName(selectedLocation.name);
+    setLocationAddress(selectedLocation.address);
   };
 
   const displaySavedLocations = () => (
@@ -135,8 +143,8 @@ const SavedLocations = () => {
       renderItem={({ item, index }) => (
         <LocationItem
           location={item}
-          handleEdit={startEditLocation}
-          handleDelete={confirmDelete}
+          handleEdit={handleEdit}
+          handleDelete={handleDelete}
         />
       )}
     />
@@ -175,7 +183,6 @@ const SavedLocations = () => {
               label="Nickname"
               onTextChange={text => setLocationName(text)}
             />
-
             <Input
               value={locationAddress}
               placeholder="Enter Here"
@@ -184,11 +191,11 @@ const SavedLocations = () => {
             />
           </View>
           <Button
-            // onPress={() => onSubmit(name, address)}
             // loading={loading}
+            onPress={isEditing ? editSavedLocation : addSavedLocation}
             style={styles.button}
             color="white"
-            title="View Checklist"
+            title="Save Location"
             backgroundColor={APP_COLOR}
           />
           <View style={{ margin: 10 }} />
