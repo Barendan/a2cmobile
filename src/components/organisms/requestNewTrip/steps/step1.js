@@ -12,7 +12,7 @@ const step1 = ({ next }) => {
 
   return (
     <View>
-      <Text>Step 1</Text>
+      <Text>{t('step')} 1</Text>
 
       <LocationSearchCard
         locationIndex={0}
@@ -68,7 +68,7 @@ const step1 = ({ next }) => {
       <View style={styles.callToActionBtnHolder}>
         <Inset all={16}>
           <TouchableOpacity style={styles.customBtnBG} onPress={next}>
-            <Text style={styles.customBtnText}>{t('Continue')}</Text>
+            <Text style={styles.customBtnText}>{t('continue')}</Text>
           </TouchableOpacity>
         </Inset>
       </View>

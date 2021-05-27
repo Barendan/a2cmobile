@@ -22,7 +22,7 @@ const step2 = ({ back, next }) => {
 
   return (
     <View style={[styles.container, styles.step2]}>
-      <Text>Step 2</Text>
+      <Text>{t('step')} 2</Text>
 
       <NumericCountCard
         cardIcon={'account-multiple-outline'}
@@ -69,10 +69,10 @@ const step2 = ({ back, next }) => {
       <View style={styles.callToActionBtnHolder}>
         <Inset all={16}>
           <TouchableOpacity style={styles.customBtnBGBack} onPress={back}>
-            <Text style={styles.customBtnText}>{t('Back')}</Text>
+            <Text style={styles.customBtnText}>{t('back')}</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.customBtnBG} onPress={next}>
-            <Text style={styles.customBtnText}>{t('Continue')}</Text>
+            <Text style={styles.customBtnText}>{t('continue')}</Text>
           </TouchableOpacity>
         </Inset>
       </View>
