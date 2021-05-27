@@ -56,7 +56,10 @@ const RequestNewTrip = props => {
     <View>
       <DraggablePanel
         visible={displayPanel}
-        onDismiss={onPanelDismiss}
+        onDismiss={() => {
+          onPanelDismiss();
+          setCurrentStep(1);
+        }}
         initialHeight={800}
         expandable>
         {loading && (

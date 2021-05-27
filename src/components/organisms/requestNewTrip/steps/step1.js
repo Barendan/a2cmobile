@@ -1,30 +1,14 @@
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import { useTranslation } from 'react-i18next';
-import {
-  LocationSearchCard,
-  CheckboxCard,
-  NumericCountCard,
-  DateTimePickerCard,
-  DropDownPickerCard,
-  TextInputCard,
-} from '_organisms';
-import { Inset, Stack } from 'react-native-spacing-system';
+import { LocationSearchCard, CheckboxCard } from '_organisms';
+import { Inset } from 'react-native-spacing-system';
 import styles from './styles';
 import { useTripDetails } from './useTripDetails';
 
-const step1 = ({ back, next, saveState }) => {
+const step1 = ({ next }) => {
   const { tripDetails, onRoundTripChecked } = useTripDetails();
   const { t } = useTranslation();
-
-  const nextStep = () => {
-    // Save state for use in other steps
-    next();
-  };
-
-  const goBack = () => {
-    back();
-  };
 
   return (
     <View>

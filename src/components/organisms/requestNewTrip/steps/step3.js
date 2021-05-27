@@ -1,19 +1,12 @@
 import React from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import { useTranslation } from 'react-i18next';
-import {
-  LocationSearchCard,
-  CheckboxCard,
-  NumericCountCard,
-  DateTimePickerCard,
-  DropDownPickerCard,
-  TextInputCard,
-} from '_organisms';
+import { TextInputCard } from '_organisms';
 import styles from './styles';
 import { Inset, Stack } from 'react-native-spacing-system';
 import { useTripDetails } from './useTripDetails';
 
-const step3 = ({ back, next, saveState }) => {
+const step3 = ({ back }) => {
   const { tripDetails, onSpecialNeedsEntered, onRequestTrip } =
     useTripDetails();
   const { t } = useTranslation();
