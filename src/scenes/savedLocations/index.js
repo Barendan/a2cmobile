@@ -29,7 +29,7 @@ const SavedLocations = () => {
   const [savedLocations, setSavedLocations] = useState([]);
   const [locationId, setLocationId] = useState('');
   const [locationName, setLocationName] = useState('');
-  const [locationAddress, setlocationAddress] = useState('');
+  const [locationAddress, setLocationAddress] = useState('');
 
   const { user } = useSelector(state => state.user);
 
@@ -162,9 +162,11 @@ const SavedLocations = () => {
         </Inset>
       )}
 
+      {modalVisible ? <View style={styles.modalBackdrop}></View> : null}
+
       <Modal
         animationType="slide"
-        transparent={false}
+        transparent={true}
         visible={modalVisible}
         onRequestClose={() => {
           setModalVisible(false);
@@ -179,54 +181,66 @@ const SavedLocations = () => {
               placeholder="Name this location"
               label="Nickname"
               onChangeText={text => setLocationName(text)}
+              style={styles.textInput}
             />
             <Input
               value={locationAddress}
               placeholder="Enter Here"
               label="Location Address"
-              onChangeText={text => setlocationAddress(text)}
+              onChangeText={text => setLocationAddress(text)}
+              style={styles.textInput}
             />
           </View>
           <Button
             loading={loading}
+            disabled={!locationName || !locationAddress}
+            title="Save Location"
             onPress={
               isEditing ? editSavedLocation(locationId) : addSavedLocation
             }
-            style={styles.button}
-            color="white"
-            title="Save Location"
-            backgroundColor={APP_COLOR}
+            color="#ffffff"
+            style={styles.submitButton}
           />
           <View style={{ margin: 10 }} />
         </View>
       </Modal>
 
-      <Pressable style={styles.addButton} onPress={() => setModalVisible(true)}>
-        <Text>Add Location</Text>
-      </Pressable>
+      <View style={styles.buttonContainer}>
+        <Pressable
+          style={styles.addButton}
+          onPress={() => setModalVisible(true)}>
+          <Text style={styles.addText}>Add</Text>
+        </Pressable>
+      </View>
     </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  modalBackdrop: {
+    flex: 1,
+    position: 'absolute',
+    top: 0,
+    bottom: 0,
+    left: 0,
+    right: 0,
+    backgroundColor: '#aaa',
+  },
   headerText: {
     fontSize: 23,
     textAlign: 'center',
-    paddingBottom: 50,
+    paddingBottom: 30,
     color: APP_COLOR.primaryTitle,
   },
-  addButton: {
-    borderRadius: 20,
-    padding: 10,
-    elevation: 2,
-    alignSelf: 'flex-end',
-  },
   modalContainer: {
-    margin: 20,
     backgroundColor: 'white',
-    borderRadius: 20,
+    margin: 25,
+    marginTop: 70,
     padding: 35,
-    alignItems: 'center',
+    borderRadius: 10,
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
@@ -235,6 +249,38 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 4,
     elevation: 5,
+  },
+  buttonContainer: {
+    borderRadius: 50,
+    width: 100,
+    height: 100,
+    alignSelf: 'flex-end',
+  },
+  addButton: {
+    marginTop: 20,
+    backgroundColor: 'green',
+    padding: 10,
+    marginRight: 20,
+    elevation: 2,
+    backgroundColor: APP_COLOR,
+    justifyContent: 'center',
+  },
+  addText: {
+    fontSize: 30,
+    alignSelf: 'center',
+    color: 'white',
+  },
+  inputPadding: {
+    paddingBottom: 10,
+  },
+  textInput: {
+    padding: 25,
+    paddingTop: 0,
+  },
+  submitButton: {
+    margin: 20,
+    marginBottom: 0,
+    backgroundColor: APP_COLOR,
   },
 });
 
