@@ -6,12 +6,11 @@ import {
   Text,
   Modal,
   Alert,
-  Pressable,
   Button,
 } from 'react-native';
 import { useTranslation } from 'react-i18next';
 
-import { IconButton, Divider, FAB } from 'react-native-paper';
+import { FAB } from 'react-native-paper';
 import { Input } from '@ui-kitten/components';
 import { Inset } from 'react-native-spacing-system';
 import { APP_COLOR } from '_styles/colors';
@@ -22,6 +21,7 @@ import { CloseButton } from '_atoms';
 
 import { MemberService } from '_services';
 import { useSelector } from 'react-redux';
+import { GooglePlacesInput } from '../../helpers/LocationService';
 
 const SavedLocations = () => {
   const { t } = useTranslation();
@@ -179,32 +179,33 @@ const SavedLocations = () => {
           <Text style={styles.headerText}>
             {isEditing ? 'Edit a Location' : 'Add a Location'}
           </Text>
-          <View style={styles.inputPadding}>
-            <Input
-              value={locationName}
-              placeholder="Name this location"
-              label="Nickname"
-              onChangeText={text => setLocationName(text)}
-              style={styles.textInput}
-            />
-            <Input
-              value={locationAddress}
-              placeholder="Enter Here"
-              label="Location Address"
-              onChangeText={text => setLocationAddress(text)}
-              style={styles.textInput}
+          <Input
+            value={locationName}
+            placeholder="Name this location"
+            label="Nickname"
+            onChangeText={text => setLocationName(text)}
+            style={styles.textInput}
+          />
+          {/* <Input
+            value={locationAddress}
+            placeholder="Enter Here"
+            label="Location Address"
+            onChangeText={text => setLocationAddress(text)}
+            style={styles.textInput}
+          /> */}
+          <GooglePlacesInput />
+          <View style={styles.submitContainer}>
+            <Button
+              loading={loading}
+              disabled={!locationName || !locationAddress}
+              title="Save Location"
+              onPress={
+                isEditing ? editSavedLocation(locationId) : addSavedLocation
+              }
+              // color={APP_COLOR}
             />
           </View>
-          <Button
-            loading={loading}
-            disabled={!locationName || !locationAddress}
-            title="Save Location"
-            onPress={
-              isEditing ? editSavedLocation(locationId) : addSavedLocation
-            }
-            color="#ffffff"
-            style={styles.submitButton}
-          />
+
           <View style={{ margin: 10 }} />
         </View>
       </Modal>
@@ -239,9 +240,10 @@ const styles = StyleSheet.create({
     color: APP_COLOR.primaryTitle,
   },
   modalContainer: {
-    backgroundColor: 'white',
+    backgroundColor: '#ddd',
+    flex: 1,
     margin: 25,
-    marginTop: 70,
+    // marginTop: 70,
     padding: 35,
     borderRadius: 10,
     shadowColor: '#000',
@@ -263,15 +265,12 @@ const styles = StyleSheet.create({
   },
   inputPadding: {
     paddingBottom: 10,
+    marginBottom: 20,
   },
-  textInput: {
-    padding: 25,
-    paddingTop: 0,
-  },
-  submitButton: {
+  submitContainer: {
+    flex: 1,
     margin: 20,
     marginBottom: 0,
-    backgroundColor: APP_COLOR,
   },
 });
 
