@@ -79,5 +79,10 @@
   "pickup_address_description": "Este es el lugar desde donde lo recogerán",
   "trip_stop": "Parada de viaje ",
   "add_stop_title": "Agregar una parada (opcional)",
-  "add_stop_description": "Agregue una dirección de parada en su camino a su destino"
+  "add_stop_description": "Agregue una dirección de parada en su camino a su destino",
+  "additional_passengers": "Pasajeros Adicionales",
+  "need-wheelchair": "Necesitas una silla de ruedas",
+  "appointment_date_time": "Fecha y hora de la cita",
+  "trip_reason": "Razón del viaje",
+  "special_needs_required": "Proporcione todas las necesidades especiales que necesitará"
 }
