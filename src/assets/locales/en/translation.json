@@ -83,5 +83,10 @@
   "destination_address_description": "This is the location where you will be dropped off",
   "trip_stop": "Trip Stop ",
   "add_stop_title": "Add A Stop (Optional)",
-  "add_stop_description": "Add a stop address on your way to your destination"
+  "add_stop_description": "Add a stop address on your way to your destination",
+  "additional_passengers": "Additional Passengers",
+  "need-wheelchair": "Do you need a Wheelchair?",
+  "appointment_date_time": "Appointment Date & Time",
+  "trip_reason": "Trip Reason",
+  "special_needs_required": "Provide all the special needs you will require"
 }

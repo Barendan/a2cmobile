@@ -31,19 +31,19 @@ const Step2 = ({ back, next }) => {
 
       <NumericCountCard
         cardIcon={'account-multiple-outline'}
-        title={'Additional Passengers'}
+        title={t('additional_passengers')}
         count={tripDetails.additionalPassengers}
         onCountChange={value => onAdditionPassengersChange(value)}
       />
       <CheckboxCard
         cardIcon={'wheelchair-accessibility'}
-        title={'Do you need a Wheelchair?'}
+        title={t('need_wheelchair')}
         checkedValue={tripDetails.wheelchairRequired}
         onChecked={value => onWheelchairRequiredChecked(value)}
       />
       <DateTimePickerCard
         cardIcon={'calendar-clock'}
-        title={'Appointment Date & Time'}
+        title={t('appointment_date_time')}
         description={
           tripDetails.appointmentDateTime && (
             <>
@@ -65,7 +65,7 @@ const Step2 = ({ back, next }) => {
       />
       <DropDownPickerCard
         cardIcon={'information-outline'}
-        title={'Trip Reason'}
+        title={t('trip_reason')}
         multiple={false}
         optionsList={tripReasons}
         selectedValue={tripDetails.tripReason}

@@ -17,8 +17,8 @@ const Step3 = ({ back }) => {
 
       <TextInputCard
         cardIcon={'handshake'}
-        title={'Special Needs'}
-        placeholder={'Provide all the special needs you will require'}
+        title={t('special_needs')}
+        placeholder={t('special_needs_required')}
         textValue={tripDetails.specialNeeds}
         onChangeText={value => onSpecialNeedsEntered(value)}
       />
