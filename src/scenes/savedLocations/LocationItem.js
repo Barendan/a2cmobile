@@ -1,5 +1,11 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
+import {
+  Menu,
+  MenuOptions,
+  MenuOption,
+  MenuTrigger,
+} from 'react-native-popup-menu';
 import { Icon } from '@ui-kitten/components';
 import { APP_COLOR } from '_styles/colors';
 
@@ -18,15 +24,19 @@ const LocationItem = ({ location, handleEdit, handleDelete }) => {
       </View>
 
       <View style={styles.iconContainer}>
-        <Icon
-          style={styles.icon}
-          fill="#000000"
-          name="more-horizontal-outline"
-        />
-        {/* Edit option with modal open onClick */}
-        {/* onClick={id => handleEdit(id)} */}
-        {/* Delete option with alert onClick */}
-        {/* onClick={id => handleDelete(id)} */}
+        <Menu>
+          <MenuTrigger>
+            <Icon
+              style={styles.icon}
+              fill="#000000"
+              name="more-horizontal-outline"
+            />
+          </MenuTrigger>
+          <MenuOptions customStyles={menuOptions}>
+            <MenuOption onSelect={() => handleEdit(id)} text="Edit" />
+            <MenuOption onSelect={() => handleDelete(id)} text="Delete" />
+          </MenuOptions>
+        </Menu>
       </View>
     </View>
   );
@@ -50,10 +60,9 @@ const styles = StyleSheet.create({
     padding: 15,
   },
   iconContainer: {
-    flex: 0.1,
     alignItems: 'center',
     justifyContent: 'center',
-    paddingRight: 5,
+    paddingRight: 10,
   },
   icon: {
     justifyContent: 'center',
@@ -71,5 +80,12 @@ const styles = StyleSheet.create({
     color: '#555',
   },
 });
+
+const menuOptions = {
+  optionsContainer: {
+    width: 120,
+    padding: 5,
+  },
+};
 
 export default LocationItem;

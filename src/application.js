@@ -14,6 +14,7 @@ import { I18nextProvider } from 'react-i18next';
 import i18n from './../i18n';
 
 import { I18nManager } from 'react-native';
+import { MenuProvider } from 'react-native-popup-menu';
 
 import {
   NavigationContainer,
@@ -82,20 +83,22 @@ const Application = () => {
         <PreferencesContext.Provider value={preferences}>
           <I18nextProvider i18n={i18n}>
             <PaperProvider theme={theme}>
-              <NavigationContainer
-                ref={NavigationService.navigationRef}
-                onReady={() => {
-                  NavigationService.isReadyRef.current = true;
-                }}
-                theme={theme}>
-                {isLoading ? (
-                  <></>
-                ) : user ? (
-                  <AppDrawerScreen />
-                ) : (
-                  <AuthStackScreen />
-                )}
-              </NavigationContainer>
+              <MenuProvider>
+                <NavigationContainer
+                  ref={NavigationService.navigationRef}
+                  onReady={() => {
+                    NavigationService.isReadyRef.current = true;
+                  }}
+                  theme={theme}>
+                  {isLoading ? (
+                    <></>
+                  ) : user ? (
+                    <AppDrawerScreen />
+                  ) : (
+                    <AuthStackScreen />
+                  )}
+                </NavigationContainer>
+              </MenuProvider>
             </PaperProvider>
           </I18nextProvider>
         </PreferencesContext.Provider>
