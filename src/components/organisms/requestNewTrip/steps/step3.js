@@ -4,9 +4,9 @@ import { useTranslation } from 'react-i18next';
 import { TextInputCard } from '_organisms';
 import styles from './styles';
 import { Inset, Stack } from 'react-native-spacing-system';
-import { useTripDetails } from './useTripDetails';
+import { useTripDetails } from '../../../../hooks/useTripDetails';
 
-const step3 = ({ back }) => {
+const Step3 = ({ back }) => {
   const { tripDetails, onSpecialNeedsEntered, onRequestTrip } =
     useTripDetails();
   const { t } = useTranslation();
@@ -41,4 +41,4 @@ const step3 = ({ back }) => {
   );
 };
 
-export default step3;
+export default Step3;

@@ -4,27 +4,25 @@ import { useTranslation } from 'react-i18next';
 import { LocationSearchCard, CheckboxCard } from '_organisms';
 import { Inset } from 'react-native-spacing-system';
 import styles from './styles';
-import { useTripDetails } from './useTripDetails';
+import { useTripDetails } from '../../../../hooks/useTripDetails';
 
-const step1 = ({ next }) => {
+const Step1 = ({ next }) => {
   const { tripDetails, onRoundTripChecked } = useTripDetails();
   const { t } = useTranslation();
 
   return (
     <View>
       <Text>{t('step')} 1</Text>
-
       <LocationSearchCard
         locationIndex={0}
-        title={'Pickup Address'}
+        title={t('pickup_address')}
         description={
           tripDetails.pickupAddress
             ? tripDetails.pickupAddress.FormattedAddress
-            : 'This is the location where you will be picked up from'
+            : t('pickup_address_alt')
         }
         onAddressSelected={addr => onAddressSelected('pickupAddress', addr)}
       />
-
       {tripDetails.tripStops.map((currentStop, index) => (
         <>
           <LocationSearchCard
@@ -32,28 +30,26 @@ const step1 = ({ next }) => {
             icon={'minus'}
             iconColor={GRAY_BLUE}
             showBorder={true}
-            title={'Trip Stop ' + (index + 1)}
+            title={t('trip_stop') + (index + 1)}
             description={currentStop.FormattedAddress}
             onPress={() => deleteTripStop(index)}
           />
         </>
       ))}
-
       <LocationSearchCard
         showBorder={true}
         dashedBorder={true}
-        title={'Add A Stop (Optional)'}
-        description={'Add a stop address on your way to your destination'}
+        title={t('add_stop_title')}
+        description={t('add_stop_description')}
         onAddressSelected={addr => onAddressSelected('tripStops', addr)}
       />
-
       <LocationSearchCard
         locationIndex={1}
-        title={'Destination Address'}
+        title={t('destination_address')}
         description={
           tripDetails.destinationAddress
             ? tripDetails.destinationAddress.FormattedAddress
-            : 'This is the location where you will be dropped off'
+            : t('destination_address_description')
         }
         onAddressSelected={addr =>
           onAddressSelected('destinationAddress', addr)
@@ -76,4 +72,4 @@ const step1 = ({ next }) => {
   );
 };
 
-export default step1;
+export default Step1;
