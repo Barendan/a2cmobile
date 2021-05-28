@@ -1,6 +1,6 @@
-import React from 'react';
-import { View, Text, Switch, TouchableHighlight, KeyboardAvoidingView, Platform } from 'react-native';
-import Icon from "react-native-vector-icons/Ionicons";
+import React, { useState } from 'react';
+import { View, Text, Switch, TouchableHighlight, AsyncStorage, KeyboardAvoidingView, Platform, Alert } from 'react-native';
+import TouchID from 'react-native-touch-id';
 import MatIcon from "react-native-vector-icons/MaterialCommunityIcons";
 import { TextInput, Button } from 'react-native-paper';
 import { LanguageSelector } from '_organisms';
@@ -18,6 +18,7 @@ import { updatePlan, setMemberPlans } from '_store/plan';
 import { scaleFont } from '_styles/mixins';
 import { MemberService } from '_services';
 import { AppSettings } from '_utils';
+import storage from '../../storage';
 
 const LoginScreen = ({ navigation, route }) => {
 
@@ -25,7 +26,65 @@ const LoginScreen = ({ navigation, route }) => {
   const [email, setEmail] = React.useState("");
   const [isEnabled, setIsEnabled] = React.useState(false);
   const [isVisible, setVisible] = React.useState(false);
+  const [supportedFaceId, setSupportedFaceId] = React.useState(false);
+  const [supportTouch, setSupportTouch] = React.useState(false);
   const toggleSwitch = () => setIsEnabled(previousState => !previousState);
+  const [user, setUser] = useState({});
+
+  React.useEffect(() => {
+    async function validateSupport() {
+      let storedUser = await storage.load({ key: 'user',
+      id: 'currentUser', 
+     });
+
+     if(storedUser?.id) {
+       setUser(storedUser);
+      const optionalConfigObject = {
+        unifiedErrors: false,
+        passcodeFallback: false 
+      }
+      TouchID.isSupported(optionalConfigObject)
+        .then(biometryType => {
+          if (biometryType === 'FaceID') {
+              setSupportedFaceId(true);
+          } else {
+              setSupportTouch(true);
+          }
+        })
+        .catch(error => {
+        });
+     }      
+    }
+    validateSupport();
+  }, []);
+
+  const optionalConfigObject = {
+    title: 'Authentication Required', // Android
+    imageColor: '#e00606', // Android
+    imageErrorColor: '#ff0000', // Android
+    sensorDescription: 'Touch sensor', // Android
+    sensorErrorDescription: 'Failed', // Android
+    cancelText: 'Cancel', // Android
+    fallbackLabel: 'Show Passcode', // iOS (if empty, then label is hidden)
+    unifiedErrors: false, // use unified error messages (default false)
+    passcodeFallback: false, // iOS - allows the device to fall back to using the passcode, if faceid/touch is not available. this does not mean that if touchid/faceid fails the first few times it will revert to passcode, rather that if the former are not enrolled, then it will use the passcode.
+  };
+
+  function biometricLogin() {
+    TouchID.authenticate('to demo this react-native component', optionalConfigObject)
+    .then(success => {
+      if (user && user.MemberPlans && user.MemberPlans.length > 0) {
+        dispatch(setMemberPlans(user.MemberPlans));
+        dispatch(updatePlan(user.MemberPlans[0])); //default to first plan
+      }
+      Alert.alert('Authenticated Successfully');
+
+      dispatch(login(user));
+    })
+    .catch(error => {
+      Alert.alert('Authentication Failed');
+    });
+  }
 
   const { t } = useTranslation();
   const dispatch = useDispatch();
@@ -129,21 +188,20 @@ const LoginScreen = ({ navigation, route }) => {
             />
           </View>
         </View>
-        <View style={styles.alternativeLogin}>
-          <Text style={{ color: APP_COLOR}}>{t('or_signin_using')}</Text>
-          <View style={{ flexDirection: 'row'}}>
-            <View style={styles.altLoginBtn}>
-              <Button contentStyle={styles.btnContent}  mode='outlined'>
-                <Icon size={24} name='finger-print' />
-              </Button>
+        {
+          (supportTouch || supportedFaceId) && (
+            <View style={styles.alternativeLogin}>
+              <Text style={{ color: APP_COLOR}}>{t('or_signin_using')}</Text>
+              <View style={{ flexDirection: 'row'}}>
+                <View style={styles.altLoginBtn}>
+                  <Button onPress={biometricLogin} contentStyle={styles.btnContent} mode='outlined'>
+                    <MatIcon size={25} name={'face-recognition'}/>
+                  </Button>
+                </View>
+              </View>
             </View>
-            <View style={styles.altLoginBtn}>
-              <Button contentStyle={styles.btnContent} mode='outlined'>
-                <MatIcon size={25} name={'face-recognition'}/>
-              </Button>
-            </View>
-          </View>
-        </View>
+          ) 
+        }
 
       </View>
 
