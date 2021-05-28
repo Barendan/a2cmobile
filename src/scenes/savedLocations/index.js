@@ -7,10 +7,12 @@ import {
   Modal,
   Alert,
   Pressable,
+  Button,
 } from 'react-native';
 import { useTranslation } from 'react-i18next';
 
-import { Input, Layout, Button } from '@ui-kitten/components';
+import { IconButton, Divider, FAB } from 'react-native-paper';
+import { Input } from '@ui-kitten/components';
 import { Inset } from 'react-native-spacing-system';
 import { APP_COLOR } from '_styles/colors';
 
@@ -86,6 +88,7 @@ const SavedLocations = () => {
       .then(data => {
         setLoading(false);
         setModalVisible(false);
+        setIsEditing(false);
         // alert user of success
         // dispatch update to store
         setLocationName('');
@@ -146,7 +149,7 @@ const SavedLocations = () => {
   );
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={styles.container}>
       <Spinner
         isVisible={loading}
         size={50}
@@ -172,6 +175,7 @@ const SavedLocations = () => {
           setModalVisible(false);
         }}>
         <View style={styles.modalContainer}>
+          <CloseButton onPress={() => setModalVisible(false)} />
           <Text style={styles.headerText}>
             {isEditing ? 'Edit a Location' : 'Add a Location'}
           </Text>
@@ -205,13 +209,12 @@ const SavedLocations = () => {
         </View>
       </Modal>
 
-      <View style={styles.buttonContainer}>
-        <Pressable
-          style={styles.addButton}
-          onPress={() => setModalVisible(true)}>
-          <Text style={styles.addText}>Add</Text>
-        </Pressable>
-      </View>
+      <FAB
+        style={styles.fab}
+        large
+        icon="plus"
+        onPress={() => setModalVisible(true)}
+      />
     </SafeAreaView>
   );
 };
@@ -250,25 +253,13 @@ const styles = StyleSheet.create({
     shadowRadius: 4,
     elevation: 5,
   },
-  buttonContainer: {
-    borderRadius: 50,
-    width: 100,
-    height: 100,
-    alignSelf: 'flex-end',
-  },
-  addButton: {
-    marginTop: 20,
-    backgroundColor: 'green',
-    padding: 10,
-    marginRight: 20,
-    elevation: 2,
+  fab: {
+    position: 'absolute',
+    margin: 25,
+    right: 0,
+    bottom: 0,
     backgroundColor: APP_COLOR,
-    justifyContent: 'center',
-  },
-  addText: {
-    fontSize: 30,
-    alignSelf: 'center',
-    color: 'white',
+    zIndex: 1,
   },
   inputPadding: {
     paddingBottom: 10,
