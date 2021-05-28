@@ -16,7 +16,7 @@ import { Inset } from 'react-native-spacing-system';
 import { APP_COLOR } from '_styles/colors';
 
 import Spinner from 'react-native-spinkit';
-import LocationItem from './LocationItem';
+import { LocationItem } from '_molecules';
 import { CloseButton } from '_atoms';
 
 import { MemberService } from '_services';
