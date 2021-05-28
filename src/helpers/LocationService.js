@@ -6,7 +6,6 @@ import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplet
 import parseGooglePlace from 'parse-google-place';
 import { GRAY_LIGHT } from '_styles/colors';
 
-// test key; replace with prod key
 const google_api_key = 'AIzaSyCfcwQaq4K4yXuP_yI-p5sl1Q1rw7Wo5vw';
 
 Geocoder.init(google_api_key);
@@ -31,7 +30,6 @@ const requestLocationPermission = async () => {
         message: 'Allow A2C to access your location',
       },
     );
-    // console.log('whats perm return', granted);
     if (granted === PermissionsAndroid.RESULTS.GRANTED) {
       console.log('Location service activated on android.');
     } else {
@@ -47,7 +45,6 @@ const getLocation = async () => {
   await PermissionsAndroid.check(
     'android.permission.ACCESS_FINE_LOCATION',
   ).then(data => (hasLocationPermission = data));
-
 
   if (hasLocationPermission) {
     return new Promise((resolve, reject) => {
@@ -103,8 +100,8 @@ const googlePlacesAutoInput = ({ placeholder, lang, onPlaceSelected }) => (
         ZipCode: parsedAddress.zipCode,
         Country: parsedAddress.countryLong,
         Latitude: details.geometry.location.lat || null,
-        Longitude: details.geometry.location.lng || null
-      }
+        Longitude: details.geometry.location.lng || null,
+      };
 
       onPlaceSelected(formattedAddress);
     }}
@@ -115,7 +112,7 @@ const googlePlacesAutoInput = ({ placeholder, lang, onPlaceSelected }) => (
     }}
     styles={{
       textInputContainer: {
-        padding: 5
+        padding: 5,
       },
       textInput: {
         height: 38,
@@ -123,7 +120,7 @@ const googlePlacesAutoInput = ({ placeholder, lang, onPlaceSelected }) => (
         fontSize: 16,
         borderStyle: 'solid',
         borderWidth: 1,
-        borderColor: GRAY_LIGHT
+        borderColor: GRAY_LIGHT,
       },
       predefinedPlacesDescription: {
         color: '#1faadb',
@@ -132,7 +129,7 @@ const googlePlacesAutoInput = ({ placeholder, lang, onPlaceSelected }) => (
   />
 );
 
-export default {
+export {
   getLocation,
   geocodeLocationByName,
   geocodeLocationByCoords,
