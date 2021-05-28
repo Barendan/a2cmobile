@@ -7,10 +7,9 @@ import { Divider } from 'react-native-paper';
 import { useTranslation } from 'react-i18next';
 import { CloseButton, ProgressBar } from '_atoms';
 import Spinner from 'react-native-spinkit';
-import { useSelector } from 'react-redux';
-import step1 from './steps/step1';
-import step2 from './steps/step2';
-import step3 from './steps/step3';
+import Step1 from './steps/Step1';
+import Step2 from './steps/Step2';
+import Step3 from './steps/Step3';
 import styles from './steps/styles';
 
 // styles
@@ -18,13 +17,11 @@ import { APP_COLOR } from '_styles/colors';
 
 const RequestNewTrip = props => {
   const { t } = useTranslation();
-  const { user } = useSelector(state => state.user);
-
   //
   const steps = [
-    { name: 'Where are you going?', component: step1 },
-    { name: 'Appointment Details', component: step2 },
-    { name: 'Review', component: step3 },
+    { name: 'Where are you going?', component: Step1 },
+    { name: 'Appointment Details', component: Step2 },
+    { name: 'Review', component: Step3 },
   ];
 
   const [currentStep, setCurrentStep] = useState(1);
@@ -32,23 +29,15 @@ const RequestNewTrip = props => {
 
   const onNext = () => {
     setCurrentStep(currentStep + 1);
-    console.log('Next');
   };
 
   const onBack = () => {
     setCurrentStep(currentStep - 1);
-    console.log('Back');
   };
 
   const finish = finalState => {
     console.log(finalState);
   };
-
-  const [tripReasons, setTripReasons] = useState([
-    { label: 'Routine Checkup', value: 'Routine Checkup' },
-    { label: 'Monthly Appointment', value: 'Monthly Appointment' },
-    { label: 'Yearly Physical', value: 'Yearly Physical' },
-  ]);
 
   const { panelHeader, displayPanel, onPanelDismiss } = props;
 

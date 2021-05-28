@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { Inset } from 'react-native-spacing-system';
@@ -9,16 +9,21 @@ import {
   DropDownPickerCard,
 } from '_organisms';
 import styles from './styles';
-import { useTripDetails } from './useTripDetails';
+import { useTripDetails } from '../../../../hooks/useTripDetails';
 
-const step2 = ({ back, next }) => {
+const Step2 = ({ back, next }) => {
   const {
     tripDetails,
-    tripReasons,
     onAdditionPassengersChange,
     onWheelchairRequiredChecked,
   } = useTripDetails();
   const { t } = useTranslation();
+
+  const [tripReasons, setTripReasons] = useState([
+    { label: 'Routine Checkup', value: 'Routine Checkup' },
+    { label: 'Monthly Appointment', value: 'Monthly Appointment' },
+    { label: 'Yearly Physical', value: 'Yearly Physical' },
+  ]);
 
   return (
     <View style={[styles.container, styles.step2]}>
@@ -80,4 +85,4 @@ const step2 = ({ back, next }) => {
   );
 };
 
-export default step2;
+export default Step2;

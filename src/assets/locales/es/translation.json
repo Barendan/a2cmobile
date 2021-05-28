@@ -66,5 +66,10 @@
   "search_location": "Ubicación de Búsqueda",
   "use_current_location": "Usar Ubicación Actual",
   "back": "Regresa",
-  "step": "Step"
+  "step": "Step",
+  "pickup_address": "Dirección de entrega",
+  "pickup_address_description": "Este es el lugar desde donde lo recogerán",
+  "trip_stop": "Parada de viaje ",
+  "add_stop_title": "Agregar una parada (opcional)",
+  "add_stop_description": "Agregue una dirección de parada en su camino a su destino"
 }
