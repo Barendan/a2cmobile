@@ -16,6 +16,7 @@ import { APP_COLOR } from '_styles/colors';
 
 import Spinner from 'react-native-spinkit';
 import LocationItem from './LocationItem';
+import { CloseButton } from '_atoms';
 
 import { MemberService } from '_services';
 import { useSelector } from 'react-redux';
@@ -25,8 +26,6 @@ const SavedLocations = () => {
   const [loading, setLoading] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
-  const [disableSubmit, setDisableSubmit] = useState(true);
-  const [errorMessage, setErrorMessage] = useState(false);
   const [savedLocations, setSavedLocations] = useState([]);
   const [locationId, setLocationId] = useState('');
   const [locationName, setLocationName] = useState('');
@@ -37,12 +36,6 @@ const SavedLocations = () => {
   useEffect(() => {
     // getSavedLocations();
   }, []);
-
-  useEffect(() => {
-    if (locationName.length > 0 && locationAddress.length > 0) {
-      setDisableSubmit(false);
-    }
-  }, [locationName, locationAddress]);
 
   const getSavedLocations = () => {
     setLoading(true);
@@ -69,11 +62,11 @@ const SavedLocations = () => {
     MemberService.updateUser(payload)
       .then(data => {
         setLoading(false);
+        setModalVisible(false);
         // alert user of success
         // dispatch update to store
         setLocationName('');
         setLocationAddress('');
-        setModalVisible(false);
       })
       .catch(err => {
         alert(err);
@@ -111,6 +104,7 @@ const SavedLocations = () => {
     const selectedLocation = savedLocations.find(
       location => location.id === id,
     );
+
     setLocationId(selectedLocation.id);
     setLocationName(selectedLocation.name);
     setLocationAddress(selectedLocation.address);
@@ -130,7 +124,6 @@ const SavedLocations = () => {
       [
         {
           text: 'Cancel',
-          onPress: () => console.log('Cancel Pressed'),
           style: 'cancel',
         },
         { text: 'Yes', onPress: id => deleteSavedLocation(id) },
@@ -177,7 +170,9 @@ const SavedLocations = () => {
           setModalVisible(false);
         }}>
         <View style={styles.modalContainer}>
-          <Text style={styles.headerText}>Save location</Text>
+          <Text style={styles.headerText}>
+            {isEditing ? 'Edit a Location' : 'Add a Location'}
+          </Text>
           <View style={styles.inputPadding}>
             <Input
               value={locationName}
