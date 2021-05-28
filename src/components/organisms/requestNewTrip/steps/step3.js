@@ -13,7 +13,7 @@ const step3 = ({ back }) => {
 
   return (
     <View style={[styles.container, styles.step3]}>
-      <Text>Step 3</Text>
+      <Text>{t('step')} 3</Text>
 
       <TextInputCard
         cardIcon={'handshake'}
@@ -28,7 +28,7 @@ const step3 = ({ back }) => {
       <View style={styles.callToActionBtnHolder}>
         <Inset all={16}>
           <TouchableOpacity style={styles.customBtnBGBack} onPress={back}>
-            <Text style={styles.customBtnText}>{t('Back')}</Text>
+            <Text style={styles.customBtnText}>{t('back')}</Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.customBtnBG}
