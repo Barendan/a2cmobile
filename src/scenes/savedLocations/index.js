@@ -121,17 +121,13 @@ const SavedLocations = () => {
   };
 
   const handleDelete = id => {
-    return Alert.alert(
-      'Delete Confirmation',
-      'Are you sure you want to delete this saved location?',
-      [
-        {
-          text: 'Cancel',
-          style: 'cancel',
-        },
-        { text: 'Yes', onPress: id => deleteSavedLocation(id) },
-      ],
-    );
+    return Alert.alert(t('confirm_delete_title'), t('confirm_delete_text'), [
+      {
+        text: t('cancel'),
+        style: 'cancel',
+      },
+      { text: t('confirm'), onPress: id => deleteSavedLocation(id) },
+    ]);
   };
 
   const displaySavedLocations = () => (
@@ -161,7 +157,7 @@ const SavedLocations = () => {
         displaySavedLocations()
       ) : (
         <Inset all={16}>
-          <Text>You do not have any saved locations.</Text>
+          <Text>{t('no_saved_locations')}</Text>
         </Inset>
       )}
 
@@ -177,19 +173,19 @@ const SavedLocations = () => {
         <View style={styles.modalContainer}>
           <CloseButton onPress={() => setModalVisible(false)} />
           <Text style={styles.headerText}>
-            {isEditing ? 'Edit a Location' : 'Add a Location'}
+            {isEditing ? t('edit_saved_location') : t('add_saved_location')}
           </Text>
           <Input
             value={locationName}
-            placeholder="Name this location"
-            label="Nickname"
+            label={t('enter_name_label')}
+            placeholder={t(enter_name_placeholder)}
             onChangeText={text => setLocationName(text)}
             style={styles.textInput}
           />
           {/* <Input
             value={locationAddress}
-            placeholder="Enter Here"
-            label="Location Address"
+            label={t("enter_location_label")}
+            placeholder={t("enter_location_placeholder")}
             onChangeText={text => setLocationAddress(text)}
             style={styles.textInput}
           /> */}
@@ -198,7 +194,7 @@ const SavedLocations = () => {
             <Button
               loading={loading}
               disabled={!locationName || !locationAddress}
-              title="Save Location"
+              title={t('save_location')}
               onPress={
                 isEditing ? editSavedLocation(locationId) : addSavedLocation
               }

@@ -33,8 +33,8 @@ const LocationItem = ({ location, handleEdit, handleDelete }) => {
             />
           </MenuTrigger>
           <MenuOptions customStyles={menuOptions}>
-            <MenuOption onSelect={() => handleEdit(id)} text="Edit" />
-            <MenuOption onSelect={() => handleDelete(id)} text="Delete" />
+            <MenuOption onSelect={() => handleEdit(id)} text={t('edit')} />
+            <MenuOption onSelect={() => handleDelete(id)} text={t('delete')} />
           </MenuOptions>
         </Menu>
       </View>
