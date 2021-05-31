@@ -19,6 +19,7 @@ const styles = StyleSheet.create({
     },
     defaultButtonTextStyle: {
         height: 20,
+        marginLeft: 5
       }
 });
 

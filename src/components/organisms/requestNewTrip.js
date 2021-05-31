@@ -263,7 +263,7 @@ const RequestNewTrip = (props) => {
                         type={'ThreeBounce'}
                         color={APP_COLOR}
                     />
-                    <Text>Requesting Trip...</Text>
+                    <Text>{t('requesting_Trip')}...</Text>
                 </View> }
 
 
@@ -282,36 +282,36 @@ const RequestNewTrip = (props) => {
                         <Stack size={12} />
 
 
-                        <ProgressBar small={true} currentStep={currentStep} stepCount={allSteps.length} title={allSteps[currentStep - 1].name} subtitle={currentStep !== allSteps.length && t('go_to_next') + ': ' + allSteps[currentStep].name} />
-                        <Stack size={12} />
+                        {/* <ProgressBar small={true} currentStep={currentStep} stepCount={allSteps.length} title={allSteps[currentStep - 1].name} subtitle={currentStep !== allSteps.length && t('go_to_next') + ': ' + allSteps[currentStep].name} /> */}
+                        {/* <Stack size={12} /> */}
 
                         <Divider />
                         <Stack size={12} />
                         <ScrollView showsVerticalScrollIndicator={false}>
 
-                            <Text>Step 1</Text>
+                            {/* <Text>Step 1</Text> */}
 
-                            <LocationSearchCard locationIndex={0} title={'Pickup Address'} description={tripDetails.pickupAddress ? tripDetails.pickupAddress.FormattedAddress : 'This is the location where you will be picked up from'} onAddressSelected={(addr) => onAddressSelected('pickupAddress', addr)} />
+                            <LocationSearchCard locationIndex={0} title={t('pickup_address')} description={tripDetails.pickupAddress ? tripDetails.pickupAddress.FormattedAddress : t('pickup_address_description')} onAddressSelected={(addr) => onAddressSelected('pickupAddress', addr)} />
 
                             {tripDetails.tripStops.map((currentStop, index) => (<>
-                                <LocationSearchCard disableClick={true} icon={'minus'} iconColor={GRAY_BLUE} showBorder={true} title={'Trip Stop ' + (index + 1)} description={currentStop.FormattedAddress} onPress={() => deleteTripStop(index)} />
+                                <LocationSearchCard disableClick={true} icon={'minus'} iconColor={GRAY_BLUE} showBorder={true} title={t('trip_stop') + ' ' + (index + 1)} description={currentStop.FormattedAddress} onPress={() => deleteTripStop(index)} />
                             </>))}
 
-                            <LocationSearchCard showBorder={true} dashedBorder={true} title={'Add A Stop (Optional)'} description={'Add a stop address on your way to your destination'} onAddressSelected={(addr) => onAddressSelected('tripStops', addr)} />
+                            <LocationSearchCard showBorder={true} dashedBorder={true} title={t('add_a_stop')} description={t('add_a_stop_description')} onAddressSelected={(addr) => onAddressSelected('tripStops', addr)} />
 
-                            <LocationSearchCard locationIndex={1} title={'Destination Address'} description={tripDetails.destinationAddress ? tripDetails.destinationAddress.FormattedAddress : 'This is the location where you will be dropped off'} onAddressSelected={(addr) => onAddressSelected('destinationAddress', addr)} />
-                            <CheckboxCard cardIcon={'swap-horizontal'} title={'Is this a round trip?'} checkedValue={tripDetails.isRoundTrip} onChecked={(value) => onRoundTripChecked(value)} />
+                            <LocationSearchCard locationIndex={1} title={t('destination_address')} description={tripDetails.destinationAddress ? tripDetails.destinationAddress.FormattedAddress : t('destination_address_description')} onAddressSelected={(addr) => onAddressSelected('destinationAddress', addr)} />
+                            <CheckboxCard cardIcon={'swap-horizontal'} title={t('round_trip')} checkedValue={tripDetails.isRoundTrip} onChecked={(value) => onRoundTripChecked(value)} />
 
-                            <Text>Step 2</Text>
+                            {/* <Text>Step 2</Text> */}
 
-                            <NumericCountCard cardIcon={'account-multiple-outline'} title={'Additional Passengers'} count={tripDetails.additionalPassengers} onCountChange={(value) => onAdditionPassengersChange(value)} />
-                            <CheckboxCard cardIcon={'wheelchair-accessibility'} title={'Do you need a Wheelchair?'} checkedValue={tripDetails.wheelchairRequired} onChecked={(value) => onWheelchairRequiredChecked(value)} />
-                            <DateTimePickerCard cardIcon={'calendar-clock'} title={'Appointment Date & Time'} description={tripDetails.appointmentDateTime && <>{tripDetails.appointmentDate} {tripDetails.appointmentDate && tripDetails.appointmentTime ? 'at ' + tripDetails.appointmentTime : tripDetails.appointmentTime}</>} minimumDate={new Date()} showDatePicker={true} showTimePicker={true} dateValue={tripDetails.appointmentDate} timeValue={tripDetails.appointmentTime} onDateTimeChange={(type, value) => onAppointmentDateTimeChange(type, value)} />
-                            <DropDownPickerCard cardIcon={'information-outline'} title={'Trip Reason'} multiple={false} optionsList={tripReasons} selectedValue={tripDetails.tripReason} onOptionSelected={(value) => onTripReasonSelected(value)} />
+                            <NumericCountCard cardIcon={'account-multiple-outline'} title={t('additional_passengers')} count={tripDetails.additionalPassengers} onCountChange={(value) => onAdditionPassengersChange(value)} />
+                            <CheckboxCard cardIcon={'wheelchair-accessibility'} title={t('wheelchair_required')} checkedValue={tripDetails.wheelchairRequired} onChecked={(value) => onWheelchairRequiredChecked(value)} />
+                            <DateTimePickerCard cardIcon={'calendar-clock'} title={t('appointment_date_time')} description={tripDetails.appointmentDateTime && <>{tripDetails.appointmentDate} {tripDetails.appointmentDate && tripDetails.appointmentTime ? 'at ' + tripDetails.appointmentTime : tripDetails.appointmentTime}</>} minimumDate={new Date()} showDatePicker={true} showTimePicker={true} dateValue={tripDetails.appointmentDate} timeValue={tripDetails.appointmentTime} onDateTimeChange={(type, value) => onAppointmentDateTimeChange(type, value)} />
+                            <DropDownPickerCard cardIcon={'information-outline'} title={t('trip_reason')} multiple={false} optionsList={tripReasons} selectedValue={tripDetails.tripReason} onOptionSelected={(value) => onTripReasonSelected(value)} />
 
-                            <Text>Step 3</Text>
+                            {/* <Text>Step 3</Text> */}
 
-                            <TextInputCard cardIcon={'handshake'} title={'Special Needs'} placeholder={'Provide all the special needs you will require'} textValue={tripDetails.specialNeeds} onChangeText={(value) => onSpecialNeedsEntered(value)} />
+                            <TextInputCard cardIcon={'handshake'} title={t('special_needs')} placeholder={t('special_needs_description')} textValue={tripDetails.specialNeeds} onChangeText={(value) => onSpecialNeedsEntered(value)} />
 
                             <Stack size={12} />
 

@@ -57,7 +57,7 @@ const LoginScreen = ({ navigation, route }) => {
         dispatch(login(data.user));
       })
       .catch((err) => {
-        alert(err)
+        alert(err + 'g')
         setLoading(false);
       });
   }
@@ -176,6 +176,11 @@ const LoginScreen = ({ navigation, route }) => {
                 onPress={() => navigation.navigate('FAQs')}
               >
                 <Text style={styles.bText}>{t('faq')}</Text>
+              </TouchableHighlight>
+              <TouchableHighlight
+                onPress={() => navigation.navigate('Registration')}
+              >
+                <Text style={styles.bText}>Registration</Text>
               </TouchableHighlight>
               <LanguageSelector />
           </View>

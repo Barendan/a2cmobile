@@ -17,7 +17,7 @@ export default StyleSheet.create({
     width: '100%',
     marginTop: '6%',
     backgroundColor: '#FFFFFF',
-    flex: 1
+    flex: 1,
   },
   step1: {
     flex: 1,
@@ -41,7 +41,12 @@ export default StyleSheet.create({
     borderRadius: 2,
     marginBottom: '10%',
   },
-  btn: {
+  backButton: {
+    height: 40,
+    marginRight: 5
+  },
+  forwardButton: {
+    flex: 1,
     height: 40,
     borderColor: '#F5F5F5',
   },
