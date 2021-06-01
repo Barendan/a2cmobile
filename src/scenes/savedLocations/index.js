@@ -178,7 +178,7 @@ const SavedLocations = () => {
           <Input
             value={locationName}
             label={t('enter_name_label')}
-            placeholder={t(enter_name_placeholder)}
+            placeholder={t('enter_name_placeholder')}
             onChangeText={text => setLocationName(text)}
             style={styles.textInput}
           />
