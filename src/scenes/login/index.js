@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, Switch, TouchableHighlight, KeyboardAvoidingView, Platform, Alert } from 'react-native';
 import { Stack } from 'react-native-spacing-system';
-import { LanguageSelector, FullScreenPanel, CreateMemberAccount, LanguageSelector } from '_organisms';
+import { LanguageSelector, FullScreenPanel, CreateMemberAccount } from '_organisms';
 import TouchID from 'react-native-touch-id';
 import MatIcon from "react-native-vector-icons/MaterialCommunityIcons";
 import { TextInput, Button, HelperText } from 'react-native-paper';
@@ -50,6 +50,43 @@ const LoginScreen = ({ navigation, route }) => {
     isHTML: false,
   });
 
+  React.useEffect(() => {
+    async function validateSupport() {
+      let storedUser = await storage.load({ key: 'user',
+      id: 'currentUser', 
+     });
+
+     let savedUser = await storage.load({ key: 'savedUser',
+      id: 'userSaved',
+     });
+
+     if(savedUser?.email && savedUser?.password) {
+      onChangeTextInput('email', savedUser.email)
+      onChangeTextInput('password', savedUser.password)
+      setIsEnabled(true);
+     }
+
+     if(storedUser?.id) {
+       setUser(storedUser);
+      const optionalConfigObject = {
+        unifiedErrors: false,
+        passcodeFallback: false 
+      }
+      TouchID.isSupported(optionalConfigObject)
+        .then(biometryType => {
+          if (biometryType === 'FaceID') {
+              setSupportedFaceId(true);
+            } else {
+              setSupportTouch(true);
+            }
+          })
+          .catch(error => {
+          });
+      }
+    }
+    validateSupport();
+  }, []);
+
   const updatePanelDetails = React.useCallback((key, value) => {
     setPanelDetails(panelDetails => {
       return {
@@ -95,45 +132,6 @@ const LoginScreen = ({ navigation, route }) => {
       });
   };
 
-  React.useEffect(() => {
-    async function validateSupport() {
-      let storedUser = await storage.load({ key: 'user',
-      id: 'currentUser', 
-     });
-
-     let savedUser = await storage.load({ key: 'savedUser',
-      id: 'userSaved',
-     });
-
-     if(savedUser?.email && savedUser?.password) {
-      onChangeTextInput('email', savedUser.email)
-      onChangeTextInput('password', savedUser.password)
-       setIsEnabled(true);
-     }
-
-     console.error(savedUser)
-
-     if(storedUser?.id) {
-       setUser(storedUser);
-      const optionalConfigObject = {
-        unifiedErrors: false,
-        passcodeFallback: false 
-      }
-      TouchID.isSupported(optionalConfigObject)
-        .then(biometryType => {
-          if (biometryType === 'FaceID') {
-              setSupportedFaceId(true);
-            } else {
-              setSupportTouch(true);
-            }
-          })
-          .catch(error => {
-          });
-      }
-    }
-    validateSupport();
-  }, []);
-
   const optionalConfigObject = {
     title: 'Authentication Required', // Android
     imageColor: '#e00606', // Android
@@ -147,18 +145,18 @@ const LoginScreen = ({ navigation, route }) => {
   };
 
   function biometricLogin() {
-    TouchID.authenticate('to demo this react-native component', optionalConfigObject)
+    TouchID.authenticate(t('biometric_login'), optionalConfigObject)
       .then(success => {
         if (user && user.MemberPlans && user.MemberPlans.length > 0) {
           dispatch(setMemberPlans(user.MemberPlans));
           dispatch(updatePlan(user.MemberPlans[0])); //default to first plan
         }
-        Alert.alert('Authenticated Successfully');
+        Alert.alert(t('authenticated_successfully'));
 
         dispatch(login(user));
       })
       .catch(error => {
-        Alert.alert('Authentication Failed');
+        Alert.alert(t('authentication_failed'));
       });
   }
 
@@ -172,22 +170,21 @@ const LoginScreen = ({ navigation, route }) => {
   }
 
   const onChangeTextInput = (field, value) => {
-    setInputValues({
-      ...inputValues,
+    setInputValues((inpValue) => ({
+      ...inpValue,
       [field]: value
-    });
+    }));
     setErrors({
       ...errors,
       [field]: ''
     })
   }
 
-  const onLogin = () => {
+  const onLogin = async () => {
     if (!validateEmail()) {
-      console.error('no valiod')
       setErrors({
         ...errors,
-        email: 'input correct email'
+        email: t('email_address_invalid'),
       })
       return;
     }
@@ -237,14 +234,13 @@ const LoginScreen = ({ navigation, route }) => {
             style={styles.title}
           >
             {t('mercy_care')}
-        </Text>
-      </View>
+          </Text>
+        </View>
       <View style={styles.spacing}>
         <TextInput 
           label='email'
           value={email}
           onChangeText={(e) => onChangeTextInput('email', e)}
-          error={errors.email.length}
           left={<TextInput.Icon  name={'account'}/>}
           style={errors.email.length ? { borderColor: 'red', borderWidth: 1 } : {}}
         />
@@ -284,43 +280,8 @@ const LoginScreen = ({ navigation, route }) => {
       
       <View style={styles.authArea}>
 
-      <View style={styles.forgotPass}>
-        <Text
-            style={styles.pText}
-          >
-            {t('forgot_password')}
-          </Text>
-        </View>
-        <View style={styles.spacing}>
-          <TextInput
-            label='email'
-            value={email}
-            onChangeText={setEmail}
-            left={<TextInput.Icon name={'account'} />}
-          />
-        </View>
-        <View style={[styles.spacing, { marginBottom: 20 }]}>
-          <TextInput
-            label='password'
-            value={password}
-            secureTextEntry={!isVisible}
-            onChangeText={setPassword}
-            left={<TextInput.Icon name={'lock'} />}
-            right={<TextInput.Icon onPress={() => setVisible(previousState => !previousState)} name={isVisible ? 'eye-off-outline' : 'eye'} />}
-          />
-        </View>
-        <Button color={APP_COLOR} mode='contained' onPress={onLogin} disabled={loading}>
-          {t('sign_in')}
-        </Button>
-
-        {loading && <View style={styles.loadingView}>
-          <Spinner
-            isVisible={loading}
-            size={50}
-            type={'ThreeBounce'}
-            color={APP_COLOR}
-          />
-        </View>}
+      
+  
 
         <View style={styles.authArea}>
 

@@ -100,4 +100,8 @@
   "password_one_lowercase": "Una letra minúscula",
   "password_one_number": "Un número (0-9)",
   "password_one_special_symbol": "Un símbolo especial",
+  "biometric_login": "Inicio de sesión biométrica",
+  "authenticated_successfully": "Autenticado con éxito",
+  "authentication_failed": "Autenticación fallida",
+  "email_address_invalid": "Dirección de correo electrónico es inválida"
 }
