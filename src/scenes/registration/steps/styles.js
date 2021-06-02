@@ -1,4 +1,6 @@
 import {StyleSheet} from 'react-native';
+import { ERROR, BLUE } from '_styles/colors';
+import { FONT_SIZE_18 } from '_styles/typography';
 
 export default StyleSheet.create({
   container: {
@@ -31,7 +33,6 @@ export default StyleSheet.create({
   step4: {
     flex: 1,
   },
-
   input: {
     width: '85%',
     height: 50,
@@ -43,18 +44,35 @@ export default StyleSheet.create({
   },
   backButton: {
     height: 40,
-    marginRight: 5
+    marginRight: 5,
+    borderRadius: 30,  
   },
   forwardButton: {
     flex: 1,
     height: 40,
     borderColor: '#F5F5F5',
+    borderRadius: 30
   },
   bottomButtonContainer: {
     width: '90%',
     alignItems: 'center',
     justifyContent: 'flex-end',
     flex: 2,
-    backgroundColor: 'red'
+  },
+  loadingView: {
+      justifyContent: 'center',
+      alignItems: 'center'
+  },
+  errorMessage: {
+    color: ERROR,
+    fontSize: FONT_SIZE_18
+  },
+  linkText: {
+    color: BLUE,
+    fontSize: FONT_SIZE_18
+  },
+  highlightText: {
+    color: BLUE,
+    fontWeight: 'bold'
   },
 });

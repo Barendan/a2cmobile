@@ -11,6 +11,7 @@ module.exports = {
           _components: './src/components',
           _atoms: './src/components/atoms',
           _helpers: './src/helpers',
+          _hooks: './src/hooks',
           _molecules: './src/components/molecules',
           _organisms: './src/components/organisms',
           _context: './src/context',

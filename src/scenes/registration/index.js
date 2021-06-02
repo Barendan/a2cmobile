@@ -42,7 +42,7 @@ const RegistrationScreen = ({ navigation }) => {
         flex: 1,
       }}>
         <Stack size={12} />
-       <AvatarButton icon={"arrow-left"} iconColor="black" buttonText={t('back_button')} onPress={() => navigation.goBack()} />
+       <AvatarButton icon={"arrow-left"} iconColor="black" buttonText={t('sign_in')} onPress={() => navigation.goBack()} />
       <ProgressBar currentStep={currentStep} stepCount={allSteps.length} title={allSteps[currentStep - 1].name} subtitle={currentStep !== allSteps.length && t('go_to_next') + ': ' + allSteps[currentStep].name} />
       <AnimatedMultistep
         steps={allSteps}

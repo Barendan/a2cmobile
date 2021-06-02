@@ -28,6 +28,7 @@ export default StyleSheet.create({
     forgotPass: {
         justifyContent: 'space-between',
         flexDirection: 'row',
+        flexWrap: 'wrap-reverse',
         alignItems: 'center',
         marginTop: 10,
         paddingVertical: 19
@@ -49,7 +50,6 @@ export default StyleSheet.create({
     altLoginBtn: {
         margin: 5
     },
-
     pText: {
         color: APP_COLOR,
         fontWeight: '400'

@@ -2,7 +2,7 @@ import Fuse from 'fuse.js';
 import isEqual from 'lodash.isequal';
 import { useEffect, useRef, useState } from 'react';
 
-export const useFuzzySearch = ({ list, options, term }) => {
+const useFuzzySearch = ({ list, options, term }) => {
   const [query, setQuery] = useState(() => {
     if (term) return term;
     return undefined;
@@ -36,3 +36,5 @@ export const useFuzzySearch = ({ list, options, term }) => {
     setQuery,
   };
 };
+
+export default useFuzzySearch;

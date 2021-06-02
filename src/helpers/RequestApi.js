@@ -33,7 +33,7 @@ RequestApi.interceptors.response.use(
     return response.data;
   },
   error => {
-    return Promise.reject(error.response);
+    return Promise.reject(error.response.data.error);
   },
 );
 
