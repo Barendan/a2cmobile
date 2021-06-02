@@ -218,7 +218,7 @@ const LoginScreen = ({ navigation, route }) => {
         dispatch(login(data.user));
       })
       .catch((err) => {
-        alert(err?.data?.error?.message || 'unable to sign in')
+        alert(err?.message || 'unable to sign in')
         setLoading(false);
       });
   }
