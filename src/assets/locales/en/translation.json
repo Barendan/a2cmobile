@@ -39,6 +39,7 @@
   "preferences": "Preferences",
   "close": "CLOSE",
   "log_out": "Log Out",
+  "security_questions": "Security Questions",
   "security_questions_text": "Set 3 unique security questions. You must remember the answers to these questions if you ever need to reset your password.",
   "account_questions_text": "Select your prefered account options.",
   "question_one": "Question One",
@@ -101,4 +102,9 @@
   "password_one_lowercase": "One lowercase letter",
   "password_one_number": "One number (0-9)",
   "password_one_special_symbol": "One special symbol",
+  "update_password": "Update Password",
+  "login_options_text": "Please enter the login used to access your account",
+  "question_answer": "Question Answer",
+  "wrong_answers_text": "The answers you provided are incorrect. Please try again.",
+  "member_not_found": "The login you provided not match any records. Please try again.",
 }

@@ -20,6 +20,7 @@ const useAccountMethods = () => {
     const [loading, setLoading] = React.useState(false);
     const [errorMessage, setErrorMessage] = React.useState('');
     const [disableNextButton, setDisableNextButton] = React.useState(false);
+    const [tempCodeValidated, setTempCodeValidated] = React.useState(false);
 
     //Member Information START //
     /*************************/
@@ -56,7 +57,6 @@ const useAccountMethods = () => {
             .then((data) => {
                 setLoading(false);
                 setMemberRecord(data.memberInfo);
-                next();
             })
             .catch((err) => {
                 //alert(JSON.stringify(err))
@@ -113,7 +113,7 @@ const useAccountMethods = () => {
 
     //Member Login Information
     const [loginMethod, setLoginMethod] = React.useState({
-        sendType: '',
+        loginType: '',
         login: '',
         tempCode: ''
     });
@@ -130,15 +130,15 @@ const useAccountMethods = () => {
 
     //when selected index, generate random generated code that will be emailed/texted to member
     React.useEffect(() => {
-        updateLoginMethod('sendType', selectedIndex === 0 ? 'email' : 'phone_number');
+        updateLoginMethod('loginType', selectedIndex === 0 ? 'email' : 'phone_number');
         updateLoginMethod('login', '');
         let randomCode = Math.floor(1000 + Math.random() * 9000);
         updateLoginMethod('tempCode', randomCode);
     }, [selectedIndex]);
 
-    //check if valid email or sendType method is set
+    //check if valid email or loginType method is set
     React.useEffect(() => {
-        setDisableNextButton(loginMethod.sendType.length === 0 || (loginMethod.sendType === "email" ? !HelperMethods.isValidEmail(loginMethod.login) : loginMethod.login.length < 9));
+        setDisableNextButton(loginMethod.loginType.length === 0 || (loginMethod.loginType === "email" ? !HelperMethods.isValidEmail(loginMethod.login) : loginMethod.login.length < 9));
 
         if (loginMethod.login.length === 0) {
             setShowValidate(false);
@@ -157,11 +157,17 @@ const useAccountMethods = () => {
         updateLoginMethod('login', formattedValue);
     }
 
-    const onSendTempPassCode = () => {
+    const onSendTempPassCode = (sendPayload) => {
 
-        let payload = {
-            sendType: loginMethod.sendType,
+        let payload = null;
+
+        payload = sendPayload === null ? {
+            loginType: loginMethod.loginType,
             login: loginMethod.login,
+            tempCode: loginMethod.tempCode
+        } : {
+            loginType: sendPayload.loginType,
+            login: sendPayload.login,
             tempCode: loginMethod.tempCode
         };
 
@@ -182,15 +188,58 @@ const useAccountMethods = () => {
     }
 
     const onValidateTemporaryCode = () => {
-        const { login, sendType, tempCode } = loginMethod;
+        const { login, loginType, tempCode } = loginMethod;
 
         if (randomGenerateCode != tempCode) {
             setErrorMessage(t('temp_code_error'));
         } else {
-            setMemberLogin({ loginType: sendType, login });
+            setMemberLogin({ loginType: loginType, login });
             setErrorMessage('');
+            setTempCodeValidated(true);
         }
     }
+
+
+    const onValidateMemberLogin = () => {
+
+        const {
+            login
+        } = loginMethod;
+
+        setErrorMessage('');
+        setMemberLogin(null);
+        setLoading(true);
+        MemberService.validateMemberLogin(login)
+            .then((data) => {
+                setLoading(false);
+                setMemberLogin(data.user);
+            })
+            .catch((err) => {
+                alert(JSON.stringify(err))
+                setErrorMessage(err.message);
+                setLoading(false);
+            });
+
+    }
+
+    const fetchMemberRecord = (login) => {
+
+        setErrorMessage('');
+        setMemberRecord(null);
+        setLoading(true);
+        MemberService.getUserRecord(login)
+            .then((data) => {
+                setLoading(false);
+                setMemberRecord(data.user);
+            })
+            .catch((err) => {
+                //alert(JSON.stringify(err))
+                setErrorMessage(err.message);
+                setLoading(false);
+            });
+
+    }
+
 
     //Member Login Information END //
     /*************************/
@@ -340,10 +389,39 @@ const useAccountMethods = () => {
             });
     }
 
+    const updatePassword = async (memberLogin) => {
+
+        setErrorMessage('');
+
+        const { id, login } = memberLogin;
+        const { password } = passwordInformation;
+
+        const hashedPassword = await sha256(password);
+
+        let payload = {
+            id,
+            password: hashedPassword
+        };
+
+        setLoading(true);
+        MemberService.updatePassword(payload)
+            .then((data) => {
+                setLoading(false);
+                //after account created successfully, login the user
+                onLoginUser(login, hashedPassword);
+            })
+            .catch((err) => {
+                setErrorMessage(err.message);
+                setLoading(false);
+            });
+    }
+
+    //
 
     return {
         loading,
         errorMessage,
+        setErrorMessage,
         memberInformation,
         disableNextButton,
         memberRecord,
@@ -351,11 +429,14 @@ const useAccountMethods = () => {
         onDateOfBirth,
         onZipcode,
         onValidateMemberInfo,
+        onValidateMemberLogin,
         selectedIndex,
         randomGenerateCode,
         showValidate,
+        tempCodeValidated,
         memberLogin,
         loginMethod,
+        updateLoginMethod,
         setSelectedIndex,
         setRandomGenerateCode,
         onLoginMethod,
@@ -366,7 +447,9 @@ const useAccountMethods = () => {
         passwordRequirements,
         updatePasswordInformation,
         onValidatePasswords,
-        registerUser
+        registerUser,
+        fetchMemberRecord,
+        updatePassword
     };
 };
 

@@ -5,3 +5,4 @@ export { default as TripDetails } from './tripDetails';
 export { default as FullTripDetails } from './fullTripDetails';
 export { default as RequestNewTrip } from './requestNewTrip';
 export { default as CreateMemberAccount } from './createMemberAccount';
+export { default as ForgotPasswordReset } from './forgotPasswordReset';

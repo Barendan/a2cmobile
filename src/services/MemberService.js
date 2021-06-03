@@ -9,7 +9,7 @@ const updateUser = payload => {
     return RequestApi.put(`/users?type=login`,payload);
 };
 
-const getUserRecord= (value) => {
+const getUserRecord = (value) => {
     return RequestApi.get(`/users?type=userRecord&value=${value}`);
 };
 
@@ -34,6 +34,14 @@ const registerUser = payload => {
     return RequestApi.post(`/users?type=register`,payload);
 };
 
+const validateMemberLogin = (value) => {
+    return RequestApi.get(`/users?type=loginDetails&value=${value}`);
+};
+
+const updatePassword = (payload) => {
+    return RequestApi.put(`/users`,payload);
+};
+
 export default {
     loginUser,
     updateUser,
@@ -42,5 +50,7 @@ export default {
     cancelTrip,
     validateMemberInfo,
     sendTempPassCode,
-    registerUser
+    registerUser,
+    validateMemberLogin,
+    updatePassword
 };

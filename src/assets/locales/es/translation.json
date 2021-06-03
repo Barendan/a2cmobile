@@ -39,6 +39,7 @@
   "preferences": "Preferencias",
   "close": "CERRAR",
   "log_out": "Cerrar Sesión",
+  "security_questions": "  Preguntas De Seguridad",
   "security_questions_text": "Establezca 3 preguntas de seguridad únicas. Debe recordar las respuestas a estas preguntas si alguna vez necesita restablecer su contraseña.",
   "account_questions_text": "Seleccione sus opciones de cuenta preferidas.",
   "question_one": "Pregunta Uno",
@@ -100,4 +101,9 @@
   "password_one_lowercase": "Una letra minúscula",
   "password_one_number": "Un número (0-9)",
   "password_one_special_symbol": "Un símbolo especial",
+  "update_password": "Actualiza Contraseña",
+  "login_options_text": "Ingrese el nombre de usuario utilizado para acceder a su cuenta",
+  "question_answer": "Pregunta Respuesta",
+  "wrong_answers_text": "Las respuestas que proporcionaste son incorrectas. Inténtalo de nuevo.",
+  "member_not_found": "El inicio de sesión que proporcionó no coincide con ningún registro. Inténtalo de nuevo.",
 }
