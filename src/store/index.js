@@ -4,10 +4,12 @@ import { combineReducers } from 'redux'
 //import reducers
 import user from './user';
 import plan from './plan';
+import steps from './steps';
 
 const reducer = combineReducers({
     user,
-    plan
+    plan,
+    steps
 });
 const store = configureStore({
     reducer,
