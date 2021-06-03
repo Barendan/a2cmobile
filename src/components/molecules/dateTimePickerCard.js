@@ -92,7 +92,7 @@ const DateTimePickerCard = (props) => {
         setDate(currentDate);
 
 
-        onDateTimeChange('datetime', currentDate);
+        onDateTimeChange('datetime', currentDate.toISOString());
         if (mode === 'date') {
             onDateTimeChange(mode, ((date.getMonth() > 8) ? (date.getMonth() + 1) : ('0' + (date.getMonth() + 1))) + '/' + ((date.getDate() > 9) ? date.getDate() : ('0' + date.getDate())) + '/' + date.getFullYear());
         }
