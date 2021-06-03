@@ -127,9 +127,14 @@ const useAccountMethods = () => {
         });
     }, []);
 
+    const passwordResetLogin = (value) => {
+        updateLoginMethod('loginType', 'na');
+        updateLoginMethod('login', value);
+    }
 
     //when selected index, generate random generated code that will be emailed/texted to member
     React.useEffect(() => {
+        //incase of a password reset aka "forgot password", we don't know if login will be an email or phone_number, so need to account for both.
         updateLoginMethod('loginType', selectedIndex === 0 ? 'email' : 'phone_number');
         updateLoginMethod('login', '');
         let randomCode = Math.floor(1000 + Math.random() * 9000);
@@ -138,7 +143,13 @@ const useAccountMethods = () => {
 
     //check if valid email or loginType method is set
     React.useEffect(() => {
-        setDisableNextButton(loginMethod.loginType.length === 0 || (loginMethod.loginType === "email" ? !HelperMethods.isValidEmail(loginMethod.login) : loginMethod.login.length < 9));
+
+        //alert(loginMethod.loginType);
+        if(loginMethod.loginType === "na") {
+            setDisableNextButton(false);
+        } else {
+            setDisableNextButton(loginMethod.loginType.length === 0 || (loginMethod.loginType === "email" ? !HelperMethods.isValidEmail(loginMethod.login) : loginMethod.login.length < 9));
+        }
 
         if (loginMethod.login.length === 0) {
             setShowValidate(false);
@@ -180,7 +191,6 @@ const useAccountMethods = () => {
                 setShowValidate(true);
             })
             .catch((err) => {
-                //alert(JSON.stringify(err))
                 setErrorMessage(err.message);
                 setLoading(false);
             });
@@ -215,8 +225,7 @@ const useAccountMethods = () => {
                 setMemberLogin(data.user);
             })
             .catch((err) => {
-                alert(JSON.stringify(err))
-                setErrorMessage(err.message);
+                setErrorMessage(t('member_not_found'));
                 setLoading(false);
             });
 
@@ -233,7 +242,6 @@ const useAccountMethods = () => {
                 setMemberRecord(data.user);
             })
             .catch((err) => {
-                //alert(JSON.stringify(err))
                 setErrorMessage(err.message);
                 setLoading(false);
             });
@@ -449,7 +457,8 @@ const useAccountMethods = () => {
         onValidatePasswords,
         registerUser,
         fetchMemberRecord,
-        updatePassword
+        updatePassword,
+        passwordResetLogin
     };
 };
 

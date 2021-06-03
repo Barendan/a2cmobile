@@ -2,24 +2,23 @@ import React, { useState } from 'react';
 import { View, ScrollView } from 'react-native';
 import { Button } from '@ui-kitten/components';
 import { useTranslation } from 'react-i18next';
-import { Inset } from 'react-native-spacing-system';
 import {
   CheckboxCard,
   NumericCountCard,
   DateTimePickerCard,
   DropDownPickerCard,
 } from '_molecules';
+import { useDispatch, useSelector } from 'react-redux';
 import styles from './styles';
-import { useTripDetails } from '_hooks';
+import { requireWheelChair, additionalPassenger, appointMentSchedule, enterTripReason, setSpecialNeeds } from '_store/steps';
 
 const Step2 = ({ back , next }) => {
-  const {
-    tripDetails,
-    onAdditionPassengersChange,
-    onWheelchairRequiredChecked,
-    onTripReasonSelected,
-    onAppointmentDateTimeChange
-  } = useTripDetails();
+
+  const dispatch = useDispatch();
+  const { steps } = useSelector(state => state.steps);
+  
+  const { additionalPassengers, wheelchairRequired, appointmentDateTime, tripReason, appointmentDate, appointmentTime, specialNeeds } = steps;
+
   const { t } = useTranslation();
 
   const [tripReasons, setTripReasons] = useState([
@@ -44,36 +43,36 @@ const Step2 = ({ back , next }) => {
         <NumericCountCard
           cardIcon={'account-multiple-outline'}
           title={t('additional_passengers')}
-          count={tripDetails.additionalPassengers}
-          onCountChange={value => onAdditionPassengersChange(value)}
+          count={additionalPassengers}
+          onCountChange={value => dispatch(additionalPassenger(value))}
         />
         <CheckboxCard
           cardIcon={'wheelchair-accessibility'}
           title={t('need_wheelchair')}
-          checkedValue={tripDetails.wheelchairRequired}
-          onChecked={value => onWheelchairRequiredChecked(value)}
+          checkedValue={wheelchairRequired}
+          onChecked={value => dispatch(requireWheelChair(value))}
         />
         <DateTimePickerCard
           required={true}
           cardIcon={'calendar-clock'}
           title={t('appointment_date_time')}
           description={
-            tripDetails.appointmentDateTime && (
+            appointmentDateTime && (
               <>
-                {tripDetails.appointmentDate}{' '}
-                {tripDetails.appointmentDate && tripDetails.appointmentTime
-                  ? 'at ' + tripDetails.appointmentTime
-                  : tripDetails.appointmentTime}
+                {appointmentDate}{' '}
+                {appointmentDate && appointmentTime
+                  ? 'at ' + appointmentTime
+                  : appointmentTime}
               </>
             )
           }
           minimumDate={new Date()}
           showDatePicker={true}
           showTimePicker={true}
-          dateValue={tripDetails.appointmentDate}
-          timeValue={tripDetails.appointmentTime}
+          dateValue={appointmentDate}
+          timeValue={appointmentTime}
           onDateTimeChange={(type, value) =>
-            onAppointmentDateTimeChange(type, value)
+            dispatch(appointMentSchedule({type: type, value: value}))
           }
         />
         <DropDownPickerCard
@@ -82,8 +81,9 @@ const Step2 = ({ back , next }) => {
           title={t('trip_reason')}
           multiple={false}
           optionsList={tripReasons}
-          selectedValue={tripDetails.tripReason}
-          onOptionSelected={value => onTripReasonSelected(value)}
+          selectedValue={tripReason}
+          onOptionSelected={value => dispatch(enterTripReason(value?.value))}
+          onOptionSelected={selected => dispatch(enterTripReason(selected?.value))}
         />
       </ScrollView>
 

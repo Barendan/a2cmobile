@@ -19,9 +19,11 @@ const Step1 = ({ next, saveState }) => {
     disableNextButton,
     memberLogin,
     updateLoginMethod,
-    onValidateMemberLogin
+    onValidateMemberLogin,
+    passwordResetLogin
   } = useAccountMethods();
 
+ 
   React.useEffect(() => {
     if (memberLogin) {
       saveState({ memberLogin: memberLogin })
@@ -48,7 +50,7 @@ const Step1 = ({ next, saveState }) => {
 
         <Input
           style={styles.input}
-          onChangeText={text => updateLoginMethod('login', text)}
+          onChangeText={text => passwordResetLogin(text)}
           value={loginMethod.login}
           label={t('login') + "*"}
           placeholder={t('login')}
