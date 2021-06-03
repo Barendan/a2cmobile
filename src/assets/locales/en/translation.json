@@ -101,4 +101,8 @@
   "password_one_lowercase": "One lowercase letter",
   "password_one_number": "One number (0-9)",
   "password_one_special_symbol": "One special symbol",
+  "biometric_login": "Biometric Login",
+  "authenticated_successfully": "Authenticated Successfully",
+  "authentication_failed": "Authentication Failed",
+  "email_address_invalid": " Email address is invalid"
 }
