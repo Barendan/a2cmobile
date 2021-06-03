@@ -1,5 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
+import { MemberService } from '_services';
+
 
 const useTripDetails = () => {
   const { user } = useSelector(state => state.user);
@@ -80,49 +82,49 @@ const useTripDetails = () => {
     var payload = {
       memberID: user.memberID,
       NETMember_ID: user.NETMember_ID,
-      pickupAddress: tripDetails.pickupAddress.FormattedAddress,
-      pickupAddressLat: tripDetails.pickupAddress.Latitude,
-      pickupAddressLng: tripDetails.pickupAddress.Longitude,
-      pickupAddress1: tripDetails.pickupAddress.AddressLine1,
-      pickupAddress2: tripDetails.pickupAddress.AddressLine2,
-      pickupAddressCity: tripDetails.pickupAddress.City,
-      pickupAddressState: tripDetails.pickupAddress.State,
-      pickupAddressCounty: tripDetails.pickupAddress.County,
-      pickupAddressZip: tripDetails.pickupAddress.ZipCode,
-      pickupAddressCountry: tripDetails.pickupAddress.Country,
-      destinationAddress: tripDetails.destinationAddress.FormattedAddress,
-      destinationAddressLat: tripDetails.destinationAddress.Latitude,
-      destinationAddressLng: tripDetails.destinationAddress.Longitude,
-      destinationAddress1: tripDetails.destinationAddress.AddressLine1,
-      destinationAddress2: tripDetails.destinationAddress.AddressLine2,
-      destinationAddressCity: tripDetails.destinationAddress.City,
-      destinationAddressState: tripDetails.destinationAddress.State,
-      destinationAddressCounty: tripDetails.destinationAddress.County,
-      destinationAddressZip: tripDetails.destinationAddress.ZipCode,
-      destinationAddressCountry: tripDetails.destinationAddress.Country,
-      tripStops: tripDetails.tripStops,
-      isRoundTrip: tripDetails.isRoundTrip,
-      additionalPassengers: tripDetails.additionalPassengers,
-      wheelchair: tripDetails.wheelchairRequired ? 'yes' : 'no',
-      appointmentDateTime: tripDetails.appointmentDateTime,
-      appointmentDate: tripDetails.appointmentDate,
-      appointmentTime: tripDetails.appointmentTime,
-      tripReason: tripDetails.tripReason,
-      specialNeeds: tripDetails.specialNeeds,
+      pickupAddress: tripDetails?.pickupAddress?.FormattedAddress,
+      pickupAddressLat: tripDetails?.pickupAddress?.Latitude,
+      pickupAddressLng: tripDetails?.pickupAddress?.Longitude,
+      pickupAddress1: tripDetails?.pickupAddress?.AddressLine1,
+      pickupAddress2: tripDetails?.pickupAddress?.AddressLine2,
+      pickupAddressCity: tripDetails?.pickupAddress?.City,
+      pickupAddressState: tripDetails?.pickupAddress?.State,
+      pickupAddressCounty: tripDetails?.pickupAddress?.County,
+      pickupAddressZip: tripDetails?.pickupAddress?.ZipCode,
+      pickupAddressCountry: tripDetails?.pickupAddress?.Country,
+      destinationAddress: tripDetails?.destinationAddress?.FormattedAddress,
+      destinationAddressLat: tripDetails?.destinationAddress?.Latitude,
+      destinationAddressLng: tripDetails?.destinationAddress?.Longitude,
+      destinationAddress1: tripDetails?.destinationAddress?.AddressLine1,
+      destinationAddress2: tripDetails?.destinationAddress?.AddressLine2,
+      destinationAddressCity: tripDetails?.destinationAddress?.City,
+      destinationAddressState: tripDetails?.destinationAddress?.State,
+      destinationAddressCounty: tripDetails?.destinationAddress?.County,
+      destinationAddressZip: tripDetails?.destinationAddress?.ZipCode,
+      destinationAddressCountry: tripDetails?.destinationAddress?.Country,
+      tripStops: tripDetails?.tripStops,
+      isRoundTrip: tripDetails?.isRoundTrip,
+      additionalPassengers: tripDetails?.additionalPassengers,
+      wheelchair: tripDetails?.wheelchairRequired ? 'yes' : 'no',
+      appointmentDateTime: tripDetails?.appointmentDateTime,
+      appointmentDate: tripDetails?.appointmentDate,
+      appointmentTime: tripDetails?.appointmentTime,
+      tripReason: tripDetails?.tripReason,
+      specialNeeds: tripDetails?.specialNeeds,
     };
 
     console.log(JSON.stringify(payload));
 
-    setLoading(true);
+    // setLoading(true);
     MemberService.requestTrip(payload)
       .then(data => {
-        setLoading(false);
+        // setLoading(false);
         alert(JSON.stringify(data));
       })
       .catch(err => {
         alert(JSON.stringify(err));
 
-        setLoading(false);
+        // setLoading(false);
       });
   };
 
