@@ -39,6 +39,7 @@
   "preferences": "Preferences",
   "close": "CLOSE",
   "log_out": "Log Out",
+  "security_questions": "Security Questions",
   "security_questions_text": "Set 3 unique security questions. You must remember the answers to these questions if you ever need to reset your password.",
   "account_questions_text": "Select your prefered account options.",
   "question_one": "Question One",
@@ -104,5 +105,10 @@
   "biometric_login": "Biometric Login",
   "authenticated_successfully": "Authenticated Successfully",
   "authentication_failed": "Authentication Failed",
-  "email_address_invalid": " Email address is invalid"
+  "email_address_invalid": " Email address is invalid",
+  "update_password": "Update Password",
+  "login_options_text": "Please enter the login used to access your account",
+  "question_answer": "Question Answer",
+  "wrong_answers_text": "The answers you provided are incorrect. Please try again.",
+  "member_not_found": "The login you provided not match any records. Please try again.",
 }

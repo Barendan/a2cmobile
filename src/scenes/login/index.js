@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, Switch, TouchableHighlight, KeyboardAvoidingView, Platform, Alert } from 'react-native';
 import { Stack } from 'react-native-spacing-system';
-import { LanguageSelector, FullScreenPanel, CreateMemberAccount } from '_organisms';
+import { LanguageSelector, FullScreenPanel, CreateMemberAccount, ForgotPasswordReset } from '_organisms';
 import TouchID from 'react-native-touch-id';
 import MatIcon from "react-native-vector-icons/MaterialCommunityIcons";
 import { TextInput, Button, HelperText } from 'react-native-paper';
@@ -40,6 +40,7 @@ const LoginScreen = ({ navigation, route }) => {
   const toggleSwitch = () => setIsEnabled(previousState => !previousState);
   const [user, setUser] = useState({});
   const [displayCreateMemberAccount, setDisplayCreateMemberAccount] = React.useState(false);
+  const [displayForgotPasswordReset, setDisplayForgotPasswordReset] = React.useState(false);
 
 
   const [panelDetails, setPanelDetails] = React.useState({
@@ -286,18 +287,31 @@ const LoginScreen = ({ navigation, route }) => {
         <View style={styles.authArea}>
 
           <View style={styles.forgotPass}>
-            <Text
-              style={styles.pText}
+            <TouchableHighlight
+              onPress={() => setDisplayForgotPasswordReset(true)}
             >
-              {t('forgot_password')}
-            </Text>
-            <Switch
-              trackColor={{ false: GREEN, true: "#81b0ff" }}
-              thumbColor={isEnabled ? "#f4f3f4" : "#f5dd4b"}
-              ios_backgroundColor={GREEN}
-              onValueChange={toggleSwitch}
-              value={isEnabled}
-            />
+              <Text
+                style={styles.pText}
+              >
+                {t('forgot_password')}
+              </Text>
+            </TouchableHighlight>
+
+            <View style={styles.thumbContainer}>
+
+              <Text
+                style={[styles.pText, { marginRight: 5 }]}
+              >
+                {t('save_login')}
+              </Text>
+              <Switch
+                trackColor={{ false: GREEN, true: "#81b0ff" }}
+                thumbColor={isEnabled ? "#f5dd4b" : "#f4f3f4"}
+                ios_backgroundColor={GREEN}
+                onValueChange={toggleSwitch}
+                value={isEnabled}
+              />
+            </View>
           </View>
           {
             (supportTouch || supportedFaceId) && (
@@ -369,10 +383,17 @@ const LoginScreen = ({ navigation, route }) => {
           <LanguageSelector />
         </View>
 
+
+        <ForgotPasswordReset
+          displayPanel={displayForgotPasswordReset}
+          onPanelDismiss={() => setDisplayForgotPasswordReset(false)}
+        />
+
+
         <CreateMemberAccount
-       displayPanel={displayCreateMemberAccount}
-       onPanelDismiss={() => setDisplayCreateMemberAccount(false)}
-     /> 
+          displayPanel={displayCreateMemberAccount}
+          onPanelDismiss={() => setDisplayCreateMemberAccount(false)}
+        />
 
 
         <FullScreenPanel
@@ -382,6 +403,7 @@ const LoginScreen = ({ navigation, route }) => {
           panelBody={panelDetails.body}
           onPanelDismiss={onPanelDismiss}
         />
+        
       </View>
       </View>
     </KeyboardAvoidingView>

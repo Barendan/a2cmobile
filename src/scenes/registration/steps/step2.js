@@ -31,7 +31,7 @@ const Step2 = ({ back, next, saveState, getState }) => {
 
   //Member Login Information
   const [loginMethod, setLoginMethod] = React.useState({
-    sendType: '',
+    loginType: '',
     login: '',
     tempCode: ''
   });
@@ -48,15 +48,15 @@ const Step2 = ({ back, next, saveState, getState }) => {
 
   //when selected index, generate random generated code that will be emailed/texted to member
   React.useEffect(() => {
-    updateLoginMethod('sendType', selectedIndex === 0 ? 'email' : 'phone');
+    updateLoginMethod('loginType', selectedIndex === 0 ? 'email' : 'phone');
     updateLoginMethod('login', '');
     let randomCode = Math.floor(1000 + Math.random() * 9000);
     updateLoginMethod('tempCode', randomCode);
   }, [selectedIndex]);
 
-  //check if valid email or sendType method is set
+  //check if valid email or loginType method is set
   React.useEffect(() => {
-    setDisableNextButton(loginMethod.sendType.length === 0 || (loginMethod.sendType === "email" ? !HelperMethods.isValidEmail(loginMethod.login) : loginMethod.login.length < 9));
+    setDisableNextButton(loginMethod.loginType.length === 0 || (loginMethod.loginType === "email" ? !HelperMethods.isValidEmail(loginMethod.login) : loginMethod.login.length < 9));
 
     if(loginMethod.login.length === 0){
       setShowValidate(false);
@@ -78,7 +78,7 @@ const Step2 = ({ back, next, saveState, getState }) => {
   const onSendTempPassCode = () => {
 
     let payload = {
-      sendType: loginMethod.sendType,
+      loginType: loginMethod.loginType,
       login: loginMethod.login,
       tempCode: loginMethod.tempCode
     };
