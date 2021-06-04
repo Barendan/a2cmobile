@@ -19,8 +19,8 @@ import { Inset } from 'react-native-spacing-system';
 import { APP_COLOR } from '_styles/colors';
 
 import AnimatedMultistep from 'react-native-animated-multistep';
-import Step1 from './locationSteps/step1';
-import Step2 from './locationSteps/step2';
+import Step1 from './steps/step1';
+import Step2 from './steps/step2';
 
 const SavedLocations = () => {
   const { t } = useTranslation();
@@ -28,9 +28,39 @@ const SavedLocations = () => {
   const [modalVisible, setModalVisible] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [savedLocations, setSavedLocations] = useState([]);
-  const [locationId, setLocationId] = useState('');
-  const [locationName, setLocationName] = useState('');
-  const [locationAddress, setLocationAddress] = useState('');
+  const [selectedLocation, setSelectedLocation] = useState({
+    id: '',
+    name: '',
+    address: '',
+  });
+
+  const allSteps = [
+    { name: t('add_saved_location'), component: Step1 },
+    { name: t('edit_saved_location'), component: Step2 },
+  ];
+  const [currentStep, setCurrentStep] = useState(1);
+
+  const onNext = () => {
+    setCurrentStep(currentStep + 1);
+  };
+
+  const onBack = () => {
+    currentStep > 1 ? setCurrentSetup(currentStep - 1) : setModalVisible(false);
+  };
+
+  const onFinish = payload => {
+    console.log(payload);
+
+    // let payload = {
+    //   // id: Math.random(), how will ID be determined?
+    //   name: locationName,
+    //   address: locationAddress,
+    // };
+
+    isEditing
+      ? editSavedLocation(payload.id, payload)
+      : addSavedLocation(payload);
+  };
 
   const { user } = useSelector(state => state.user);
 
@@ -52,12 +82,13 @@ const SavedLocations = () => {
       });
   };
 
-  const addSavedLocation = () => {
-    let payload = {
-      // id: Math.random(), how will ID be determined?
-      name: locationName,
-      address: locationAddress,
-    };
+  const addSavedLocation = payload => {
+    // Payload passed in as argument instead
+    // let payload = {
+    //   // id: Math.random(), how will ID be determined?
+    //   name: locationName,
+    //   address: locationAddress,
+    // };
 
     // api call to add new location to specific user
     MemberService.updateUser(payload)
@@ -66,8 +97,6 @@ const SavedLocations = () => {
         setModalVisible(false);
         // alert user of success
         // dispatch update to store
-        setLocationName('');
-        setLocationAddress('');
       })
       .catch(err => {
         alert(err);
@@ -75,11 +104,12 @@ const SavedLocations = () => {
       });
   };
 
-  const editSavedLocation = id => {
-    let payload = {
-      name: locationName,
-      address: locationAddress,
-    };
+  const editSavedLocation = (id, payload) => {
+    // Payload passed in as argument instead
+    // let payload = {
+    //   name: locationName,
+    //   address: locationAddress,
+    // };
     setLoading(true);
 
     // make api call, selecting location with :id and passing a payload
@@ -90,8 +120,6 @@ const SavedLocations = () => {
         setIsEditing(false);
         // alert user of success
         // dispatch update to store
-        setLocationName('');
-        setLocationAddress('');
       })
       .catch(err => {
         alert(err);
@@ -101,15 +129,10 @@ const SavedLocations = () => {
 
   const handleEdit = id => {
     setIsEditing(true);
+    setCurrentStep(2);
     setModalVisible(true);
-
-    const selectedLocation = savedLocations.find(
-      location => location.id === id,
-    );
-
-    setLocationId(selectedLocation.id);
-    setLocationName(selectedLocation.name);
-    setLocationAddress(selectedLocation.address);
+    const locationToEdit = savedLocations.find(location => location.id === id);
+    setSelectedLocation(locationToEdit);
   };
 
   const deleteSavedLocation = id => {
@@ -160,7 +183,7 @@ const SavedLocations = () => {
         </Inset>
       )}
 
-      {modalVisible ? <View style={styles.modalBackdrop}></View> : null}
+      {/* {modalVisible ? <View style={styles.modalBackdrop}></View> : null} */}
 
       <Modal
         animationType="slide"
@@ -170,38 +193,16 @@ const SavedLocations = () => {
           setModalVisible(false);
         }}>
         <View style={styles.modalContainer}>
-          <CloseButton onPress={() => setModalVisible(false)} />
-          <Text style={styles.headerText}>
-            {isEditing ? t('edit_saved_location') : t('add_saved_location')}
-          </Text>
-          <Input
-            value={locationName}
-            label={t('enter_name_label')}
-            placeholder={t('enter_name_placeholder')}
-            onChangeText={text => setLocationName(text)}
-            style={styles.textInput}
+          <AnimatedMultistep
+            steps={allSteps}
+            onNext={onNext}
+            onBack={onBack}
+            onFinish={onFinish}
+            comeInOnNext="bounceInUp"
+            OutOnNext="bounceOutDown"
+            comeInOnBack="bounceInDown"
+            OutOnBack="bounceOutUp"
           />
-          {/* <Input
-            value={locationAddress}
-            label={t("enter_location_label")}
-            placeholder={t("enter_location_placeholder")}
-            onChangeText={text => setLocationAddress(text)}
-            style={styles.textInput}
-          /> */}
-          <GooglePlacesInput />
-          <View style={styles.submitContainer}>
-            <Button
-              loading={loading}
-              disabled={!locationName || !locationAddress}
-              title={t('save_location')}
-              onPress={
-                isEditing ? editSavedLocation(locationId) : addSavedLocation
-              }
-              // color={APP_COLOR}
-            />
-          </View>
-
-          <View style={{ margin: 10 }} />
         </View>
       </Modal>
 
@@ -219,36 +220,18 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  modalBackdrop: {
-    flex: 1,
-    position: 'absolute',
-    top: 0,
-    bottom: 0,
-    left: 0,
-    right: 0,
-    backgroundColor: '#aaa',
-  },
-  headerText: {
-    fontSize: 23,
-    textAlign: 'center',
-    paddingBottom: 30,
-    color: APP_COLOR.primaryTitle,
-  },
+  // modalBackdrop: {
+  //   flex: 1,
+  //   position: 'absolute',
+  //   top: 0,
+  //   bottom: 0,
+  //   left: 0,
+  //   right: 0,
+  //   backgroundColor: '#aaa',
+  // },
   modalContainer: {
-    backgroundColor: '#ddd',
     flex: 1,
-    margin: 25,
-    // marginTop: 70,
-    padding: 35,
-    borderRadius: 10,
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 4,
-    elevation: 5,
+    backgroundColor: '#dbdbdb',
   },
   fab: {
     position: 'absolute',
@@ -257,15 +240,6 @@ const styles = StyleSheet.create({
     bottom: 0,
     backgroundColor: APP_COLOR,
     zIndex: 1,
-  },
-  inputPadding: {
-    paddingBottom: 10,
-    marginBottom: 20,
-  },
-  submitContainer: {
-    flex: 1,
-    margin: 20,
-    marginBottom: 0,
   },
 });
 
