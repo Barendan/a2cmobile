@@ -6,22 +6,21 @@ import {
   Text,
   Modal,
   Alert,
-  Button,
 } from 'react-native';
 import { useTranslation } from 'react-i18next';
 
+import { LocationItem } from '_molecules';
+import { MemberService } from '_services';
+import { useSelector } from 'react-redux';
+
+import Spinner from 'react-native-spinkit';
 import { FAB } from 'react-native-paper';
-import { Input } from '@ui-kitten/components';
 import { Inset } from 'react-native-spacing-system';
 import { APP_COLOR } from '_styles/colors';
 
-import Spinner from 'react-native-spinkit';
-import { LocationItem } from '_molecules';
-import { CloseButton } from '_atoms';
-
-import { MemberService } from '_services';
-import { useSelector } from 'react-redux';
-import { GooglePlacesInput } from '../../helpers/LocationService';
+import AnimatedMultistep from 'react-native-animated-multistep';
+import Step1 from './locationSteps/step1';
+import Step2 from './locationSteps/step2';
 
 const SavedLocations = () => {
   const { t } = useTranslation();
