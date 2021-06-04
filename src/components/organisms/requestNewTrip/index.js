@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, ScrollView } from 'react-native';
+import { View, Text, Button, ScrollView } from 'react-native';
 import AnimatedMultistep from 'react-native-animated-multistep';
 import DraggablePanel from 'react-native-draggable-panel';
 import { Inset, Stack } from 'react-native-spacing-system';
@@ -10,6 +10,7 @@ import Spinner from 'react-native-spinkit';
 import Step1 from './steps/step1';
 import Step2 from './steps/step2';
 import Step3 from './steps/step3';
+import StepsCompleted from './steps/stepsCompleted';
 import styles from './steps/styles';
 
 // styles
@@ -25,7 +26,8 @@ const RequestNewTrip = props => {
   ];
 
   const [currentStep, setCurrentStep] = useState(1);
-  const [loading, setLoading] = React.useState(false);
+  const [isLoading, setisLoading] = React.useState(false);
+  const [stepsCompleted, setStepsCompleted] = React.useState(false);
 
   const onNext = () => {
     setCurrentStep(currentStep + 1);
@@ -36,6 +38,7 @@ const RequestNewTrip = props => {
   };
 
   const finish = finalState => {
+    setStepsCompleted(true)
     console.log(finalState);
   };
 
@@ -51,10 +54,10 @@ const RequestNewTrip = props => {
         }}
         initialHeight={800}
         expandable>
-        {loading && (
+        {isLoading && (
           <View style={styles.loadingView}>
             <Spinner
-              isVisible={loading}
+              isVisible={isLoading}
               size={50}
               type={'ThreeBounce'}
               color={APP_COLOR}
@@ -63,7 +66,8 @@ const RequestNewTrip = props => {
           </View>
         )}
 
-        {!loading && (
+
+        {!isLoading && !stepsCompleted && (
           <>
             <CloseButton onPress={onPanelDismiss} />
 
@@ -89,7 +93,7 @@ const RequestNewTrip = props => {
               <Stack size={12} />
               {/* <ScrollView showsVerticalScrollIndicator={false} style={{backgroundColor:'green'}}> */}
               <View style={styles.mainContainer}>
-              <AnimatedMultistep
+                <AnimatedMultistep
                   steps={steps}
                   onFinish={finish}
                   onBack={onBack}
@@ -101,6 +105,19 @@ const RequestNewTrip = props => {
             </Inset>
           </>
         )}
+
+        {stepsCompleted && <View style={styles.completedStepContainer}>
+
+          <Inset all={16}>
+
+            <Stack size={12} />
+            <StepsCompleted onPress={onPanelDismiss} buttonText={t('close')} title={t('congratulations')} subtitle={t('trip_requested_succesfully')} />
+            <Stack size={12} />
+
+          </Inset>
+
+        </View>}
+
       </DraggablePanel>
     </View>
   );

@@ -121,7 +121,7 @@ const DropDownPickerCard = (props) => {
 
                             <ScrollView showsVerticalScrollIndicator={false}>
                                 {optionsList.map(currentOption => (<>
-                                    <TouchableHighlight onPress={() => optionSelected(currentOption)}>
+                                    <TouchableHighlight key={currentOption.label} onPress={() => optionSelected(currentOption)}>
                                         <Text style={styles.optionStyleTitle}>{currentOption.label}</Text>
                                     </TouchableHighlight>
                                     <Divider />

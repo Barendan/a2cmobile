@@ -1,6 +1,7 @@
 import { StyleSheet } from 'react-native';
-import { CANCEL, GRAY_BLUE } from '_styles/colors';
+import { ERROR, APP_COLOR } from '_styles/colors';
 import { scaleFont } from '_styles/mixins';
+import { FONT_SIZE_18 } from '_styles/typography';
 
 export default StyleSheet.create({
   titleWrapper: {
@@ -14,7 +15,7 @@ export default StyleSheet.create({
     marginBottom: 10,
   },
   body: {
-    fontSize: scaleFont(12),
+    fontSize: scaleFont(16),
     fontWeight: 'bold',
   },
   bodyWrapper: {
@@ -68,5 +69,26 @@ export default StyleSheet.create({
     height: 40,
     borderColor: '#F5F5F5',
     borderRadius: 30,
+  },
+  errorMessage: {
+    color: ERROR,
+    fontSize: FONT_SIZE_18
+  },
+  loadingMessage: {
+    color: APP_COLOR,
+    fontSize: FONT_SIZE_18
+  },
+  completedStepContainer: {
+    height: '90%',
+  },
+  completedformContainer: {
+    width: '100%',
+    backgroundColor: '#FFFFFF',
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  checkmark: {
+    height: 100,
   },
 });

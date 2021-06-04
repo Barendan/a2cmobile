@@ -53,7 +53,7 @@ const Step2 = ({ back , next }) => {
           onChecked={value => dispatch(setRequiredWheelChair(value))}
         />
         <DateTimePickerCard
-          required={true}
+          required={!appointmentDate || !appointmentTime ? true : false}
           cardIcon={'calendar-clock'}
           title={t('appointment_date_time')}
           description={
@@ -76,7 +76,7 @@ const Step2 = ({ back , next }) => {
           }
         />
         <DropDownPickerCard
-         required={true}
+         required={!tripReason ? true : false}
          cardIcon={'information-outline'}
           title={t('trip_reason')}
           multiple={false}

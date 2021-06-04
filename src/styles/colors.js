@@ -25,3 +25,6 @@ export const START_LOCATION_COLOR = '#a26bb0';
 export const MID_LOCATION_COLOR = '#aeb0b4';
 export const END_LOCATION_COLOR = '#3c588f';
 
+//LABELS
+export const TITLE_COLOR = '#366999';
+

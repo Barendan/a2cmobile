@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, ScrollView } from 'react-native';
+import { View, ScrollView, Text } from 'react-native';
 import { Button } from '@ui-kitten/components';
 import { useTranslation } from 'react-i18next';
 import { TextInputCard } from '_molecules';
@@ -7,9 +7,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import styles from './styles';
 import { MemberService } from '_services';
 import { setSpecialNeeds } from '_store/steps'
+import Spinner from 'react-native-spinkit';
+import { APP_COLOR } from '_styles/colors';
+import { Stack } from 'react-native-spacing-system';
 
-const Step3 = ({ back }) => {
-  const [isLoading, setLoading] = React.useState(false);
+const Step3 = ({ back, next }) => {
+  const [isLoading, setIsLoading] = React.useState(false);
+  const [errorMessage, setErrorMessage] = React.useState('');
   const { t } = useTranslation();
   const dispatch = useDispatch();
 
@@ -57,19 +61,19 @@ const Step3 = ({ back }) => {
       };
   
   
-      setLoading(true);
+      setIsLoading(true);
       MemberService.requestTrip(payload)
         .then(data => {
-          setLoading(false);
-          alert(JSON.stringify(data));
+          setIsLoading(false);
+          nextStep();
         })
         .catch(err => {
-          alert(JSON.stringify(err));
-          setLoading(false);
+          setIsLoading(false);
+          setErrorMessage(err.Message);
         });
     } catch (error) {
       console.log(error)
-      setLoading(false);
+      setIsLoading(false);
     }
   };
 
@@ -87,7 +91,7 @@ const Step3 = ({ back }) => {
       <ScrollView style={styles.formContainer}>
 
         <TextInputCard
-          required={true}
+          required={specialNeeds.length === 0 ? true : false}
           cardIcon={'handshake'}
           title={t('special_needs')}
           placeholder={t('special_needs_required')}
@@ -96,6 +100,21 @@ const Step3 = ({ back }) => {
         />
 
       </ScrollView>
+
+      <Text style={styles.errorMessage}>{errorMessage}</Text>
+            {isLoading && <View style={styles.loadingView}>
+
+            <Text style={styles.loadingMessage}>{t('requesting_trip')}</Text>
+                <Spinner
+                    isVisible={isLoading}
+                    size={50}
+                    type={'ThreeBounce'}
+                    color={APP_COLOR}
+                />
+            </View>}
+
+            <Stack size={12} />
+
       <View style={styles.footer}>
 
         <Button

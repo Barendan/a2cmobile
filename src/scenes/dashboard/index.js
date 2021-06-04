@@ -1,11 +1,13 @@
 import React from 'react';
-import { SafeAreaView, View, ScrollView, TouchableHighlight, StyleSheet, Text } from 'react-native';
+import { SafeAreaView, View, ScrollView, TouchableHighlight, StyleSheet } from 'react-native';
 import { Inset, Stack } from "react-native-spacing-system";
 import { Avatar, Card, IconButton, Divider, FAB, Portal } from 'react-native-paper';
 import Spinner from 'react-native-spinkit';
 import { useTranslation } from "react-i18next";
 import { useSelector } from 'react-redux';
+
 import { PlanSelector, TripDetails, FullTripDetails, RequestNewTrip } from '_organisms';
+import { EmptyStateView } from '_molecules';
 import { TripService } from '_services';
 
 // styles
@@ -92,21 +94,21 @@ const DashboardScreen = () => {
 
      
 
-      <View style={styles.loadingView}>
+      {loading && <View style={styles.loadingView}>
         <Spinner
           isVisible={loading}
           size={50}
           type={'ThreeBounce'}
           color={APP_COLOR}
         />
-      </View>
+      </View> }
 
+      <EmptyStateView title={t('no_trips_scheduled')} />
 
-      <Inset all={16}>
+      {memberTrips.length > 0 && <Inset all={16}>
 
-        
+        <ScrollView showsVerticalScrollIndicator={false}>
 
-      <ScrollView showsVerticalScrollIndicator={false}>
           {memberTrips.map(currentTrip => (
             <>
               <TripDetails
@@ -118,10 +120,9 @@ const DashboardScreen = () => {
           ))}
 
           <Stack size={100} />
-        </ScrollView>
+        </ScrollView> 
 
-
-      </Inset>
+      </Inset> }
 
 
       <FAB

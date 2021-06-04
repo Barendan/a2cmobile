@@ -111,4 +111,8 @@
   "question_answer": "Question Answer",
   "wrong_answers_text": "The answers you provided are incorrect. Please try again.",
   "member_not_found": "The login you provided not match any records. Please try again.",
+  "requesting_trip": "Requesting Trip..",
+  "congratulations": "Congratulations!",
+  "trip_requested_succesfully": " Your trip has been requested",
+  "no_trips_scheduled": "You currently do not have any trips scheduled",
 }
