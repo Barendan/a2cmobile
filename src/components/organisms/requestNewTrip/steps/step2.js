@@ -10,7 +10,7 @@ import {
 } from '_molecules';
 import { useDispatch, useSelector } from 'react-redux';
 import styles from './styles';
-import { requireWheelChair, additionalPassenger, appointMentSchedule, enterTripReason, setSpecialNeeds } from '_store/steps';
+import { setRequiredWheelChair, setAdditionalPassenger, setAppointMentSchedule, setTripReason } from '_store/steps';
 
 const Step2 = ({ back , next }) => {
 
@@ -44,13 +44,13 @@ const Step2 = ({ back , next }) => {
           cardIcon={'account-multiple-outline'}
           title={t('additional_passengers')}
           count={additionalPassengers}
-          onCountChange={value => dispatch(additionalPassenger(value))}
+          onCountChange={value => dispatch(setAdditionalPassenger(value))}
         />
         <CheckboxCard
           cardIcon={'wheelchair-accessibility'}
           title={t('need_wheelchair')}
           checkedValue={wheelchairRequired}
-          onChecked={value => dispatch(requireWheelChair(value))}
+          onChecked={value => dispatch(setRequiredWheelChair(value))}
         />
         <DateTimePickerCard
           required={!appointmentDate || !appointmentTime ? true : false}
@@ -72,7 +72,7 @@ const Step2 = ({ back , next }) => {
           dateValue={appointmentDate}
           timeValue={appointmentTime}
           onDateTimeChange={(type, value) =>
-            dispatch(appointMentSchedule({type: type, value: value}))
+            dispatch(setAppointMentSchedule({type: type, value: value}))
           }
         />
         <DropDownPickerCard
@@ -82,8 +82,7 @@ const Step2 = ({ back , next }) => {
           multiple={false}
           optionsList={tripReasons}
           selectedValue={tripReason}
-          onOptionSelected={value => dispatch(enterTripReason(value?.value))}
-          onOptionSelected={selected => dispatch(enterTripReason(selected?.value))}
+          onOptionSelected={value => dispatch(setTripReason(value?.value))}
         />
       </ScrollView>
 

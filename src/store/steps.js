@@ -19,39 +19,34 @@ const slice = createSlice({
       }
   },
   reducers: {
-    onDestinationAddress: (state, action) => {
+    destinationAddressHelper: (state, action) => {
         state.steps.destinationAddress = action.payload;
       },
-    onAddressSelected: (state, action) => {
+    pickupAddressHelper: (state, action) => {
       state.steps.pickupAddress = action.payload;
     },
-    onUpdateTripStops: (state, action) => {
+    tripStopsHelper: (state, action) => {
         state.steps.tripStops = [...state.steps.tripStops, action.payload];
     },
-    onEnterTripReason: (state, action) => {
+    tripReasonHelper: (state, action) => {
         state.steps.tripReason = action.payload;
     },
-    deleteTripStop: (state, action) => {
+    deleteATripStopHelper: (state, action) => {
       state.steps.tripStops.splice(action.payload, 1);
     },
-    onRoundTripChecked: (state, action) =>  {
+    isRoundTripHelper: (state, action) =>  {
         state.steps.isRoundTrip = action.payload;
     },
-    onAdditionPassengersChange: (state, action) => {
+    additionalPassengerHelper: (state, action) => {
         state.steps.additionalPassengers = action.payload;
     },  
-    onWheelchairRequiredChecked: (state, action) => {
+    wheelchairRequiredHelper: (state, action) => {
         state.steps.wheelchairRequired = action.payload;
     },
-    onSpecialNeeds: (state, action) => {
+    specialNeedsHelper: (state, action) => {
         state.steps.specialNeeds = action.payload;
     },
-    onAppointmentDateTimeChange: (state, action) => {
-
-      if(action.payload.type === "datetime") {
-        alert(action.payload.value)
-
-      }
+    appointmentDateTimeHelper: (state, action) => {
         switch (action.payload.type) {
             case 'date':
                 state.steps.appointmentDate = action.payload.value;
@@ -70,20 +65,20 @@ const slice = createSlice({
 });
 export default slice.reducer;
 // Actions
-const { onAddressSelected, onDestinationAddress, onUpdateTripStops, deleteTripStop, onRoundTripChecked, onSpecialNeeds,
-    onAdditionPassengersChange, onWheelchairRequiredChecked, onAppointmentDateTimeChange, onEnterTripReason
+const { pickupAddressHelper, destinationAddressHelper, tripStopsHelper, deleteATripStopHelper, isRoundTripHelper, specialNeedsHelper,
+    additionalPassengerHelper, wheelchairRequiredHelper, appointmentDateTimeHelper, tripReasonHelper
  } = slice.actions;
 export const selectAddress = (address) => async dispatch => {
   try {
-    dispatch(onAddressSelected(address));
+    dispatch(pickupAddressHelper(address));
   } catch (e) {
     return console.error(e.message);
   }
 }
 
-export const enterTripReason = (reason) => async dispatch => {
+export const setTripReason = (reason) => async dispatch => {
     try {
-      dispatch(onEnterTripReason(reason));
+      dispatch(tripReasonHelper(reason));
     } catch (e) {
       return console.error(e.message);
     }
@@ -91,7 +86,7 @@ export const enterTripReason = (reason) => async dispatch => {
 
 export const removeATripStop = (index) => async dispatch => {
     try {
-        dispatch(deleteTripStop(index));
+        dispatch(deleteATripStopHelper(index));
       } catch (e) {
         return console.error(e.message);
       }
@@ -99,7 +94,7 @@ export const removeATripStop = (index) => async dispatch => {
 
 export const destinationSelect = (address) => async dispatch => {
     try {
-      dispatch(onDestinationAddress(address));
+      dispatch(destinationAddressHelper(address));
     } catch (e) {
       return console.error(e.message);
     }
@@ -107,14 +102,14 @@ export const destinationSelect = (address) => async dispatch => {
 
 export const updateTripStop = (address) => async dispatch => {
   try {
-    return dispatch(onUpdateTripStops(address))
+    return dispatch(tripStopsHelper(address))
   } catch (e) {
     return console.error(e.message);
   }
 }
 export const roundTrip = (trip) => async dispatch => {
   try {
-    dispatch(onRoundTripChecked(trip));
+    dispatch(isRoundTripHelper(trip));
   } catch (e) {
     return console.error(e.message);
   }
@@ -122,31 +117,31 @@ export const roundTrip = (trip) => async dispatch => {
 
 export const deleteTripSt = (index) => async dispatch => {
     try {
-      dispatch(deleteTripStop(index));
+      dispatch(deleteATripStopHelper(index));
     } catch (e) {
       return console.error(e.message);
     }
   }
 
-export const appointMentSchedule = (schedule) => async dispatch => {
+export const setAppointMentSchedule = (schedule) => async dispatch => {
     try {
-      dispatch(onAppointmentDateTimeChange(schedule));
+      dispatch(appointmentDateTimeHelper(schedule));
     } catch (e) {
       return console.error(e.message);
     }
   }
 
-export const requireWheelChair = (value) => async dispatch => {
+export const setRequiredWheelChair = (value) => async dispatch => {
     try {
-      return dispatch(onWheelchairRequiredChecked(value))
+      return dispatch(wheelchairRequiredHelper(value))
     } catch (e) {
       return console.error(e.message);
     }
 }
 
-export const additionalPassenger = (value) => async dispatch => {
+export const setAdditionalPassenger = (value) => async dispatch => {
     try {
-      return dispatch(onAdditionPassengersChange(value))
+      return dispatch(additionalPassengerHelper(value))
     } catch (e) {
       return console.error(e.message);
     }
@@ -154,7 +149,7 @@ export const additionalPassenger = (value) => async dispatch => {
 
 export const setSpecialNeeds = (value) => async dispatch => {
     try {
-      return dispatch(onSpecialNeeds(value))
+      return dispatch(specialNeedsHelper(value))
     } catch (e) {
       return console.error(e.message);
     }
