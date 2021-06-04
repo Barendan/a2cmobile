@@ -47,6 +47,11 @@ const slice = createSlice({
         state.steps.specialNeeds = action.payload;
     },
     onAppointmentDateTimeChange: (state, action) => {
+
+      if(action.payload.type === "datetime") {
+        alert(action.payload.value)
+
+      }
         switch (action.payload.type) {
             case 'date':
                 state.steps.appointmentDate = action.payload.value;

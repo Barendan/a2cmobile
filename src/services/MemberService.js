@@ -13,15 +13,15 @@ const getUserRecord = (value) => {
     return RequestApi.get(`/users?type=userRecord&value=${value}`);
 };
 
-const requestTrip = (value) => {
-    return RequestApi.post(`/members?type=requestTrip&value=${value}`);
+const requestTrip = (payload) => {
+    return RequestApi.post(`/members?type=requestTrip`,payload);
 };
  
 const cancelTrip = (value) => {
     return RequestApi.post(`/members?type=cancel&value=${value}`);
 };
  
-// member registrattion calls
+// member registration calls
 const validateMemberInfo= (value,subValue,triSubValue) => {
     return RequestApi.get(`/members?type=memberInfo&value=${value}&subValue=${subValue}&triSubValue=${triSubValue}`);
 };

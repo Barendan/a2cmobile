@@ -6,6 +6,7 @@ import Spinner from 'react-native-spinkit';
 import { APP_COLOR } from '_styles/colors';
 import { Stack } from 'react-native-spacing-system';
 import styles from './styles';
+import { OTPInput } from '_atoms';
 import { useAccountMethods } from '_hooks';
 
 const Step2 = ({ back, next, getState, saveState }) => {
@@ -89,9 +90,9 @@ const Step2 = ({ back, next, getState, saveState }) => {
         const { SecurityAnswerOne, SecurityAnswerTwo, SecurityAnswerThree } = memberRecord;
         const { answerOne, answerTwo, answerThree } = securityAnswers;
 
-        if(SecurityAnswerOne.toLowerCase() === answerOne.toLocaleLowerCase() &&
-        SecurityAnswerTwo.toLowerCase() === answerTwo.toLocaleLowerCase() &&
-        SecurityAnswerThree.toLowerCase() === answerThree.toLocaleLowerCase()) {
+        if (SecurityAnswerOne.toLowerCase() === answerOne.toLocaleLowerCase() &&
+            SecurityAnswerTwo.toLowerCase() === answerTwo.toLocaleLowerCase() &&
+            SecurityAnswerThree.toLowerCase() === answerThree.toLocaleLowerCase()) {
             next();
         } else {
             setErrorMessage(t('wrong_answers_text'));
@@ -114,7 +115,7 @@ const Step2 = ({ back, next, getState, saveState }) => {
                     ]}>
 
                     {memberRecord && <Text category="h6" style={[{ marginBottom: '5%' }]}>
-                        {t('greeting-text')} {memberRecord.login}
+                        {t('greeting-text')} {memberRecord.login} {loginMethod.tempCode}
                     </Text>}
 
                 </View>
@@ -122,13 +123,24 @@ const Step2 = ({ back, next, getState, saveState }) => {
                 {pageLoaded && <>
                     {!securityAnswersExist &&
                         <>
-                            <Input
+                            {/* <Input
                                 style={styles.input}
                                 onChangeText={text => setRandomGenerateCode(text)}
                                 value={loginMethod.tempCode}
                                 label={t('temp_code') + "*"}
                                 placeholder={t('temp_code')}
+                            /> */}
+                            <OTPInput
+                                label={t('temp_code') + "*"}
+                                pinCount={4}
+                                codeValue={randomGenerateCode} 
+                                onCodeChanged={(code) => setRandomGenerateCode(code)}
                             />
+
+
+
+                            <Stack size={485} />
+
                             <View style={[{ alignItems: 'center', width: '100%', marginBottom: '5%' }]}>
                                 <TouchableHighlight onPress={() => onSendTempPassCode({
                                     loginType: memberRecord.login,
