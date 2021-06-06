@@ -19,8 +19,8 @@ import { Inset } from 'react-native-spacing-system';
 import { APP_COLOR } from '_styles/colors';
 
 import AnimatedMultistep from 'react-native-animated-multistep';
-import Step1 from './steps/step1';
-import Step2 from './steps/step2';
+import Step1 from './locationSteps/step1';
+import Step2 from './locationSteps/step2';
 
 const SavedLocations = () => {
   const { t } = useTranslation();
