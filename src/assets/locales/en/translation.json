@@ -124,5 +124,9 @@
   "enter_name_placeholder": "Enter Name",
   "enter_location_label": "Location Address",
   "enter_location_placeholder": "Enter Address",
-  "save_location": "Save Location"
+  "save_location": "Save Location",
+  "requesting_trip": "Requesting Trip..",
+  "congratulations": "Congratulations!",
+  "trip_requested_succesfully": " Your trip has been requested",
+  "no_trips_scheduled": "You currently do not have any trips scheduled"
 }

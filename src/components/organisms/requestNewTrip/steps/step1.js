@@ -25,7 +25,7 @@ const Step1 = ({ next }) => {
 
       <ScrollView showsVerticalScrollIndicator={false} style={styles.formContainer}>
         <LocationSearchCard
-          required={true}
+          required={!pickupAddress ? true : false}
           locationIndex={0}
           title={t('pickup_address')}
           description={
@@ -56,7 +56,7 @@ const Step1 = ({ next }) => {
           onAddressSelected={addr => dispatch(updateTripStop(addr))}
         />
         <LocationSearchCard
-          required={true}
+          required={!destinationAddress ? true : false}
           locationIndex={1}
           title={t('destination_address')}
           description={

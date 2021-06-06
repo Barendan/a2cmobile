@@ -78,5 +78,5 @@ export default StyleSheet.create({
   optionsIcon: {
     backgroundColor: 'transparent',
     marginLeft: 5
-  },
+  }
 });

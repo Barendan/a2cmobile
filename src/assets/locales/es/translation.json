@@ -123,5 +123,9 @@
   "enter_location_label": "Dirección del Sitio",
   "enter_name_placeholder": "Ingrese su Nombre",
   "enter_location_placeholder": "Ingresa la Direccion",
-  "save_location": "Guardar dirección"
+  "save_location": "Guardar dirección",
+  "requesting_trip": "Solicitando Viaje..",
+  "congratulations": "¡Felicidades!!",
+  "trip_requested_succesfully": "Tu viaje ha sido solicitado",
+  "no_trips_scheduled": "Actualmente no tienes ningún viaje programado"
 }

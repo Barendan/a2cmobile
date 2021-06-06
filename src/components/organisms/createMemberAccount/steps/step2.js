@@ -6,14 +6,16 @@ import Spinner from 'react-native-spinkit';
 import { APP_COLOR } from '_styles/colors';
 import { Stack } from 'react-native-spacing-system';
 import styles from './styles';
+import { OTPInput } from '_atoms';
+
 import { useAccountMethods } from '_hooks';
 
 const Step2 = ({ back, next, getState, saveState }) => {
     const { t } = useTranslation();
 
-    const { 
-        loading, 
-        errorMessage, 
+    const {
+        loading,
+        errorMessage,
         disableNextButton,
         selectedIndex,
         randomGenerateCode,
@@ -25,14 +27,14 @@ const Step2 = ({ back, next, getState, saveState }) => {
         onLoginMethod,
         onValidateTemporaryCode,
         onSendTempPassCode,
-        setShowValidate 
+        setShowValidate
     } = useAccountMethods();
 
     const { memberRecord } = getState();
 
     React.useEffect(() => {
         if (memberLogin) {
-            saveState({memberLogin: memberLogin})
+            saveState({ memberLogin: memberLogin })
             next();
         }
     }, [memberLogin]);
@@ -99,13 +101,21 @@ const Step2 = ({ back, next, getState, saveState }) => {
                             1: <Text>{t('temp_code_text')}: <Text style={styles.highlightText}>{loginMethod.login}</Text></Text>
                         }[selectedIndex]}
                     </View>
-                    <Input
+                    {/* <Input
                         style={styles.input}
                         onChangeText={text => setRandomGenerateCode(text)}
                         value={loginMethod.tempCode}
                         label={t('temp_code') + "*"}
                         placeholder={t('temp_code')}
+                    /> */}
+
+                    <OTPInput
+                        label={t('temp_code') + "*"}
+                        pinCount={4}
+                        codeValue={randomGenerateCode}
+                        onCodeChanged={(code) => setRandomGenerateCode(code)}
                     />
+
                     <View style={[{ alignItems: 'center', width: '100%', marginBottom: '5%' }]}>
                         <TouchableHighlight onPress={() => onSendTempPassCode()}><Text style={styles.linkText}>{t('resend_temp_code')}</Text></TouchableHighlight>
                     </View>
