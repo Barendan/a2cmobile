@@ -199,7 +199,7 @@ const LocationSearchCard = (props) => {
 
                             <Stack size={6} />
                                 
-                            <LocationService.googlePlacesAutoInput placeholder={t('search_location')} lang={'es'} onPlaceSelected={(v) => onPlaceSelected(v)} />
+                            <LocationService.googlePlacesAutoInput placeholder={t('search_location')} lang={'en'} onPlaceSelected={(v) => onPlaceSelected(v)} />
                             <Stack size={6} />
                         </View>}
                     </Animated.View>

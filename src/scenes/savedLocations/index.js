@@ -210,6 +210,7 @@ const SavedLocations = () => {
         style={styles.fab}
         large
         icon="plus"
+        label={t('add_saved_location')}
         onPress={() => setModalVisible(true)}
       />
     </SafeAreaView>
