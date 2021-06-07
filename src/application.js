@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { Provider } from 'react-redux';
-import {useDispatch, useSelector} from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   checkPermission,
   foregroundNotifications,
@@ -14,6 +14,7 @@ import { I18nextProvider } from 'react-i18next';
 import i18n from './../i18n';
 
 import { I18nManager } from 'react-native';
+import { MenuProvider } from 'react-native-popup-menu';
 
 import {
   NavigationContainer,
@@ -27,7 +28,8 @@ import {
 } from 'react-native-paper';
 
 import * as eva from '@eva-design/eva';
-import { ApplicationProvider } from '@ui-kitten/components';
+import { ApplicationProvider, IconRegistry } from '@ui-kitten/components';
+import { EvaIconsPack } from '@ui-kitten/eva-icons';
 
 const CombinedDefaultTheme = {
   ...PaperDefaultTheme,
@@ -36,7 +38,6 @@ const CombinedDefaultTheme = {
 const CombinedDarkTheme = { ...PaperDarkTheme, ...NavigationDarkTheme };
 
 const Application = () => {
-
   const { user } = useSelector(state => state.user);
   const [isLoading, setIsLoading] = React.useState(false);
   const [isDarkTheme, setIsDarkTheme] = React.useState(false);
@@ -45,18 +46,18 @@ const Application = () => {
 
   const toggleTheme = () => {
     setIsDarkTheme(isDark => !isDark);
-  }
+  };
 
   const toggleRTL = React.useCallback(() => {
-    setIsRtl(!isRtl)
+    setIsRtl(!isRtl);
     I18nManager.forceRTL(!isRtl);
   }, [isRtl]);
 
   const appIsReady = () => {
     return () => {
-      NavigationService.isReadyRef.current = false
+      NavigationService.isReadyRef.current = false;
     };
-  }
+  };
 
   useEffect(() => {
     appIsReady();
@@ -70,42 +71,40 @@ const Application = () => {
       toggleTheme,
       toggleRTL,
       theme,
-      rtl: (isRtl ? 'right' : 'left'),
+      rtl: isRtl ? 'right' : 'left',
     }),
-    [isRtl, theme, toggleRTL]
+    [isRtl, theme, toggleRTL],
   );
 
   return (
-    <ApplicationProvider {...eva} theme={eva.light}>
-      <PreferencesContext.Provider value={preferences}>
-
-        <I18nextProvider i18n={i18n}>
-          <PaperProvider theme={theme}>
-
-          <NavigationContainer
-            ref={NavigationService.navigationRef}
-            onReady={() => {
-              NavigationService.isReadyRef.current = true;
-            }}
-            theme={theme}
-        >
-            {isLoading ? (
-                <></>
-            ) : user ? (
-                <AppDrawerScreen />
-            ) : (
-                <AuthStackScreen />
-            )}
-
-        </NavigationContainer>
-            
-          </PaperProvider>
-
-        </I18nextProvider>
-      </PreferencesContext.Provider>
-    </ApplicationProvider>
-  )
-
+    <>
+      <IconRegistry icons={EvaIconsPack} />
+      <ApplicationProvider {...eva} theme={eva.light}>
+        <PreferencesContext.Provider value={preferences}>
+          <I18nextProvider i18n={i18n}>
+            <PaperProvider theme={theme}>
+              <MenuProvider>
+                <NavigationContainer
+                  ref={NavigationService.navigationRef}
+                  onReady={() => {
+                    NavigationService.isReadyRef.current = true;
+                  }}
+                  theme={theme}>
+                  {isLoading ? (
+                    <></>
+                  ) : user ? (
+                    <AppDrawerScreen />
+                  ) : (
+                    <AuthStackScreen />
+                  )}
+                </NavigationContainer>
+              </MenuProvider>
+            </PaperProvider>
+          </I18nextProvider>
+        </PreferencesContext.Provider>
+      </ApplicationProvider>
+    </>
+  );
 };
 
 export default Application;
