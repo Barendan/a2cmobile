@@ -5,11 +5,13 @@ import { combineReducers } from 'redux'
 import user from './user';
 import plan from './plan';
 import steps from './steps';
+import savedLocations from './savedLocations';
 
 const reducer = combineReducers({
     user,
     plan,
-    steps
+    steps,
+    savedLocations
 });
 const store = configureStore({
     reducer,

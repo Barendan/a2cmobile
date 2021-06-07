@@ -153,9 +153,21 @@ export function DrawerContent({ navigation }) {
                 />
               )}
             />
-            <DrawerItem
+            {/* <DrawerItem
               label={t('saved_locations')}
               onPress={() => navigation.navigate('Locations')}
+              icon={() => (
+                <Avatar.Icon
+                  size={30}
+                  icon="map"
+                  color="black"
+                  style={styles.drawerIcon}
+                />
+              )}
+            /> */}
+            <DrawerItem
+              label={t('saved_locations')}
+              onPress={() => navigation.navigate('FavoriteLocations')}
               icon={() => (
                 <Avatar.Icon
                   size={30}

@@ -116,9 +116,9 @@
   "confirm_delete_text": "¿Está seguro de que desea eliminar esta ubicación guardada?",
   "cancel": "Cancelar",
   "confirm": "Sí",
-  "no_saved_locations": "No tiene ninguna ubicación guardada.",
+  "no_saved_locations": "Actualmente no tiene ninguna ubicación guardada",
   "edit_saved_location": "Editar una Ubicación",
-  "add_saved_location": "Agrega un Lugar",
+  "add_saved_location": "Añadir lugar",
   "enter_name_label": "Apodo",
   "enter_location_label": "Dirección del Sitio",
   "enter_name_placeholder": "Ingrese su Nombre",
@@ -127,5 +127,8 @@
   "requesting_trip": "Solicitando Viaje..",
   "congratulations": "¡Felicidades!!",
   "trip_requested_succesfully": "Tu viaje ha sido solicitado",
-  "no_trips_scheduled": "Actualmente no tienes ningún viaje programado"
+  "no_trips_scheduled": "Actualmente no tienes ningún viaje programado",
+  "add_new_location": "Agregar Nueva Ubicación",
+  "address": "Habla a",
+  "address_description": "Este es el lugar donde lo recogerán o dejarán"
 }

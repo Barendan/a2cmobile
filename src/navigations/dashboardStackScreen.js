@@ -14,6 +14,7 @@ import DashboardScreen from '_scenes/dashboard';
 import AboutScreen from '_scenes/about';
 import AccountSettings from '_scenes/accountSettings';
 import SavedLocations from '_scenes/savedLocations';
+import FavoriteLocations from '_scenes/favoriteLocations';
 import SecuritySettings from '_scenes/securitySettings';
 
 // styles
@@ -85,6 +86,11 @@ export const DashboardStack = () => {
       <Stack.Screen
         name="Locations"
         component={SavedLocations}
+        options={{ headerTitle: t('saved_locations') }}
+      />
+      <Stack.Screen
+        name="FavoriteLocations"
+        component={FavoriteLocations}
         options={{ headerTitle: t('saved_locations') }}
       />
       <Stack.Screen

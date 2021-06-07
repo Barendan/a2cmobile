@@ -306,9 +306,6 @@ const LoginScreen = ({ navigation, route }) => {
 
         <View style={styles.authArea}>
 
-
-
-
           <View style={styles.authArea}>
 
             <View style={styles.forgotPass}>
