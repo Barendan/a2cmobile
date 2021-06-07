@@ -22,9 +22,14 @@ const Step2 = ({ back , next }) => {
   const { t } = useTranslation();
 
   const [tripReasons, setTripReasons] = useState([
-    { label: 'Routine Checkup', value: 'Routine Checkup' },
-    { label: 'Monthly Appointment', value: 'Monthly Appointment' },
-    { label: 'Yearly Physical', value: 'Yearly Physical' },
+    {label: 'Physician Services', value: 'Physician Services' },
+    {label: 'Mental Health', value: 'Mental Health Adult Rehab' },
+    {label: 'Pediatric Services', value: 'Pediatric Services' },
+    {label: 'Drug Rehab', value: 'Drug Rehabilitation' },
+    {label: 'Radiation Treatments', value: 'Radiation Treatments' },      
+    {label: 'Chemotherapy', value: 'Chemotherapy' },  
+    {label: 'Dialysis', value: 'Dialysis' },  
+    {label: 'Other', value: 'Other Medical Related' }
   ]);
 
   const nextStep = () => {

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, Button, ScrollView } from 'react-native';
+import { View, Text, Button, ScrollView, KeyboardAvoidingView } from 'react-native';
 import AnimatedMultistep from 'react-native-animated-multistep';
 import DraggablePanel from 'react-native-draggable-panel';
 import { Inset, Stack } from 'react-native-spacing-system';
@@ -41,6 +41,11 @@ const RequestNewTrip = props => {
     setStepsCompleted(true)
     console.log(finalState);
   };
+
+  const onClose = () => {
+    setStepsCompleted(false);
+    onPanelDismiss();
+  }
 
   const { panelHeader, displayPanel, onPanelDismiss } = props;
 
@@ -92,14 +97,14 @@ const RequestNewTrip = props => {
               <Divider />
               <Stack size={12} />
               {/* <ScrollView showsVerticalScrollIndicator={false} style={{backgroundColor:'green'}}> */}
-              <View style={styles.mainContainer}>
+              <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} style={styles.mainContainer} enabled keyboardVerticalOffset={100}>
                 <AnimatedMultistep
                   steps={steps}
                   onFinish={finish}
                   onBack={onBack}
                   onNext={onNext}
                 />
-              </View>
+              </KeyboardAvoidingView>
 
               {/* </ScrollView> */}
             </Inset>
@@ -111,7 +116,7 @@ const RequestNewTrip = props => {
           <Inset all={16}>
 
             <Stack size={12} />
-            <StepsCompleted onPress={onPanelDismiss} buttonText={t('close')} title={t('congratulations')} subtitle={t('trip_requested_succesfully')} />
+            <StepsCompleted onPress={onClose} buttonText={t('close')} title={t('congratulations')} subtitle={t('trip_requested_succesfully')} />
             <Stack size={12} />
 
           </Inset>

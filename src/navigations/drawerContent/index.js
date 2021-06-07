@@ -88,7 +88,6 @@ export function DrawerContent({ navigation }) {
         updatePanelDetails('isHTML', true);
       })
       .catch(err => {
-        alert(err);
         updatePanelDetails('panelDataLoading', false);
       });
   };

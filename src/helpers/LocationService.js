@@ -98,7 +98,7 @@ const googlePlacesAutoInput = ({ placeholder, lang, onPlaceSelected }) => (
         AddressLine1: parsedAddress.address,
         AddressLine2: null,
         City: parsedAddress.city,
-        State: parsedAddress.stateLong,
+        State: parsedAddress.stateShort,
         County: parsedAddress.county,
         ZipCode: parsedAddress.zipCode,
         Country: parsedAddress.countryLong,

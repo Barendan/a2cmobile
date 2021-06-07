@@ -116,6 +116,8 @@ const Step2 = ({ back, next, getState, saveState }) => {
                         onCodeChanged={(code) => setRandomGenerateCode(code)}
                     />
 
+                    <Stack size={48} />
+
                     <View style={[{ alignItems: 'center', width: '100%', marginBottom: '5%' }]}>
                         <TouchableHighlight onPress={() => onSendTempPassCode()}><Text style={styles.linkText}>{t('resend_temp_code')}</Text></TouchableHighlight>
                     </View>
