@@ -236,7 +236,7 @@ const LoginScreen = ({ navigation, route }) => {
         <View style={styles.topContainer}>
 
           <View>
-              {plan.contractLogo ? <Image
+              {plan && plan.contractLogo ? <Image
                 style={{
                   resizeMode: 'contain',
                   height: 100,
@@ -257,7 +257,7 @@ const LoginScreen = ({ navigation, route }) => {
                 source={require('_assets/images/A2CFullLogo.png')}
               />}
 
-            <Text style={styles.title}>{plan.contractName}</Text>
+            <Text style={styles.title}>{plan && plan.contractName}</Text>
           </View>
 
 
