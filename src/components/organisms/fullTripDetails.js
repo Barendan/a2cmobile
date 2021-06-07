@@ -4,9 +4,13 @@ import DraggablePanel from 'react-native-draggable-panel';
 import { Inset, Stack } from "react-native-spacing-system";
 import { Divider } from 'react-native-paper';
 import { useTranslation } from "react-i18next";
+import { useSelector } from 'react-redux';
 
 import { CloseButton } from '_atoms'
 import { TripDetails } from '_organisms';
+
+import { MemberService } from '_services';
+import user from '_store';
 
 
 // styles
@@ -82,6 +86,9 @@ const styles = StyleSheet.create({
 
 const FullTripDetails = (props) => {
     const { t } = useTranslation();
+    const { user } = useSelector(state => state.user);
+
+    const [loading, setLoading] = React.useState(false);
 
     const {
         panelHeader,
@@ -89,6 +96,51 @@ const FullTripDetails = (props) => {
         onPanelDismiss,
         currentTrip
     } = props;
+
+
+    const onCancelTrip = () => {
+        setLoading(true);
+  
+        let payload = {
+            memberID: user.memberID,
+            tripNumber: currentTrip.TripNumber
+        }
+    
+        MemberService.cancelTrip(payload)
+          .then((data) => {
+    
+            setLoading(false);
+            onPanelDismiss();
+
+          })
+          .catch((err) => {
+            alert(JSON.stringify(err));
+            setLoading(false);
+          });
+    }
+
+    const onCancelOnlineTrip = () => {
+        setLoading(true);
+  
+        let payload = {
+            onlineTripID: currentTrip.OnlineTripID
+        }
+    
+        MemberService.cancelOnlineTrip(payload)
+          .then((data) => {
+    
+            setLoading(false);
+            onPanelDismiss();
+
+          })
+          .catch((err) => {
+            alert(JSON.stringify(err));
+            setLoading(false);
+          });
+    }    
+
+
+
 
     return (
         <View>
@@ -119,7 +171,7 @@ const FullTripDetails = (props) => {
                                             viewFullTripDetails={() => { }}
                                         />
                                     </Inset>
-                                </View>
+                                </View> 
 
                                 <Divider style={{ backgroundColor: GRAY_DARK }} />
                                 <Stack size={12} />
@@ -146,22 +198,14 @@ const FullTripDetails = (props) => {
                             </ScrollView>
 
                             <View>
-                                <View style={styles.callToActionBtnHolder}>
-                                    <Inset all={16}>
-                                        {/* <Button
-                                            titleStyle={styles.cancelButton}
-                                            onPress={() => alert('s')}
-                                            title={t('cancel_trip')}
-                                            color={CANCEL}
-                                        /> */}
-                                        <TouchableOpacity
-                                            style={styles.customBtnBG}
-                                            onPress={() => { }}
-                                        >
-                                            <Text style={styles.customBtnText}>{t('cancel_trip')}</Text>
-                                        </TouchableOpacity>
-                                    </Inset>
-                                </View>
+                                <Inset all={16}>
+                                    <TouchableOpacity
+                                        style={styles.customBtnBG}
+                                        onPress={(currentTrip.TransportProviderName !== null && currentTrip.TransportProviderName.toLowerCase() === 'pending') ? onCancelOnlineTrip : onCancelTrip}
+                                    >
+                                        <Text style={styles.customBtnText}>{t('cancel_trip')}</Text>
+                                    </TouchableOpacity>
+                                </Inset>
                             </View>
 
                         </View>

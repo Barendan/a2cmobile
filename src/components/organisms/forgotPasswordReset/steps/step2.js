@@ -25,6 +25,7 @@ const Step2 = ({ back, next, getState, saveState }) => {
         onValidateTemporaryCode,
         onSendTempPassCode,
         fetchMemberRecord,
+        updateLoginMethod
     } = useAccountMethods();
 
     const { memberLogin } = getState();
@@ -73,17 +74,20 @@ const Step2 = ({ back, next, getState, saveState }) => {
             } else {
                 setSecurityAnswersExist(false);
 
-                let sendPayload = {
-                    loginType: memberRecord.login,
-                    login: memberRecord.loginType
-                };
+                updateLoginMethod('loginType', memberRecord.loginType);
+                updateLoginMethod('login', memberRecord.login);
 
-                onSendTempPassCode(sendPayload);
 
             }
         }
     }, [memberRecord]);
 
+
+    React.useEffect(() => {
+        if(loginMethod.loginType.length > 0 && loginMethod.login.length > 0) {
+            onSendTempPassCode();
+        }
+    }, [loginMethod]);
 
 
     const onValidateSecurityAnswers = () => {
@@ -115,8 +119,11 @@ const Step2 = ({ back, next, getState, saveState }) => {
                     ]}>
 
                     {memberRecord && <Text category="h6" style={[{ marginBottom: '5%' }]}>
-                        {t('greeting-text')} {memberRecord.login} {loginMethod.tempCode}
+                        {t('greeting-text')} {memberRecord.login} 
                     </Text>}
+                    {memberRecord && <Text>{memberRecord.SecurityAnswerOne}</Text>}
+                    {memberRecord && <Text>{memberRecord.SecurityAnswerTwo}</Text>}
+                    {memberRecord && <Text>{memberRecord.SecurityAnswerThree}</Text>}
 
                 </View>
 
@@ -138,14 +145,10 @@ const Step2 = ({ back, next, getState, saveState }) => {
                             />
 
 
-
-                            <Stack size={485} />
+                            <Stack size={48} />
 
                             <View style={[{ alignItems: 'center', width: '100%', marginBottom: '5%' }]}>
-                                <TouchableHighlight onPress={() => onSendTempPassCode({
-                                    loginType: memberRecord.login,
-                                    login: memberRecord.loginType
-                                })}><Text style={styles.linkText}>{t('resend_temp_code')}</Text></TouchableHighlight>
+                                <TouchableHighlight onPress={() => onSendTempPassCode()}><Text style={styles.linkText}>{t('resend_temp_code')}</Text></TouchableHighlight>
                             </View>
                         </>}
 

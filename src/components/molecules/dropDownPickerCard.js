@@ -86,7 +86,7 @@ const DropDownPickerCard = (props) => {
         Animated.timing(
             heightAnim,
             {
-                toValue: showOptions ? 100 : 80,
+                toValue: showOptions ? 200 : 80,
                 duration: 250,           // <-- animation duration
                 useNativeDriver: false
             }

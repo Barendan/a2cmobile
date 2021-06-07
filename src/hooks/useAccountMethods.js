@@ -168,17 +168,11 @@ const useAccountMethods = () => {
         updateLoginMethod('login', formattedValue);
     }
 
-    const onSendTempPassCode = (sendPayload) => {
+    const onSendTempPassCode = () => {
 
-        let payload = null;
-
-        payload = sendPayload === null ? {
+        let payload = {
             loginType: loginMethod.loginType,
             login: loginMethod.login,
-            tempCode: loginMethod.tempCode
-        } : {
-            loginType: sendPayload.loginType,
-            login: sendPayload.login,
             tempCode: loginMethod.tempCode
         };
 

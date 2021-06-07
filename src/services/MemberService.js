@@ -17,10 +17,14 @@ const requestTrip = (payload) => {
     return RequestApi.post(`/members?type=requestTrip`,payload);
 };
  
-const cancelTrip = (value) => {
-    return RequestApi.post(`/members?type=cancel&value=${value}`);
+const cancelTrip = (payload) => {
+    return RequestApi.post(`/members?type=cancel`,payload);
 };
- 
+  
+const cancelOnlineTrip = (payload) => {
+    return RequestApi.post(`/members?type=cancelOnlineTrip`,payload);
+};
+
 // member registration calls
 const validateMemberInfo= (value,subValue,triSubValue) => {
     return RequestApi.get(`/members?type=memberInfo&value=${value}&subValue=${subValue}&triSubValue=${triSubValue}`);
@@ -48,6 +52,7 @@ export default {
     getUserRecord,
     requestTrip,
     cancelTrip,
+    cancelOnlineTrip,
     validateMemberInfo,
     sendTempPassCode,
     registerUser,

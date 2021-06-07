@@ -7,7 +7,7 @@ export default StyleSheet.create({
     topContainer: {
         marginBottom: 20,
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
     },
     container: {
         paddingHorizontal: 16,
@@ -20,7 +20,7 @@ export default StyleSheet.create({
     title: {
         justifyContent: 'center',
         alignItems: 'center',
-        fontSize: scaleFont(50)
+        fontSize: scaleFont(20)
     },
     spacing: {
         marginVertical: 10,

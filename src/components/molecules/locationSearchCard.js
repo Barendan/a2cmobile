@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableHighlight, StyleSheet, ScrollView, Animated } from 'react-native';
+import { View, Text, TouchableHighlight, StyleSheet, ScrollView, Animated, KeyboardAvoidingView, Platform } from 'react-native';
 import { Avatar, Surface, IconButton, Divider, List } from 'react-native-paper';
 import { useTranslation } from "react-i18next";
 
@@ -166,7 +166,7 @@ const LocationSearchCard = (props) => {
 
 
     return (
-        <View>
+        <View behavior={Platform.OS === "ios" ? "padding" : "height"} style={{ flex: 1 }}>
             <TouchableHighlight onPress={() => disableClick ? onPress() : setShowOptions(!showOptions)}>
 
                 <Inset all={5}>
@@ -198,8 +198,8 @@ const LocationSearchCard = (props) => {
                             </View>
 
                             <Stack size={6} />
-
-                            <LocationService.googlePlacesAutoInput placeholder={t('search_location')} lang={'es'} onPlaceSelected={(v) => onPlaceSelected(v)} />
+                                
+                            <LocationService.googlePlacesAutoInput placeholder={t('search_location')} lang={'en'} onPlaceSelected={(v) => onPlaceSelected(v)} />
                             <Stack size={6} />
                         </View>}
                     </Animated.View>

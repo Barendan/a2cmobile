@@ -1,5 +1,5 @@
 import React from 'react';
-import { SafeAreaView, View, ScrollView, TouchableHighlight, StyleSheet } from 'react-native';
+import { SafeAreaView, View, ScrollView, TouchableHighlight, StyleSheet, TouchableOpacity, Text, RefreshControl } from 'react-native';
 import { Inset, Stack } from "react-native-spacing-system";
 import { Avatar, Card, IconButton, Divider, FAB, Portal } from 'react-native-paper';
 import Spinner from 'react-native-spinkit';
@@ -72,14 +72,22 @@ const DashboardScreen = () => {
       });
   }
 
-
   const viewFullTripDetails = (trip) => {
     setCurrentTrip(trip);
   }
 
+  const onFullTripDetailsDismiss = () => {
+    setCurrentTrip(null);
+    getLatestMemberTrips();
+  }
+  const onRequestNewTrip = () => {
+    setRequestNewTrip(false);
+    getLatestMemberTrips();
+  }
+
 
   return (
-    <SafeAreaView style={{flex: 1, justifyContent:'flex-start'}}>
+    <SafeAreaView style={{ flex: 1, justifyContent: 'flex-start' }}>
       <Card.Title
         style={{ backgroundColor: 'white' }}
         title={plan.contractName}
@@ -91,9 +99,6 @@ const DashboardScreen = () => {
       />
       <Divider />
 
-
-     
-
       {loading && <View style={styles.loadingView}>
         <Spinner
           isVisible={loading}
@@ -101,13 +106,29 @@ const DashboardScreen = () => {
           type={'ThreeBounce'}
           color={APP_COLOR}
         />
-      </View> }
+      </View>}
 
-      <EmptyStateView title={t('no_trips_scheduled')} />
+      {memberTrips.length === 0 && <Inset all={16}>
+        <ScrollView showsVerticalScrollIndicator={false}
+          refreshControl={
+            <RefreshControl
+              refreshing={loading}
+              onRefresh={getLatestMemberTrips}
+            />
+          }>
+          <EmptyStateView title={t('no_trips_scheduled')} />
+        </ScrollView>
+      </Inset>}
 
       {memberTrips.length > 0 && <Inset all={16}>
 
-        <ScrollView showsVerticalScrollIndicator={false}>
+        <ScrollView showsVerticalScrollIndicator={false}
+          refreshControl={
+            <RefreshControl
+              refreshing={loading}
+              onRefresh={getLatestMemberTrips}
+            />
+          }>
 
           {memberTrips.map(currentTrip => (
             <>
@@ -120,9 +141,9 @@ const DashboardScreen = () => {
           ))}
 
           <Stack size={100} />
-        </ScrollView> 
+        </ScrollView>
 
-      </Inset> }
+      </Inset>}
 
 
       <FAB
@@ -135,13 +156,13 @@ const DashboardScreen = () => {
       <FullTripDetails
         displayPanel={currentTrip !== null}
         currentTrip={currentTrip}
-        onPanelDismiss={() => setCurrentTrip(null)}
+        onPanelDismiss={onFullTripDetailsDismiss}
       />
 
       <RequestNewTrip
-       displayPanel={requestNewTrip}
-       onPanelDismiss={() => setRequestNewTrip(false)}
-     />      
+        displayPanel={requestNewTrip}
+        onPanelDismiss={onRequestNewTrip}
+      />
 
       <PlanSelector
         displayPanel={viewMemberPlans}
