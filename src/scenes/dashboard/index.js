@@ -85,6 +85,10 @@ const DashboardScreen = () => {
     getLatestMemberTrips();
   }
 
+  const callPlanNumber = () => {
+    alert('callingPlan')
+  }
+
 
   return (
     <SafeAreaView style={{ flex: 1, justifyContent: 'flex-start' }}>
@@ -92,7 +96,7 @@ const DashboardScreen = () => {
         style={{ backgroundColor: 'white' }}
         title={plan.contractName}
         subtitle={plan.MemberID + ' (' + plan.contractCode + ')'}
-        left={(props) => <TouchableHighlight onPress={() => getLatestMemberTrips()}>
+        left={(props) => <TouchableHighlight onPress={() => callPlanNumber()}>
           <Avatar.Icon {...props} icon="phone" color="black" style={styles.callIcon} />
         </TouchableHighlight>}
         right={(props) => <IconButton {...props} icon="equal" onPress={() => setViewMemberPlans(true)} />}
