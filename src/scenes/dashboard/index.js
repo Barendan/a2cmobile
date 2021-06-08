@@ -1,5 +1,5 @@
 import React from 'react';
-import { SafeAreaView, View, ScrollView, TouchableHighlight, StyleSheet, TouchableOpacity, Text, RefreshControl } from 'react-native';
+import { SafeAreaView, View, ScrollView, TouchableHighlight, StyleSheet, TouchableOpacity, Text, RefreshControl, StatusBar } from 'react-native';
 import { Inset, Stack } from "react-native-spacing-system";
 import { Avatar, Card, IconButton, Divider, FAB, Portal } from 'react-native-paper';
 import Spinner from 'react-native-spinkit';
@@ -92,6 +92,7 @@ const DashboardScreen = () => {
 
   return (
     <SafeAreaView style={{ flex: 1, justifyContent: 'flex-start' }}>
+      <StatusBar barStyle='light-content' />
       <Card.Title
         style={{ backgroundColor: 'white' }}
         title={plan.contractName}

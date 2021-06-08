@@ -75,5 +75,14 @@ export default StyleSheet.create({
     loadingView: {
         justifyContent: 'center',
         alignItems: 'center'
+    },
+    loginBtn: {
+        borderColor: '#F5F5F5',
+        borderRadius: 30,
+    },
+    input: {
+        backgroundColor: WHITE,
+        borderColor: GREY,
+        borderWidth: 1
     }
 })
