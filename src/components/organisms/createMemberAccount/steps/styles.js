@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { ERROR, BLUE } from '_styles/colors';
+import { ERROR, BLUE, APP_COLOR } from '_styles/colors';
 import { FONT_SIZE_18 } from '_styles/typography';
 import { scaleFont } from '_styles/mixins';
 
@@ -79,4 +79,12 @@ export default StyleSheet.create({
     backgroundColor: 'transparent',
     marginLeft: 5
   },
+  toRow: {
+    flexDirection: 'row',
+    paddingVertical: 5
+  },
+  bText: {
+    color: APP_COLOR,
+    fontWeight: '500'
+},
 });

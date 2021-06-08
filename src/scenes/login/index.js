@@ -5,6 +5,7 @@ import { LanguageSelector, FullScreenPanel, CreateMemberAccount, ForgotPasswordR
 import TouchID from 'react-native-touch-id';
 import MatIcon from "react-native-vector-icons/MaterialCommunityIcons";
 import { TextInput, Button, HelperText } from 'react-native-paper';
+import { Button as LoginBtn } from '@ui-kitten/components';
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from 'react-redux';
 import styles from './styles';
@@ -268,7 +269,7 @@ const LoginScreen = ({ navigation, route }) => {
             value={email}
             onChangeText={(e) => onChangeTextInput('email', e)}
             left={<TextInput.Icon name={'account'} />}
-            style={errors.email.length ? { borderColor: 'red', borderWidth: 1 } : {}}
+            style={[errors.email.length ? { borderColor: 'red', borderWidth: 1 } : {}, styles.input]}
           />
           {
             errors?.email?.length ? (
@@ -284,6 +285,7 @@ const LoginScreen = ({ navigation, route }) => {
         <View style={[styles.spacing, { marginBottom: 20 }]}>
           <TextInput
             label='password'
+            style={styles.input}
             value={password}
             secureTextEntry={!isVisible}
             onChangeText={(e) => onChangeTextInput('password', e)}
@@ -291,9 +293,14 @@ const LoginScreen = ({ navigation, route }) => {
             right={<TextInput.Icon onPress={() => setVisible(previousState => !previousState)} name={isVisible ? 'eye-off-outline' : 'eye'} />}
           />
         </View>
-        <Button color={APP_COLOR} mode='contained' onPress={onLogin} disabled={loading}>
+        <LoginBtn
+         color={APP_COLOR}
+         size="large"
+         style={styles.loginBtn}
+         onPress={onLogin} 
+         disabled={loading}>
           {t('sign_in')}
-        </Button>
+        </LoginBtn>
 
         {loading && <View style={styles.loadingView}>
           <Spinner
@@ -368,32 +375,6 @@ const LoginScreen = ({ navigation, route }) => {
 
             <Stack size={12} />
 
-            <Text
-              fontWeight={'400'}
-              textAlign="center"
-              style={[{ marginRight: 5 }]}
-            >
-              {t('by_registering_you_agree')}
-            </Text>
-            <View style={styles.toRow}>
-              <Text
-                style={[styles.bText, { marginRight: 5 }]}
-                onPress={() => getLatestAppInfo(t('terms'), 'terms')}
-              >
-                {t('terms_of_service')}
-              </Text>
-              <Text
-                style={{ marginRight: 5 }}
-              >
-                {t('and')}
-              </Text>
-              <Text
-                style={styles.bText}
-                onPress={() => getLatestAppInfo(t('privacy'), 'privacy')}
-              >
-                {t('privacy_policy')}
-              </Text>
-            </View>
             <TouchableHighlight
               onPress={() => getLatestAppInfo(t('faqs'), 'faqs')}
             >
