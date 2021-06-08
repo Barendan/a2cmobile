@@ -10,10 +10,20 @@ import { useAccountMethods } from '_hooks';
 import HTML from "react-native-render-html";
 import { Avatar, List } from 'react-native-paper';
 import { SUCCESS, GRAY_LIGHT } from '_styles/colors';
+import { AppInfoService } from '_services';
+import { FullScreenPanel } from '_organisms';
+
 
 const Step3 = ({ next, getState }) => {
 
     const { t } = useTranslation();
+    const [panelDetails, setPanelDetails] = React.useState({
+        panelVisible: false,
+        panelDataLoading: false,
+        header: '',
+        body: '',
+        isHTML: false,
+      });
 
     const {
         loading,
@@ -29,6 +39,51 @@ const Step3 = ({ next, getState }) => {
 
 
     const contentWidth = useWindowDimensions().width;
+
+    const onPanelDismiss = () => {
+        updatePanelDetails('panelVisible', false);
+    };
+
+    const updatePanelDetails = React.useCallback((key, value) => {
+        setPanelDetails(panelDetails => {
+          return {
+            ...panelDetails,
+            [key]: value,
+          };
+        });
+      }, []);
+
+    const getLatestAppInfo = (header, type) => {
+        updatePanelDetails('panelDataLoading', true);
+        updatePanelDetails('panelVisible', true);
+    
+        AppInfoService.getAppInformation(type)
+          .then(data => {
+            var response = null;
+    
+            switch (type) {
+              case 'terms':
+                response = data.terms;
+                break;
+              case 'privacy':
+                response = data.privacy;
+                break;
+              case 'faqs':
+                response = data.faqs;
+                break;
+            }
+    
+            updatePanelDetails('panelDataLoading', false);
+            updatePanelDetails('panelVisible', true);
+            updatePanelDetails('header', header);
+            updatePanelDetails('body', response.caption);
+            updatePanelDetails('isHTML', true);
+          })
+          .catch(err => {
+            alert(err);
+            updatePanelDetails('panelDataLoading', false);
+          });
+      };
 
     return (
         <View style={[styles.container]}>
@@ -117,6 +172,39 @@ const Step3 = ({ next, getState }) => {
                 </Button>
 
             </View>
+            <Text
+              fontWeight={'400'}
+              textAlign="center"
+              style={[{ marginRight: 5, marginTop: 8 }]}
+            >
+              {t('by_registering_you_agree')}
+            </Text>
+            <View style={styles.toRow}>
+              <Text
+                style={[styles.bText, { marginRight: 5 }]}
+                onPress={() => getLatestAppInfo(t('terms'), 'terms')}
+              >
+                {t('terms_of_service')}
+              </Text>
+              <Text
+                style={{ marginRight: 5 }}
+              >
+                {t('and')}
+              </Text>
+              <Text
+                style={styles.bText}
+                onPress={() => getLatestAppInfo(t('privacy'), 'privacy')}
+              >
+                {t('privacy_policy')}
+              </Text>
+            </View>
+            <FullScreenPanel
+                isHTML={panelDetails.isHTML}
+                displayPanel={panelDetails.panelVisible}
+                panelHeader={panelDetails.header}
+                panelBody={panelDetails.body}
+                onPanelDismiss={onPanelDismiss}
+            />
 
         </View>
     );
