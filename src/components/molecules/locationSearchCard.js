@@ -27,6 +27,7 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         padding: 10,
         justifyContent: 'center',
+        backgroundColor: 'white'
     },
     solidBorderStyle: {
         borderStyle: 'solid'

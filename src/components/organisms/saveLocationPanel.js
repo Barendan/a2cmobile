@@ -103,7 +103,7 @@ const SaveLocationPanel = (props) => {
             <DraggablePanel
                 visible={displayPanel}
                 onDismiss={onPanelDismiss}
-                initialHeight={400}
+                initialHeight={600}
                 expandable
             >
                 <CloseButton
@@ -148,8 +148,6 @@ const SaveLocationPanel = (props) => {
                                 onPress={onSaveLocation}>
                                 {t('save_location')}
                             </Button>
-
-
 
                         </Inset>
                     </View>
