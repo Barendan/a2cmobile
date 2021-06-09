@@ -46,6 +46,7 @@
     "react-native": "0.64.0",
     "react-native-animated-multistep": "^1.1.1",
     "react-native-check-box": "^2.1.7",
+    "react-native-communications": "^2.2.1",
     "react-native-counters": "^1.2.0",
     "react-native-draggable-panel": "^1.2.3",
     "react-native-dropdownalert": "^4.3.0",
