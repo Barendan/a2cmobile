@@ -119,21 +119,22 @@ const SaveLocationPanel = (props) => {
                     <View style={styles.content}>
                         <ScrollView style={styles.bodyWrapper} showsVerticalScrollIndicator={false}>
 
+                        <Stack size={6} />
+
+                            <Input
+                                style={[styles.input, (newLocation.name.length === 0 && styles.requiredInput)]}
+                                onChangeText={text => updateNewLocation('name', text)}
+                                value={newLocation.name}
+                                label={t('enter_name_label') + "*"}
+                                placeholder={t('enter_name_label')}
+                            />
+
+
                             <LocationSearchCard
                                 required={newLocation.address === null ? true : false}
                                 title={newLocation.name.length === 0 ? t('address') : newLocation.name}
                                 description={newLocation.address === null ? t('address_description') : newLocation.address.FormattedAddress}
                                 onAddressSelected={addr => updateNewLocation("address", addr)}
-                            />
-
-                            <Stack size={24} />
-
-                            <Input
-                                style={[styles.input,(newLocation.name.length === 0 && styles.requiredInput)]}
-                                onChangeText={text => updateNewLocation('name', text)}
-                                value={newLocation.name}
-                                label={t('enter_name_label') + "*"}
-                                placeholder={t('enter_name_label')}
                             />
 
                         </ScrollView>

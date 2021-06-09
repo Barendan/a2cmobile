@@ -10,6 +10,7 @@ import { setSpecialNeeds } from '_store/steps'
 import Spinner from 'react-native-spinkit';
 import { APP_COLOR } from '_styles/colors';
 import { Stack } from 'react-native-spacing-system';
+import moment from 'moment';
 
 const Step3 = ({ back, next }) => {
   const [isLoading, setIsLoading] = React.useState(false);
@@ -25,6 +26,12 @@ const Step3 = ({ back, next }) => {
     appointmentDate, appointmentTime, tripReason } = steps;
 
   const onRequestTrip = async () => {
+
+    let formattedAppointmentDateTime = moment(`${appointmentDate} + ${appointmentTime}`, 'MM/DD/YYYY HH:mm:ss').format();
+
+    // alert(JSON.stringify(appointmentDateTime + '-' + formattedAppointmentDateTime));
+    // return;
+
     try {
       const payload = {
         memberID: user.memberID,
@@ -53,7 +60,7 @@ const Step3 = ({ back, next }) => {
         isRoundTrip: isRoundTrip,
         additionalPassengers: additionalPassengers,
         wheelchair: wheelchairRequired ? 'yes' : 'no',
-        appointmentDateTime: appointmentDateTime,
+        appointmentDateTime: formattedAppointmentDateTime,
         appointmentDate: appointmentDate,
         appointmentTime: appointmentTime,
         tripReason: tripReason,

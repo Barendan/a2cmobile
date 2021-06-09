@@ -9,6 +9,9 @@ import { Inset, Stack } from "react-native-spacing-system";
 //atoms
 import { AvatarButton } from '_atoms'
 
+//organism
+import { LocationSearchPanel } from '_organisms'
+
 //helpers
 import { LocationService } from '_helpers';
 
@@ -189,6 +192,10 @@ const LocationSearchCard = (props) => {
                             />}
                         />}
 
+
+{/* 
+
+
                         {showOptions && <View style={styles.locationSelectorView}>
 
                             <View style={styles.titleWrapper}>
@@ -202,10 +209,17 @@ const LocationSearchCard = (props) => {
                                 
                             <LocationService.googlePlacesAutoInput placeholder={t('search_location')} lang={'en'} onPlaceSelected={(v) => onPlaceSelected(v)} />
                             <Stack size={6} />
-                        </View>}
+                        </View>} */}
                     </Animated.View>
                 </Inset>
             </TouchableHighlight>
+
+            <LocationSearchPanel
+                displayPanel={showOptions}
+                onPanelDismiss={()=>setShowOptions(false)}
+                panelHeader={title+ (required ? '*' : '')}
+                onPlaceSelected={(v) => onPlaceSelected(v)}
+            />
         </View>
     );
 }
