@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { WHITE, GREY, APP_COLOR } from '_styles/colors';
+import { WHITE, GREY, APP_COLOR, BLUE } from '_styles/colors';
 import { scaleFont } from '_styles/mixins';
 
 export default StyleSheet.create({
@@ -79,6 +79,10 @@ export default StyleSheet.create({
     loginBtn: {
         borderColor: '#F5F5F5',
         borderRadius: 30,
+    },
+    signUpBtn: {
+        borderRadius: 30,
+        //borderColor: '#F5F5F5',
     },
     input: {
         backgroundColor: WHITE,

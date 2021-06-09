@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Platform } from 'react-native';
 import { ERROR, BLUE } from '_styles/colors';
 import { FONT_SIZE_18 } from '_styles/typography';
 import { scaleFont } from '_styles/mixins';
@@ -30,7 +30,7 @@ export default StyleSheet.create({
     alignSelf: 'center'
   },
   mainContainer: {
-    height: '80%',
+    height: Platform.OS === "ios" ? '80%' : '75%',
   },
   formContainer: {
     width: '100%',
