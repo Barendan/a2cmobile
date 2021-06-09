@@ -3,6 +3,7 @@ import { SafeAreaView, View, Text, TouchableHighlight, StyleSheet } from 'react-
 import { Inset, Stack } from "react-native-spacing-system";
 import { Avatar, Card, Title, IconButton, Divider, List } from 'react-native-paper';
 import { useTranslation } from "react-i18next";
+import Communications from 'react-native-communications';
 
 // styles
 import { GRAY_DARK, START_LOCATION_COLOR, MID_LOCATION_COLOR, END_LOCATION_COLOR } from '_styles/colors';
@@ -55,7 +56,7 @@ const TripDetails = (props) => {
 
                     </View>
 
-                    {currentTrip.ProviderPhoneNumber && <TouchableHighlight onPress={() => alert()}>
+                    {currentTrip.ProviderPhoneNumber && <TouchableHighlight onPress={() => Communications.phonecall(currentTrip.ProviderPhoneNumber, true)}>
                         <Avatar.Icon {...props} size={30} icon="phone" color="black" style={styles.callIcon} />
                     </TouchableHighlight>}
                 </View>

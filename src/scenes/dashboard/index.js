@@ -5,6 +5,7 @@ import { Avatar, Card, IconButton, Divider, FAB, Portal } from 'react-native-pap
 import Spinner from 'react-native-spinkit';
 import { useTranslation } from "react-i18next";
 import { useSelector } from 'react-redux';
+import Communications from 'react-native-communications';
 
 import { PlanSelector, TripDetails, FullTripDetails, RequestNewTrip } from '_organisms';
 import { EmptyStateView } from '_molecules';
@@ -52,7 +53,7 @@ const DashboardScreen = () => {
   const [requestNewTrip, setRequestNewTrip] = React.useState(false);
 
   React.useEffect(() => {
-    getLatestMemberTrips();    
+    getLatestMemberTrips();
   }, [plan])
 
   const getLatestMemberTrips = () => {
@@ -97,9 +98,12 @@ const DashboardScreen = () => {
         style={{ backgroundColor: 'white' }}
         title={plan.contractName}
         subtitle={plan.MemberID + ' (' + plan.contractCode + ')'}
-        left={(props) => <TouchableHighlight onPress={() => callPlanNumber()}>
-          <Avatar.Icon {...props} icon="phone" color="black" style={styles.callIcon} />
-        </TouchableHighlight>}
+        left={(props) => <>
+          {plan.contractPhoneNumber ? <TouchableHighlight onPress={() => Communications.phonecall(plan.contractPhoneNumber, true)}>
+            <Avatar.Icon {...props} icon="phone" color="black" style={styles.callIcon} />
+          </TouchableHighlight> : <Avatar.Icon {...props} icon="home" color="black" style={styles.callIcon} />}
+        </>
+        }
         right={(props) => <>{memberPlans.length > 0 && <IconButton {...props} icon="equal" onPress={() => setViewMemberPlans(true)} />}</>}
       />
       <Divider />

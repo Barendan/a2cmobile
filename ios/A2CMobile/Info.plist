@@ -37,8 +37,14 @@
 	</dict>
 	<key>NSFaceIDUsageDescription</key>
 	<string>Enabling Face ID allows you quick and secure access to your account.</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>Enabling location helps the application to get a precise location when you are scheduling a trip</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string></string>
+	<string>Enabling location helps the application to get a precise location when you are scheduling a trip</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Enabling Photo Library access, gives you the ability to upload photos</string>
+	<key>NSSpeechRecognitionUsageDescription</key>
+	<string>Enabling speech recoginiztion enables you to use speech as an alternative form of data entry</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Ionicons.ttf</string>

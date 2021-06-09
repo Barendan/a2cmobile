@@ -34,6 +34,7 @@
 		00E356F21AD99517003FC87E /* A2CMobileTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = A2CMobileTests.m; sourceTree = "<group>"; };
 		0E576DCB26697E990081BCE6 /* A2CMobile-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "A2CMobile-Bridging-Header.h"; sourceTree = "<group>"; };
 		0E576DCC26697E9A0081BCE6 /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
+		0EBD34E826708A3400CB5E38 /* A2CMobile.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = A2CMobile.entitlements; path = A2CMobile/A2CMobile.entitlements; sourceTree = "<group>"; };
 		117E61A943714A6D9EF365F7 /* Octicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Octicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Octicons.ttf"; sourceTree = "<group>"; };
 		12677BD852A24C4EAEC0BDB2 /* MaterialIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialIcons.ttf"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* A2CMobile.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = A2CMobile.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -110,6 +111,7 @@
 		13B07FAE1A68108700A75B9A /* A2CMobile */ = {
 			isa = PBXGroup;
 			children = (
+				0EBD34E826708A3400CB5E38 /* A2CMobile.entitlements */,
 				0E576DCC26697E9A0081BCE6 /* File.swift */,
 				C1472AF1263854B40065EB60 /* Fonts */,
 				C1F29B1C2620A86300E3CCD3 /* GoogleService-Info.plist */,
@@ -560,7 +562,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CURRENT_PROJECT_VERSION = 2.1;
+				CODE_SIGN_ENTITLEMENTS = A2CMobile/A2CMobile.entitlements;
+				CURRENT_PROJECT_VERSION = 2.11;
 				DEVELOPMENT_TEAM = 96BTRK29UQ;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = A2CMobile/Info.plist;
@@ -589,7 +592,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CURRENT_PROJECT_VERSION = 2.1;
+				CODE_SIGN_ENTITLEMENTS = A2CMobile/A2CMobile.entitlements;
+				CURRENT_PROJECT_VERSION = 2.11;
 				DEVELOPMENT_TEAM = 96BTRK29UQ;
 				INFOPLIST_FILE = A2CMobile/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
