@@ -97,14 +97,17 @@ const RequestNewTrip = props => {
               <Divider />
               <Stack size={12} />
               {/* <ScrollView showsVerticalScrollIndicator={false} style={{backgroundColor:'green'}}> */}
-              <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} style={styles.mainContainer} enabled keyboardVerticalOffset={100}>
+              {/* <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} style={styles.mainContainer} enabled keyboardVerticalOffset={100}> */}
+                <View style={styles.mainContainer}>
+
                 <AnimatedMultistep
                   steps={steps}
                   onFinish={finish}
                   onBack={onBack}
                   onNext={onNext}
                 />
-              </KeyboardAvoidingView>
+                </View>
+              {/* </KeyboardAvoidingView> */}
 
               {/* </ScrollView> */}
             </Inset>

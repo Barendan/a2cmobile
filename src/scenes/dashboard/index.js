@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
 const DashboardScreen = () => {
   const { t } = useTranslation();
 
-  const { plan } = useSelector(state => state.plan);
+  const { plan, memberPlans } = useSelector(state => state.plan);
   const [loading, setLoading] = React.useState(true);
 
   const [memberTrips, setMemberTrips] = React.useState([]);
@@ -52,7 +52,7 @@ const DashboardScreen = () => {
   const [requestNewTrip, setRequestNewTrip] = React.useState(false);
 
   React.useEffect(() => {
-    getLatestMemberTrips();
+    getLatestMemberTrips();    
   }, [plan])
 
   const getLatestMemberTrips = () => {
@@ -100,7 +100,7 @@ const DashboardScreen = () => {
         left={(props) => <TouchableHighlight onPress={() => callPlanNumber()}>
           <Avatar.Icon {...props} icon="phone" color="black" style={styles.callIcon} />
         </TouchableHighlight>}
-        right={(props) => <IconButton {...props} icon="equal" onPress={() => setViewMemberPlans(true)} />}
+        right={(props) => <>{memberPlans.length > 0 && <IconButton {...props} icon="equal" onPress={() => setViewMemberPlans(true)} />}</>}
       />
       <Divider />
 

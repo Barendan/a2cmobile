@@ -5,7 +5,7 @@ import { LanguageSelector, FullScreenPanel, CreateMemberAccount, ForgotPasswordR
 import TouchID from 'react-native-touch-id';
 import MatIcon from "react-native-vector-icons/MaterialCommunityIcons";
 import { TextInput, Button, HelperText } from 'react-native-paper';
-import { Button as LoginBtn } from '@ui-kitten/components';
+import { Button as KittenButton } from '@ui-kitten/components';
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from 'react-redux';
 import styles from './styles';
@@ -293,14 +293,27 @@ const LoginScreen = ({ navigation, route }) => {
             right={<TextInput.Icon onPress={() => setVisible(previousState => !previousState)} name={isVisible ? 'eye-off-outline' : 'eye'} />}
           />
         </View>
-        <LoginBtn
+        <KittenButton
          color={APP_COLOR}
          size="large"
          style={styles.loginBtn}
          onPress={onLogin} 
          disabled={loading}>
           {t('sign_in')}
-        </LoginBtn>
+        </KittenButton>
+
+        <Stack size={12} />
+
+        <KittenButton
+appearance='outline'
+         color={APP_COLOR}
+         size="large"
+         style={styles.signUpBtn}
+         onPress={() => setDisplayCreateMemberAccount(true)}
+         disabled={loading}>
+          {t('go_to_registration')}
+        </KittenButton>
+
 
         {loading && <View style={styles.loadingView}>
           <Spinner
@@ -367,11 +380,11 @@ const LoginScreen = ({ navigation, route }) => {
             <Text style={styles.bText}>{t('go_to_registration')}</Text>
           </TouchableHighlight> */}
 
-            <TouchableHighlight
+            {/* <TouchableHighlight
               onPress={() => setDisplayCreateMemberAccount(true)}
             >
               <Text style={styles.bText}>{t('go_to_registration')}</Text>
-            </TouchableHighlight>
+            </TouchableHighlight> */}
 
             <Stack size={12} />
 
