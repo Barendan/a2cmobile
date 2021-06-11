@@ -14,14 +14,39 @@ import { Inset, Stack } from 'react-native-spacing-system';
 import { APP_COLOR } from '_styles/colors';
 import { SaveLocationPanel } from '_organisms';
 import { EmptyStateView } from '_molecules';
-import { updateSavedLocations } from '_store/savedLocations';
 
+import storage from '_storage';
 
 const FavoriteLocations = () => {
 
     const { t } = useTranslation();
-    const { savedLocations } = useSelector(state => state.savedLocations);
-    const dispatch = useDispatch();
+
+    const [ savedLocations, setSavedLocations ] = useState([]);
+
+    useEffect(() => {
+        // load
+        storage
+            .load({
+                key: 'savedLocations',
+                autoSync: true,
+                syncInBackground: true
+            })
+            .then(ret => {
+                setSavedLocations(ret);
+            })
+            .catch(err => {
+                console.warn(err.message);
+                switch (err.name) {
+                    case 'NotFoundError':
+                        // TODO;
+                        break;
+                    case 'ExpiredError':
+                        // TODO
+                        break;
+                }
+            });
+    }, []);
+
 
     const [displayPanel, setDisplayPanel] = useState(false);
 
@@ -32,7 +57,13 @@ const FavoriteLocations = () => {
     const removeLocation = (location) => {
         const index = savedLocations.indexOf(location);
         if (index > -1) {
-            dispatch(updateSavedLocations([...savedLocations.slice(0, index), ...savedLocations.slice(index + 1)]));
+            let updatedLocations = [...savedLocations.slice(0, index), ...savedLocations.slice(index + 1)];
+            setSavedLocations(updatedLocations);
+            storage.save({
+                key: 'savedLocations', // Note: Do not use underscore("_") in key!
+                data: updatedLocations,
+                expires: null
+              });
         }
     }
 

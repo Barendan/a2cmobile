@@ -10,7 +10,6 @@ import { CloseButton } from '_atoms'
 import { LocationSearchCard } from '_molecules';
 
 import { MemberService } from '_services';
-import { updateSavedLocations } from '_store/savedLocations';
 
 
 // styles
@@ -67,7 +66,6 @@ const styles = StyleSheet.create({
 
 const SaveLocationPanel = (props) => {
     const { t } = useTranslation();
-    const { savedLocations } = useSelector(state => state.savedLocations);
     const dispatch = useDispatch();
 
     const [loading, setLoading] = React.useState(false);
@@ -94,7 +92,6 @@ const SaveLocationPanel = (props) => {
 
 
     const onSaveLocation = () => {
-        dispatch(updateSavedLocations([...savedLocations, newLocation]));
         onPanelDismiss();
     }
 
@@ -117,7 +114,7 @@ const SaveLocationPanel = (props) => {
                     <Stack size={12} />
 
                     <View style={styles.content}>
-                        <ScrollView style={styles.bodyWrapper} showsVerticalScrollIndicator={false}>
+                        <ScrollView style={styles.bodyWrapper} showsVerticalScrollIndicator={false} keyboardShouldPersistTaps={'handled'}>
 
                         <Stack size={6} />
 

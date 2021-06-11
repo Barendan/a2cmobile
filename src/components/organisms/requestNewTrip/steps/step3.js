@@ -67,6 +67,7 @@ const Step3 = ({ back, next }) => {
         specialNeeds: specialNeeds,
       };
   
+      setErrorMessage('');
   
       setIsLoading(true);
       MemberService.requestTrip(payload)
@@ -76,7 +77,7 @@ const Step3 = ({ back, next }) => {
         })
         .catch(err => {
           setIsLoading(false);
-          setErrorMessage(err.Message);
+          setErrorMessage(err.message);
         });
     } catch (error) {
       console.log(error)

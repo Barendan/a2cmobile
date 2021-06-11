@@ -23,7 +23,7 @@ const Step1 = ({ next }) => {
   return (
     <View style={[styles.container]}>
 
-      <ScrollView showsVerticalScrollIndicator={false} style={styles.formContainer}>
+      <ScrollView showsVerticalScrollIndicator={false} style={styles.formContainer} keyboardShouldPersistTaps={'handled'}>
         <LocationSearchCard
           required={!pickupAddress ? true : false}
           locationIndex={0}

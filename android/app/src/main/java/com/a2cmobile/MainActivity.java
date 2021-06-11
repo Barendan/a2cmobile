@@ -1,4 +1,4 @@
-package com.a2cmobile;
+package org.a2c.A2CMobileApp;
 
 import com.facebook.react.ReactActivity;
 import com.facebook.react.ReactActivityDelegate;

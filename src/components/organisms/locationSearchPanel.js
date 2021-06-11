@@ -1,13 +1,14 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, ScrollView, useWindowDimensions, TouchableHighlight } from 'react-native';
 import { Avatar, Card, IconButton, Divider } from 'react-native-paper';
 
 import DraggablePanel from 'react-native-draggable-panel';
 import { Inset, Stack } from "react-native-spacing-system";
 import { useTranslation } from "react-i18next";
-import { useSelector } from 'react-redux';
 
 import { CloseButton } from '_atoms'
+
+import  storage  from '_storage';
 
 
 //helpers
@@ -54,7 +55,8 @@ const styles = StyleSheet.create({
 
 const LocationSearchPanel = (props) => {
     const { t } = useTranslation();
-    const { savedLocations } = useSelector(state => state.savedLocations);
+    const [ savedLocations, setSavedLocations ] = useState([]);
+    
 
     const {
         panelHeader,
@@ -64,6 +66,29 @@ const LocationSearchPanel = (props) => {
     } = props;
 
 
+    useEffect(() => {
+        // load
+        storage
+            .load({
+                key: 'savedLocations',
+                autoSync: true,
+                syncInBackground: true
+            })
+            .then(ret => {
+                setSavedLocations(ret);
+            })
+            .catch(err => {
+                console.warn(err.message);
+                switch (err.name) {
+                    case 'NotFoundError':
+                        // TODO;
+                        break;
+                    case 'ExpiredError':
+                        // TODO
+                        break;
+                }
+            });
+    }, []);
 
 
     return (
@@ -84,15 +109,15 @@ const LocationSearchPanel = (props) => {
                     </View>
                     <Stack size={12} />
 
-                    <View style={styles.content}>
+                    <View style={styles.content} keyboardShouldPersistTaps={'handled'}>
 
                         <LocationService.googlePlacesAutoInput placeholder={t('search_location')} lang={'en'} onPlaceSelected={(v) => onPlaceSelected(v)} />
+                    
                     </View>
+
                     <Stack size={12} />
 
-
-
-                    {savedLocations.length > 0 &&
+                    {savedLocations && savedLocations.length > 0 &&
 
                         <ScrollView style={styles.bodyWrapper} showsVerticalScrollIndicator={false}>
 
