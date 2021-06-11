@@ -10,7 +10,6 @@ import { CloseButton } from '_atoms'
 import { LocationSearchCard } from '_molecules';
 
 import { MemberService } from '_services';
-import { updateSavedLocations } from '_store/savedLocations';
 
 
 // styles
@@ -67,7 +66,6 @@ const styles = StyleSheet.create({
 
 const SaveLocationPanel = (props) => {
     const { t } = useTranslation();
-    const { savedLocations } = useSelector(state => state.savedLocations);
     const dispatch = useDispatch();
 
     const [loading, setLoading] = React.useState(false);
@@ -94,7 +92,6 @@ const SaveLocationPanel = (props) => {
 
 
     const onSaveLocation = () => {
-        dispatch(updateSavedLocations([...savedLocations, newLocation]));
         onPanelDismiss();
     }
 
@@ -117,23 +114,24 @@ const SaveLocationPanel = (props) => {
                     <Stack size={12} />
 
                     <View style={styles.content}>
-                        <ScrollView style={styles.bodyWrapper} showsVerticalScrollIndicator={false}>
+                        <ScrollView style={styles.bodyWrapper} showsVerticalScrollIndicator={false} keyboardShouldPersistTaps={'handled'}>
+
+                        <Stack size={6} />
+
+                            <Input
+                                style={[styles.input, (newLocation.name.length === 0 && styles.requiredInput)]}
+                                onChangeText={text => updateNewLocation('name', text)}
+                                value={newLocation.name}
+                                label={t('enter_name_label') + "*"}
+                                placeholder={t('enter_name_label')}
+                            />
+
 
                             <LocationSearchCard
                                 required={newLocation.address === null ? true : false}
                                 title={newLocation.name.length === 0 ? t('address') : newLocation.name}
                                 description={newLocation.address === null ? t('address_description') : newLocation.address.FormattedAddress}
                                 onAddressSelected={addr => updateNewLocation("address", addr)}
-                            />
-
-                            <Stack size={24} />
-
-                            <Input
-                                style={[styles.input,(newLocation.name.length === 0 && styles.requiredInput)]}
-                                onChangeText={text => updateNewLocation('name', text)}
-                                value={newLocation.name}
-                                label={t('enter_name_label') + "*"}
-                                placeholder={t('enter_name_label')}
                             />
 
                         </ScrollView>

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableHighlight, StyleSheet, ScrollView, useWindowDimensions } from 'react-native';
+import { View, Text, TouchableHighlight, StyleSheet, ScrollView, useWindowDimensions, TouchableOpacity } from 'react-native';
 import { Avatar, Card, Surface, IconButton, Divider, List } from 'react-native-paper';
 
 import CheckBox from 'react-native-check-box'
@@ -65,7 +65,7 @@ const CheckboxCard = (props) => {
 
     return (
         <View>
-            <TouchableHighlight onPress={()=> onChecked(!checkedValue)}>
+            <TouchableOpacity onPress={()=> onChecked(!checkedValue)}>
             <Inset all={5}>
                 <Surface style={[styles.surface, props.showBorder && props.dashedBorder ? styles.dashedBorderStyle : (required ? styles.requiredCard : styles.solidBorderStyle)]}>
                 <List.Item
@@ -83,7 +83,7 @@ const CheckboxCard = (props) => {
                     />
                 </Surface>
             </Inset>
-            </TouchableHighlight>
+            </TouchableOpacity>
         </View>
     );
 }

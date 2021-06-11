@@ -36,7 +36,8 @@ const Step1 = ({ next }) => {
     <View style={[styles.container]}>
       <ScrollView
         showsVerticalScrollIndicator={false}
-        style={styles.formContainer}>
+        style={styles.formContainer}
+        keyboardShouldPersistTaps={'handled'}>
         <LocationSearchCard
           required={!pickupAddress ? true : false}
           locationIndex={0}

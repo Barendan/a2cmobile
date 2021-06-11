@@ -7,7 +7,11 @@ import parseGooglePlace from 'parse-google-place';
 import { GRAY_LIGHT } from '_styles/colors';
 
 // test key; replace with prod key
-const google_api_key = 'AIzaSyCfcwQaq4K4yXuP_yI-p5sl1Q1rw7Wo5vw';
+// const google_api_key = 'AIzaSyCfcwQaq4K4yXuP_yI-p5sl1Q1rw7Wo5vw';
+
+// const google_api_key = 'AIzaSyDmMOPXT95AEIFvCEoAzzWq1lPfJl8SES4';
+
+const google_api_key = 'AIzaSyDgB54DCNDgL2ogOLAFhE-1OgETBR4IGh0';
 
 Geocoder.init(google_api_key);
 // Geocoder.init("xxxxxx", {language : "en"}); // can set the language
@@ -89,7 +93,9 @@ const googlePlacesAutoInput = ({ placeholder, lang, onPlaceSelected }) => (
     autoFocus={false}
     returnKeyType={'default'}
     fetchDetails={true}
+    textInputProps={{ onBlur: () => {} }}
     onPress={(data, details = null) => {
+
       // 'details' are provided when fetchDetails = true
       let parsedAddress = parseGooglePlace(details);
 
@@ -108,7 +114,7 @@ const googlePlacesAutoInput = ({ placeholder, lang, onPlaceSelected }) => (
 
       onPlaceSelected(formattedAddress);
     }}
-    onFail={error => console.error(error)}
+    onFail={error =>  console.log(error)}
     query={{
       key: google_api_key,
       language: lang,

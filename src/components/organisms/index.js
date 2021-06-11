@@ -7,3 +7,4 @@ export { default as RequestNewTrip } from './requestNewTrip';
 export { default as CreateMemberAccount } from './createMemberAccount';
 export { default as ForgotPasswordReset } from './forgotPasswordReset';
 export { default as SaveLocationPanel } from './saveLocationPanel';
+export { default as LocationSearchPanel } from './locationSearchPanel';

@@ -9,7 +9,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:781379701999:android:81828408474a9aa5ac9f1a",
         "android_client_info": {
-          "package_name": "com.a2cmobile"
+          "package_name": "org.a2c.A2CMobileApp"
         }
       },
       "oauth_client": [
