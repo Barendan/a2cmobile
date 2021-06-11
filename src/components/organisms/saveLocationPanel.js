@@ -4,12 +4,12 @@ import DraggablePanel from 'react-native-draggable-panel';
 import { Inset, Stack } from "react-native-spacing-system";
 import { Input, Button } from '@ui-kitten/components';
 import { useTranslation } from "react-i18next";
-import { useDispatch, useSelector } from 'react-redux';
 
 import { CloseButton } from '_atoms'
 import { LocationSearchCard } from '_molecules';
 
 import { MemberService } from '_services';
+import storage from '_storage';
 
 
 // styles
@@ -66,9 +66,16 @@ const styles = StyleSheet.create({
 
 const SaveLocationPanel = (props) => {
     const { t } = useTranslation();
-    const dispatch = useDispatch();
+
+    const {
+        panelHeader,
+        displayPanel,
+        onPanelDismiss,
+    } = props;
+
 
     const [loading, setLoading] = React.useState(false);
+    const [ savedLocations, setSavedLocations ] = useState([]);
 
     const [newLocation, setNewLocation] = React.useState({
         address: null,
@@ -83,16 +90,43 @@ const SaveLocationPanel = (props) => {
             };
         });
     }, []);
-
-    const {
-        panelHeader,
-        displayPanel,
-        onPanelDismiss,
-    } = props;
-
+    
+    React.useEffect(() => {
+        // load
+        storage
+            .load({
+                key: 'savedLocations',
+                autoSync: true,
+                syncInBackground: true
+            })
+            .then(ret => {
+                setSavedLocations(ret);
+            })
+            .catch(err => {
+                console.warn(err.message);
+                switch (err.name) {
+                    case 'NotFoundError':
+                        // TODO;
+                        break;
+                    case 'ExpiredError':
+                        // TODO
+                        break;
+                }
+            });
+    }, [props]);
 
     const onSaveLocation = () => {
-        onPanelDismiss();
+
+        let updatedLocations = [...savedLocations, newLocation];
+        setSavedLocations([...savedLocations, newLocation]);
+
+        storage.save({
+            key: 'savedLocations', // Note: Do not use underscore("_") in key!
+            data: updatedLocations,
+            expires: null
+          }).then(ret => {
+            onPanelDismiss();
+          });
     }
 
     return (
