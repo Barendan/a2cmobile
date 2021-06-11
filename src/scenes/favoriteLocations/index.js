@@ -21,9 +21,18 @@ const FavoriteLocations = () => {
 
     const { t } = useTranslation();
 
-    const [ savedLocations, setSavedLocations ] = useState([]);
+    const [savedLocations, setSavedLocations] = useState([]);
 
     useEffect(() => {
+        loadLocations();
+    }, []);
+
+
+
+    const [displayPanel, setDisplayPanel] = useState(false);
+
+
+    const loadLocations = () => {
         // load
         storage
             .load({
@@ -45,25 +54,27 @@ const FavoriteLocations = () => {
                         break;
                 }
             });
-    }, []);
-
-
-    const [displayPanel, setDisplayPanel] = useState(false);
+    }
 
     const onPanelDismiss = () => {
+        loadLocations();
         setDisplayPanel(false);
     }
+
 
     const removeLocation = (location) => {
         const index = savedLocations.indexOf(location);
         if (index > -1) {
+  
             let updatedLocations = [...savedLocations.slice(0, index), ...savedLocations.slice(index + 1)];
-            setSavedLocations(updatedLocations);
+
             storage.save({
                 key: 'savedLocations', // Note: Do not use underscore("_") in key!
                 data: updatedLocations,
                 expires: null
-              });
+            }).then(ret => {
+                setSavedLocations(updatedLocations);
+            });
         }
     }
 

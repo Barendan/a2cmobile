@@ -87,22 +87,29 @@ const DateTimePickerCard = (props) => {
     const [mode, setMode] = useState('date');
     const [show, setShow] = useState(false);
 
+    const [selectedValue, setSelectedValue] = useState(null);
+
     const onChange = (event, selectedDate) => {
+
         const currentDate = selectedDate || date;
         setShow(false);
         setDate(currentDate);
 
-
         onDateTimeChange('datetime', currentDate.toISOString());
         if (mode === 'date') {
-            onDateTimeChange(mode, ((date.getMonth() > 8) ? (date.getMonth() + 1) : ('0' + (date.getMonth() + 1))) + '/' + ((date.getDate() > 9) ? date.getDate() : ('0' + date.getDate())) + '/' + date.getFullYear());
+            setSelectedValue(((currentDate.getMonth() > 8) ? (currentDate.getMonth() + 1) : ('0' + (currentDate.getMonth() + 1))) + '/' + ((currentDate.getDate() > 9) ? currentDate.getDate() : ('0' + currentDate.getDate())) + '/' + currentDate.getFullYear());
         }
 
         if (mode === 'time') {
-            onDateTimeChange(mode, currentDate.toLocaleTimeString('en-US'));
+            setSelectedValue(currentDate.toLocaleTimeString('en-US'));
         }
-
     };
+
+    React.useEffect(()=> {
+
+        onDateTimeChange(mode, selectedValue);
+
+    },[selectedValue])
 
     const showMode = (currentMode) => {
         setShow(true);
@@ -128,7 +135,7 @@ const DateTimePickerCard = (props) => {
                             <Text style={styles.titleStyle}>{mode === "date" ? "Select Date" : "Select Time"}</Text>
                             <View style={styles.dateTimePickerHolder}>
                                 <DateTimePicker
-                                width={100}
+                                    width={100}
                                     testID="dateTimePicker"
                                     minimumDate={minimumDate}
                                     value={date}
