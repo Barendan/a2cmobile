@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, ScrollView } from 'react-native';
 import { Button } from '@ui-kitten/components';
 import { useTranslation } from 'react-i18next';
@@ -10,26 +10,39 @@ import {
 } from '_molecules';
 import { useDispatch, useSelector } from 'react-redux';
 import styles from './styles';
-import { setRequiredWheelChair, setAdditionalPassenger, setAppointMentSchedule, setTripReason } from '_store/steps';
+import {
+  setRequiredWheelChair,
+  setAdditionalPassenger,
+  setAppointMentSchedule,
+  setTripReason,
+} from '_store/steps';
 
-const Step2 = ({ back , next }) => {
-
+const Step2 = ({ back, next }) => {
+  const [isDisabled, setIsDisabled] = useState(true);
   const dispatch = useDispatch();
   const { steps } = useSelector(state => state.steps);
-  
-  const { additionalPassengers, wheelchairRequired, appointmentDateTime, tripReason, appointmentDate, appointmentTime, specialNeeds } = steps;
+
+  const {
+    additionalPassengers,
+    wheelchairRequired,
+    appointmentDateTime,
+    tripReason,
+    appointmentDate,
+    appointmentTime,
+    specialNeeds,
+  } = steps;
 
   const { t } = useTranslation();
 
   const [tripReasons, setTripReasons] = useState([
-    {label: 'Physician Services', value: 'Physician Services' },
-    {label: 'Mental Health', value: 'Mental Health Adult Rehab' },
-    {label: 'Pediatric Services', value: 'Pediatric Services' },
-    {label: 'Drug Rehab', value: 'Drug Rehabilitation' },
-    {label: 'Radiation Treatments', value: 'Radiation Treatments' },      
-    {label: 'Chemotherapy', value: 'Chemotherapy' },  
-    {label: 'Dialysis', value: 'Dialysis' },  
-    {label: 'Other', value: 'Other Medical Related' }
+    { label: 'Physician Services', value: 'Physician Services' },
+    { label: 'Mental Health', value: 'Mental Health Adult Rehab' },
+    { label: 'Pediatric Services', value: 'Pediatric Services' },
+    { label: 'Drug Rehab', value: 'Drug Rehabilitation' },
+    { label: 'Radiation Treatments', value: 'Radiation Treatments' },
+    { label: 'Chemotherapy', value: 'Chemotherapy' },
+    { label: 'Dialysis', value: 'Dialysis' },
+    { label: 'Other', value: 'Other Medical Related' },
   ]);
 
   const nextStep = () => {
@@ -41,10 +54,15 @@ const Step2 = ({ back , next }) => {
     back();
   };
 
+  useEffect(() => {
+    if (appointmentDateTime && tripReason) {
+      setIsDisabled(false);
+    }
+  }, [appointmentDateTime, tripReason]);
+
   return (
     <View style={styles.container}>
-
-      <ScrollView style={styles.formContainer}>        
+      <ScrollView style={styles.formContainer}>
         <NumericCountCard
           cardIcon={'account-multiple-outline'}
           title={t('additional_passengers')}
@@ -77,12 +95,12 @@ const Step2 = ({ back , next }) => {
           dateValue={appointmentDate}
           timeValue={appointmentTime}
           onDateTimeChange={(type, value) =>
-            dispatch(setAppointMentSchedule({type: type, value: value}))
+            dispatch(setAppointMentSchedule({ type: type, value: value }))
           }
         />
         <DropDownPickerCard
-         required={!tripReason ? true : false}
-         cardIcon={'information-outline'}
+          required={!tripReason ? true : false}
+          cardIcon={'information-outline'}
           title={t('trip_reason')}
           multiple={false}
           optionsList={tripReasons}
@@ -92,7 +110,7 @@ const Step2 = ({ back , next }) => {
       </ScrollView>
 
       <View style={styles.footer}>
-      <Button
+        <Button
           title={t('back')}
           size="large"
           appearance="outline"
@@ -104,6 +122,7 @@ const Step2 = ({ back , next }) => {
           title={t('continue')}
           size="large"
           style={styles.forwardButton}
+          disabled={isDisabled}
           onPress={nextStep}>
           {t('continue')}
         </Button>

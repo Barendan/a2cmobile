@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, ScrollView } from 'react-native';
 import { Button } from '@ui-kitten/components';
 import { useTranslation } from 'react-i18next';
@@ -6,10 +6,16 @@ import { LocationSearchCard, CheckboxCard } from '_molecules';
 import { useDispatch, useSelector } from 'react-redux';
 import styles from './styles';
 import { GRAY_BLUE } from '_styles/colors';
-import { selectAddress, updateTripStop, destinationSelect, roundTrip, removeATripStop } from '_store/steps';
-
+import {
+  selectAddress,
+  updateTripStop,
+  destinationSelect,
+  roundTrip,
+  removeATripStop,
+} from '_store/steps';
 
 const Step1 = ({ next }) => {
+  const [isDisabled, setIsDisabled] = useState(true);
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const { steps } = useSelector(state => state.steps);
@@ -20,10 +26,18 @@ const Step1 = ({ next }) => {
     next();
   };
 
+  useEffect(() => {
+    if (pickupAddress && destinationAddress) {
+      setIsDisabled(false);
+    }
+  }, [pickupAddress, destinationAddress]);
+
   return (
     <View style={[styles.container]}>
-
-      <ScrollView showsVerticalScrollIndicator={false} style={styles.formContainer} keyboardShouldPersistTaps={'handled'}>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        style={styles.formContainer}
+        keyboardShouldPersistTaps={'handled'}>
         <LocationSearchCard
           required={!pickupAddress ? true : false}
           locationIndex={0}
@@ -64,9 +78,7 @@ const Step1 = ({ next }) => {
               ? destinationAddress.FormattedAddress
               : t('destination_address_description')
           }
-          onAddressSelected={addr =>
-            dispatch(destinationSelect(addr))
-          }
+          onAddressSelected={addr => dispatch(destinationSelect(addr))}
         />
         <CheckboxCard
           cardIcon={'swap-horizontal'}
@@ -77,18 +89,15 @@ const Step1 = ({ next }) => {
       </ScrollView>
 
       <View style={styles.footer}>
-
         <Button
           title={t('continue')}
           size="large"
           style={styles.forwardButton}
+          disabled={isDisabled}
           onPress={nextStep}>
           {t('continue')}
         </Button>
-
       </View>
-
-
     </View>
   );
 };
