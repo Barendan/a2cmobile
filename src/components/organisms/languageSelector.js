@@ -74,6 +74,7 @@ const LanguageSelector = props => {
       <AvatarButton
         icon={'translate'}
         iconColor="blue"
+        iconStyle={props.iconStyle}
         buttonText={
           i18next.language.toLocaleLowerCase() === 'en'
             ? t('in_spanish')

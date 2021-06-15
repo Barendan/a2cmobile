@@ -24,7 +24,14 @@ const styles = StyleSheet.create({
 });
 
 const AvatarButton = props => {
-  const { icon, iconColor, buttonText, buttonTextStyle, onPress } = props;
+  const {
+    icon,
+    iconColor,
+    iconStyle,
+    buttonText,
+    buttonTextStyle,
+    onPress,
+  } = props;
 
   return (
     <TouchableHighlight onPress={onPress}>
@@ -33,7 +40,7 @@ const AvatarButton = props => {
           size={30}
           icon={icon}
           color={iconColor}
-          style={styles.icon}
+          style={iconStyle || styles.icon}
         />
         <Text style={buttonTextStyle || styles.defaultButtonTextStyle}>
           {buttonText}
