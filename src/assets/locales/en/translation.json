@@ -107,7 +107,7 @@
   "authentication_failed": "Authentication Failed",
   "email_address_invalid": " Email address is invalid",
   "update_password": "Update Password",
-  "login_options_text": "Please enter the login used to access your account",
+  "login_options_text": "Please enter the login used to access your account.",
   "question_answer": "Question Answer",
   "wrong_answers_text": "The answers you provided are incorrect. Please try again.",
   "member_not_found": "The login you provided not match any records. Please try again.",
@@ -131,5 +131,5 @@
   "no_trips_scheduled": "You currently do not have any trips scheduled",
   "add_new_location": "Add New Location",
   "address": "Address",
-  "address_description": "This is the location where you will be picked up or dropped off",
+  "address_description": "This is the location where you will be picked up or dropped off"
 }
