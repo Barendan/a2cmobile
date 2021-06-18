@@ -251,6 +251,7 @@ const LoginScreen = ({ navigation, route }) => {
   };
 
   return (
+    // <DismissKeyboardAwareScrollView>
     <KeyboardAvoidingView
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       style={styles.keyboardAvoidViewing}>
@@ -393,13 +394,13 @@ const LoginScreen = ({ navigation, route }) => {
           <View style={styles.footer}>
             {/* <TouchableHighlight
             onPress={() => navigation.navigate('Registration')}
-          >
+            >
             <Text style={styles.bText}>{t('go_to_registration')}</Text>
           </TouchableHighlight> */}
 
             {/* <TouchableHighlight
               onPress={() => setDisplayCreateMemberAccount(true)}
-            >
+              >
               <Text style={styles.bText}>{t('go_to_registration')}</Text>
             </TouchableHighlight> */}
 
@@ -435,6 +436,7 @@ const LoginScreen = ({ navigation, route }) => {
         </View>
       </View>
     </KeyboardAvoidingView>
+    // </DismissKeyboardAwareScrollView>
   );
 };
 

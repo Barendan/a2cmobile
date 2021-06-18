@@ -22,31 +22,31 @@ export default StyleSheet.create({
     marginBottom: 50,
   },
   input: {
-    width: '90%',
+    // width: '90%',
     height: 50,
     borderWidth: 2,
     borderRadius: 2,
     marginBottom: '10%',
-    alignSelf: 'center'
+    alignSelf: 'center',
   },
   mainContainer: {
-    height: Platform.OS === "ios" ? '80%' : '75%',
+    height: Platform.OS === 'ios' ? '80%' : '75%',
   },
   formContainer: {
     width: '100%',
-    marginTop: '6%',
+    marginTop: Platform.OS === 'ios' ? '6%' : '3%',
     backgroundColor: '#FFFFFF',
     flex: 1,
   },
   container: {
     height: '100%',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   footer: {
     width: '100%',
     justifyContent: 'space-around',
     alignSelf: 'center',
-    flexDirection: 'row'
+    flexDirection: 'row',
   },
   backButton: {
     height: 40,
@@ -61,22 +61,22 @@ export default StyleSheet.create({
   },
   errorMessage: {
     color: ERROR,
-    fontSize: FONT_SIZE_18
+    fontSize: FONT_SIZE_18,
   },
   linkText: {
     color: BLUE,
-    fontSize: FONT_SIZE_18
+    fontSize: FONT_SIZE_18,
   },
   highlightText: {
     color: BLUE,
-    fontWeight: 'bold'
+    fontWeight: 'bold',
   },
   listItemTitle: {
     fontWeight: 'bold',
-    fontSize: 14
+    fontSize: 14,
   },
   optionsIcon: {
     backgroundColor: 'transparent',
-    marginLeft: 5
-  }
+    marginLeft: 5,
+  },
 });

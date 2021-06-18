@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text } from 'react-native';
 import { Input, Button } from '@ui-kitten/components';
-import { useTranslation } from "react-i18next";
+import { useTranslation } from 'react-i18next';
 import Spinner from 'react-native-spinkit';
 import styles from './styles';
 import moment from 'moment';
@@ -10,7 +10,6 @@ import { MemberService } from '_services';
 import { Stack } from 'react-native-spacing-system';
 
 const Step1 = ({ back, next, saveState }) => {
-
   const { t } = useTranslation();
 
   const [loading, setLoading] = React.useState(false);
@@ -22,7 +21,7 @@ const Step1 = ({ back, next, saveState }) => {
   const [memberInformation, setMemberInformation] = React.useState({
     memberID: '',
     dateOfBirth: '',
-    zipcode: ''
+    zipcode: '',
   });
 
   const updateMemberInformation = React.useCallback((key, value) => {
@@ -35,30 +34,24 @@ const Step1 = ({ back, next, saveState }) => {
   }, []);
 
   const onValidateMemberInfo = () => {
-
-    const {
-      memberID,
-      dateOfBirth,
-      zipcode
-    } = memberInformation;
+    const { memberID, dateOfBirth, zipcode } = memberInformation;
 
     setErrorMessage('');
     setMemberRecord(null);
     setLoading(true);
     MemberService.validateMemberInfo(memberID, dateOfBirth, zipcode)
-      .then((data) => {
+      .then(data => {
         setLoading(false);
         setMemberRecord(data);
         saveState({ memberRecord: data.memberInfo });
         next();
       })
-      .catch((err) => {
+      .catch(err => {
         //alert(JSON.stringify(err))
         setErrorMessage(err.message);
         setLoading(false);
       });
-
-  }
+  };
 
   const nextStep = () => {
     //const {next, saveState} = this.props;
@@ -67,40 +60,43 @@ const Step1 = ({ back, next, saveState }) => {
     next();
   };
 
-
   React.useEffect(() => {
-    setDisableNextButton((memberInformation.memberID.length === 0
-      || memberInformation.dateOfBirth.length === 0
-      || memberInformation.zipcode.length < 5));
+    setDisableNextButton(
+      memberInformation.memberID.length === 0 ||
+        memberInformation.dateOfBirth.length === 0 ||
+        memberInformation.zipcode.length < 5,
+    );
   }, [memberInformation]);
 
-
-  const onDateOfBirth = (value) => {
+  const onDateOfBirth = value => {
     if (value.length < 11) {
-      let formattedDob = value.replace(/^(\d\d)(\d)$/g, '$1/$2').replace(/^(\d\d\/\d\d)(\d+)$/g, '$1/$2').replace(/[^\d\/]/g, '');
+      let formattedDob = value
+        .replace(/^(\d\d)(\d)$/g, '$1/$2')
+        .replace(/^(\d\d\/\d\d)(\d+)$/g, '$1/$2')
+        .replace(/[^\d\/]/g, '');
       updateMemberInformation('dateOfBirth', formattedDob);
     }
-  }
+  };
 
   const isDOBValid = (dob, age = null) => {
-    if (!moment(dob).isValid()) return false
+    if (!moment(dob).isValid()) return false;
 
-    const minAge = age || 15
-    const maxAge = 105
+    const minAge = age || 15;
+    const maxAge = 105;
 
-    if (moment().diff(dob, 'years', false) > maxAge) return false //check max age
-    if (moment().diff(dob, 'years', true) < minAge) return false //check min age
-    if (moment().diff(dob, 'days', true) < 1) return false //today && future
+    if (moment().diff(dob, 'years', false) > maxAge) return false; //check max age
+    if (moment().diff(dob, 'years', true) < minAge) return false; //check min age
+    if (moment().diff(dob, 'days', true) < 1) return false; //today && future
 
-    return true
-  }
+    return true;
+  };
 
-  const onZipcode = (value) => {
+  const onZipcode = value => {
     if (value.length < 6) {
       let formattedZipcode = value.replace(/[^\d\/]/g, '');
       updateMemberInformation('zipcode', formattedZipcode);
     }
-  }
+  };
 
   return (
     <View style={[styles.container, styles.step1]}>
@@ -109,14 +105,14 @@ const Step1 = ({ back, next, saveState }) => {
           style={styles.input}
           onChangeText={text => updateMemberInformation('memberID', text)}
           value={memberInformation.memberID}
-          label={t('member_id') + "*"}
+          label={t('member_id') + '*'}
           placeholder={t('member_id')}
         />
         <Input
           style={styles.input}
           onChangeText={text => onDateOfBirth(text)}
           value={memberInformation.dateOfBirth}
-          label={t('date_of_birth') + "*"}
+          label={t('date_of_birth') + '*'}
           placeholder={t('date_of_birth') + ': MM/dd/yyyy'}
           pattern="[0-9]*"
         />
@@ -124,7 +120,7 @@ const Step1 = ({ back, next, saveState }) => {
           style={styles.input}
           onChangeText={text => onZipcode(text)}
           value={memberInformation.zipcode}
-          label={t('zipcode') + "*"}
+          label={t('zipcode') + '*'}
           placeholder={t('zipcode')}
         />
       </View>
@@ -132,25 +128,33 @@ const Step1 = ({ back, next, saveState }) => {
       <Text>{JSON.stringify(memberRecord)}</Text>
 
       <Text style={styles.errorMessage}>{errorMessage}</Text>
-      {loading && <View style={styles.loadingView}>
-        <Spinner
-          isVisible={loading}
-          size={50}
-          type={'ThreeBounce'}
-          color={APP_COLOR}
-        />
-      </View>}
+      {loading && (
+        <View style={styles.loadingView}>
+          <Spinner
+            isVisible={loading}
+            size={50}
+            type={'ThreeBounce'}
+            color={APP_COLOR}
+          />
+        </View>
+      )}
 
       <Stack size={12} />
 
-      <View style={[{ width: '85%', justifyContent: 'space-around', flexDirection: 'row' }]}>
+      <View
+        style={[
+          {
+            width: '85%',
+            justifyContent: 'space-around',
+            flexDirection: 'row',
+          },
+        ]}>
         <Button
           title={t('validate')}
           size="large"
           style={styles.forwardButton}
           // disabled={disableNextButton || !loading}
           onPress={nextStep}>
-
           {t('validate')}
         </Button>
       </View>
