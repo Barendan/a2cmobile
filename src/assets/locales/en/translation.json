@@ -1,6 +1,6 @@
 {
   "greeting-text": "Hello",
-  "change_language": "Cambiar idioma",
+  "in_spanish": "Language: en Español",
   "change_plan": "Change Plan",
   "screen": "Screen",
   "go_to_home": "Go to home",
@@ -131,5 +131,5 @@
   "no_trips_scheduled": "You currently do not have any trips scheduled",
   "add_new_location": "Add New Location",
   "address": "Address",
-  "address_description": "This is the location where you will be picked up or dropped off",
+  "address_description": "This is the location where you will be picked up or dropped off"
 }

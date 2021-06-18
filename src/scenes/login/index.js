@@ -1,18 +1,31 @@
 import React, { useState } from 'react';
-import { View, Text, Switch, TouchableHighlight, KeyboardAvoidingView, Platform, Alert, Image } from 'react-native';
+import {
+  View,
+  Text,
+  Switch,
+  TouchableHighlight,
+  KeyboardAvoidingView,
+  Platform,
+  Alert,
+  Image,
+} from 'react-native';
 import { Stack } from 'react-native-spacing-system';
-import { LanguageSelector, FullScreenPanel, CreateMemberAccount, ForgotPasswordReset } from '_organisms';
+import {
+  LanguageSelector,
+  FullScreenPanel,
+  CreateMemberAccount,
+  ForgotPasswordReset,
+} from '_organisms';
 import TouchID from 'react-native-touch-id';
-import MatIcon from "react-native-vector-icons/MaterialCommunityIcons";
+import MatIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { TextInput, Button, HelperText } from 'react-native-paper';
 import { Button as KittenButton } from '@ui-kitten/components';
-import { useTranslation } from "react-i18next";
+import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import styles from './styles';
 import { APP_COLOR, GREEN } from '_styles/colors';
 import Spinner from 'react-native-spinkit';
 import { sha256 } from 'react-native-sha256';
-
 
 import { login, saveLoggedInUser } from '_store/user';
 import { updatePlan, setMemberPlans } from '_store/plan';
@@ -22,18 +35,19 @@ import { scaleFont } from '_styles/mixins';
 import { AppInfoService, MemberService } from '_services';
 import { AppSettings } from '_utils';
 import storage from '../../storage';
+import { DismissKeyboardAwareScrollView } from '_atoms';
 
 const LoginScreen = ({ navigation, route }) => {
   const { plan } = useSelector(state => state.plan);
 
   const [inputValues, setInputValues] = useState({
     email: '',
-    password: ''
+    password: '',
   });
   const [errors, setErrors] = useState({
     email: '',
     password: '',
-  })
+  });
   const { email, password } = inputValues;
   const [isEnabled, setIsEnabled] = React.useState(false);
   const [isVisible, setVisible] = React.useState(false);
@@ -41,9 +55,14 @@ const LoginScreen = ({ navigation, route }) => {
   const [supportTouch, setSupportTouch] = React.useState(false);
   const toggleSwitch = () => setIsEnabled(previousState => !previousState);
   const [user, setUser] = useState({});
-  const [displayCreateMemberAccount, setDisplayCreateMemberAccount] = React.useState(false);
-  const [displayForgotPasswordReset, setDisplayForgotPasswordReset] = React.useState(false);
-
+  const [
+    displayCreateMemberAccount,
+    setDisplayCreateMemberAccount,
+  ] = React.useState(false);
+  const [
+    displayForgotPasswordReset,
+    setDisplayForgotPasswordReset,
+  ] = React.useState(false);
 
   const [panelDetails, setPanelDetails] = React.useState({
     panelVisible: false,
@@ -66,8 +85,8 @@ const LoginScreen = ({ navigation, route }) => {
       });
 
       if (savedUser?.email && savedUser?.password) {
-        onChangeTextInput('email', savedUser.email)
-        onChangeTextInput('password', savedUser.password)
+        onChangeTextInput('email', savedUser.email);
+        onChangeTextInput('password', savedUser.password);
         setIsEnabled(true);
       }
 
@@ -75,8 +94,8 @@ const LoginScreen = ({ navigation, route }) => {
         setUser(storedUser);
         const optionalConfigObject = {
           unifiedErrors: false,
-          passcodeFallback: false
-        }
+          passcodeFallback: false,
+        };
         TouchID.isSupported(optionalConfigObject)
           .then(biometryType => {
             if (biometryType === 'FaceID') {
@@ -85,8 +104,7 @@ const LoginScreen = ({ navigation, route }) => {
               setSupportTouch(true);
             }
           })
-          .catch(error => {
-          });
+          .catch(error => {});
       }
     }
     validateSupport();
@@ -172,18 +190,18 @@ const LoginScreen = ({ navigation, route }) => {
   const validateEmail = () => {
     const re = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
     return re.test(String(email).toLocaleLowerCase());
-  }
+  };
 
   const onChangeTextInput = (field, value) => {
-    setInputValues((inpValue) => ({
+    setInputValues(inpValue => ({
       ...inpValue,
-      [field]: value
+      [field]: value,
     }));
     setErrors({
       ...errors,
-      [field]: ''
-    })
-  }
+      [field]: '',
+    });
+  };
 
   const onLogin = async () => {
     // if (!validateEmail()) {
@@ -199,7 +217,7 @@ const LoginScreen = ({ navigation, route }) => {
       login: email,
       password: hashedPassword,
       appOS: Platform.OS,
-      appVersion: AppSettings.appVersion
+      appVersion: AppSettings.appVersion,
     };
 
     // var payload = {
@@ -211,9 +229,13 @@ const LoginScreen = ({ navigation, route }) => {
 
     setLoading(true);
     MemberService.loginUser(payload)
-      .then((data) => {
+      .then(data => {
         setLoading(false);
-        if (data.user && data.user.MemberPlans && data.user.MemberPlans.length > 0) {
+        if (
+          data.user &&
+          data.user.MemberPlans &&
+          data.user.MemberPlans.length > 0
+        ) {
           dispatch(setMemberPlans(data.user.MemberPlans));
           dispatch(updatePlan(data.user.MemberPlans[0])); //default to first plan
         }
@@ -222,158 +244,153 @@ const LoginScreen = ({ navigation, route }) => {
         }
         dispatch(login(data.user));
       })
-      .catch((err) => {
-        alert(err?.message || 'unable to sign in')
+      .catch(err => {
+        alert(err?.message || 'unable to sign in');
         setLoading(false);
       });
-  }
+  };
 
   return (
     <KeyboardAvoidingView
-      behavior={Platform.OS === "ios" ? "padding" : "height"}
-      style={styles.keyboardAvoidViewing}
-    >
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      style={styles.keyboardAvoidViewing}>
       <View style={styles.container}>
         <View style={styles.topContainer}>
-
           <View>
-              {plan && plan.contractLogo ? <Image
-                style={{
-                  resizeMode: 'contain',
-                  height: 100,
-                  width: 230,
-                  alignSelf: 'center'
-                }}
-                source={{
-                  uri: `data:image/jpg;base64,${plan.contractLogo}`
-                }}
-              /> : 
+            {plan && plan.contractLogo ? (
               <Image
                 style={{
                   resizeMode: 'contain',
                   height: 100,
                   width: 230,
-                  alignSelf: 'center'
+                  alignSelf: 'center',
+                }}
+                source={{
+                  uri: `data:image/jpg;base64,${plan.contractLogo}`,
+                }}
+              />
+            ) : (
+              <Image
+                style={{
+                  resizeMode: 'contain',
+                  height: 100,
+                  width: 230,
+                  alignSelf: 'center',
                 }}
                 source={require('_assets/images/A2CFullLogo.png')}
-              />}
+              />
+            )}
 
             <Text style={styles.title}>{plan && plan.contractName}</Text>
           </View>
-
-
         </View>
         <View style={styles.spacing}>
           <TextInput
-            label='login'
+            label="login"
             value={email}
-            onChangeText={(e) => onChangeTextInput('email', e)}
+            onChangeText={e => onChangeTextInput('email', e)}
             left={<TextInput.Icon name={'account'} />}
-            style={[errors.email.length ? { borderColor: 'red', borderWidth: 1 } : {}, styles.input]}
+            style={[
+              errors.email.length ? { borderColor: 'red', borderWidth: 1 } : {},
+              styles.input,
+            ]}
           />
-          {
-            errors?.email?.length ? (
-              <HelperText
-                style={errors.email.length ? { color: 'red' } : {}}
-                type="error" visible={true}>
-                {errors.email}
-              </HelperText>
-            ) : null
-          }
-
+          {errors?.email?.length ? (
+            <HelperText
+              style={errors.email.length ? { color: 'red' } : {}}
+              type="error"
+              visible={true}>
+              {errors.email}
+            </HelperText>
+          ) : null}
         </View>
         <View style={[styles.spacing, { marginBottom: 20 }]}>
           <TextInput
-            label='password'
+            label="password"
             style={styles.input}
             value={password}
             secureTextEntry={!isVisible}
-            onChangeText={(e) => onChangeTextInput('password', e)}
+            onChangeText={e => onChangeTextInput('password', e)}
             left={<TextInput.Icon name={'lock'} />}
-            right={<TextInput.Icon onPress={() => setVisible(previousState => !previousState)} name={isVisible ? 'eye-off-outline' : 'eye'} />}
+            right={
+              <TextInput.Icon
+                onPress={() => setVisible(previousState => !previousState)}
+                name={isVisible ? 'eye-off-outline' : 'eye'}
+              />
+            }
           />
         </View>
         <KittenButton
-         color={APP_COLOR}
-         size="large"
-         style={styles.loginBtn}
-         onPress={onLogin} 
-         disabled={loading}>
+          color={APP_COLOR}
+          size="large"
+          style={styles.loginBtn}
+          onPress={onLogin}
+          disabled={loading}>
           {t('sign_in')}
         </KittenButton>
 
         <Stack size={12} />
 
         <KittenButton
-appearance='outline'
-         color={APP_COLOR}
-         size="large"
-         style={styles.signUpBtn}
-         onPress={() => setDisplayCreateMemberAccount(true)}
-         disabled={loading}>
+          appearance="outline"
+          color={APP_COLOR}
+          size="large"
+          style={styles.signUpBtn}
+          onPress={() => setDisplayCreateMemberAccount(true)}
+          disabled={loading}>
           {t('go_to_registration')}
         </KittenButton>
 
-
-        {loading && <View style={styles.loadingView}>
-          <Spinner
-            isVisible={loading}
-            size={50}
-            type={'ThreeBounce'}
-            color={APP_COLOR}
-          />
-        </View>}
+        {loading && (
+          <View style={styles.loadingView}>
+            <Spinner
+              isVisible={loading}
+              size={50}
+              type={'ThreeBounce'}
+              color={APP_COLOR}
+            />
+          </View>
+        )}
 
         <View style={styles.authArea}>
-
           <View style={styles.authArea}>
-
             <View style={styles.forgotPass}>
               <TouchableHighlight
-                onPress={() => setDisplayForgotPasswordReset(true)}
-              >
-                <Text
-                  style={styles.pText}
-                >
-                  {t('forgot_password')}
-                </Text>
+                onPress={() => setDisplayForgotPasswordReset(true)}>
+                <Text style={styles.pText}>{t('forgot_password')}</Text>
               </TouchableHighlight>
 
               <View style={styles.thumbContainer}>
-
-                <Text
-                  style={[styles.pText, { marginRight: 5 }]}
-                >
+                <Text style={[styles.pText, { marginRight: 5 }]}>
                   {t('save_login')}
                 </Text>
                 <Switch
-                  trackColor={{ false: GREEN, true: "#81b0ff" }}
-                  thumbColor={isEnabled ? "#f5dd4b" : "#f4f3f4"}
+                  trackColor={{ false: GREEN, true: '#81b0ff' }}
+                  thumbColor={isEnabled ? '#f5dd4b' : '#f4f3f4'}
                   ios_backgroundColor={GREEN}
                   onValueChange={toggleSwitch}
                   value={isEnabled}
                 />
               </View>
             </View>
-            {
-              (supportTouch || supportedFaceId) && (
-                <View style={styles.alternativeLogin}>
-                  <Text style={{ color: APP_COLOR }}>{t('or_signin_using')}</Text>
-                  <View style={{ flexDirection: 'row' }}>
-                    <View style={styles.altLoginBtn}>
-                      <Button onPress={biometricLogin} contentStyle={styles.btnContent} mode='outlined'>
-                        <MatIcon size={25} name={'face-recognition'} />
-                      </Button>
-                    </View>
+            {(supportTouch || supportedFaceId) && (
+              <View style={styles.alternativeLogin}>
+                <Text style={{ color: APP_COLOR }}>{t('or_signin_using')}</Text>
+                <View style={{ flexDirection: 'row' }}>
+                  <View style={styles.altLoginBtn}>
+                    <Button
+                      onPress={biometricLogin}
+                      contentStyle={styles.btnContent}
+                      mode="outlined">
+                      <MatIcon size={25} name={'face-recognition'} />
+                    </Button>
                   </View>
                 </View>
-              )
-            }
-
+              </View>
+            )}
           </View>
 
           <View style={styles.footer}>
-
             {/* <TouchableHighlight
             onPress={() => navigation.navigate('Registration')}
           >
@@ -389,8 +406,7 @@ appearance='outline'
             <Stack size={12} />
 
             <TouchableHighlight
-              onPress={() => getLatestAppInfo(t('faqs'), 'faqs')}
-            >
+              onPress={() => getLatestAppInfo(t('faqs'), 'faqs')}>
               <Text style={styles.bText}>{t('faqs')}</Text>
             </TouchableHighlight>
 
@@ -399,18 +415,15 @@ appearance='outline'
             <LanguageSelector />
           </View>
 
-
           <ForgotPasswordReset
             displayPanel={displayForgotPasswordReset}
             onPanelDismiss={() => setDisplayForgotPasswordReset(false)}
           />
 
-
           <CreateMemberAccount
             displayPanel={displayCreateMemberAccount}
             onPanelDismiss={() => setDisplayCreateMemberAccount(false)}
           />
-
 
           <FullScreenPanel
             isHTML={panelDetails.isHTML}
@@ -419,11 +432,10 @@ appearance='outline'
             panelBody={panelDetails.body}
             onPanelDismiss={onPanelDismiss}
           />
-
         </View>
       </View>
     </KeyboardAvoidingView>
-  )
-}
+  );
+};
 
 export default LoginScreen;

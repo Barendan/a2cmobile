@@ -29,8 +29,9 @@ export function DrawerContent({ navigation }) {
   const { t } = useTranslation();
 
   const paperTheme = useTheme();
-  const { rtl, theme, toggleRTL, toggleTheme } =
-    React.useContext(PreferencesContext);
+  const { rtl, theme, toggleRTL, toggleTheme } = React.useContext(
+    PreferencesContext,
+  );
 
   const { user } = useSelector(state => state.user);
   const { plan } = useSelector(state => state.plan);
@@ -117,7 +118,7 @@ export function DrawerContent({ navigation }) {
                       uri: `data:image/jpg;base64,${plan.contractLogo}`,
                     }}
 
-                  // source={{ uri: user.contractLogo ? user.contractLogo : 'https://www.bmcanada.ca/wp-content/uploads/2014/05/placeholder-blue.png' }}
+                    // source={{ uri: user.contractLogo ? user.contractLogo : 'https://www.bmcanada.ca/wp-content/uploads/2014/05/placeholder-blue.png' }}
                   />
                 )}
 
@@ -233,7 +234,14 @@ export function DrawerContent({ navigation }) {
               </View>
             </View>
           </TouchableRipple> */}
-            <LanguageSelector headerStyle={styles.preference} />
+            <LanguageSelector
+              headerStyle={styles.preference}
+              iconStyle={{
+                marginLeft: 20,
+                backgroundColor: 'white',
+                marginTop: -5,
+              }}
+            />
           </Drawer.Section>
         </View>
       </DrawerContentScrollView>
