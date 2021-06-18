@@ -63,13 +63,6 @@ const Step1 = ({ next }) => {
           </>
         ))}
         <LocationSearchCard
-          showBorder={true}
-          dashedBorder={true}
-          title={t('add_stop_title')}
-          description={t('add_stop_description')}
-          onAddressSelected={addr => dispatch(updateTripStop(addr))}
-        />
-        <LocationSearchCard
           required={!destinationAddress ? true : false}
           locationIndex={1}
           title={t('destination_address')}
@@ -79,6 +72,13 @@ const Step1 = ({ next }) => {
               : t('destination_address_description')
           }
           onAddressSelected={addr => dispatch(destinationSelect(addr))}
+        />
+        <LocationSearchCard
+          showBorder={true}
+          dashedBorder={true}
+          title={t('add_stop_title')}
+          description={t('add_stop_description')}
+          onAddressSelected={addr => dispatch(updateTripStop(addr))}
         />
         <CheckboxCard
           cardIcon={'swap-horizontal'}
