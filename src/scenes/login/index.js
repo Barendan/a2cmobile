@@ -27,7 +27,6 @@ import { APP_COLOR, GREEN } from '_styles/colors';
 import Spinner from 'react-native-spinkit';
 import { sha256 } from 'react-native-sha256';
 
-import { DismissKeyboardAwareScrollView } from '_atoms';
 import { login, saveLoggedInUser } from '_store/user';
 import { updatePlan, setMemberPlans } from '_store/plan';
 
