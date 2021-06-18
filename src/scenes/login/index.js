@@ -36,6 +36,7 @@ import { scaleFont } from '_styles/mixins';
 import { AppInfoService, MemberService } from '_services';
 import { AppSettings } from '_utils';
 import storage from '../../storage';
+import { DismissKeyboardAwareScrollView } from '_atoms';
 
 const LoginScreen = ({ navigation, route }) => {
   const { plan } = useSelector(state => state.plan);
@@ -251,7 +252,10 @@ const LoginScreen = ({ navigation, route }) => {
   };
 
   return (
-    <DismissKeyboardAwareScrollView>
+    // <DismissKeyboardAwareScrollView>
+    <KeyboardAvoidingView
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      style={styles.keyboardAvoidViewing}>
       <View style={styles.container}>
         <View style={styles.topContainer}>
           <View>
@@ -432,7 +436,8 @@ const LoginScreen = ({ navigation, route }) => {
           />
         </View>
       </View>
-    </DismissKeyboardAwareScrollView>
+    </KeyboardAvoidingView>
+    // </DismissKeyboardAwareScrollView>
   );
 };
 
