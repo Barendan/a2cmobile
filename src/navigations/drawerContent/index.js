@@ -1,17 +1,19 @@
 import React from 'react';
-import { View, StyleSheet, TouchableHighlight, Image } from 'react-native';
+import {
+  View,
+  StyleSheet,
+  TouchableHighlight,
+  Image,
+  Platform,
+} from 'react-native';
 import { DrawerItem, DrawerContentScrollView } from '@react-navigation/drawer';
 import {
   useTheme,
   Avatar,
   Title,
   Caption,
-  Paragraph,
   Drawer,
   Text,
-  TouchableRipple,
-  Switch,
-  Card,
 } from 'react-native-paper';
 import { Inset, Stack } from 'react-native-spacing-system';
 
@@ -105,7 +107,7 @@ export function DrawerContent({ navigation }) {
             </Drawer.Section>
 
             <Drawer.Section>
-              <Stack size={12} />
+              {Platform.OS === 'ios' ? <Stack size={12} /> : null}
               <View>
                 {plan.contractLogo && (
                   <Image
@@ -117,29 +119,12 @@ export function DrawerContent({ navigation }) {
                     source={{
                       uri: `data:image/jpg;base64,${plan.contractLogo}`,
                     }}
-
-                    // source={{ uri: user.contractLogo ? user.contractLogo : 'https://www.bmcanada.ca/wp-content/uploads/2014/05/placeholder-blue.png' }}
                   />
                 )}
 
                 <Title style={styles.subTitle}>{plan.contractName}</Title>
               </View>
             </Drawer.Section>
-
-            {/* <View style={styles.row}>
-            <View style={styles.section}>
-              <Paragraph style={[styles.paragraph, styles.caption]}>
-                202
-              </Paragraph>
-              <Caption style={styles.caption}>Following</Caption>
-            </View>
-            <View style={styles.section}>
-              <Paragraph style={[styles.paragraph, styles.caption]}>
-                159
-              </Paragraph>
-              <Caption style={styles.caption}>Followers</Caption>
-            </View>
-          </View> */}
           </View>
           <Drawer.Section>
             <DrawerItem
@@ -154,18 +139,6 @@ export function DrawerContent({ navigation }) {
                 />
               )}
             />
-            {/* <DrawerItem
-              label={t('saved_locations')}
-              onPress={() => navigation.navigate('Locations')}
-              icon={() => (
-                <Avatar.Icon
-                  size={30}
-                  icon="map"
-                  color="black"
-                  style={styles.drawerIcon}
-                />
-              )}
-            /> */}
             <DrawerItem
               label={t('saved_locations')}
               onPress={() => navigation.navigate('FavoriteLocations')}
@@ -203,21 +176,49 @@ export function DrawerContent({ navigation }) {
               )}
             />
           </Drawer.Section>
-          <Drawer.Section title={t('app_info')}>
+          <Drawer.Section
+            title={<Text style={styles.sectionHeader}>{t('app_info')}</Text>}>
             <DrawerItem
               label={t('privacy')}
               onPress={() => getLatestAppInfo(t('privacy'), 'privacy')}
+              icon={() => (
+                <Avatar.Icon
+                  size={30}
+                  icon="arrow-right"
+                  color="black"
+                  style={styles.drawerIcon}
+                />
+              )}
             />
             <DrawerItem
               label={t('terms')}
               onPress={() => getLatestAppInfo(t('terms'), 'terms')}
+              icon={() => (
+                <Avatar.Icon
+                  size={30}
+                  icon="arrow-right"
+                  color="black"
+                  style={styles.drawerIcon}
+                />
+              )}
             />
             <DrawerItem
               label={t('faqs')}
               onPress={() => getLatestAppInfo(t('faqs'), 'faqs')}
+              icon={() => (
+                <Avatar.Icon
+                  size={30}
+                  icon="arrow-right"
+                  color="black"
+                  style={styles.drawerIcon}
+                />
+              )}
             />
           </Drawer.Section>
-          <Drawer.Section title={t('preferences')}>
+          <Drawer.Section
+            title={
+              <Text style={styles.sectionHeader}>{t('preferences')}</Text>
+            }>
             {/* <TouchableRipple onPress={toggleTheme}>
               <View style={styles.preference}>
                 <Text>Dark Theme</Text>
@@ -237,7 +238,7 @@ export function DrawerContent({ navigation }) {
             <LanguageSelector
               headerStyle={styles.preference}
               iconStyle={{
-                marginLeft: 20,
+                marginLeft: 10,
                 backgroundColor: 'white',
                 marginTop: -5,
               }}
@@ -279,7 +280,7 @@ const styles = StyleSheet.create({
     paddingLeft: 20,
   },
   title: {
-    marginTop: 20,
+    marginTop: Platform.OS === 'ios' ? 20 : 10,
     fontWeight: 'bold',
   },
   subTitle: {
@@ -293,6 +294,7 @@ const styles = StyleSheet.create({
   },
   row: {
     margin: 20,
+    marginVertical: 16,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
@@ -300,6 +302,10 @@ const styles = StyleSheet.create({
   section: {
     flexDirection: 'row',
     alignItems: 'center',
+  },
+  sectionHeader: {
+    // color: '#636363',
+    fontWeight: 'bold',
   },
   paragraph: {
     fontWeight: 'bold',
@@ -317,12 +323,9 @@ const styles = StyleSheet.create({
   },
   signOutContainer: {
     fontWeight: 'bold',
-    height: 60,
+    // height: 54,
     justifyContent: 'space-between',
     color: 'black',
-    backgroundColor: '#dfe5eb',
-  },
-  signOutContainerDark: {
     backgroundColor: '#dfe5eb',
   },
   signOutTitle: {
