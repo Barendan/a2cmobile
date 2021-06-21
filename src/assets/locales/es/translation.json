@@ -41,7 +41,7 @@
   "log_out": "Cerrar Sesión",
   "security_questions": "  Preguntas De Seguridad",
   "security_questions_text": "Establezca 3 preguntas de seguridad únicas. Debe recordar las respuestas a estas preguntas si alguna vez necesita restablecer su contraseña.",
-  "account_questions_text": "Seleccione sus opciones de cuenta preferidas.",
+  "account_questions_text": "Seleccione sus opciones de cuenta preferidas:",
   "question_one": "Pregunta Uno",
   "question_one_answer": "Pregunta Uno Respuesta",
   "question_two": "Pregunta Dos",
