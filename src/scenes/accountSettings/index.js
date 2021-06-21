@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, SafeAreaView, Text, View } from 'react-native';
-import { Inset, Stack } from "react-native-spacing-system";
-import { useTranslation } from "react-i18next";
+import { Inset, Stack } from 'react-native-spacing-system';
+import { useTranslation } from 'react-i18next';
 import { Toggle } from '@ui-kitten/components';
 import Spinner from 'react-native-spinkit';
 import { useDispatch, useSelector } from 'react-redux';
@@ -26,22 +26,31 @@ const AccountSettings = () => {
   const [selectedOption, setSelectedOption] = React.useState({
     pushNotificationsEnabled: false,
     smsNotificationsEnabled: false,
-    emailNotificationsEnabled: false
+    emailNotificationsEnabled: false,
   });
 
   const updateSelectedOption = React.useCallback((key, value) => {
-    setSelectedOption((selectedOption) => {
-      return ({
+    setSelectedOption(selectedOption => {
+      return {
         ...selectedOption,
-        [key]: value
-      });
+        [key]: value,
+      };
     });
   }, []);
 
   React.useEffect(() => {
-    updateSelectedOption("pushNotificationsEnabled", user.pushNotificationsEnabled);
-    updateSelectedOption("smsNotificationsEnabled", user.smsNotificationsEnabled);
-    updateSelectedOption("emailNotificationsEnabled", user.emailNotificationsEnabled);
+    updateSelectedOption(
+      'pushNotificationsEnabled',
+      user.pushNotificationsEnabled,
+    );
+    updateSelectedOption(
+      'smsNotificationsEnabled',
+      user.smsNotificationsEnabled,
+    );
+    updateSelectedOption(
+      'emailNotificationsEnabled',
+      user.emailNotificationsEnabled,
+    );
     setPageLoaded(true);
   }, []);
 
@@ -53,7 +62,7 @@ const AccountSettings = () => {
       };
       updateAccountOption(payload);
     }
-  }, [selectedOption.pushNotificationsEnabled])
+  }, [selectedOption.pushNotificationsEnabled]);
 
   React.useEffect(() => {
     if (pageLoaded) {
@@ -63,47 +72,45 @@ const AccountSettings = () => {
       };
       updateAccountOption(payload);
     }
-  }, [selectedOption.smsNotificationsEnabled])
-
+  }, [selectedOption.smsNotificationsEnabled]);
 
   React.useEffect(() => {
     if (pageLoaded) {
       var payload = {
         id: user.id,
-        emailNotificationsEnabled: selectedOption.emailNotificationsEnabled
+        emailNotificationsEnabled: selectedOption.emailNotificationsEnabled,
       };
       updateAccountOption(payload);
     }
-  }, [selectedOption.emailNotificationsEnabled])
+  }, [selectedOption.emailNotificationsEnabled]);
 
-
-  const updateAccountOption = (payload) => {
+  const updateAccountOption = payload => {
     setLoading(true);
     MemberService.updateUser(payload)
-      .then((data) => {
+      .then(data => {
         setLoading(false);
         //this.dropDownAlertRef.alertWithType('success', t('success_text'), t('account_settings_updated'));
-        updateCurrentUserRecord()
+        updateCurrentUserRecord();
       })
-      .catch((err) => {
-        alert(err)
+      .catch(err => {
+        alert(err);
         setLoading(false);
       });
-  }
+  };
 
   //update member record
   const updateCurrentUserRecord = () => {
     //setLoading(true);
     MemberService.getUserRecord(user.id)
-      .then((data) => {
+      .then(data => {
         //setLoading(false);
         dispatch(update(data.user));
       })
-      .catch((err) => {
-        alert(JSON.stringify(err))
+      .catch(err => {
+        alert(JSON.stringify(err));
         //setLoading(false);
       });
-  }
+  };
 
   return (
     <SafeAreaView>
@@ -111,39 +118,61 @@ const AccountSettings = () => {
         <Inset horizontal={16}>
           <Text>{t('account_questions_text')}</Text>
         </Inset>
-{/* 
-        <Spinner
-          isVisible={loading}
-          size={50}
-          type={'ThreeBounce'}
-          color={APP_COLOR}
-        /> */}
 
         <Stack size={16} />
-        <View>
-          <Toggle checked={selectedOption.pushNotificationsEnabled} onChange={(v) => updateSelectedOption("pushNotificationsEnabled", v)}>
-            {t('push_notifications_enabled')}
-          </Toggle>
-        </View>
-
         <Stack size={16} />
-        <View>
-          <Toggle checked={selectedOption.smsNotificationsEnabled} onChange={(v) => updateSelectedOption("smsNotificationsEnabled", v)}>
-            {t('sms_notifications_enabled')}
-          </Toggle>
-        </View>
 
-        <Stack size={16} />
-        <View>
-          <Toggle checked={selectedOption.emailNotificationsEnabled} onChange={(v) => updateSelectedOption("emailNotificationsEnabled", v)}>
-            {t('email_notifications_enabled')}
-          </Toggle>
-        </View>
+        <View style={styles.toggleContainer}>
+          <View style={styles.toggleOption}>
+            <Toggle
+              checked={selectedOption.pushNotificationsEnabled}
+              onChange={v =>
+                updateSelectedOption('pushNotificationsEnabled', v)
+              }>
+              {t('push_notifications_enabled')}
+            </Toggle>
+          </View>
 
+          <Stack size={16} />
+          <View style={styles.toggleOption}>
+            <Toggle
+              checked={selectedOption.smsNotificationsEnabled}
+              onChange={v =>
+                updateSelectedOption('smsNotificationsEnabled', v)
+              }>
+              {t('sms_notifications_enabled')}
+            </Toggle>
+          </View>
+
+          <Stack size={16} />
+          <View style={styles.toggleOption}>
+            <Toggle
+              checked={selectedOption.emailNotificationsEnabled}
+              onChange={v =>
+                updateSelectedOption('emailNotificationsEnabled', v)
+              }>
+              {t('email_notifications_enabled')}
+            </Toggle>
+          </View>
+        </View>
       </Inset>
-      <DropdownAlert ref={ref => this.dropDownAlertRef = ref} />
+      <DropdownAlert ref={ref => (this.dropDownAlertRef = ref)} />
     </SafeAreaView>
-  )
+  );
 };
+
+const styles = StyleSheet.create({
+  toggleContainer: {
+    alignItems: 'flex-start',
+    marginLeft: 20,
+    // width: '75%',
+    // fontSize: 24,
+  },
+  toggleOption: {
+    // backgroundColor: 'red',
+    // width: '70%',
+    fontSize: 24,
+  },
+});
 
 export default AccountSettings;
