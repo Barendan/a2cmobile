@@ -1,13 +1,11 @@
 import React, { useState } from 'react';
 import { View, Text, TouchableHighlight, StyleSheet, ScrollView, Animated, KeyboardAvoidingView, Platform } from 'react-native';
-import { Avatar, Surface, IconButton, Divider, List } from 'react-native-paper';
+import { Avatar, List } from 'react-native-paper';
 import { useTranslation } from "react-i18next";
 
 import PropTypes from 'prop-types';
 import { Inset, Stack } from "react-native-spacing-system";
 
-//atoms
-import { AvatarButton } from '_atoms'
 
 //organism
 import { LocationSearchPanel } from '_organisms'
@@ -220,6 +218,8 @@ const LocationSearchCard = (props) => {
                 panelHeader={title+ (required ? '*' : '')}
                 onPlaceSelected={(v) => onPlaceSelected(v)}
             />
+
+
         </View>
     );
 }

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, ScrollView, useWindowDimensions, TouchableHighlight } from 'react-native';
-import { Avatar, Card, IconButton, Divider } from 'react-native-paper';
+import { Avatar, Surface, List, Card, IconButton, Divider } from 'react-native-paper';
 
 import DraggablePanel from 'react-native-draggable-panel';
 import { Inset, Stack } from "react-native-spacing-system";
@@ -8,14 +8,14 @@ import { useTranslation } from "react-i18next";
 
 import { CloseButton } from '_atoms'
 
-import  storage  from '_storage';
+import storage from '_storage';
 
 
 //helpers
 import { LocationService } from '_helpers';
 
 // styles
-import { CANCEL, GRAY_LIGHT, GRAY_DARK } from '_styles/colors';
+import { CANCEL, GRAY_LIGHT, GRAY_DARK, BLUE } from '_styles/colors';
 import { scaleFont } from '_styles/mixins';
 
 const styles = StyleSheet.create({
@@ -55,8 +55,8 @@ const styles = StyleSheet.create({
 
 const LocationSearchPanel = (props) => {
     const { t } = useTranslation();
-    const [ savedLocations, setSavedLocations ] = useState([]);
-    
+    const [savedLocations, setSavedLocations] = useState([]);
+
 
     const {
         panelHeader,
@@ -90,6 +90,11 @@ const LocationSearchPanel = (props) => {
             });
     }, []);
 
+    const getCurrentDeviceLocation = async () => {
+       LocationService.getCurrentLocation().then((res)=>{
+        onPlaceSelected(res);
+       });
+    }
 
     return (
         <View>
@@ -112,10 +117,22 @@ const LocationSearchPanel = (props) => {
                     <View style={styles.content} keyboardShouldPersistTaps={'handled'}>
 
                         <LocationService.googlePlacesAutoInput placeholder={t('search_location')} lang={'en'} onPlaceSelected={(v) => onPlaceSelected(v)} />
-                    
+
                     </View>
 
-                    <Stack size={12} />
+                    <TouchableHighlight onPress={() => getCurrentDeviceLocation()}>
+                        <View>
+                            <Card.Title
+                                style={{ backgroundColor: 'white' }}
+                                title={t('current_location')}
+                                titleStyle={{ color: BLUE }}
+                                left={(props) => <Avatar.Icon {...props} icon="crosshairs-gps" color="black" style={styles.locationIcon} />}
+                            />
+                            <Divider />
+                            <Stack size={12} />
+                        </View>
+                    </TouchableHighlight>
+
 
                     {savedLocations && savedLocations.length > 0 &&
 
@@ -137,10 +154,6 @@ const LocationSearchPanel = (props) => {
                             ))}
 
                         </ScrollView>}
-
-
-
-
 
                 </Inset>
 

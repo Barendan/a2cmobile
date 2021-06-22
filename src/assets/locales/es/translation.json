@@ -130,5 +130,9 @@
   "no_trips_scheduled": "Actualmente no tienes ningún viaje programado",
   "add_new_location": "Agregar Nueva Ubicación",
   "address": "Habla a",
-  "address_description": "Este es el lugar donde lo recogerán o dejarán"
+  "address_description": "Este es el lugar donde lo recogerán o dejarán",
+  "current_location": "Ubicación Actual",
+  "enable_location": "Servicio De Localización Activado",
+  "enable_location_settings": "Los servicios de ubicación están actualmente deshabilitados. Habilítelos para usar la función de ubicación actual",
+  "launch_settings": "Configuración De Lanzamiento"
 }
