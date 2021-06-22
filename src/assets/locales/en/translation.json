@@ -131,5 +131,9 @@
   "no_trips_scheduled": "You currently do not have any trips scheduled",
   "add_new_location": "Add New Location",
   "address": "Address",
-  "address_description": "This is the location where you will be picked up or dropped off"
+  "address_description": "This is the location where you will be picked up or dropped off",
+  "current_location": "Current Location",
+  "enable_location": "Enable Location Services",
+  "enable_location_settings": "Location services are currently disabled. Please enable them to use the Current Location Feature",
+  "launch_settings": "Launch Settings"
 }
