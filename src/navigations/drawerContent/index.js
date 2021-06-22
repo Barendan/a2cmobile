@@ -25,6 +25,8 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { logout } from '_store/user';
 
+import { AppSettings } from '_utils';
+
 export function DrawerContent({ navigation }) {
   const { t } = useTranslation();
 
@@ -254,7 +256,7 @@ export function DrawerContent({ navigation }) {
               <Text style={styles.signOutTitle}>{t('log_out')}</Text>
             </View>
             <View style={styles.section}>
-              <Caption style={styles.caption}>v1.0</Caption>
+              <Caption style={styles.caption}>{AppSettings.appVersion} ({AppSettings.buildVersion})</Caption>
             </View>
           </View>
         </TouchableHighlight>
