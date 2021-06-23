@@ -8,7 +8,7 @@ import { PreferencesContext } from '_context';
 import { CloseButton, AvatarButton } from '_atoms';
 
 // styles
-import { WHITE } from '_styles/colors';
+import { APP_COLOR, WHITE } from '_styles/colors';
 import { scaleFont } from '_styles/mixins';
 
 const styles = StyleSheet.create({
@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
     marginRight: -15,
   },
   translateBtn: {
-    color: 'blue',
+    color: APP_COLOR,
   },
 });
 
@@ -73,7 +73,7 @@ const LanguageSelector = props => {
     <View>
       <AvatarButton
         icon={'translate'}
-        iconColor="blue"
+        iconColor={APP_COLOR}
         iconStyle={props.iconStyle}
         buttonText={
           i18next.language.toLocaleLowerCase() === 'en'

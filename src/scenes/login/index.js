@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import {
   View,
   Text,
-  Switch,
   TouchableHighlight,
   KeyboardAvoidingView,
   Platform,
@@ -19,7 +18,7 @@ import {
 import TouchID from 'react-native-touch-id';
 import MatIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { TextInput, Button, HelperText } from 'react-native-paper';
-import { Button as KittenButton } from '@ui-kitten/components';
+import { Button as KittenButton, Toggle } from '@ui-kitten/components';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import styles from './styles';
@@ -35,7 +34,6 @@ import { scaleFont } from '_styles/mixins';
 import { AppInfoService, MemberService } from '_services';
 import { AppSettings } from '_utils';
 import storage from '../../storage';
-import { DismissKeyboardAwareScrollView } from '_atoms';
 
 const LoginScreen = ({ navigation, route }) => {
   const { plan } = useSelector(state => state.plan);
@@ -220,13 +218,6 @@ const LoginScreen = ({ navigation, route }) => {
       appVersion: AppSettings.appVersion,
     };
 
-    // var payload = {
-    //   login: email,
-    //   password: password,
-    //   appOS: Platform.OS,
-    //   appVersion: AppSettings.appVersion
-    // };
-
     setLoading(true);
     MemberService.loginUser(payload)
       .then(data => {
@@ -251,7 +242,6 @@ const LoginScreen = ({ navigation, route }) => {
   };
 
   return (
-    // <DismissKeyboardAwareScrollView>
     <KeyboardAvoidingView
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       style={styles.keyboardAvoidViewing}>
@@ -365,13 +355,7 @@ const LoginScreen = ({ navigation, route }) => {
                 <Text style={[styles.pText, { marginRight: 5 }]}>
                   {t('save_login')}
                 </Text>
-                <Switch
-                  trackColor={{ false: GREEN, true: '#81b0ff' }}
-                  thumbColor={isEnabled ? '#f5dd4b' : '#f4f3f4'}
-                  ios_backgroundColor={GREEN}
-                  onValueChange={toggleSwitch}
-                  value={isEnabled}
-                />
+                <Toggle checked={isEnabled} onChange={toggleSwitch} />
               </View>
             </View>
             {(supportTouch || supportedFaceId) && (
@@ -436,7 +420,6 @@ const LoginScreen = ({ navigation, route }) => {
         </View>
       </View>
     </KeyboardAvoidingView>
-    // </DismissKeyboardAwareScrollView>
   );
 };
 
