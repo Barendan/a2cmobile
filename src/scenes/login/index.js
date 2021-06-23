@@ -19,7 +19,7 @@ import {
 import TouchID from 'react-native-touch-id';
 import MatIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { TextInput, Button, HelperText } from 'react-native-paper';
-import { Button as KittenButton } from '@ui-kitten/components';
+import { Button as KittenButton, Toggle } from '@ui-kitten/components';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import styles from './styles';
@@ -356,13 +356,7 @@ const LoginScreen = ({ navigation, route }) => {
                 <Text style={[styles.pText, { marginRight: 5 }]}>
                   {t('save_login')}
                 </Text>
-                <Switch
-                  trackColor={{ false: GREEN, true: '#81b0ff' }}
-                  thumbColor={isEnabled ? '#f5dd4b' : '#f4f3f4'}
-                  ios_backgroundColor={GREEN}
-                  onValueChange={toggleSwitch}
-                  value={isEnabled}
-                />
+                <Toggle checked={isEnabled} onChange={toggleSwitch} />
               </View>
             </View>
             {(supportTouch || supportedFaceId) && (
