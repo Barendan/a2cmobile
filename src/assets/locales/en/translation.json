@@ -135,5 +135,9 @@
   "current_location": "Current Location",
   "enable_location": "Enable Location Services",
   "enable_location_settings": "Location services are currently disabled. Please enable them to use the Current Location Feature",
-  "launch_settings": "Launch Settings"
+  "launch_settings": "Launch Settings",
+  "summary": "Summary",
+  "round_trip_label": "Round Trip",
+  "wheelchair": "Wheelchair",
+  "date_time": "Date and Time"
 }
