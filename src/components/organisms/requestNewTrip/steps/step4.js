@@ -1,25 +1,30 @@
 import React from 'react';
-import { View, ScrollView, Text } from 'react-native';
-import { Button } from '@ui-kitten/components';
+import { View, ScrollView } from 'react-native';
+import {
+  Button,
+  Card,
+  Divider,
+  Text,
+  List,
+  ListItem,
+} from '@ui-kitten/components';
 import { useTranslation } from 'react-i18next';
 import { TextInputCard } from '_molecules';
 import { useDispatch, useSelector } from 'react-redux';
 import styles from './styles';
 import { MemberService } from '_services';
-import { setSpecialNeeds } from '_store/steps';
 import Spinner from 'react-native-spinkit';
 import { APP_COLOR } from '_styles/colors';
 import { Stack } from 'react-native-spacing-system';
 import moment from 'moment';
 
-const Step3 = ({ back, next }) => {
+const Step4 = ({ back, next }) => {
   const [isLoading, setIsLoading] = React.useState(false);
   const [errorMessage, setErrorMessage] = React.useState('');
   const { t } = useTranslation();
-  const dispatch = useDispatch();
 
-  const { steps } = useSelector(state => state.steps);
-  const { user } = useSelector(state => state.user);
+  const { steps } = useSelector((state) => state.steps);
+  const { user } = useSelector((state) => state.user);
 
   const {
     specialNeeds,
@@ -38,7 +43,7 @@ const Step3 = ({ back, next }) => {
   const onRequestTrip = async () => {
     let formattedAppointmentDateTime = moment(
       `${appointmentDate} + ${appointmentTime}`,
-      'MM/DD/YYYY HH:mm:ss',
+      'MM/DD/YYYY HH:mm:ss'
     ).format();
 
     // alert(JSON.stringify(appointmentDateTime + '-' + formattedAppointmentDateTime));
@@ -83,11 +88,11 @@ const Step3 = ({ back, next }) => {
 
       setIsLoading(true);
       MemberService.requestTrip(payload)
-        .then(data => {
+        .then((data) => {
           setIsLoading(false);
           nextStep();
         })
-        .catch(err => {
+        .catch((err) => {
           setIsLoading(false);
           setErrorMessage(err.message);
         });
@@ -108,14 +113,62 @@ const Step3 = ({ back, next }) => {
   return (
     <View style={styles.container}>
       <ScrollView style={styles.formContainer}>
-        <TextInputCard
-          required={specialNeeds.length === 0 ? true : false}
-          cardIcon={'handshake'}
-          title={t('special_needs')}
-          placeholder={t('special_needs_required')}
-          textValue={specialNeeds}
-          onChangeText={value => dispatch(setSpecialNeeds(value))}
-        />
+        <Card>
+          <ListItem
+            title={`${t('pickup_address')}:`}
+            description={`${pickupAddress.AddressLine1} ${pickupAddress.City},${pickupAddress.State} ${pickupAddress.ZipCode}`}
+          />
+          <Divider />
+          <ListItem
+            title={`${t('destination_address')}:`}
+            description={`${destinationAddress.AddressLine1} ${destinationAddress.City},${destinationAddress.State} ${destinationAddress.ZipCode}`}
+          />
+          {tripStops.map((item, index) => (
+            <React.Fragment key={index}>
+              <Divider />
+              <ListItem
+                title={`Stop ${index + 1}`}
+                description={`${item.AddressLine1} ${item.City},${item.State} ${item.ZipCode}`}
+              />
+            </React.Fragment>
+          ))}
+          <Divider />
+          <ListItem
+            title={`${t('round_trip_label')}:`}
+            description={`${isRoundTrip ? t('confirm') : 'No'}`}
+          />
+          <Divider />
+          <ListItem
+            title={`${t('additional_passengers')}:`}
+            description={`${additionalPassengers}`}
+          />
+          <Divider />
+          <ListItem
+            title={`${t('wheelchair')}:`}
+            description={`${wheelchairRequired ? t('confirm') : 'No'}`}
+          />
+          <Divider />
+          <ListItem
+            title={`${t('date_time')}:`}
+            description={`${
+              appointmentDate !== null ? appointmentDate : ''
+            } ${appointmentTime}`}
+          />
+          <Divider />
+          <ListItem
+            title={`${t('trip_reason')}:`}
+            description={`${tripReason}`}
+          />
+          <Divider />
+          {
+            <ListItem
+              title={`${t('special_needs')}:`}
+              description={`${
+                specialNeeds.length > 1 ? specialNeeds : t('none')
+              }`}
+            />
+          }
+        </Card>
       </ScrollView>
 
       <Text style={styles.errorMessage}>{errorMessage}</Text>
@@ -136,24 +189,26 @@ const Step3 = ({ back, next }) => {
       <View style={styles.footer}>
         <Button
           title={t('back')}
-          size="large"
-          appearance="outline"
+          size='large'
+          appearance='outline'
           style={styles.backButton}
           disabled={isLoading}
-          onPress={goBack}>
+          onPress={goBack}
+        >
           {t('back')}
         </Button>
         <Button
-          title={t('continue')}
-          size="large"
+          title={t('request_trip')}
+          size='large'
           disabled={isLoading}
           style={styles.forwardButton}
-          onPress={nextStep}>
-          {t('continue')}
+          onPress={() => onRequestTrip()}
+        >
+          {t('request_trip')}
         </Button>
       </View>
     </View>
   );
 };
 
-export default Step3;
+export default Step4;

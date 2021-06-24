@@ -134,5 +134,9 @@
   "current_location": "Ubicación Actual",
   "enable_location": "Servicio De Localización Activado",
   "enable_location_settings": "Los servicios de ubicación están actualmente deshabilitados. Habilítelos para usar la función de ubicación actual",
-  "launch_settings": "Configuración De Lanzamiento"
+  "launch_settings": "Configuración De Lanzamiento",
+  "summary": "Sumario",
+  "round_trip_label": "Viaje ida y vuelta",
+  "wheel_chair": "Silla de ruedas",
+  "date_time": "Fecha y hora"
 }
