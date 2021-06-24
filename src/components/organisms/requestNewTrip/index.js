@@ -16,7 +16,7 @@ import Spinner from 'react-native-spinkit';
 import Step1 from './steps/step1';
 import Step2 from './steps/step2';
 import Step3 from './steps/step3';
-import Step4 from './stepss/step4';
+import Step4 from './steps/step4';
 import StepsCompleted from './steps/stepsCompleted';
 import styles from './steps/styles';
 
