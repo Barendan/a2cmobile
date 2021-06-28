@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { SafeAreaView, View, Text } from 'react-native';
 import AnimatedMultistep from 'react-native-animated-multistep';
-import { useTranslation } from "react-i18next";
-import { AvatarButton } from '_atoms'
-import { Stack } from "react-native-spacing-system";
+import { useTranslation } from 'react-i18next';
+import { AvatarButton } from '_atoms';
+import { Stack } from 'react-native-spacing-system';
 
 import ProgressBar from '_atoms/ProgressBar';
 import Step1 from './steps/step1';
@@ -11,7 +11,6 @@ import Step2 from './steps/step2';
 import Step3 from './steps/step3';
 
 const RegistrationScreen = ({ navigation }) => {
-
   const { t } = useTranslation();
 
   const allSteps = [
@@ -28,8 +27,7 @@ const RegistrationScreen = ({ navigation }) => {
   };
 
   const onBack = () => {
-  setCurrentStep(currentStep - 1);
-
+    setCurrentStep(currentStep - 1);
   };
 
   const finish = finalState => {
@@ -41,9 +39,22 @@ const RegistrationScreen = ({ navigation }) => {
       style={{
         flex: 1,
       }}>
-        <Stack size={12} />
-       <AvatarButton icon={"arrow-left"} iconColor="black" buttonText={t('sign_in')} onPress={() => navigation.goBack()} />
-      <ProgressBar currentStep={currentStep} stepCount={allSteps.length} title={allSteps[currentStep - 1].name} subtitle={currentStep !== allSteps.length && t('go_to_next') + ': ' + allSteps[currentStep].name} />
+      <Stack size={12} />
+      <AvatarButton
+        icon={'arrow-left'}
+        iconColor="black"
+        buttonText={t('sign_in')}
+        onPress={() => navigation.goBack()}
+      />
+      <ProgressBar
+        currentStep={currentStep}
+        stepCount={allSteps.length}
+        title={allSteps[currentStep - 1].name}
+        subtitle={
+          currentStep !== allSteps.length &&
+          t('go_to_next') + ': ' + allSteps[currentStep].name
+        }
+      />
       <AnimatedMultistep
         steps={allSteps}
         onFinish={finish}

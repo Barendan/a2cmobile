@@ -54,7 +54,7 @@ const Step3 = ({ back, next, saveState }) => {
           size="large"
           className={styles.forwardButton}
           onPress={nextStep}>
-          {t('complete_registration')} 
+          {t('complete_registration')}
         </Button>
       </View>
     </View>

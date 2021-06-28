@@ -1,4 +1,4 @@
-import {StyleSheet} from 'react-native';
+import { StyleSheet } from 'react-native';
 import { ERROR, BLUE } from '_styles/colors';
 import { FONT_SIZE_18 } from '_styles/typography';
 
@@ -30,9 +30,6 @@ export default StyleSheet.create({
   step3: {
     flex: 1,
   },
-  step4: {
-    flex: 1,
-  },
   input: {
     width: '85%',
     height: 50,
@@ -45,13 +42,14 @@ export default StyleSheet.create({
   backButton: {
     height: 40,
     marginRight: 5,
-    borderRadius: 30,  
+    borderRadius: 30,
   },
   forwardButton: {
-    flex: 1,
-    height: 40,
-    borderColor: '#F5F5F5',
-    borderRadius: 30
+    // flex: 1,
+    // height: 40,
+    // lineHeight: 50,
+    // borderColor: '#F5F5F5',
+    // borderRadius: 30,
   },
   bottomButtonContainer: {
     width: '90%',
@@ -60,19 +58,19 @@ export default StyleSheet.create({
     flex: 2,
   },
   loadingView: {
-      justifyContent: 'center',
-      alignItems: 'center'
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   errorMessage: {
     color: ERROR,
-    fontSize: FONT_SIZE_18
+    fontSize: FONT_SIZE_18,
   },
   linkText: {
     color: BLUE,
-    fontSize: FONT_SIZE_18
+    fontSize: FONT_SIZE_18,
   },
   highlightText: {
     color: BLUE,
-    fontWeight: 'bold'
+    fontWeight: 'bold',
   },
 });
