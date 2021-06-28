@@ -92,7 +92,7 @@ const Step3 = ({ next, getState }) => {
     <View style={[styles.container]}>
       <ScrollView
         showsVerticalScrollIndicator={true}
-        style={styles.formContainer}>
+        style={[styles.formContainer, { marginTop: '0%' }]}>
         <View style={[{ alignItems: 'flex-start', width: '85%' }]}>
           <Text category="s1" style={[{ marginBottom: '5%' }]}>
             {t('account_password_text')}
@@ -221,7 +221,7 @@ const Step3 = ({ next, getState }) => {
         </View>
       )}
 
-      <Stack size={6} />
+      {/* <Stack size={6} /> */}
       <View style={styles.footer}>
         <Button
           title={t('validate')}

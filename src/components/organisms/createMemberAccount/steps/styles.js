@@ -34,7 +34,7 @@ export default StyleSheet.create({
   },
   formContainer: {
     width: '100%',
-    marginTop: Platform.OS === 'ios' ? '6%' : '0%',
+    marginTop: '10%',
     backgroundColor: '#FFFFFF',
     flex: 1,
   },
