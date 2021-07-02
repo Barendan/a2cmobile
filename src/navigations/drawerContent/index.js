@@ -206,7 +206,7 @@ export function DrawerContent({ navigation }) {
             />
             <DrawerItem
               label={t('faqs')}
-              onPress={() => getLatestAppInfo(t('faqs'), 'faqs')}
+              onPress={() => getLatestAppInfo(t('FAQ_title'), 'faqs')}
               icon={() => (
                 <Avatar.Icon
                   size={30}
@@ -257,7 +257,9 @@ export function DrawerContent({ navigation }) {
               <Text style={styles.signOutTitle}>{t('log_out')}</Text>
             </View>
             <View style={styles.section}>
-              <Caption style={styles.caption}>{AppSettings.appVersion} ({AppSettings.buildVersion})</Caption>
+              <Caption style={styles.caption}>
+                {AppSettings.appVersion} ({AppSettings.buildVersion})
+              </Caption>
             </View>
           </View>
         </TouchableHighlight>
