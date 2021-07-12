@@ -1,14 +1,19 @@
 import React from 'react';
 import { View, Text, ScrollView, TouchableHighlight } from 'react-native';
-import { Button, Input, Radio, RadioGroup } from '@ui-kitten/components';
 import { useTranslation } from 'react-i18next';
+import { Button, Input, Radio, RadioGroup } from '@ui-kitten/components';
+<<<<<<< HEAD
+import { useTranslation } from 'react-i18next';
+=======
+>>>>>>> 00d77d4 (add functionality to show data previously input when hitting back button)
 import Spinner from 'react-native-spinkit';
+
+import { OTPInput } from '_atoms';
+import { useAccountMethods } from '_hooks';
+
 import { APP_COLOR } from '_styles/colors';
 import { Stack } from 'react-native-spacing-system';
 import styles from './styles';
-import { OTPInput } from '_atoms';
-
-import { useAccountMethods } from '_hooks';
 
 const Step2 = ({ back, next, getState, saveState }) => {
   const { t } = useTranslation();
@@ -40,7 +45,11 @@ const Step2 = ({ back, next, getState, saveState }) => {
   }, [memberLogin]);
 
   const goBack = () => {
+<<<<<<< HEAD
     // Go to previous step
+=======
+    saveState({ savedInfo: memberRecord });
+>>>>>>> 00d77d4 (add functionality to show data previously input when hitting back button)
     back();
   };
 
@@ -173,13 +182,21 @@ const Step2 = ({ back, next, getState, saveState }) => {
       <Stack size={12} />
       <View style={styles.footer}>
         <Button
+<<<<<<< HEAD
           title={t('back')}
+=======
+          title={t('back_button')}
+>>>>>>> 00d77d4 (add functionality to show data previously input when hitting back button)
           size="large"
           appearance="outline"
           style={styles.backButton}
           disabled={loading}
           onPress={goBack}>
+<<<<<<< HEAD
           {t('back')}
+=======
+          {t('back_button')}
+>>>>>>> 00d77d4 (add functionality to show data previously input when hitting back button)
         </Button>
         {showValidate ? (
           <Button
