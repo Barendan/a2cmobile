@@ -1,25 +1,20 @@
 import React from 'react';
-import {
-  View,
-  Text,
-  ScrollView,
-  useWindowDimensions,
-  TextInput,
-} from 'react-native';
+import { View, Text, ScrollView, useWindowDimensions } from 'react-native';
 import { Input, Button } from '@ui-kitten/components';
 import { useTranslation } from 'react-i18next';
-import Spinner from 'react-native-spinkit';
-import { APP_COLOR } from '_styles/colors';
-import { Stack } from 'react-native-spacing-system';
-import styles from './styles';
-import { useAccountMethods } from '_hooks';
 import HTML from 'react-native-render-html';
+import Spinner from 'react-native-spinkit';
 import { Avatar, List } from 'react-native-paper';
-import { SUCCESS, GRAY_LIGHT } from '_styles/colors';
+
+import { useAccountMethods } from '_hooks';
 import { AppInfoService } from '_services';
 import { FullScreenPanel } from '_organisms';
 
-const Step3 = ({ next, getState }) => {
+import { APP_COLOR } from '_styles/colors';
+import { SUCCESS, GRAY_LIGHT } from '_styles/colors';
+import styles from './styles';
+
+const Step3 = ({ getState }) => {
   const { t } = useTranslation();
   const [panelDetails, setPanelDetails] = React.useState({
     panelVisible: false,
