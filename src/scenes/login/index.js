@@ -7,6 +7,7 @@ import {
   Platform,
   Alert,
   Image,
+  Button as NativeButton,
 } from 'react-native';
 import { Stack } from 'react-native-spacing-system';
 import {
@@ -250,24 +251,14 @@ const LoginScreen = ({ navigation, route }) => {
           <View>
             {plan && plan.contractLogo ? (
               <Image
-                style={{
-                  resizeMode: 'contain',
-                  height: 100,
-                  width: 230,
-                  alignSelf: 'center',
-                }}
+                style={styles.logoImage}
                 source={{
                   uri: `data:image/jpg;base64,${plan.contractLogo}`,
                 }}
               />
             ) : (
               <Image
-                style={{
-                  resizeMode: 'contain',
-                  height: 100,
-                  width: 230,
-                  alignSelf: 'center',
-                }}
+                style={styles.logoImage}
                 source={require('_assets/images/A2CFullLogo.png')}
               />
             )}
@@ -311,26 +302,24 @@ const LoginScreen = ({ navigation, route }) => {
             }
           />
         </View>
-        <KittenButton
+
+        <NativeButton
+          title={t('sign_in')}
           color={APP_COLOR}
-          size="large"
           style={styles.loginBtn}
           onPress={onLogin}
-          disabled={loading}>
-          {t('sign_in')}
-        </KittenButton>
+          disabled={loading}
+        />
 
         <Stack size={12} />
 
-        <KittenButton
-          appearance="outline"
+        <NativeButton
+          title={t('go_to_registration')}
           color={APP_COLOR}
-          size="large"
           style={styles.signUpBtn}
           onPress={() => setDisplayCreateMemberAccount(true)}
-          disabled={loading}>
-          {t('go_to_registration')}
-        </KittenButton>
+          disabled={loading}
+        />
 
         {loading && (
           <View style={styles.loadingView}>
