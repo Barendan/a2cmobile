@@ -214,13 +214,13 @@ const Step2 = ({ back, next, getState, saveState }) => {
       <Stack size={12} />
       <View style={styles.footer}>
         <Button
-          title={t('back_button')}
+          title={t('back')}
           size="large"
           appearance="outline"
           style={styles.backButton}
           disabled={loading}
           onPress={goBack}>
-          {t('back_button')}
+          {t('back')}
         </Button>
         {showValidate ? (
           <Button

@@ -185,6 +185,7 @@ const SecuritySettings = () => {
               <Inset horizontal={16} vertical={16}>
                 <Select
                   label={t('question_one')}
+                  placeholder={t('select_option')}
                   value={selectedQuestion.questionOne}
                   selectedIndex={selectedQuestion.questionOneIndex}
                   onSelect={index =>
@@ -211,6 +212,7 @@ const SecuritySettings = () => {
               <Inset horizontal={16} vertical={16}>
                 <Select
                   label={t('question_two')}
+                  placeholder={t('select_option')}
                   value={selectedQuestion.questionTwo}
                   selectedIndex={selectedQuestion.questionTwoIndex}
                   onSelect={index =>
@@ -237,6 +239,7 @@ const SecuritySettings = () => {
               <Inset horizontal={16} vertical={16}>
                 <Select
                   label={t('question_three')}
+                  placeholder={t('select_option')}
                   value={selectedQuestion.questionThree}
                   selectedIndex={selectedQuestion.questionThreeIndex}
                   onSelect={index =>

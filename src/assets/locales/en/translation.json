@@ -72,6 +72,7 @@
   "terms_of_service": "Terms of Service",
   "and": "and",
   "faq": "FAQs",
+  "faqs": "FAQs",
   "privacy_policy": "Privacy Policy",
   "search_location": "Search Location",
   "use_current_location": "Use Current Location",
@@ -93,7 +94,6 @@
   "appointment_date_time": "Appointment Date & Time",
   "trip_reason": "Trip Reason",
   "special_needs_required": "Provide all the special needs you will require",
-  "back_button": "Back",
   "temp_code_error": "The temporary Code you entered does not match the one you were sent to the selected login method",
   "password_mismatch_error": "The passwords you entered do not match",
   "password_requirements": "Password has to contain the following:",
@@ -139,5 +139,16 @@
   "summary": "Summary",
   "round_trip_label": "Round Trip",
   "wheelchair": "Wheelchair",
-  "date_time": "Date and Time"
+  "date_time": "Date and Time",
+  "select_option": "Select Option",
+  "physician_services": "Physician Services",
+  "mental_health": "Mental Health",
+  "pediatric_services": "Pediatric Services",
+  "drug_rehab": "Drug Rehab",
+  "radiation_treatments": "Radiation Treatments",
+  "chemotherapy": "Chemotherapy",
+  "dialysis": "Dialysis",
+  "other": "Other",
+  "select_date": "Select Date",
+  "select_time": "Select Time"
 }
