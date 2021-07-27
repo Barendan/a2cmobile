@@ -29,20 +29,19 @@ const Step2 = ({ back, next }) => {
     tripReason,
     appointmentDate,
     appointmentTime,
-    specialNeeds,
   } = steps;
 
   const { t } = useTranslation();
 
   const [tripReasons, setTripReasons] = useState([
-    { label: 'Physician Services', value: 'Physician Services' },
-    { label: 'Mental Health', value: 'Mental Health Adult Rehab' },
-    { label: 'Pediatric Services', value: 'Pediatric Services' },
-    { label: 'Drug Rehab', value: 'Drug Rehabilitation' },
-    { label: 'Radiation Treatments', value: 'Radiation Treatments' },
-    { label: 'Chemotherapy', value: 'Chemotherapy' },
-    { label: 'Dialysis', value: 'Dialysis' },
-    { label: 'Other', value: 'Other Medical Related' },
+    { label: t('physician_services'), value: 'Physician Services' },
+    { label: t('mental_health'), value: 'Mental Health Adult Rehab' },
+    { label: t('pediatric_services'), value: 'Pediatric Services' },
+    { label: t('drug_rehab'), value: 'Drug Rehabilitation' },
+    { label: t('radiation_treatments'), value: 'Radiation Treatments' },
+    { label: t('chemotherapy'), value: 'Chemotherapy' },
+    { label: t('dialysis'), value: 'Dialysis' },
+    { label: t('other'), value: 'Other Medical Related' },
   ]);
 
   const nextStep = () => {
