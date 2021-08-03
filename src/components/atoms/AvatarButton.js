@@ -1,20 +1,14 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { View, Text, TouchableHighlight, StyleSheet } from 'react-native';
-import DraggablePanel from 'react-native-draggable-panel';
-import { Inset, Stack } from 'react-native-spacing-system';
-import { useTranslation } from 'react-i18next';
-import i18next from 'i18next';
-import { PreferencesContext } from '_context';
-import { CloseButton } from '_atoms';
 import { Avatar } from 'react-native-paper';
+import { scale } from 'react-native-size-matters';
 
 const styles = StyleSheet.create({
   viewHolder: {
     flexDirection: 'row',
   },
   icon: {
-    marginTop: -5,
-    // marginLeft: 20,
+    marginTop: scale(-5),
     backgroundColor: 'white',
   },
   defaultButtonTextStyle: {
@@ -37,7 +31,7 @@ const AvatarButton = props => {
     <TouchableHighlight onPress={onPress}>
       <View style={styles.viewHolder}>
         <Avatar.Icon
-          size={30}
+          size={scale(24)}
           icon={icon}
           color={iconColor}
           style={iconStyle || styles.icon}
