@@ -7,36 +7,35 @@ import {
   Platform,
   Alert,
   Image,
-  Button as NativeButton,
 } from 'react-native';
+import MatIcon from 'react-native-vector-icons/MaterialCommunityIcons';
+import TouchID from 'react-native-touch-id';
+import { useTranslation } from 'react-i18next';
+import { useDispatch, useSelector } from 'react-redux';
+import { sha256 } from 'react-native-sha256';
+import Spinner from 'react-native-spinkit';
+import { TextInput, Button, HelperText } from 'react-native-paper';
+import { Toggle } from '@ui-kitten/components';
 import { Stack } from 'react-native-spacing-system';
+import { scale } from 'react-native-size-matters';
+
+import { login, saveLoggedInUser } from '_store/user';
+import { updatePlan, setMemberPlans } from '_store/plan';
+import { AppInfoService, MemberService } from '_services';
+import { AppSettings } from '_utils';
+import storage from '../../storage';
+
 import {
   LanguageSelector,
   FullScreenPanel,
   CreateMemberAccount,
   ForgotPasswordReset,
 } from '_organisms';
-import TouchID from 'react-native-touch-id';
-import MatIcon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { TextInput, Button, HelperText } from 'react-native-paper';
-import { Button as KittenButton, Toggle } from '@ui-kitten/components';
-import { useTranslation } from 'react-i18next';
-import { useDispatch, useSelector } from 'react-redux';
+import { AppButton } from '_atoms';
+import { APP_COLOR } from '_styles/colors';
 import styles from './styles';
-import { APP_COLOR, GREEN } from '_styles/colors';
-import Spinner from 'react-native-spinkit';
-import { sha256 } from 'react-native-sha256';
 
-import { login, saveLoggedInUser } from '_store/user';
-import { updatePlan, setMemberPlans } from '_store/plan';
-
-// styles
-import { scaleFont } from '_styles/mixins';
-import { AppInfoService, MemberService } from '_services';
-import { AppSettings } from '_utils';
-import storage from '../../storage';
-
-const LoginScreen = ({ navigation, route }) => {
+const LoginScreen = () => {
   const { plan } = useSelector(state => state.plan);
 
   const [inputValues, setInputValues] = useState({
@@ -266,6 +265,7 @@ const LoginScreen = ({ navigation, route }) => {
             <Text style={styles.title}>{plan && plan.contractName}</Text>
           </View>
         </View>
+        <Stack size={scale(12)} />
         <View style={styles.spacing}>
           <TextInput
             label="login"
@@ -286,6 +286,7 @@ const LoginScreen = ({ navigation, route }) => {
             </HelperText>
           ) : null}
         </View>
+        <Stack size={scale(12)} />
         <View style={[styles.spacing, { marginBottom: 20 }]}>
           <TextInput
             label="password"
@@ -303,23 +304,26 @@ const LoginScreen = ({ navigation, route }) => {
           />
         </View>
 
-        <NativeButton
+        <Stack size={scale(12)} />
+
+        <AppButton
           title={t('sign_in')}
           color={APP_COLOR}
-          style={styles.loginBtn}
+          containerStyle={styles.btnContainer}
+          textStyle={styles.btnText}
           onPress={onLogin}
-          disabled={loading}
         />
 
-        <Stack size={12} />
+        <Stack size={scale(12)} />
 
-        <NativeButton
+        <AppButton
           title={t('go_to_registration')}
           color={APP_COLOR}
-          style={styles.signUpBtn}
+          containerStyle={styles.btnContainer}
+          textStyle={styles.btnText}
           onPress={() => setDisplayCreateMemberAccount(true)}
-          disabled={loading}
         />
+        <Stack size={scale(12)} />
 
         {loading && (
           <View style={styles.loadingView}>
@@ -341,7 +345,7 @@ const LoginScreen = ({ navigation, route }) => {
               </TouchableHighlight>
 
               <View style={styles.thumbContainer}>
-                <Text style={[styles.pText, { marginRight: 5 }]}>
+                <Text style={[styles.pText, { marginRight: scale(5) }]}>
                   {t('save_login')}
                 </Text>
                 <Toggle checked={isEnabled} onChange={toggleSwitch} />
@@ -365,26 +369,14 @@ const LoginScreen = ({ navigation, route }) => {
           </View>
 
           <View style={styles.footer}>
-            {/* <TouchableHighlight
-            onPress={() => navigation.navigate('Registration')}
-            >
-            <Text style={styles.bText}>{t('go_to_registration')}</Text>
-          </TouchableHighlight> */}
-
-            {/* <TouchableHighlight
-              onPress={() => setDisplayCreateMemberAccount(true)}
-              >
-              <Text style={styles.bText}>{t('go_to_registration')}</Text>
-            </TouchableHighlight> */}
-
-            <Stack size={12} />
+            <Stack size={scale(8)} />
 
             <TouchableHighlight
               onPress={() => getLatestAppInfo(t('faqs'), 'faqs')}>
               <Text style={styles.bText}>{t('faqs')}</Text>
             </TouchableHighlight>
 
-            <Stack size={12} />
+            <Stack size={scale(8)} />
 
             <LanguageSelector />
           </View>

@@ -29,15 +29,14 @@ export default StyleSheet.create({
     fontSize: scale(20),
   },
   spacing: {
-    marginVertical: verticalScale(10),
+    // marginVertical: verticalScale(10),
   },
   forgotPass: {
     justifyContent: 'space-between',
     flexDirection: 'row',
     flexWrap: 'wrap-reverse',
     alignItems: 'center',
-    marginTop: verticalScale(10),
-    paddingVertical: verticalScale(19),
+    paddingVertical: verticalScale(18),
   },
   alternativeLogin: {
     justifyContent: 'center',
@@ -57,12 +56,12 @@ export default StyleSheet.create({
     margin: 5,
   },
   pText: {
-    fontSize: scale(15),
+    fontSize: scale(14),
     color: APP_COLOR,
     fontWeight: '400',
   },
   bText: {
-    fontSize: scale(15),
+    fontSize: scale(14),
     color: APP_COLOR,
     fontWeight: '500',
   },
@@ -75,7 +74,7 @@ export default StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     marginTop: 15,
-    fontSize: scale(15),
+    fontSize: scale(14),
   },
   toRow: {
     flexDirection: 'row',
@@ -85,20 +84,21 @@ export default StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  loginBtn: {
-    fontSize: scale(15),
-    borderColor: '#F5F5F5',
-    borderRadius: 30,
-  },
-  signUpBtn: {
-    fontSize: scale(15),
-    borderRadius: 30,
-    //borderColor: '#F5F5F5',
-  },
   input: {
-    fontSize: scale(15),
+    fontSize: scale(14),
     backgroundColor: WHITE,
     borderColor: GREY,
-    borderWidth: 1,
+    borderWidth: scale(1),
+  },
+  btnContainer: {
+    backgroundColor: APP_COLOR,
+    padding: scale(4),
+  },
+  btnText: {
+    fontSize: scale(12),
+    color: '#fff',
+    fontWeight: '600',
+    textAlign: 'center',
+    textTransform: 'uppercase',
   },
 });
