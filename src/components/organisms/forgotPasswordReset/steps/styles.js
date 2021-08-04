@@ -20,19 +20,25 @@ export default StyleSheet.create({
   bodyWrapper: {
     marginBottom: scale(50),
   },
+  nameGreeting: {
+    marginBottom: '5%',
+    fontSize: scale(12),
+  },
   input: {
     // width: '90%',
     height: verticalScale(30),
     borderWidth: scale(1),
     borderRadius: scale(1),
-    marginBottom: '10%',
+    marginBottom: '7%',
     alignSelf: 'center',
   },
   inputText: {
-    fontSize: moderateScale(15),
+    paddingVertical: moderateScale(2),
+    fontSize: moderateScale(14),
   },
   inputLabel: {
-    fontSize: moderateScale(12),
+    color: '#8F9BB3',
+    fontSize: moderateScale(10),
   },
   mainContainer: {
     height: Platform.OS === 'ios' ? '80%' : '75%',
@@ -44,9 +50,8 @@ export default StyleSheet.create({
     flex: 1,
   },
   container: {
-    height: '100%',
+    height: '95%',
     alignItems: 'center',
-    fontSize: scale(16),
   },
   footer: {
     width: '100%',

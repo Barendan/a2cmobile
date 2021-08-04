@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, ScrollView, TouchableHighlight } from 'react-native';
-import { Button, Input, Radio, RadioGroup } from '@ui-kitten/components';
+import { Button, Input } from '@ui-kitten/components';
 import { useTranslation } from 'react-i18next';
 import Spinner from 'react-native-spinkit';
 import { APP_COLOR } from '_styles/colors';
@@ -132,7 +132,7 @@ const Step2 = ({ back, next, getState, saveState }) => {
             },
           ]}>
           {memberRecord && (
-            <Text category="h6" style={[{ marginBottom: '5%' }]}>
+            <Text style={styles.nameGreeting}>
               {t('greeting-text')} {memberRecord.login}
             </Text>
           )}
@@ -170,8 +170,13 @@ const Step2 = ({ back, next, getState, saveState }) => {
                     updateSecurityAnswers('answerOne', text)
                   }
                   value={securityAnswers.answerOne}
-                  label={<Text>{memberRecord.SecurityQuestionOne}</Text>}
+                  label={() => (
+                    <Text style={styles.inputLabel}>
+                      {memberRecord.SecurityQuestionOne}
+                    </Text>
+                  )}
                   placeholder={t('question_answer')}
+                  textStyle={styles.inputText}
                 />
 
                 <Input
@@ -180,18 +185,27 @@ const Step2 = ({ back, next, getState, saveState }) => {
                     updateSecurityAnswers('answerTwo', text)
                   }
                   value={securityAnswers.answerTwo}
-                  label={<Text>{memberRecord.SecurityQuestionTwo}</Text>}
+                  label={() => (
+                    <Text style={styles.inputLabel}>
+                      {memberRecord.SecurityQuestionTwo}
+                    </Text>
+                  )}
                   placeholder={t('question_answer')}
+                  textStyle={styles.inputText}
                 />
-
                 <Input
                   style={styles.input}
                   onChangeText={text =>
                     updateSecurityAnswers('answerThree', text)
                   }
                   value={securityAnswers.answerThree}
-                  label={<Text>{memberRecord.SecurityQuestionThree}</Text>}
+                  label={() => (
+                    <Text style={styles.inputLabel}>
+                      {memberRecord.SecurityQuestionThree}
+                    </Text>
+                  )}
                   placeholder={t('question_answer')}
+                  textStyle={styles.inputText}
                 />
               </>
             )}

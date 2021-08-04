@@ -6,7 +6,6 @@ import { Stack } from 'react-native-spacing-system';
 import Spinner from 'react-native-spinkit';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
-import { TextInput } from 'react-native-paper';
 
 import { useAccountMethods } from '_hooks';
 import { APP_COLOR } from '_styles/colors';
@@ -56,14 +55,6 @@ const Step1 = ({ next, saveState }) => {
             placeholder={t('login')}
             textStyle={styles.inputText}
           />
-
-          {/* <TextInput
-            label={t('login') + '*'}
-            value={loginMethod.login}
-            onChangeText={text => passwordResetLogin(text)}
-            style={styles.input}
-            placeholder={t('login')}
-          /> */}
         </ScrollView>
 
         <Text style={styles.errorMessage}>{errorMessage}</Text>
