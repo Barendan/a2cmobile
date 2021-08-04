@@ -40,18 +40,21 @@ const Step3 = ({ getState }) => {
         showsVerticalScrollIndicator={false}
         style={styles.formContainer}>
         <View style={[{ alignItems: 'flex-start', width: '85%' }]}>
-          <Text category="s1" style={[{ marginBottom: '5%' }]}>
-            {t('account_password_text')}
-          </Text>
+          <Text style={styles.nameGreeting}>{t('account_password_text')}</Text>
         </View>
+
         <Input
           style={styles.input}
           secureTextEntry={true}
           onChangeText={text => updatePasswordInformation('password', text)}
           value={passwordInformation.password}
-          label={t('password') + '*'}
+          label={() => (
+            <Text style={styles.inputLabel}>{t('password') + '*'}</Text>
+          )}
           placeholder={t('password')}
+          textStyle={styles.inputText}
         />
+
         <Input
           style={styles.input}
           secureTextEntry={true}
@@ -59,8 +62,11 @@ const Step3 = ({ getState }) => {
             updatePasswordInformation('confirmPassword', text)
           }
           value={passwordInformation.confirmPassword}
-          label={t('confirm_password') + '*'}
+          label={() => (
+            <Text style={styles.inputLabel}>{t('confirm_password') + '*'}</Text>
+          )}
           placeholder={t('confirm_password')}
+          textStyle={styles.inputText}
         />
 
         <HTML
