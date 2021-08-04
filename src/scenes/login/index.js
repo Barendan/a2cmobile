@@ -304,7 +304,7 @@ const LoginScreen = () => {
           />
         </View>
 
-        <Stack size={scale(12)} />
+        <Stack size={scale(6)} />
 
         <AppButton
           title={t('sign_in')}
@@ -314,7 +314,7 @@ const LoginScreen = () => {
           onPress={onLogin}
         />
 
-        <Stack size={scale(12)} />
+        <Stack size={scale(6)} />
 
         <AppButton
           title={t('go_to_registration')}
@@ -323,7 +323,7 @@ const LoginScreen = () => {
           textStyle={styles.btnText}
           onPress={() => setDisplayCreateMemberAccount(true)}
         />
-        <Stack size={scale(12)} />
+        <Stack size={scale(6)} />
 
         {loading && (
           <View style={styles.loadingView}>
@@ -369,16 +369,17 @@ const LoginScreen = () => {
           </View>
 
           <View style={styles.footer}>
-            <Stack size={scale(8)} />
+            <Stack size={scale(4)} />
 
             <TouchableHighlight
               onPress={() => getLatestAppInfo(t('faqs'), 'faqs')}>
               <Text style={styles.bText}>{t('faqs')}</Text>
             </TouchableHighlight>
 
-            <Stack size={scale(8)} />
+            <Stack size={scale(4)} />
 
             <LanguageSelector />
+            <Stack size={scale(4)} />
           </View>
 
           <ForgotPasswordReset
