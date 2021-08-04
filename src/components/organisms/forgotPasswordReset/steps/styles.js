@@ -1,33 +1,38 @@
 import { StyleSheet, Platform } from 'react-native';
 import { ERROR, BLUE } from '_styles/colors';
-import { FONT_SIZE_18 } from '_styles/typography';
-import { scaleFont } from '_styles/mixins';
+import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
 
 export default StyleSheet.create({
   titleWrapper: {
     borderBottomColor: '#6f99bf',
-    borderBottomWidth: 2,
+    borderBottomWidth: scale(2),
   },
   title: {
     fontWeight: 'bold',
     color: '#366999',
-    fontSize: 18,
-    marginBottom: 10,
+    fontSize: scale(18),
+    marginBottom: scale(10),
   },
   body: {
-    fontSize: scaleFont(12),
+    fontSize: scale(12),
     fontWeight: 'bold',
   },
   bodyWrapper: {
-    marginBottom: 50,
+    marginBottom: scale(50),
   },
   input: {
     // width: '90%',
-    height: 50,
-    borderWidth: 2,
-    borderRadius: 2,
+    height: verticalScale(30),
+    borderWidth: scale(1),
+    borderRadius: scale(1),
     marginBottom: '10%',
     alignSelf: 'center',
+  },
+  inputText: {
+    fontSize: moderateScale(15),
+  },
+  inputLabel: {
+    fontSize: moderateScale(12),
   },
   mainContainer: {
     height: Platform.OS === 'ios' ? '80%' : '75%',
@@ -41,6 +46,7 @@ export default StyleSheet.create({
   container: {
     height: '100%',
     alignItems: 'center',
+    fontSize: scale(16),
   },
   footer: {
     width: '100%',
@@ -49,23 +55,23 @@ export default StyleSheet.create({
     flexDirection: 'row',
   },
   backButton: {
-    height: 40,
-    marginRight: 5,
+    height: verticalScale(40),
+    marginRight: scale(5),
     borderRadius: 30,
   },
   forwardButton: {
     flex: 1,
-    height: 40,
+    height: verticalScale(40),
     borderColor: '#F5F5F5',
     borderRadius: 30,
   },
   errorMessage: {
     color: ERROR,
-    fontSize: FONT_SIZE_18,
+    fontSize: scale(18),
   },
   linkText: {
     color: BLUE,
-    fontSize: FONT_SIZE_18,
+    fontSize: scale(18),
   },
   highlightText: {
     color: BLUE,
@@ -73,10 +79,10 @@ export default StyleSheet.create({
   },
   listItemTitle: {
     fontWeight: 'bold',
-    fontSize: 14,
+    fontSize: scale(14),
   },
   optionsIcon: {
     backgroundColor: 'transparent',
-    marginLeft: 5,
+    marginLeft: scale(5),
   },
 });

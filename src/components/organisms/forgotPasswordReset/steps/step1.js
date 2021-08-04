@@ -1,14 +1,16 @@
 import React from 'react';
 import { View, Text, ScrollView } from 'react-native';
-import { Input, Button } from '@ui-kitten/components';
 import { useTranslation } from 'react-i18next';
-import Spinner from 'react-native-spinkit';
-import { APP_COLOR } from '_styles/colors';
+import { Input, Button } from '@ui-kitten/components';
 import { Stack } from 'react-native-spacing-system';
-import styles from './styles';
-import { useAccountMethods } from '_hooks';
-
+import Spinner from 'react-native-spinkit';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
+import { TextInput } from 'react-native-paper';
+
+import { useAccountMethods } from '_hooks';
+import { APP_COLOR } from '_styles/colors';
+import styles from './styles';
 
 const Step1 = ({ next, saveState }) => {
   const { t } = useTranslation();
@@ -39,18 +41,29 @@ const Step1 = ({ next, saveState }) => {
           showsVerticalScrollIndicator={false}
           style={styles.formContainer}>
           <View style={[{ alignItems: 'flex-start', width: '85%' }]}>
-            <Text category="h6" style={[{ marginBottom: '5%' }]}>
+            <Text style={{ marginBottom: '5%', fontSize: scale(10) }}>
               {t('login_options_text')}
             </Text>
           </View>
 
           <Input
-            style={styles.input}
+            style={[styles.input]}
             onChangeText={text => passwordResetLogin(text)}
             value={loginMethod.login}
-            label={t('login') + '*'}
+            label={() => (
+              <Text style={styles.inputLabel}>{t('login') + '*'}</Text>
+            )}
             placeholder={t('login')}
+            textStyle={styles.inputText}
           />
+
+          {/* <TextInput
+            label={t('login') + '*'}
+            value={loginMethod.login}
+            onChangeText={text => passwordResetLogin(text)}
+            style={styles.input}
+            placeholder={t('login')}
+          /> */}
         </ScrollView>
 
         <Text style={styles.errorMessage}>{errorMessage}</Text>
@@ -65,7 +78,7 @@ const Step1 = ({ next, saveState }) => {
           </View>
         )}
 
-        <Stack size={12} />
+        <Stack size={scale(12)} />
         <View style={styles.footer}>
           <Button
             title={t('continue')}
