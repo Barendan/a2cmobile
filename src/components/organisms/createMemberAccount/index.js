@@ -10,6 +10,7 @@ import Step1 from './steps/step1';
 import Step2 from './steps/step2';
 import Step3 from './steps/step3';
 import styles from './steps/styles';
+import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
 
 const CreateMemberAccount = props => {
   const { t } = useTranslation();
@@ -44,7 +45,7 @@ const CreateMemberAccount = props => {
           onPanelDismiss();
           setCurrentStep(1);
         }}
-        initialHeight={800}
+        initialHeight={verticalScale(1000)}
         expandable>
         <>
           <CloseButton onPress={onPanelDismiss} />
@@ -53,10 +54,9 @@ const CreateMemberAccount = props => {
             <View style={styles.titleWrapper}>
               <Text style={styles.title}>{t('go_to_registration')}</Text>
             </View>
-            <Stack size={12} />
 
             <ProgressBar
-              small={true}
+              radius={35}
               currentStep={currentStep}
               stepCount={steps.length}
               title={steps[currentStep - 1].name}
@@ -65,10 +65,10 @@ const CreateMemberAccount = props => {
                 t('go_to_next') + ': ' + steps[currentStep].name
               }
             />
-            <Stack size={12} />
+            {/* <Stack size={12} /> */}
 
             <Divider />
-            <Stack size={12} />
+            {/* <Stack size={12} /> */}
 
             <View style={styles.mainContainer}>
               <AnimatedMultistep

@@ -44,6 +44,8 @@ const Step1 = ({ next, saveState, getState }) => {
     // onZipcode(Zip);
   };
 
+  <Text style={styles.inputLabel}>{t('login') + '*'}</Text>;
+
   return (
     <View style={[styles.container]}>
       <ScrollView
@@ -53,23 +55,34 @@ const Step1 = ({ next, saveState, getState }) => {
           style={styles.input}
           onChangeText={text => updateMemberInformation('memberID', text)}
           value={memberInformation.memberID}
-          label={t('member_id') + '*'}
+          label={() => (
+            <Text style={styles.inputLabel}>{t('member_id') + '*'}</Text>
+          )}
           placeholder={t('member_id')}
+          textStyle={styles.inputText}
         />
+
         <Input
           style={styles.input}
           onChangeText={text => onDateOfBirth(text)}
           value={memberInformation.dateOfBirth}
-          label={t('date_of_birth') + '*'}
+          label={() => (
+            <Text style={styles.inputLabel}>{t('date_of_birth') + '*'}</Text>
+          )}
           placeholder={t('date_of_birth') + ': mm/dd/yyyy'}
           pattern="[0-9]*"
+          textStyle={styles.inputText}
         />
+
         <Input
           style={styles.input}
           onChangeText={text => onZipcode(text)}
           value={memberInformation.zipcode}
-          label={t('zipcode') + '*'}
+          label={() => (
+            <Text style={styles.inputLabel}>{t('zipcode') + '*'}</Text>
+          )}
           placeholder={t('zipcode')}
+          textStyle={styles.inputText}
         />
       </ScrollView>
 

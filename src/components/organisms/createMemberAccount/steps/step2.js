@@ -55,26 +55,33 @@ const Step2 = ({ back, next, getState, saveState }) => {
             { alignItems: 'flex-start', width: '85%', marginBottom: '5%' },
           ]}>
           {memberRecord && (
-            <Text category="h6" style={[{ marginBottom: '5%' }]}>
+            <Text style={styles.nameGreeting}>
               {t('greeting-text')} {memberRecord.firstName}{' '}
-              {memberRecord.lastName}
+              {memberRecord.lastName},
             </Text>
           )}
 
           <Stack size={12} />
 
-          <Text category="h6" style={[{ marginBottom: '5%' }]}>
-            {t('login_option')}
-          </Text>
-          <RadioGroup
-            selectedIndex={selectedIndex}
-            onChange={index => {
-              setSelectedIndex(index);
-              setShowValidate(false);
-            }}>
-            <Radio>{t('email')}</Radio>
-            <Radio>{t('phone_number')}</Radio>
-          </RadioGroup>
+          <Text style={styles.nameGreeting}>{t('login_option')}</Text>
+
+          <View style={styles.radioGroup}>
+            <RadioGroup
+              selectedIndex={selectedIndex}
+              onChange={index => {
+                setSelectedIndex(index);
+                setShowValidate(false);
+              }}>
+              <Radio>
+                {() => <Text style={styles.radioText}>{t('email')}</Text>}
+              </Radio>
+              <Radio>
+                {() => (
+                  <Text style={styles.radioText}>{t('phone_number')}</Text>
+                )}
+              </Radio>
+            </RadioGroup>
+          </View>
         </View>
         {!showValidate && (
           <>
@@ -85,8 +92,11 @@ const Step2 = ({ back, next, getState, saveState }) => {
                     style={styles.input}
                     onChangeText={text => onLoginMethod('email', text)}
                     value={loginMethod.login}
-                    label={t('email') + '*'}
+                    label={() => (
+                      <Text style={styles.inputLabel}>{t('email') + '*'}</Text>
+                    )}
                     placeholder={t('email')}
+                    textStyle={styles.inputText}
                   />
                 ),
                 1: (
@@ -94,8 +104,13 @@ const Step2 = ({ back, next, getState, saveState }) => {
                     style={styles.input}
                     onChangeText={text => onLoginMethod('phone_number', text)}
                     value={loginMethod.login}
-                    label={t('phone_number') + '*'}
+                    label={() => (
+                      <Text style={styles.inputLabel}>
+                        {t('phone_number') + '*'}
+                      </Text>
+                    )}
                     placeholder={t('phone_number')}
+                    textStyle={styles.inputText}
                   />
                 ),
               }[selectedIndex]
@@ -104,7 +119,7 @@ const Step2 = ({ back, next, getState, saveState }) => {
         )}
 
         {showValidate && (
-          <>
+          <View style={styles.radioGroup}>
             <View
               style={[
                 { alignItems: 'flex-start', width: '85%', marginBottom: '5%' },
@@ -112,7 +127,7 @@ const Step2 = ({ back, next, getState, saveState }) => {
               {
                 {
                   0: (
-                    <Text>
+                    <Text style={styles.tempCode}>
                       {t('temp_code_email')}:{' '}
                       <Text style={styles.highlightText}>
                         {loginMethod.login}
@@ -120,7 +135,7 @@ const Step2 = ({ back, next, getState, saveState }) => {
                     </Text>
                   ),
                   1: (
-                    <Text>
+                    <Text style={styles.tempCode}>
                       {t('temp_code_text')}:{' '}
                       <Text style={styles.highlightText}>
                         {loginMethod.login}
@@ -152,10 +167,12 @@ const Step2 = ({ back, next, getState, saveState }) => {
                 { alignItems: 'center', width: '100%', marginBottom: '5%' },
               ]}>
               <TouchableHighlight onPress={() => onSendTempPassCode()}>
-                <Text style={styles.linkText}>{t('resend_temp_code')}</Text>
+                <Text style={[styles.linkText, styles.tempCode]}>
+                  {t('resend_temp_code')}
+                </Text>
               </TouchableHighlight>
             </View>
-          </>
+          </View>
         )}
       </ScrollView>
 

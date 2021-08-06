@@ -2,7 +2,6 @@ import React from 'react';
 import { View, Text, ScrollView, useWindowDimensions } from 'react-native';
 import { Input, Button } from '@ui-kitten/components';
 import { useTranslation } from 'react-i18next';
-import HTML from 'react-native-render-html';
 import Spinner from 'react-native-spinkit';
 import { Avatar, List } from 'react-native-paper';
 
@@ -13,6 +12,7 @@ import { FullScreenPanel } from '_organisms';
 import { APP_COLOR } from '_styles/colors';
 import { SUCCESS, GRAY_LIGHT } from '_styles/colors';
 import styles from './styles';
+import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
 
 const Step3 = ({ getState }) => {
   const { t } = useTranslation();
@@ -87,20 +87,26 @@ const Step3 = ({ getState }) => {
     <View style={[styles.container]}>
       <ScrollView
         showsVerticalScrollIndicator={true}
-        style={[styles.formContainer, { marginTop: '0%' }]}>
-        <View style={[{ alignItems: 'flex-start', width: '85%' }]}>
-          <Text category="s1" style={[{ marginBottom: '5%' }]}>
-            {t('account_password_text')}
-          </Text>
+        style={[styles.formContainer, { marginTop: '3%' }]}>
+        <View
+          style={[
+            { alignItems: 'flex-start', width: '85%', marginBottom: '5%' },
+          ]}>
+          <Text style={[styles.tempCode]}>{t('account_password_text')}</Text>
         </View>
+
         <Input
           style={styles.input}
           secureTextEntry={true}
           onChangeText={text => updatePasswordInformation('password', text)}
           value={passwordInformation.password}
-          label={t('password') + '*'}
+          label={() => (
+            <Text style={styles.inputLabel}>{t('password') + '*'}</Text>
+          )}
           placeholder={t('password')}
+          textStyle={styles.inputText}
         />
+
         <Input
           style={styles.input}
           secureTextEntry={true}
@@ -108,14 +114,14 @@ const Step3 = ({ getState }) => {
             updatePasswordInformation('confirmPassword', text)
           }
           value={passwordInformation.confirmPassword}
-          label={t('confirm_password') + '*'}
+          label={() => (
+            <Text style={styles.inputLabel}>{t('confirm_password') + '*'}</Text>
+          )}
           placeholder={t('confirm_password')}
+          textStyle={styles.inputText}
         />
 
-        <HTML
-          source={{ html: t('password_requirements') }}
-          contentWidth={contentWidth}
-        />
+        <Text style={styles.listItemHeader}>{t('password_requirements')}</Text>
 
         <List.Item
           title={t('eight_characters_minimum')}
@@ -124,7 +130,7 @@ const Step3 = ({ getState }) => {
           left={props => (
             <Avatar.Icon
               {...props}
-              size={30}
+              size={scale(30)}
               color={
                 passwordRequirements.eightCharactersMinimum
                   ? SUCCESS
@@ -143,7 +149,7 @@ const Step3 = ({ getState }) => {
           left={props => (
             <Avatar.Icon
               {...props}
-              size={30}
+              size={scale(30)}
               color={
                 passwordRequirements.oneUppercaseLetter ? SUCCESS : GRAY_LIGHT
               }
@@ -160,7 +166,7 @@ const Step3 = ({ getState }) => {
           left={props => (
             <Avatar.Icon
               {...props}
-              size={30}
+              size={scale(30)}
               color={
                 passwordRequirements.oneLowercaseLetter ? SUCCESS : GRAY_LIGHT
               }
@@ -177,7 +183,7 @@ const Step3 = ({ getState }) => {
           left={props => (
             <Avatar.Icon
               {...props}
-              size={30}
+              size={scale(30)}
               color={passwordRequirements.oneNumber ? SUCCESS : GRAY_LIGHT}
               icon={'check-circle'}
               style={styles.optionsIcon}
@@ -192,7 +198,7 @@ const Step3 = ({ getState }) => {
           left={props => (
             <Avatar.Icon
               {...props}
-              size={30}
+              size={scale(30)}
               color={
                 passwordRequirements.oneSpecialSymbol ? SUCCESS : GRAY_LIGHT
               }
