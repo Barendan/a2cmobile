@@ -1,18 +1,14 @@
 import React from 'react';
 import { StyleSheet, SafeAreaView, Text, View } from 'react-native';
-import { Inset, Stack } from 'react-native-spacing-system';
-import { useTranslation } from 'react-i18next';
-import { Toggle } from '@ui-kitten/components';
-import Spinner from 'react-native-spinkit';
 import { useDispatch, useSelector } from 'react-redux';
-
+import { useTranslation } from 'react-i18next';
 import DropdownAlert from 'react-native-dropdownalert';
+import { Inset, Stack } from 'react-native-spacing-system';
+import { Toggle } from '@ui-kitten/components';
+import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
 
 import { MemberService, AppInfoService } from '_services';
 import { update } from '_store/user';
-
-// styles
-import { APP_COLOR } from '_styles/colors';
 
 const AccountSettings = () => {
   const { t } = useTranslation();
@@ -114,13 +110,15 @@ const AccountSettings = () => {
 
   return (
     <SafeAreaView>
-      <Inset vertical={16}>
-        <Inset horizontal={16}>
-          <Text>{t('account_questions_text')}</Text>
+      <Inset vertical={verticalScale(16)}>
+        <Inset horizontal={verticalScale(16)}>
+          <Text style={{ fontSize: scale(14) }}>
+            {t('account_questions_text')}
+          </Text>
         </Inset>
 
-        <Stack size={16} />
-        <Stack size={16} />
+        <Stack size={verticalScale(16)} />
+        <Stack size={verticalScale(16)} />
 
         <View style={styles.toggleContainer}>
           <View style={styles.toggleOption}>
@@ -129,29 +127,35 @@ const AccountSettings = () => {
               onChange={v =>
                 updateSelectedOption('pushNotificationsEnabled', v)
               }>
-              {t('push_notifications_enabled')}
+              <Text style={styles.toggleText}>
+                {t('push_notifications_enabled')}
+              </Text>
             </Toggle>
           </View>
 
-          <Stack size={16} />
+          <Stack size={verticalScale(20)} />
           <View style={styles.toggleOption}>
             <Toggle
               checked={selectedOption.smsNotificationsEnabled}
               onChange={v =>
                 updateSelectedOption('smsNotificationsEnabled', v)
               }>
-              {t('sms_notifications_enabled')}
+              <Text style={styles.toggleText}>
+                {t('sms_notifications_enabled')}
+              </Text>
             </Toggle>
           </View>
 
-          <Stack size={16} />
+          <Stack size={verticalScale(20)} />
           <View style={styles.toggleOption}>
             <Toggle
               checked={selectedOption.emailNotificationsEnabled}
               onChange={v =>
                 updateSelectedOption('emailNotificationsEnabled', v)
               }>
-              {t('email_notifications_enabled')}
+              <Text style={styles.toggleText}>
+                {t('email_notifications_enabled')}
+              </Text>
             </Toggle>
           </View>
         </View>
@@ -164,14 +168,15 @@ const AccountSettings = () => {
 const styles = StyleSheet.create({
   toggleContainer: {
     alignItems: 'flex-start',
-    marginLeft: 20,
+    marginLeft: scale(30),
     // width: '75%',
-    // fontSize: 24,
   },
   toggleOption: {
     // backgroundColor: 'red',
     // width: '70%',
-    fontSize: 24,
+  },
+  toggleText: {
+    fontSize: moderateScale(14),
   },
 });
 
