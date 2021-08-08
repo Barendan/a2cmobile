@@ -41,7 +41,8 @@ const styles = StyleSheet.create({
   },
   translateBtn: {
     color: APP_COLOR,
-    fontSize: scale(15),
+    fontSize: scale(14),
+    // width: '50%',
   },
 });
 
@@ -68,17 +69,17 @@ const LanguageSelector = props => {
   };
 
   return (
-    <View>
+    <View style={props.containerStyle}>
       <AvatarButton
         icon={'translate'}
         iconColor={APP_COLOR}
-        iconStyle={styles.icon}
+        iconStyle={props.iconStyle ? props.iconStyle : styles.icon}
         buttonText={
           i18next.language.toLocaleLowerCase() === 'en'
             ? t('in_spanish')
             : t('in_english')
         }
-        buttonTextStyle={styles.translateBtn}
+        buttonTextStyle={[styles.translateBtn, props.headerStyle]}
         onPress={() => changeLanguage()}
       />
       <DraggablePanel
