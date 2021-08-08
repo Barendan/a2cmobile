@@ -1,11 +1,5 @@
 import React from 'react';
-import {
-  View,
-  Text,
-  ScrollView,
-  useWindowDimensions,
-  TextInput,
-} from 'react-native';
+import { View, Text, ScrollView, useWindowDimensions } from 'react-native';
 import { Input, Button } from '@ui-kitten/components';
 import { useTranslation } from 'react-i18next';
 import Spinner from 'react-native-spinkit';

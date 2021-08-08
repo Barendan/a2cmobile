@@ -20,26 +20,6 @@ export default StyleSheet.create({
   bodyWrapper: {
     marginBottom: scale(50),
   },
-  nameGreeting: {
-    marginBottom: '5%',
-    fontSize: scale(12),
-  },
-  input: {
-    // width: '90%',
-    height: verticalScale(30),
-    borderWidth: scale(1),
-    borderRadius: scale(1),
-    marginBottom: '7%',
-    alignSelf: 'center',
-  },
-  inputText: {
-    paddingVertical: moderateScale(2),
-    fontSize: moderateScale(14),
-  },
-  inputLabel: {
-    color: '#8F9BB3',
-    fontSize: moderateScale(10),
-  },
   mainContainer: {
     height: Platform.OS === 'ios' ? '80%' : '75%',
   },
@@ -89,5 +69,26 @@ export default StyleSheet.create({
   optionsIcon: {
     backgroundColor: 'transparent',
     marginLeft: scale(5),
+  },
+  nameGreeting: {
+    marginBottom: '5%',
+    fontSize: scale(12),
+  },
+  input: {
+    // width: '90%',
+    height: verticalScale(30),
+    borderWidth: scale(1),
+    borderRadius: scale(1),
+    marginBottom: '7%',
+    alignSelf: 'center',
+  },
+  inputText: {
+    paddingVertical: moderateScale(2),
+    fontSize: moderateScale(14),
+  },
+  inputLabel: {
+    color: '#8F9BB3',
+    fontSize: moderateScale(10),
+    paddingBottom: '0.5%',
   },
 });
