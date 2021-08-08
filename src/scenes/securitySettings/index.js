@@ -11,14 +11,12 @@ import {
 } from '@ui-kitten/components';
 import Spinner from 'react-native-spinkit';
 import { useDispatch, useSelector } from 'react-redux';
-
 import DropdownAlert from 'react-native-dropdownalert';
-import { DismissKeyboardAwareScrollView } from '_atoms';
+import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
 
+import { DismissKeyboardAwareScrollView } from '_atoms';
 import { MemberService, AppInfoService } from '_services';
 import { update } from '_store/user';
-
-// styles
 import { APP_COLOR } from '_styles/colors';
 
 const SecuritySettings = () => {
@@ -29,7 +27,7 @@ const SecuritySettings = () => {
 
   const [loading, setLoading] = React.useState(false);
   const [disableSubmit, setDisableSubmit] = React.useState(true);
-  const [errorMessage, setErrorMessage] = React.useState(false);
+  // const [errorMessage, setErrorMessage] = React.useState(false);
 
   const [securityQuestions, setSecurityQuestions] = React.useState([]);
 
@@ -167,9 +165,11 @@ const SecuritySettings = () => {
   return (
     <DismissKeyboardAwareScrollView>
       <SafeAreaView>
-        <Inset vertical={16}>
-          <Inset horizontal={16}>
-            <Text>{t('security_questions_text')}</Text>
+        <Inset vertical={verticalScale(16)}>
+          <Inset horizontal={verticalScale(16)}>
+            <Text style={{ fontSize: scale(10) }}>
+              {t('security_questions_text')}
+            </Text>
           </Inset>
 
           <Spinner
@@ -179,84 +179,134 @@ const SecuritySettings = () => {
             color={APP_COLOR}
           />
 
-          <Stack size={16} />
+          <Stack size={verticalScale(16)} />
           <View>
             <Layout key={'questionOne'} level="1">
-              <Inset horizontal={16} vertical={16}>
+              <Inset
+                horizontal={verticalScale(16)}
+                vertical={verticalScale(16)}>
+                <Stack size={verticalScale(16)} />
                 <Select
-                  label={t('question_one')}
+                  label={() => (
+                    <Text style={styles.inputLabel}>{t('question_one')}</Text>
+                  )}
                   value={selectedQuestion.questionOne}
+                  placeholder={() => (
+                    <Text style={styles.inputPlaceholder}>Select Option</Text>
+                  )}
                   selectedIndex={selectedQuestion.questionOneIndex}
                   onSelect={index =>
                     updateSelectedQuestion('questionOneIndex', index)
                   }>
                   {securityQuestions.map((value, index) => {
                     return (
-                      <SelectItem key={index} title={value.SecurityQuestion} />
+                      <SelectItem
+                        key={index}
+                        title={() => (
+                          <Text style={styles.inputText}>
+                            {value.SecurityQuestion}
+                          </Text>
+                        )}
+                      />
                     );
                   })}
                 </Select>
-                <Stack size={16} />
+
+                <Stack size={verticalScale(10)} />
+
                 <Input
                   placeholder={t('question_one_answer')}
                   value={selectedQuestion.questionOneAnswer}
                   onChangeText={nextValue =>
                     updateSelectedQuestion('questionOneAnswer', nextValue)
                   }
+                  textStyle={styles.inputText}
                 />
               </Inset>
             </Layout>
 
             <Layout key={'questionTwo'} style={styles.container} level="1">
-              <Inset horizontal={16} vertical={16}>
+              <Inset
+                horizontal={verticalScale(16)}
+                vertical={verticalScale(16)}>
                 <Select
-                  label={t('question_two')}
+                  label={() => (
+                    <Text style={styles.inputLabel}>{t('question_two')}</Text>
+                  )}
                   value={selectedQuestion.questionTwo}
+                  placeholder={() => (
+                    <Text style={styles.inputPlaceholder}>Select Option</Text>
+                  )}
                   selectedIndex={selectedQuestion.questionTwoIndex}
                   onSelect={index =>
                     updateSelectedQuestion('questionTwoIndex', index)
                   }>
                   {securityQuestions.map((value, index) => {
                     return (
-                      <SelectItem key={index} title={value.SecurityQuestion} />
+                      <SelectItem
+                        key={index}
+                        title={() => (
+                          <Text style={styles.inputText}>
+                            {value.SecurityQuestion}
+                          </Text>
+                        )}
+                      />
                     );
                   })}
                 </Select>
-                <Stack size={16} />
+                <Stack size={verticalScale(10)} />
                 <Input
                   placeholder={t('question_two_answer')}
                   value={selectedQuestion.questionTwoAnswer}
                   onChangeText={nextValue =>
                     updateSelectedQuestion('questionTwoAnswer', nextValue)
                   }
+                  textStyle={styles.inputText}
                 />
               </Inset>
             </Layout>
 
             <Layout key={'questionThree'} style={styles.container} level="1">
-              <Inset horizontal={16} vertical={16}>
+              <Inset
+                horizontal={verticalScale(16)}
+                vertical={verticalScale(16)}>
                 <Select
-                  label={t('question_three')}
+                  label={() => (
+                    <Text style={styles.inputLabel}>{t('question_three')}</Text>
+                  )}
                   value={selectedQuestion.questionThree}
+                  placeholder={() => (
+                    <Text style={styles.inputPlaceholder}>Select Option</Text>
+                  )}
                   selectedIndex={selectedQuestion.questionThreeIndex}
+                  textStyle={styles.inputText}
                   onSelect={index =>
                     updateSelectedQuestion('questionThreeIndex', index)
                   }>
                   {securityQuestions.map((value, index) => {
                     return (
-                      <SelectItem key={index} title={value.SecurityQuestion} />
+                      <SelectItem
+                        key={index}
+                        title={() => (
+                          <Text style={styles.inputText}>
+                            {value.SecurityQuestion}
+                          </Text>
+                        )}
+                      />
                     );
                   })}
                 </Select>
-                <Stack size={16} />
+                <Stack size={verticalScale(10)} />
                 <Input
                   placeholder={t('question_three_answer')}
                   value={selectedQuestion.questionThreeAnswer}
                   onChangeText={nextValue =>
                     updateSelectedQuestion('questionThreeAnswer', nextValue)
                   }
+                  textStyle={styles.inputText}
                 />
               </Inset>
+              <Stack size={verticalScale(16)} />
             </Layout>
           </View>
 
@@ -284,7 +334,20 @@ const styles = StyleSheet.create({
     marginBottom: 36,
   },
   btn: {
-    top: 10,
+    marginTop: 10,
+  },
+  inputText: {
+    paddingVertical: moderateScale(2),
+    fontSize: moderateScale(14),
+  },
+  inputLabel: {
+    color: '#8F9BB3',
+    paddingBottom: '0.5%',
+  },
+  inputPlaceholder: {
+    paddingHorizontal: moderateScale(7),
+    fontSize: moderateScale(14),
+    color: '#8F9BB3',
   },
 });
 
