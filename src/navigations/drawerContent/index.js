@@ -15,7 +15,8 @@ import {
   Drawer,
   Text,
 } from 'react-native-paper';
-import { Inset, Stack } from 'react-native-spacing-system';
+import { Stack } from 'react-native-spacing-system';
+import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
 
 import { useTranslation } from 'react-i18next';
 
@@ -130,11 +131,11 @@ export function DrawerContent({ navigation }) {
           </View>
           <Drawer.Section>
             <DrawerItem
-              label={t('dashboard')}
+              label={() => <Text style={styles.navItem}>{t('dashboard')}</Text>}
               onPress={() => navigation.navigate('Home')}
               icon={() => (
                 <Avatar.Icon
-                  size={30}
+                  size={moderateScale(25)}
                   icon="home"
                   color="black"
                   style={styles.drawerIcon}
@@ -142,11 +143,13 @@ export function DrawerContent({ navigation }) {
               )}
             />
             <DrawerItem
-              label={t('saved_locations')}
+              label={() => (
+                <Text style={styles.navItem}>{t('saved_locations')}</Text>
+              )}
               onPress={() => navigation.navigate('FavoriteLocations')}
               icon={() => (
                 <Avatar.Icon
-                  size={30}
+                  size={moderateScale(25)}
                   icon="map"
                   color="black"
                   style={styles.drawerIcon}
@@ -154,11 +157,13 @@ export function DrawerContent({ navigation }) {
               )}
             />
             <DrawerItem
-              label={t('account_settings')}
+              label={() => (
+                <Text style={styles.navItem}>{t('account_settings')}</Text>
+              )}
               onPress={() => navigation.navigate('Account')}
               icon={() => (
                 <Avatar.Icon
-                  size={30}
+                  size={moderateScale(25)}
                   icon="account"
                   color="black"
                   style={styles.drawerIcon}
@@ -166,11 +171,13 @@ export function DrawerContent({ navigation }) {
               )}
             />
             <DrawerItem
-              label={t('security_settings')}
+              label={() => (
+                <Text style={styles.navItem}>{t('security_settings')}</Text>
+              )}
               onPress={() => navigation.navigate('Security')}
               icon={() => (
                 <Avatar.Icon
-                  size={30}
+                  size={moderateScale(25)}
                   icon="security"
                   color="black"
                   style={styles.drawerIcon}
@@ -181,11 +188,11 @@ export function DrawerContent({ navigation }) {
           <Drawer.Section
             title={<Text style={styles.sectionHeader}>{t('app_info')}</Text>}>
             <DrawerItem
-              label={t('privacy')}
+              label={() => <Text style={styles.navItem}>{t('privacy')}</Text>}
               onPress={() => getLatestAppInfo(t('privacy'), 'privacy')}
               icon={() => (
                 <Avatar.Icon
-                  size={30}
+                  size={moderateScale(25)}
                   icon="arrow-right"
                   color="black"
                   style={styles.drawerIcon}
@@ -193,11 +200,11 @@ export function DrawerContent({ navigation }) {
               )}
             />
             <DrawerItem
-              label={t('terms')}
+              label={() => <Text style={styles.navItem}>{t('terms')}</Text>}
               onPress={() => getLatestAppInfo(t('terms'), 'terms')}
               icon={() => (
                 <Avatar.Icon
-                  size={30}
+                  size={moderateScale(25)}
                   icon="arrow-right"
                   color="black"
                   style={styles.drawerIcon}
@@ -205,11 +212,11 @@ export function DrawerContent({ navigation }) {
               )}
             />
             <DrawerItem
-              label={t('faqs')}
+              label={() => <Text style={styles.navItem}>{t('faqs')}</Text>}
               onPress={() => getLatestAppInfo(t('FAQ_title'), 'faqs')}
               icon={() => (
                 <Avatar.Icon
-                  size={30}
+                  size={moderateScale(25)}
                   icon="arrow-right"
                   color="black"
                   style={styles.drawerIcon}
@@ -239,10 +246,11 @@ export function DrawerContent({ navigation }) {
           </TouchableRipple> */}
             <LanguageSelector
               headerStyle={styles.preference}
+              containerStyle={styles.containerStyle}
               iconStyle={{
-                marginLeft: 10,
                 backgroundColor: 'white',
-                marginTop: -5,
+                marginLeft: moderateScale(10),
+                marginTop: scale(-2),
               }}
             />
           </Drawer.Section>
@@ -286,15 +294,16 @@ const styles = StyleSheet.create({
   title: {
     marginTop: Platform.OS === 'ios' ? 20 : 10,
     fontWeight: 'bold',
+    fontSize: moderateScale(18),
   },
   subTitle: {
-    fontSize: 14,
-    marginTop: 5,
+    fontSize: moderateScale(15),
+    marginVertical: verticalScale(10),
     fontWeight: 'bold',
   },
   caption: {
-    fontSize: 14,
-    lineHeight: 14,
+    fontSize: moderateScale(14),
+    lineHeight: moderateScale(14),
   },
   row: {
     margin: 20,
@@ -308,8 +317,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   sectionHeader: {
-    // color: '#636363',
     fontWeight: 'bold',
+    fontSize: moderateScale(15),
   },
   paragraph: {
     fontWeight: 'bold',
@@ -319,15 +328,15 @@ const styles = StyleSheet.create({
     flex: 1,
     marginTop: 15,
   },
+  containerStyle: {
+    height: moderateScale(50),
+    marginVertical: verticalScale(6),
+  },
   preference: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    paddingVertical: 12,
-    paddingHorizontal: 16,
+    width: '50%',
   },
   signOutContainer: {
     fontWeight: 'bold',
-    // height: 54,
     justifyContent: 'space-between',
     color: 'black',
     backgroundColor: '#dfe5eb',
@@ -335,6 +344,8 @@ const styles = StyleSheet.create({
   signOutTitle: {
     fontWeight: 'bold',
     color: '#ab263e',
+    fontSize: moderateScale(14),
+    lineHeight: moderateScale(14),
   },
   image: {
     flex: 1,
@@ -346,6 +357,11 @@ const styles = StyleSheet.create({
   },
   drawerIcon: {
     backgroundColor: 'white',
-    marginRight: -30,
+    marginRight: moderateScale(-15),
+  },
+  navItem: {
+    // color: '#000',
+    fontSize: moderateScale(12),
+    // paddingBottom: '0.5%',
   },
 });
