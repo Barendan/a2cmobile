@@ -1,22 +1,10 @@
 import React from 'react';
-import {
-  SafeAreaView,
-  View,
-  Text,
-  TouchableHighlight,
-  StyleSheet,
-} from 'react-native';
+import { View, Text, TouchableHighlight, StyleSheet } from 'react-native';
 import { Inset, Stack } from 'react-native-spacing-system';
-import {
-  Avatar,
-  Card,
-  Title,
-  IconButton,
-  Divider,
-  List,
-} from 'react-native-paper';
+import { Avatar, Card, Divider, List } from 'react-native-paper';
 import { useTranslation } from 'react-i18next';
 import Communications from 'react-native-communications';
+import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
 
 // styles
 import {
@@ -72,7 +60,7 @@ const TripDetails = props => {
               </Text>
               {currentTrip.TripDate ? (
                 <>
-                  <Stack size={6} />
+                  <Stack size={scale(6)} />
                   <Text>
                     {currentTrip.TripDate} {currentTrip.TripTime}
                   </Text>
@@ -97,7 +85,7 @@ const TripDetails = props => {
                 }>
                 <Avatar.Icon
                   {...props}
-                  size={30}
+                  size={moderateScale(30)}
                   icon="phone"
                   color="black"
                   style={styles.callIcon}
@@ -105,10 +93,9 @@ const TripDetails = props => {
               </TouchableHighlight>
             )}
           </View>
-          <Stack size={12} />
 
           <Divider style={{ backgroundColor: GRAY_DARK }} />
-          <Stack size={12} />
+          <Stack size={verticalScale(6)} />
 
           {tripStops.map((currentStop, index) => (
             <List.Item
@@ -118,7 +105,7 @@ const TripDetails = props => {
               left={props => (
                 <Avatar.Icon
                   {...props}
-                  size={12}
+                  size={scale(10)}
                   color="black"
                   style={stopStyle(index)}
                 />
@@ -127,7 +114,8 @@ const TripDetails = props => {
           ))}
 
           <Divider style={{ backgroundColor: GRAY_DARK }} />
-          <Stack size={12} />
+
+          <Stack size={verticalScale(6)} />
           <View style={styles.appointmentReminderText}>
             <Text style={styles.blueText}>
               {t('please_be_Ready')}{' '}
@@ -153,7 +141,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   tripPathDetails: {
-    marginLeft: -5,
+    marginLeft: moderateScale(-5),
   },
   appointmentReminderText: {
     alignItems: 'center',
@@ -161,21 +149,22 @@ const styles = StyleSheet.create({
   providerNameText: {
     color: '#276092',
     fontWeight: 'bold',
-    fontSize: 14,
+    fontSize: moderateScale(14),
   },
   blueText: {
     color: '#276092',
     fontWeight: 'bold',
     textAlign: 'center',
+    fontSize: moderateScale(10),
   },
   greenText: {
     color: 'green',
     fontWeight: 'bold',
   },
   tripTitleStyle: {
-    fontSize: 15,
+    fontSize: moderateScale(15),
     color: '#47494d',
-    marginTop: -9,
+    marginTop: moderateScale(-8),
   },
   startLocationIcon: {
     backgroundColor: START_LOCATION_COLOR,
