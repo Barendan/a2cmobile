@@ -1,10 +1,10 @@
 import React from 'react';
-import { TouchableOpacity, StyleSheet } from 'react-native';
+import { Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { Appbar, Avatar, useTheme } from 'react-native-paper';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import { useTranslation } from "react-i18next";
-
+import { useTranslation } from 'react-i18next';
+import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
 
 // import { Feed } from './feed';
 // import { Details } from './details';
@@ -22,12 +22,13 @@ import { WHITE, APP_COLOR } from '_styles/colors';
 
 const Stack = createStackNavigator();
 
-
 const styles = StyleSheet.create({
   header: {
     backgroundColor: APP_COLOR,
-    color: WHITE
-  }
+    color: WHITE,
+    fontSize: 50,
+    height: verticalScale(40),
+  },
 });
 
 const Header = ({ scene, previous, navigation }) => {
@@ -36,8 +37,8 @@ const Header = ({ scene, previous, navigation }) => {
     options.headerTitle !== undefined
       ? options.headerTitle
       : options.title !== undefined
-        ? options.title
-        : scene.route.name;
+      ? options.title
+      : scene.route.name;
 
   const theme = useTheme();
 
@@ -46,19 +47,15 @@ const Header = ({ scene, previous, navigation }) => {
       <TouchableOpacity
         onPress={() => {
           navigation.openDrawer();
-        }}
-      >
-        <Ionicons name={'menu'} size={40} color={WHITE} />
+        }}>
+        <Ionicons name={'menu'} size={moderateScale(40)} color={WHITE} />
       </TouchableOpacity>
       <Appbar.Content
-        title={
-          title
-        }
+        title={<Text style={{ fontSize: scale(14) }}>{title}</Text>}
       />
     </Appbar.Header>
   );
 };
-
 
 export const DashboardStack = () => {
   const { t } = useTranslation();
@@ -71,8 +68,7 @@ export const DashboardStack = () => {
         header: ({ scene, previous, navigation }) => (
           <Header scene={scene} previous={previous} navigation={navigation} />
         ),
-      }}
-    >
+      }}>
       <Stack.Screen
         name="Home"
         component={DashboardScreen}
@@ -103,7 +99,6 @@ export const DashboardStack = () => {
         component={AboutScreen}
         options={{ headerTitle: 'Access2Care' }}
       />
-
     </Stack.Navigator>
   );
 };
