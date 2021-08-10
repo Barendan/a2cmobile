@@ -5,16 +5,11 @@ import Geolocation from 'react-native-geolocation-service';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import parseGooglePlace from 'parse-google-place';
 import Permissions from 'react-native-permissions';
-import { Alert } from "react-native";
-import { useTranslation } from "react-i18next";
+import { Alert } from 'react-native';
+import { useTranslation } from 'react-i18next';
+import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
 
 import { GRAY_LIGHT } from '_styles/colors';
-
-// test key; replace with prod key
-// const google_api_key = 'AIzaSyCfcwQaq4K4yXuP_yI-p5sl1Q1rw7Wo5vw';
-
-// const google_api_key = 'AIzaSyDmMOPXT95AEIFvCEoAzzWq1lPfJl8SES4';
-
 
 const google_api_key = 'AIzaSyDgB54DCNDgL2ogOLAFhE-1OgETBR4IGh0';
 
@@ -40,7 +35,6 @@ const requestLocationPermission = async () => {
         message: 'Allow A2C to access your location',
       },
     );
-    // console.log('whats perm return', granted);
     if (granted === PermissionsAndroid.RESULTS.GRANTED) {
       console.log('Location service activated on android.');
     } else {
@@ -56,7 +50,6 @@ const getLocation = async () => {
   await PermissionsAndroid.check(
     'android.permission.ACCESS_FINE_LOCATION',
   ).then(data => (hasLocationPermission = data));
-
 
   if (hasLocationPermission) {
     return new Promise((resolve, reject) => {
@@ -91,8 +84,7 @@ const geocodeLocationByCoords = (lat, long) =>
       .catch(error => reject(error));
   });
 
-
-//check if user granted location, resolve true or false  
+//check if user granted location, resolve true or false
 const checkLocationPermissions = async () => {
   return new Promise((resolve, reject) => {
     (async () => {
@@ -109,73 +101,74 @@ const checkLocationPermissions = async () => {
             message: 'Allow A2C to access your location',
           },
         );
-        granted === PermissionsAndroid.RESULTS.GRANTED ? resolve(true) : reject(false);
+        granted === PermissionsAndroid.RESULTS.GRANTED
+          ? resolve(true)
+          : reject(false);
       }
     })();
   });
-}
-
+};
 
 const getCurrentLocation = async () => {
- let locationEnabled = await checkLocationPermissions().then(() => {
-   return true;
- }).catch(err => {
-    //launch settings page if permission disabled
+  let locationEnabled = await checkLocationPermissions()
+    .then(() => {
+      return true;
+    })
+    .catch(err => {
+      //launch settings page if permission disabled
 
-    Alert.alert(
-      "Enable Location Services",
-      "Location services are currently disabled. Please enable them to use the Current Location feature",
-      [
-        {
-          text: "Cancel",
-          onPress: () => console.log("Cancel Pressed"),
-          style: "cancel"
-        },
-        { text: "Launch Settings", onPress: () => Permissions.openSettings() }
-      ]
-    );
+      Alert.alert(
+        'Enable Location Services',
+        'Location services are currently disabled. Please enable them to use the Current Location feature',
+        [
+          {
+            text: 'Cancel',
+            onPress: () => console.log('Cancel Pressed'),
+            style: 'cancel',
+          },
+          {
+            text: 'Launch Settings',
+            onPress: () => Permissions.openSettings(),
+          },
+        ],
+      );
+    });
 
-  });
-
-  if(locationEnabled) {
-    let promise = new Promise(function(resolve, reject) {
+  if (locationEnabled) {
+    let promise = new Promise(function (resolve, reject) {
       Geolocation.getCurrentPosition(
-       data => {
+        data => {
           Geocoder.from(data.coords.latitude, data.coords.longitude)
-           .then(details => {
+            .then(details => {
+              let topAddress = details.results[0];
 
-             let topAddress = details.results[0];
+              // 'details' are provided when fetchDetails = true
+              let parsedAddress = parseGooglePlace(topAddress);
 
-             // 'details' are provided when fetchDetails = true
-             let parsedAddress = parseGooglePlace(topAddress);
+              let formattedAddress = {
+                FormattedAddress: topAddress.formatted_address,
+                AddressLine1: parsedAddress.address,
+                AddressLine2: null,
+                City: parsedAddress.city,
+                State: parsedAddress.stateShort,
+                County: parsedAddress.county,
+                ZipCode: parsedAddress.zipCode,
+                Country: parsedAddress.countryLong,
+                Latitude: topAddress.geometry.location.lat || null,
+                Longitude: topAddress.geometry.location.lng || null,
+              };
+              resolve(formattedAddress);
+            })
+            .catch(error => alert(JSON.stringify(error)));
+        },
+        err => alert(JSON.stringify(err)),
+        { enableHighAccuracy: true, timeout: 15000 },
+      );
+    });
 
-             let formattedAddress = {
-               FormattedAddress: topAddress.formatted_address,
-               AddressLine1: parsedAddress.address,
-               AddressLine2: null,
-               City: parsedAddress.city,
-               State: parsedAddress.stateShort,
-               County: parsedAddress.county,
-               ZipCode: parsedAddress.zipCode,
-               Country: parsedAddress.countryLong,
-               Latitude: topAddress.geometry.location.lat || null,
-               Longitude: topAddress.geometry.location.lng || null
-             };
-             resolve(formattedAddress);
-           })
-           .catch(error => alert(JSON.stringify(error)));
-       },
-       err => alert(JSON.stringify(err)),
-       { enableHighAccuracy: true, timeout: 15000 },
-     );
-   });
-
-   return promise;
+    return promise;
   }
-
-}
-
-
+};
 
 const googlePlacesAutoInput = ({ placeholder, lang, onPlaceSelected }) => (
   <GooglePlacesAutocomplete
@@ -184,9 +177,8 @@ const googlePlacesAutoInput = ({ placeholder, lang, onPlaceSelected }) => (
     autoFocus={false}
     returnKeyType={'default'}
     fetchDetails={true}
-    textInputProps={{ onBlur: () => { } }}
+    textInputProps={{ onBlur: () => {} }}
     onPress={(data, details = null) => {
-
       // 'details' are provided when fetchDetails = true
       let parsedAddress = parseGooglePlace(details);
 
@@ -200,8 +192,8 @@ const googlePlacesAutoInput = ({ placeholder, lang, onPlaceSelected }) => (
         ZipCode: parsedAddress.zipCode,
         Country: parsedAddress.countryLong,
         Latitude: details.geometry.location.lat || null,
-        Longitude: details.geometry.location.lng || null
-      }
+        Longitude: details.geometry.location.lng || null,
+      };
 
       onPlaceSelected(formattedAddress);
     }}
@@ -212,15 +204,15 @@ const googlePlacesAutoInput = ({ placeholder, lang, onPlaceSelected }) => (
     }}
     styles={{
       textInputContainer: {
-        padding: 5
+        padding: moderateScale(5),
       },
       textInput: {
-        height: 38,
+        height: moderateScale(38),
         color: '#5d5d5d',
-        fontSize: 16,
+        fontSize: moderateScale(16),
         borderStyle: 'solid',
-        borderWidth: 1,
-        borderColor: GRAY_LIGHT
+        borderWidth: moderateScale(1),
+        borderColor: GRAY_LIGHT,
       },
       predefinedPlacesDescription: {
         color: '#1faadb',
