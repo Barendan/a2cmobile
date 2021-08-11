@@ -21,7 +21,7 @@ import { APP_COLOR } from '_styles/colors';
 
 const RequestNewTrip = props => {
   const { t } = useTranslation();
-  //
+
   const steps = [
     { name: t('where_are_you_going'), component: Step1 },
     { name: t('appointment_details'), component: Step2 },
@@ -99,8 +99,6 @@ const RequestNewTrip = props => {
 
               <Divider />
               <Stack size={12} />
-              {/* <ScrollView showsVerticalScrollIndicator={false} style={{backgroundColor:'green'}}> */}
-              {/* <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} style={styles.mainContainer} enabled keyboardVerticalOffset={100}> */}
               <View style={styles.mainContainer}>
                 <AnimatedMultistep
                   steps={steps}
@@ -109,9 +107,6 @@ const RequestNewTrip = props => {
                   onNext={onNext}
                 />
               </View>
-              {/* </KeyboardAvoidingView> */}
-
-              {/* </ScrollView> */}
             </Inset>
           </>
         )}
