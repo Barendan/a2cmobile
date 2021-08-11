@@ -1,16 +1,17 @@
 import React from 'react';
 import { View, ScrollView, Text } from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
 import { Button } from '@ui-kitten/components';
 import { useTranslation } from 'react-i18next';
-import { TextInputCard } from '_molecules';
-import { useDispatch, useSelector } from 'react-redux';
-import styles from './styles';
-import { MemberService } from '_services';
-import { setSpecialNeeds } from '_store/steps';
-import Spinner from 'react-native-spinkit';
-import { APP_COLOR } from '_styles/colors';
 import { Stack } from 'react-native-spacing-system';
+import Spinner from 'react-native-spinkit';
 import moment from 'moment';
+
+import { setSpecialNeeds } from '_store/steps';
+import { MemberService } from '_services';
+import { TextInputCard } from '_molecules';
+import { APP_COLOR } from '_styles/colors';
+import styles from './styles';
 
 const Step3 = ({ back, next }) => {
   const [isLoading, setIsLoading] = React.useState(false);

@@ -2,6 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { View, ScrollView } from 'react-native';
 import { Button } from '@ui-kitten/components';
 import { useTranslation } from 'react-i18next';
+import { Inset, Stack } from 'react-native-spacing-system';
+import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
+
 import {
   CheckboxCard,
   NumericCountCard,
@@ -68,12 +71,14 @@ const Step2 = ({ back, next }) => {
           count={additionalPassengers}
           onCountChange={value => dispatch(setAdditionalPassenger(value))}
         />
+        <Stack size={moderateScale(12)} />
         <CheckboxCard
           cardIcon={'wheelchair-accessibility'}
           title={t('need_wheelchair')}
           checkedValue={wheelchairRequired}
           onChecked={value => dispatch(setRequiredWheelChair(value))}
         />
+        <Stack size={moderateScale(12)} />
         <DateTimePickerCard
           required={!appointmentDate || !appointmentTime ? true : false}
           cardIcon={'calendar-clock'}
@@ -97,6 +102,7 @@ const Step2 = ({ back, next }) => {
             dispatch(setAppointMentSchedule({ type: type, value: value }))
           }
         />
+        <Stack size={moderateScale(12)} />
         <DropDownPickerCard
           required={!tripReason ? true : false}
           cardIcon={'information-outline'}
@@ -106,12 +112,13 @@ const Step2 = ({ back, next }) => {
           selectedValue={tripReason}
           onOptionSelected={value => dispatch(setTripReason(value?.value))}
         />
+        <Stack size={moderateScale(12)} />
       </ScrollView>
 
       <View style={styles.footer}>
         <Button
-          title={t('back')}
-          size="large"
+          title={() => <Text style={{ fontSize: 60 }}>{t('back')}</Text>}
+          // size="large"
           appearance="outline"
           style={styles.backButton}
           onPress={goBack}>
@@ -119,6 +126,7 @@ const Step2 = ({ back, next }) => {
         </Button>
         <Button
           title={t('continue')}
+          titleStyle={{ fontSize: 50 }}
           size="large"
           style={styles.forwardButton}
           disabled={isDisabled}

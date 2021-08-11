@@ -1,7 +1,6 @@
 import { StyleSheet, Platform } from 'react-native';
 import { ERROR, APP_COLOR } from '_styles/colors';
-import { scaleFont } from '_styles/mixins';
-import { FONT_SIZE_18 } from '_styles/typography';
+import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
 
 export default StyleSheet.create({
   titleWrapper: {
@@ -11,29 +10,29 @@ export default StyleSheet.create({
   title: {
     fontWeight: 'bold',
     color: '#366999',
-    fontSize: 18,
-    marginBottom: 10,
+    fontSize: scale(18),
+    marginBottom: moderateScale(10),
   },
   body: {
-    fontSize: scaleFont(16),
+    fontSize: moderateScale(16),
     fontWeight: 'bold',
   },
   bodyWrapper: {
-    marginBottom: 50,
+    marginBottom: moderateScale(50),
   },
   levelOfService: {
-    fontSize: scaleFont(13),
+    fontSize: moderateScale(13),
     fontWeight: 'bold',
     color: '#47494d',
   },
   tripNumber: {
-    fontSize: scaleFont(13),
+    fontSize: moderateScale(13),
     fontWeight: 'bold',
     marginBottom: 10,
     color: '#366999',
   },
   specialNeedsLabel: {
-    fontSize: scaleFont(14),
+    fontSize: moderateScale(14),
     fontWeight: 'bold',
     marginBottom: 10,
     color: '#276092',
@@ -43,7 +42,7 @@ export default StyleSheet.create({
     alignItems: 'center',
   },
   mainContainer: {
-    height: Platform.OS === "ios" ? '80%' : '75%',
+    height: Platform.OS === 'ios' ? '80%' : '70%',
   },
   formContainer: {
     width: '100%',
@@ -57,26 +56,26 @@ export default StyleSheet.create({
     width: '100%',
     justifyContent: 'space-around',
     alignSelf: 'center',
-    flexDirection: 'row'
+    flexDirection: 'row',
   },
   backButton: {
-    height: 40,
-    marginRight: 5,
+    marginRight: moderateScale(5),
+    height: moderateScale(40),
     borderRadius: 30,
   },
   forwardButton: {
     flex: 1,
-    height: 40,
+    height: moderateScale(40),
     borderColor: '#F5F5F5',
     borderRadius: 30,
   },
   errorMessage: {
     color: ERROR,
-    fontSize: FONT_SIZE_18
+    fontSize: moderateScale(18),
   },
   loadingMessage: {
     color: APP_COLOR,
-    fontSize: FONT_SIZE_18
+    fontSize: moderateScale(18),
   },
   completedStepContainer: {
     height: '90%',
@@ -86,9 +85,16 @@ export default StyleSheet.create({
     backgroundColor: '#FFFFFF',
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   checkmark: {
-    height: 100,
+    height: verticalScale(100),
+  },
+  summaryTitle: {
+    fontSize: moderateScale(14),
+  },
+  summarySubtitle: {
+    fontSize: moderateScale(12),
+    color: '#8F9BB3',
   },
 });

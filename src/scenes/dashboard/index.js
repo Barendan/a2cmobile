@@ -41,6 +41,10 @@ const styles = StyleSheet.create({
     right: 0,
     bottom: 0,
     backgroundColor: APP_COLOR,
+    // fontSize: scale(16),
+    // width: 100,
+    // height: 100,
+    borderRadius: 50,
     zIndex: 1,
   },
   callIcon: {
@@ -205,9 +209,10 @@ const DashboardScreen = () => {
                 onRefresh={getLatestMemberTrips}
               />
             }>
-            {memberTrips.map(currentTrip => (
+            {memberTrips.map((currentTrip, i) => (
               <>
                 <TripDetails
+                  key={i}
                   currentTrip={currentTrip}
                   viewFullTripDetails={() => viewFullTripDetails(currentTrip)}
                 />

@@ -1,49 +1,38 @@
 import React, { useState } from 'react';
-import {
-  View,
-  Text,
-  TouchableHighlight,
-  StyleSheet,
-  ScrollView,
-  useWindowDimensions,
-} from 'react-native';
-import {
-  Avatar,
-  Card,
-  Surface,
-  IconButton,
-  Divider,
-  List,
-} from 'react-native-paper';
-
+import { View, Text, TouchableHighlight, StyleSheet } from 'react-native';
+import { Avatar, Surface, List } from 'react-native-paper';
 import DateTimePicker from '@react-native-community/datetimepicker';
-
+import { Inset, Stack } from 'react-native-spacing-system';
+import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
 import PropTypes from 'prop-types';
 import { Inset, Stack } from 'react-native-spacing-system';
 
-// styles
 import { GRAY_DARK, BLUE } from '_styles/colors';
-import { scaleFont } from '_styles/mixins';
 
 const styles = StyleSheet.create({
   surface: {
-    padding: 2,
-    height: 80,
+    height: verticalScale(50),
     width: '100%',
     elevation: 10,
     borderWidth: 1,
     borderColor: GRAY_DARK,
     borderRadius: 10,
-    padding: 10,
+    padding: moderateScale(10),
     justifyContent: 'center',
     backgroundColor: 'white',
   },
   titleStyle: {
     flex: 1,
-    fontSize: 17,
+    fontSize: moderateScale(16),
+  },
+  title: {
+    fontSize: moderateScale(14),
+  },
+  subtitle: {
+    fontSize: moderateScale(10),
   },
   dateTimeHolder: {
-    padding: 10,
+    padding: moderateScale(10),
     flexDirection: 'row',
     justifyContent: 'flex-end',
     alignItems: 'center',
@@ -59,18 +48,18 @@ const styles = StyleSheet.create({
   },
   cardIcon: {
     backgroundColor: 'transparent',
-    marginVertical: 50,
-    marginLeft: -5,
+    marginVertical: moderateScale(30),
+    marginLeft: moderateScale(-5),
   },
   optionsHolder: {
-    marginVertical: 50,
+    marginVertical: moderateScale(30),
     justifyContent: 'center',
     textAlign: 'center',
     flexDirection: 'row',
   },
   cardOptionsIcon: {
     backgroundColor: 'transparent',
-    marginRight: -8,
+    marginRight: moderateScale(-10),
   },
   requiredCard: {
     borderColor: 'red',
@@ -149,13 +138,15 @@ const DateTimePickerCard = props => {
           ]}>
           {!show && (
             <List.Item
+              titleStyle={styles.title}
               title={title + (required ? '*' : '')}
               description={description}
+              descriptionStyle={styles.subtitle}
               descriptionNumberOfLines={2}
               left={props => (
                 <Avatar.Icon
                   {...props}
-                  size={40}
+                  size={moderateScale(34)}
                   color="black"
                   icon={cardIcon}
                   style={styles.cardIcon}
@@ -166,7 +157,7 @@ const DateTimePickerCard = props => {
                   <TouchableHighlight onPress={() => showMode('date')}>
                     <Avatar.Icon
                       {...props}
-                      size={40}
+                      size={moderateScale(34)}
                       color={BLUE}
                       icon={'calendar'}
                       style={styles.cardOptionsIcon}
@@ -175,7 +166,7 @@ const DateTimePickerCard = props => {
                   <TouchableHighlight onPress={() => showMode('time')}>
                     <Avatar.Icon
                       {...props}
-                      size={40}
+                      size={moderateScale(34)}
                       color={BLUE}
                       icon={'clock'}
                       style={styles.cardOptionsIcon}
