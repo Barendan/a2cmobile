@@ -3,6 +3,7 @@ import { View, ScrollView } from 'react-native';
 import { Button } from '@ui-kitten/components';
 import { useTranslation } from 'react-i18next';
 import { LocationSearchCard, CheckboxCard } from '_molecules';
+import { Inset, Stack } from 'react-native-spacing-system';
 import { useDispatch, useSelector } from 'react-redux';
 import styles from './styles';
 import { GRAY_BLUE } from '_styles/colors';
@@ -80,18 +81,20 @@ const Step1 = ({ next }) => {
           description={t('add_stop_description')}
           onAddressSelected={addr => dispatch(updateTripStop(addr))}
         />
-        <CheckboxCard
-          cardIcon={'swap-horizontal'}
-          title={t('round_trip')}
-          checkedValue={isRoundTrip}
-          onChecked={value => dispatch(roundTrip(value))}
-        />
+        <Inset all={16}>
+          <CheckboxCard
+            cardIcon={'swap-horizontal'}
+            title={t('round_trip')}
+            checkedValue={isRoundTrip}
+            onChecked={value => dispatch(roundTrip(value))}
+          />
+        </Inset>
       </ScrollView>
 
       <View style={styles.footer}>
         <Button
-          title={t('continue')}
-          size="large"
+          title={() => <Text style={{ fontSize: 50 }}>{t('continue')}</Text>}
+          size={'giant'}
           style={styles.forwardButton}
           disabled={isDisabled}
           onPress={nextStep}>

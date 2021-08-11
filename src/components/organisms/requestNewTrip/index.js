@@ -1,16 +1,12 @@
 import React, { useState } from 'react';
-import {
-  View,
-  Text,
-  Button,
-  ScrollView,
-  KeyboardAvoidingView,
-} from 'react-native';
+import { View, Text } from 'react-native';
 import AnimatedMultistep from 'react-native-animated-multistep';
 import DraggablePanel from 'react-native-draggable-panel';
 import { Inset, Stack } from 'react-native-spacing-system';
 import { Divider } from 'react-native-paper';
 import { useTranslation } from 'react-i18next';
+import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
+
 import { CloseButton, ProgressBar } from '_atoms';
 import Spinner from 'react-native-spinkit';
 import Step1 from './steps/step1';
@@ -65,7 +61,7 @@ const RequestNewTrip = props => {
           onPanelDismiss();
           setCurrentStep(1);
         }}
-        initialHeight={800}
+        initialHeight={verticalScale(1000)}
         expandable>
         {isLoading && (
           <View style={styles.loadingView}>
@@ -83,14 +79,14 @@ const RequestNewTrip = props => {
           <>
             <CloseButton onPress={onPanelDismiss} />
 
-            <Inset all={16}>
+            <Inset all={scale(16)}>
               <View style={styles.titleWrapper}>
                 <Text style={styles.title}>{t('request_new_trip')}</Text>
               </View>
               <Stack size={12} />
 
               <ProgressBar
-                small={true}
+                radius={30}
                 currentStep={currentStep}
                 stepCount={steps.length}
                 title={steps[currentStep - 1].name}
