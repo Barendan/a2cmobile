@@ -10,20 +10,21 @@ import {
   StatusBar,
 } from 'react-native';
 import { Inset, Stack } from 'react-native-spacing-system';
-import { Avatar, Card, IconButton, Divider, FAB } from 'react-native-paper';
+import { Avatar, Card, IconButton, Divider } from 'react-native-paper';
 import Spinner from 'react-native-spinkit';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import Communications from 'react-native-communications';
 import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
 
+import { AppButton } from '_atoms';
+import { EmptyStateView } from '_molecules';
 import {
   PlanSelector,
   TripDetails,
   FullTripDetails,
   RequestNewTrip,
 } from '_organisms';
-import { EmptyStateView } from '_molecules';
 import { TripService } from '_services';
 
 // styles
@@ -37,15 +38,15 @@ const styles = StyleSheet.create({
   },
   fab: {
     position: 'absolute',
-    margin: 25,
+    margin: moderateScale(25),
     right: 0,
     bottom: 0,
     backgroundColor: APP_COLOR,
-    // fontSize: scale(16),
-    // width: 100,
-    // height: 100,
+    width: moderateScale(54),
+    height: moderateScale(54),
     borderRadius: 50,
     zIndex: 1,
+    elevation: 12,
   },
   callIcon: {
     backgroundColor: 'white',
@@ -225,10 +226,15 @@ const DashboardScreen = () => {
         </Inset>
       )}
 
-      <FAB
-        style={styles.fab}
-        large
-        icon="plus"
+      <AppButton
+        title={'+'}
+        color={APP_COLOR}
+        containerStyle={styles.fab}
+        textStyle={{
+          color: 'white',
+          fontSize: moderateScale(36),
+          paddingHorizontal: scale(12),
+        }}
         onPress={() => setRequestNewTrip(true)}
       />
 
