@@ -6,6 +6,7 @@ import { Inset, Stack } from 'react-native-spacing-system';
 import { useDispatch, useSelector } from 'react-redux';
 import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
 
+import { AppButton } from '_atoms';
 import { SaveLocationPanel } from '_organisms';
 import { EmptyStateView } from '_molecules';
 import { APP_COLOR } from '_styles/colors';
@@ -116,11 +117,16 @@ const FavoriteLocations = () => {
         </Inset>
       )}
 
-      <FAB
-        style={styles.fab}
-        large
-        icon="plus"
-        label={t('add_saved_location')}
+      <AppButton
+        title={'+ ' + ' ' + t('add_saved_location')}
+        color={APP_COLOR}
+        containerStyle={styles.newFab}
+        textStyle={{
+          color: 'white',
+          fontSize: moderateScale(16),
+          paddingHorizontal: scale(16),
+          textTransform: 'uppercase',
+        }}
         onPress={() => setDisplayPanel(true)}
       />
 
@@ -153,6 +159,19 @@ const styles = StyleSheet.create({
     bottom: 0,
     backgroundColor: APP_COLOR,
     zIndex: 1,
+  },
+  newFab: {
+    backgroundColor: APP_COLOR,
+    position: 'absolute',
+    margin: moderateScale(25),
+    padding: moderateScale(4),
+    right: 0,
+    bottom: 0,
+    zIndex: 1,
+    elevation: 12,
+    width: moderateScale(185),
+    height: moderateScale(30),
+    borderRadius: 50,
   },
 });
 
