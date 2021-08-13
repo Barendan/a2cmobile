@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { View, ScrollView } from 'react-native';
+import { Text, View, ScrollView } from 'react-native';
 import { Button } from '@ui-kitten/components';
 import { useTranslation } from 'react-i18next';
 import { LocationSearchCard, CheckboxCard } from '_molecules';
 import { Inset, Stack } from 'react-native-spacing-system';
 import { useDispatch, useSelector } from 'react-redux';
+import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
+
 import styles from './styles';
 import { GRAY_BLUE } from '_styles/colors';
 import {
@@ -93,12 +95,10 @@ const Step1 = ({ next }) => {
 
       <View style={styles.footer}>
         <Button
-          title={() => <Text style={{ fontSize: 50 }}>{t('continue')}</Text>}
-          size={'giant'}
           style={styles.forwardButton}
           disabled={isDisabled}
           onPress={nextStep}>
-          {t('continue')}
+          <Text style={{ fontSize: moderateScale(16) }}>{t('continue')}</Text>
         </Button>
       </View>
     </View>

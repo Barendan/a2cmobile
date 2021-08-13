@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, ScrollView } from 'react-native';
+import { Text, View, ScrollView } from 'react-native';
 import { Button } from '@ui-kitten/components';
 import { useTranslation } from 'react-i18next';
 import { Inset, Stack } from 'react-native-spacing-system';
@@ -116,22 +116,14 @@ const Step2 = ({ back, next }) => {
       </ScrollView>
 
       <View style={styles.footer}>
-        <Button
-          title={() => <Text style={{ fontSize: 60 }}>{t('back')}</Text>}
-          // size="large"
-          appearance="outline"
-          style={styles.backButton}
-          onPress={goBack}>
-          {t('back')}
+        <Button appearance="outline" style={styles.backButton} onPress={goBack}>
+          <Text style={{ fontSize: moderateScale(16) }}>{t('back')}</Text>
         </Button>
         <Button
-          title={t('continue')}
-          titleStyle={{ fontSize: 50 }}
-          size="large"
-          style={styles.forwardButton}
           disabled={isDisabled}
+          style={styles.forwardButton}
           onPress={nextStep}>
-          {t('continue')}
+          <Text style={{ fontSize: moderateScale(16) }}>{t('continue')}</Text>
         </Button>
       </View>
     </View>

@@ -60,12 +60,14 @@ export default StyleSheet.create({
   },
   backButton: {
     marginRight: moderateScale(5),
-    height: moderateScale(40),
+    height: moderateScale(45),
+    paddingHorizontal: moderateScale(14),
     borderRadius: 30,
   },
   forwardButton: {
     flex: 1,
-    height: moderateScale(40),
+    height: moderateScale(45),
+    marginHorizontal: moderateScale(6),
     borderColor: '#F5F5F5',
     borderRadius: 30,
   },
