@@ -1,27 +1,15 @@
 import React, { useState } from 'react';
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  StyleSheet,
-  ScrollView,
-  useWindowDimensions,
-} from 'react-native';
+import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import DraggablePanel from 'react-native-draggable-panel';
 import { Inset, Stack } from 'react-native-spacing-system';
 import { Input, Button } from '@ui-kitten/components';
 import { useTranslation } from 'react-i18next';
+import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
 
 import { CloseButton } from '_atoms';
 import { LocationSearchCard } from '_molecules';
-
-import { MemberService } from '_services';
+// import { MemberService } from '_services';
 import storage from '_storage';
-
-// styles
-import { CANCEL, GRAY_LIGHT, GRAY_DARK } from '_styles/colors';
-import { scaleFont } from '_styles/mixins';
-import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
 
 const styles = StyleSheet.create({
   titleWrapper: {
@@ -31,22 +19,24 @@ const styles = StyleSheet.create({
   title: {
     fontWeight: 'bold',
     color: '#366999',
-    fontSize: moderateScale(20),
+    fontSize: scale(18),
     marginBottom: moderateScale(10),
   },
   body: {
-    fontSize: scaleFont(12),
+    fontSize: moderateScale(16),
     fontWeight: 'bold',
     backgroundColor: 'green',
   },
   content: {
-    justifyContent: 'space-between',
     display: 'flex',
+    justifyContent: 'space-between',
     alignItems: 'stretch',
+    height: '92%',
+    // backgroundColor: 'blue',
   },
   bodyWrapper: {
-    marginBottom: 0,
-    height: '65%',
+    // backgroundColor: 'red',
+    // marginBottom: 10,
   },
   input: {
     width: '95%',
@@ -62,7 +52,8 @@ const styles = StyleSheet.create({
   },
   forwardButton: {
     flex: 1,
-    height: 40,
+    height: moderateScale(45),
+    marginHorizontal: moderateScale(6),
     borderColor: '#F5F5F5',
     borderRadius: 30,
   },
@@ -74,6 +65,12 @@ const styles = StyleSheet.create({
     color: '#8F9BB3',
     fontSize: moderateScale(10),
     paddingBottom: '0.5%',
+  },
+  footer: {
+    width: '100%',
+    justifyContent: 'space-around',
+    alignSelf: 'center',
+    flexDirection: 'row',
   },
 });
 
@@ -146,6 +143,7 @@ const SaveLocationPanel = props => {
         initialHeight={verticalScale(1000)}
         expandable>
         <CloseButton onPress={onPanelDismiss} />
+
         <Inset all={moderateScale(16)}>
           <View style={styles.titleWrapper}>
             <Text style={styles.title}>{t('add_new_location')}</Text>
@@ -192,16 +190,19 @@ const SaveLocationPanel = props => {
             </ScrollView>
 
             <Inset all={moderateScale(16)}>
-              <Button
-                title={t('save_location')}
-                size="large"
-                style={styles.forwardButton}
-                disabled={
-                  newLocation.address === null || newLocation.name.length === 0
-                }
-                onPress={onSaveLocation}>
-                {t('save_location')}
-              </Button>
+              <View style={styles.footer}>
+                <Button
+                  style={styles.forwardButton}
+                  disabled={
+                    newLocation.address === null ||
+                    newLocation.name.length === 0
+                  }
+                  onPress={onSaveLocation}>
+                  <Text style={{ fontSize: moderateScale(16) }}>
+                    {t('save_location')}
+                  </Text>
+                </Button>
+              </View>
             </Inset>
           </View>
         </Inset>

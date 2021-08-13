@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { SafeAreaView, StyleSheet, ScrollView, Alert } from 'react-native';
-import { Avatar, Card, IconButton, Divider, FAB } from 'react-native-paper';
+import { Text, SafeAreaView, StyleSheet, ScrollView } from 'react-native';
+import { Avatar, Card, IconButton, Divider } from 'react-native-paper';
 import { useTranslation } from 'react-i18next';
 import { Inset, Stack } from 'react-native-spacing-system';
 import { useDispatch, useSelector } from 'react-redux';
@@ -90,11 +90,24 @@ const FavoriteLocations = () => {
               <>
                 <Card.Title
                   style={{ backgroundColor: 'white' }}
-                  title={currentLocation.name}
-                  subtitle={currentLocation.address.FormattedAddress}
+                  title={
+                    <Text
+                      style={{ color: 'black', fontSize: moderateScale(16) }}>
+                      {currentLocation.name}
+                    </Text>
+                  }
+                  titleStyle={{ marginLeft: moderateScale(4) }}
+                  subtitle={
+                    <Text
+                      style={{ color: 'gray', fontSize: moderateScale(10) }}>
+                      {currentLocation.address.FormattedAddress}
+                    </Text>
+                  }
+                  subtitleStyle={{ marginLeft: moderateScale(4) }}
                   left={props => (
                     <Avatar.Icon
                       {...props}
+                      size={moderateScale(30)}
                       icon="map-marker"
                       color="black"
                       style={styles.locationIcon}
@@ -103,6 +116,7 @@ const FavoriteLocations = () => {
                   right={props => (
                     <IconButton
                       {...props}
+                      size={moderateScale(30)}
                       icon="minus"
                       onPress={() => removeLocation(currentLocation)}
                     />
