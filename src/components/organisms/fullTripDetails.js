@@ -61,12 +61,6 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
   },
-  callToActionBtnHolder: {
-    marginTop: 'auto',
-    alignSelf: 'center',
-    width: '100%',
-    marginBottom: moderateScale(20),
-  },
   customBtnText: {
     fontSize: moderateScale(18),
     fontWeight: '400',
@@ -136,13 +130,13 @@ const FullTripDetails = props => {
         expandable>
         <CloseButton onPress={onPanelDismiss} />
         {currentTrip && (
-          <Inset all={moderateScale(16)}>
+          <Inset all={scale(16)}>
             <View style={styles.content}>
               <View>
                 <View style={styles.titleWrapper}>
                   <Text style={styles.title}>{panelHeader}</Text>
                 </View>
-                <Stack size={12} />
+                <Stack size={scale(12)} />
 
                 <ScrollView
                   style={styles.bodyWrapper}
@@ -157,9 +151,9 @@ const FullTripDetails = props => {
                   </View>
 
                   <Divider style={{ backgroundColor: GRAY_DARK }} />
-                  <Stack size={12} />
+                  <Stack size={moderateScale(12)} />
 
-                  <Inset all={10}>
+                  <Inset all={scale(10)}>
                     <View
                       style={{
                         flexDirection: 'row',
@@ -177,7 +171,7 @@ const FullTripDetails = props => {
 
                   <Divider style={{ backgroundColor: GRAY_DARK }} />
 
-                  <Inset all={10}>
+                  <Inset all={scale(10)}>
                     <View
                       style={{
                         flexDirection: 'column',
@@ -202,7 +196,7 @@ const FullTripDetails = props => {
                 </ScrollView>
 
                 <View>
-                  <Inset all={16}>
+                  <Inset all={moderateScale(16)}>
                     <TouchableOpacity
                       style={styles.customBtnBG}
                       onPress={

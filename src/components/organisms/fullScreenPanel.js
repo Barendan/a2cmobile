@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 import DraggablePanel from 'react-native-draggable-panel';
 import { Inset, Stack } from 'react-native-spacing-system';
-import HTML from 'react-native-render-html';
+import RenderHTML from 'react-native-render-html';
 import { CloseButton } from '_atoms';
 import { scale, verticalScale } from 'react-native-size-matters';
 
@@ -24,11 +24,10 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   body: {
-    fontSize: scale(12),
     fontWeight: 'bold',
   },
   bodyWrapper: {
-    marginBottom: 50,
+    marginBottom: verticalScale(50),
   },
 });
 
@@ -43,6 +42,16 @@ const FullScreenPanel = props => {
 
   const contentWidth = useWindowDimensions().width;
 
+  // const panelBodyTest = panelBody;
+  const panelBodyTest = `<p>panelBody</p>`;
+
+  const htmlTextStyle = {
+    body: {
+      fontSize: scale(16),
+      color: 'red',
+    },
+  };
+
   return (
     <View>
       <DraggablePanel
@@ -51,17 +60,25 @@ const FullScreenPanel = props => {
         initialHeight={verticalScale(1000)}
         expandable>
         <CloseButton onPress={onPanelDismiss} />
-        <Inset all={16}>
+        <Inset all={verticalScale(16)}>
           <View style={styles.titleWrapper}>
             <Text style={styles.title}>{panelHeader}</Text>
           </View>
-          <Stack size={12} />
+          <Stack size={verticalScale(12)} />
 
           <ScrollView
             style={styles.bodyWrapper}
-            showsVerticalScrollIndicator={false}>
+            showsVerticalScrollIndicator={true}>
             {isHTML ? (
-              <HTML source={{ html: panelBody }} contentWidth={contentWidth} />
+              <RenderHTML
+                source={{ html: panelBody }}
+                contentWidth={contentWidth}
+                // defaultTextProps={{ fontSize: scale(16) }}
+                // emSize={14}
+                // tagsStyles={htmlTextStyle}
+                baseStyle={{ color: 'red', margin: 50 }}
+                // baseStyle={htmlTextStyle}
+              />
             ) : (
               <Text style={styles.body}>{panelBody}</Text>
             )}

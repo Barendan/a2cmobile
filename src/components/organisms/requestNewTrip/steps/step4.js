@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import Spinner from 'react-native-spinkit';
 import moment from 'moment';
+import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
 
 import { MemberService } from '_services';
 // import { TextInputCard } from '_molecules';
@@ -241,22 +242,28 @@ const Step4 = ({ back, next }) => {
       )}
 
       <View style={styles.footer}>
-        <Button
-          title={t('back')}
-          size="large"
-          appearance="outline"
-          style={styles.backButton}
-          disabled={isLoading}
-          onPress={goBack}>
-          {t('back')}
+        <Button appearance="outline" style={styles.backButton} onPress={goBack}>
+          <Text
+            style={{
+              fontSize: moderateScale(16),
+              color: '#006FD6',
+              fontWeight: 'bold',
+            }}>
+            {t('back')}
+          </Text>
         </Button>
         <Button
-          title={t('request_trip')}
-          size="large"
           disabled={isLoading}
           style={styles.forwardButton}
           onPress={() => onRequestTrip()}>
-          {t('request_trip')}
+          <Text
+            style={{
+              fontSize: moderateScale(16),
+              color: 'white',
+              fontWeight: 'bold',
+            }}>
+            {t('request_trip')}
+          </Text>
         </Button>
       </View>
     </View>

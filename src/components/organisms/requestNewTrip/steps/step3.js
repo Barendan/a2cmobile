@@ -6,6 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { Stack } from 'react-native-spacing-system';
 import Spinner from 'react-native-spinkit';
 import moment from 'moment';
+import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
 
 import { setSpecialNeeds } from '_store/steps';
 import { MemberService } from '_services';
@@ -135,22 +136,14 @@ const Step3 = ({ back, next }) => {
       <Stack size={12} />
 
       <View style={styles.footer}>
-        <Button
-          title={t('back')}
-          size="large"
-          appearance="outline"
-          style={styles.backButton}
-          disabled={isLoading}
-          onPress={goBack}>
-          {t('back')}
+        <Button appearance="outline" style={styles.backButton} onPress={goBack}>
+          <Text style={{ fontSize: moderateScale(16) }}>{t('back')}</Text>
         </Button>
         <Button
-          title={t('continue')}
-          size="large"
           disabled={isLoading}
           style={styles.forwardButton}
           onPress={nextStep}>
-          {t('continue')}
+          <Text style={{ fontSize: moderateScale(16) }}>{t('continue')}</Text>
         </Button>
       </View>
     </View>
