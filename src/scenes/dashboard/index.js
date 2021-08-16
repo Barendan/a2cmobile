@@ -127,7 +127,6 @@ const DashboardScreen = () => {
             {plan.contractName}
           </Text>
         }
-        // subtitle={plan.MemberID + ' (' + plan.contractCode + ')'}
         subtitle={
           <Text style={{ color: 'gray', fontSize: moderateScale(10) }}>
             {plan.MemberID + ' (' + plan.contractCode + ')'}

@@ -163,14 +163,15 @@ const SecuritySettings = () => {
   };
 
   return (
-    <DismissKeyboardAwareScrollView>
-      <SafeAreaView>
-        <Inset vertical={verticalScale(16)}>
+    <SafeAreaView>
+      <Inset vertical={verticalScale(16)}>
+        <DismissKeyboardAwareScrollView>
           <Inset horizontal={verticalScale(16)}>
             <Text style={{ fontSize: scale(10) }}>
               {t('security_questions_text')}
             </Text>
           </Inset>
+          <Stack size={verticalScale(16)} />
 
           <Spinner
             isVisible={loading}
@@ -179,13 +180,13 @@ const SecuritySettings = () => {
             color={APP_COLOR}
           />
 
-          <Stack size={verticalScale(16)} />
-          <View>
+          <View style={{ height: '100%' }}>
             <Layout key={'questionOne'} level="1">
               <Inset
                 horizontal={verticalScale(16)}
                 vertical={verticalScale(16)}>
                 <Stack size={verticalScale(16)} />
+
                 <Select
                   label={() => (
                     <Text style={styles.inputLabel}>{t('question_one')}</Text>
@@ -315,21 +316,25 @@ const SecuritySettings = () => {
               <Stack size={verticalScale(16)} />
             </Layout>
           </View>
-
-          <View style={{ backgroundColor: 'white' }}>
-            <Button
-              title={t('update')}
-              size="large"
-              style={styles.btn}
-              disabled={disableSubmit}
-              onPress={updateSecurityQuestion}>
-              {t('update')}
-            </Button>
-          </View>
-        </Inset>
-        <DropdownAlert ref={ref => (this.dropDownAlertRef = ref)} />
-      </SafeAreaView>
-    </DismissKeyboardAwareScrollView>
+        </DismissKeyboardAwareScrollView>
+        <View
+          style={{
+            backgroundColor: 'white',
+            flex: 1,
+            justifyContent: 'flex-end',
+          }}>
+          <Button
+            title={t('update')}
+            size="large"
+            style={styles.btn}
+            disabled={disableSubmit}
+            onPress={updateSecurityQuestion}>
+            {t('update')}
+          </Button>
+        </View>
+      </Inset>
+      <DropdownAlert ref={ref => (this.dropDownAlertRef = ref)} />
+    </SafeAreaView>
   );
 };
 
