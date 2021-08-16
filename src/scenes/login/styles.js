@@ -28,15 +28,12 @@ export default StyleSheet.create({
     alignItems: 'center',
     fontSize: scale(20),
   },
-  spacing: {
-    // marginVertical: verticalScale(10),
-  },
   forgotPass: {
     justifyContent: 'space-between',
     flexDirection: 'row',
     flexWrap: 'wrap-reverse',
     alignItems: 'center',
-    paddingVertical: verticalScale(18),
+    margin: moderateScale(4),
   },
   alternativeLogin: {
     justifyContent: 'center',
@@ -45,7 +42,6 @@ export default StyleSheet.create({
   authArea: {
     borderBottomWidth: scale(1),
     borderBottomColor: GREY,
-    paddingBottom: verticalScale(10),
   },
   btnContent: {
     justifyContent: 'center',
@@ -56,14 +52,14 @@ export default StyleSheet.create({
     margin: 5,
   },
   pText: {
-    fontSize: scale(14),
+    fontSize: scale(12),
     color: APP_COLOR,
-    fontWeight: '400',
+    // fontWeight: '400',
   },
   bText: {
     fontSize: scale(14),
     color: APP_COLOR,
-    fontWeight: '500',
+    // fontWeight: '400',
   },
   thumbContainer: {
     flexDirection: 'row',
@@ -73,7 +69,6 @@ export default StyleSheet.create({
   footer: {
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 15,
     fontSize: scale(14),
   },
   toRow: {
@@ -85,19 +80,22 @@ export default StyleSheet.create({
     alignItems: 'center',
   },
   input: {
-    fontSize: scale(14),
+    // fontSize: scale(14),
+    height: verticalScale(44),
+    paddingLeft: moderateScale(6),
     backgroundColor: WHITE,
     borderColor: GREY,
     borderWidth: scale(1),
   },
   btnContainer: {
     backgroundColor: APP_COLOR,
-    padding: scale(4),
+    padding: scale(6),
   },
   btnText: {
     fontSize: scale(12),
+    letterSpacing: 1,
     color: '#fff',
-    fontWeight: '600',
+    fontWeight: 'bold',
     textAlign: 'center',
     textTransform: 'uppercase',
   },

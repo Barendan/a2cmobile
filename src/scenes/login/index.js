@@ -16,8 +16,8 @@ import { sha256 } from 'react-native-sha256';
 import Spinner from 'react-native-spinkit';
 import { TextInput, Button, HelperText } from 'react-native-paper';
 import { Toggle } from '@ui-kitten/components';
-import { Stack } from 'react-native-spacing-system';
-import { scale } from 'react-native-size-matters';
+import { Inset, Stack } from 'react-native-spacing-system';
+import { scale, moderateScale } from 'react-native-size-matters';
 
 import { login, saveLoggedInUser } from '_store/user';
 import { updatePlan, setMemberPlans } from '_store/plan';
@@ -265,141 +265,156 @@ const LoginScreen = () => {
             <Text style={styles.title}>{plan && plan.contractName}</Text>
           </View>
         </View>
-        <Stack size={scale(12)} />
-        <View style={styles.spacing}>
-          <TextInput
-            label="login"
-            value={email}
-            onChangeText={e => onChangeTextInput('email', e)}
-            left={<TextInput.Icon name={'account'} />}
-            style={[
-              errors.email.length ? { borderColor: 'red', borderWidth: 1 } : {},
-              styles.input,
-            ]}
-          />
-          {errors?.email?.length ? (
-            <HelperText
-              style={errors.email.length ? { color: 'red' } : {}}
-              type="error"
-              visible={true}>
-              {errors.email}
-            </HelperText>
-          ) : null}
-        </View>
-        <Stack size={scale(12)} />
-        <View style={[styles.spacing, { marginBottom: 20 }]}>
-          <TextInput
-            label="password"
-            style={styles.input}
-            value={password}
-            secureTextEntry={!isVisible}
-            onChangeText={e => onChangeTextInput('password', e)}
-            left={<TextInput.Icon name={'lock'} />}
-            right={
-              <TextInput.Icon
-                onPress={() => setVisible(previousState => !previousState)}
-                name={isVisible ? 'eye-off-outline' : 'eye'}
-              />
-            }
-          />
-        </View>
 
-        <Stack size={scale(6)} />
-
-        <AppButton
-          title={t('sign_in')}
-          color={APP_COLOR}
-          containerStyle={styles.btnContainer}
-          textStyle={styles.btnText}
-          onPress={onLogin}
-        />
-
-        <Stack size={scale(6)} />
-
-        <AppButton
-          title={t('go_to_registration')}
-          color={APP_COLOR}
-          containerStyle={styles.btnContainer}
-          textStyle={styles.btnText}
-          onPress={() => setDisplayCreateMemberAccount(true)}
-        />
-        <Stack size={scale(6)} />
-
-        {loading && (
-          <View style={styles.loadingView}>
-            <Spinner
-              isVisible={loading}
-              size={50}
-              type={'ThreeBounce'}
-              color={APP_COLOR}
+        <Inset all={scale(12)}>
+          <View>
+            <TextInput
+              label={<Text style={{ fontSize: scale(14) }}>Login</Text>}
+              value={email}
+              onChangeText={e => onChangeTextInput('email', e)}
+              left={
+                <TextInput.Icon
+                  size={scale(18)}
+                  style={{ marginLeft: moderateScale(8) }}
+                  name={'account'}
+                />
+              }
+              style={[
+                errors.email.length
+                  ? { borderColor: 'red', borderWidth: 1 }
+                  : {},
+                styles.input,
+              ]}
+            />
+            {errors?.email?.length ? (
+              <HelperText
+                style={errors.email.length ? { color: 'red' } : {}}
+                type="error"
+                visible={true}>
+                {errors.email}
+              </HelperText>
+            ) : null}
+          </View>
+          <Stack size={scale(6)} />
+          <View>
+            <TextInput
+              style={styles.input}
+              label={<Text style={{ fontSize: scale(14) }}>Password</Text>}
+              value={password}
+              secureTextEntry={!isVisible}
+              onChangeText={e => onChangeTextInput('password', e)}
+              left={
+                <TextInput.Icon
+                  size={scale(18)}
+                  style={{ marginLeft: moderateScale(8) }}
+                  name={'lock'}
+                />
+              }
+              right={
+                <TextInput.Icon
+                  onPress={() => setVisible(previousState => !previousState)}
+                  name={isVisible ? 'eye-off-outline' : 'eye'}
+                  size={scale(12)}
+                  style={{ marginRight: 20 }}
+                />
+              }
             />
           </View>
-        )}
 
-        <View style={styles.authArea}>
-          <View style={styles.authArea}>
-            <View style={styles.forgotPass}>
-              <TouchableHighlight
-                onPress={() => setDisplayForgotPasswordReset(true)}>
-                <Text style={styles.pText}>{t('forgot_password')}</Text>
-              </TouchableHighlight>
-
-              <View style={styles.thumbContainer}>
-                <Text style={[styles.pText, { marginRight: scale(5) }]}>
-                  {t('save_login')}
-                </Text>
-                <Toggle checked={isEnabled} onChange={toggleSwitch} />
-              </View>
-            </View>
-            {(supportTouch || supportedFaceId) && (
-              <View style={styles.alternativeLogin}>
-                <Text style={{ color: APP_COLOR }}>{t('or_signin_using')}</Text>
-                <View style={{ flexDirection: 'row' }}>
-                  <View style={styles.altLoginBtn}>
-                    <Button
-                      onPress={biometricLogin}
-                      contentStyle={styles.btnContent}
-                      mode="outlined">
-                      <MatIcon size={25} name={'face-recognition'} />
-                    </Button>
-                  </View>
-                </View>
-              </View>
-            )}
-          </View>
-
-          <View style={styles.footer}>
-            <Stack size={scale(4)} />
-
+          <View style={styles.forgotPass}>
             <TouchableHighlight
-              onPress={() => getLatestAppInfo(t('faqs'), 'faqs')}>
-              <Text style={styles.bText}>{t('faqs')}</Text>
+              onPress={() => setDisplayForgotPasswordReset(true)}>
+              <Text style={styles.pText}>{t('forgot_password')}</Text>
             </TouchableHighlight>
 
-            <Stack size={scale(4)} />
+            <View style={styles.thumbContainer}>
+              <Text style={[styles.pText, { marginRight: scale(5) }]}>
+                {t('save_login')}
+              </Text>
+              <Toggle checked={isEnabled} onChange={toggleSwitch} />
+            </View>
+          </View>
+          {(supportTouch || supportedFaceId) && (
+            <View style={styles.alternativeLogin}>
+              <Text style={{ color: APP_COLOR }}>{t('or_signin_using')}</Text>
+              <View style={{ flexDirection: 'row' }}>
+                <View style={styles.altLoginBtn}>
+                  <Button
+                    onPress={biometricLogin}
+                    contentStyle={styles.btnContent}
+                    mode="outlined">
+                    <MatIcon size={25} name={'face-recognition'} />
+                  </Button>
+                </View>
+              </View>
+            </View>
+          )}
 
-            <LanguageSelector />
-            <Stack size={scale(4)} />
+          <Stack size={scale(30)} />
+
+          <View style={styles.authArea}>
+            <AppButton
+              title={t('sign_in')}
+              color={APP_COLOR}
+              containerStyle={styles.btnContainer}
+              textStyle={styles.btnText}
+              onPress={onLogin}
+            />
+
+            <Stack size={scale(6)} />
+
+            <AppButton
+              title={t('go_to_registration')}
+              color={APP_COLOR}
+              containerStyle={styles.btnContainer}
+              textStyle={styles.btnText}
+              onPress={() => setDisplayCreateMemberAccount(true)}
+            />
+            <Stack size={scale(30)} />
           </View>
 
-          <ForgotPasswordReset
-            displayPanel={displayForgotPasswordReset}
-            onPanelDismiss={() => setDisplayForgotPasswordReset(false)}
-          />
+          {loading && (
+            <View style={styles.loadingView}>
+              <Spinner
+                isVisible={loading}
+                size={50}
+                type={'ThreeBounce'}
+                color={APP_COLOR}
+              />
+            </View>
+          )}
 
-          <CreateMemberAccount
-            displayPanel={displayCreateMemberAccount}
-            onPanelDismiss={() => setDisplayCreateMemberAccount(false)}
-          />
+          <View style={styles.authArea}>
+            <View style={styles.footer}>
+              <Stack size={scale(6)} />
 
-          <FullScreenPanel
-            isHTML={panelDetails.isHTML}
-            displayPanel={panelDetails.panelVisible}
-            panelHeader={panelDetails.header}
-            panelBody={panelDetails.body}
-            onPanelDismiss={onPanelDismiss}
-          />
-        </View>
+              <TouchableHighlight
+                onPress={() => getLatestAppInfo(t('faqs'), 'faqs')}>
+                <Text style={styles.bText}>{t('faqs')}</Text>
+              </TouchableHighlight>
+              <LanguageSelector />
+              <Stack size={scale(6)} />
+            </View>
+
+            <ForgotPasswordReset
+              displayPanel={displayForgotPasswordReset}
+              onPanelDismiss={() => setDisplayForgotPasswordReset(false)}
+            />
+
+            <CreateMemberAccount
+              displayPanel={displayCreateMemberAccount}
+              onPanelDismiss={() => setDisplayCreateMemberAccount(false)}
+            />
+
+            <FullScreenPanel
+              isHTML={panelDetails.isHTML}
+              displayPanel={panelDetails.panelVisible}
+              panelHeader={panelDetails.header}
+              panelBody={panelDetails.body}
+              onPanelDismiss={onPanelDismiss}
+            />
+          </View>
+        </Inset>
       </View>
     </KeyboardAvoidingView>
   );
