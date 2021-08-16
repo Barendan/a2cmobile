@@ -14,7 +14,7 @@ import styles from './steps/styles';
 
 // styles
 import { APP_COLOR } from '_styles/colors';
-import { scale, verticalScale } from 'react-native-size-matters';
+import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
 
 const ForgotPasswordReset = props => {
   const { t } = useTranslation();
@@ -68,14 +68,13 @@ const ForgotPasswordReset = props => {
           <>
             <CloseButton onPress={onPanelDismiss} />
 
-            <Inset all={scale(16)}>
+            <Inset all={moderateScale(16)}>
               <View style={styles.titleWrapper}>
                 <Text style={styles.title}>{t('forgot_password')}</Text>
               </View>
-              <Stack size={scale(12)} />
 
               <ProgressBar
-                small={scale(30)}
+                radius={30}
                 currentStep={currentStep}
                 stepCount={steps.length}
                 title={steps[currentStep - 1].name}
@@ -84,21 +83,18 @@ const ForgotPasswordReset = props => {
                   t('go_to_next') + ': ' + steps[currentStep].name
                 }
               />
-              <Stack size={scale(12)} />
-
               <Divider />
-              <Stack size={scale(12)} />
-              {/* <ScrollView showsVerticalScrollIndicator={false} style={{backgroundColor:'green'}}> */}
-              <View style={styles.mainContainer}>
-                <AnimatedMultistep
-                  steps={steps}
-                  onFinish={finish}
-                  onBack={onBack}
-                  onNext={onNext}
-                />
-              </View>
 
-              {/* </ScrollView> */}
+              <Inset all={moderateScale(16)}>
+                <View style={styles.mainContainer}>
+                  <AnimatedMultistep
+                    steps={steps}
+                    onFinish={finish}
+                    onBack={onBack}
+                    onNext={onNext}
+                  />
+                </View>
+              </Inset>
             </Inset>
           </>
         )}

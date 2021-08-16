@@ -34,54 +34,52 @@ const Step1 = ({ next, saveState }) => {
   }, [memberLogin]);
 
   return (
-    <KeyboardAwareScrollView>
-      <View style={[styles.container]}>
-        <ScrollView
-          showsVerticalScrollIndicator={false}
-          style={styles.formContainer}>
-          <View style={[{ alignItems: 'flex-start', width: '85%' }]}>
-            <Text style={{ marginBottom: '5%', fontSize: scale(10) }}>
-              {t('login_options_text')}
-            </Text>
-          </View>
-
-          <Input
-            style={[styles.input]}
-            onChangeText={text => passwordResetLogin(text)}
-            value={loginMethod.login}
-            label={() => (
-              <Text style={styles.inputLabel}>{t('login') + '*'}</Text>
-            )}
-            placeholder={t('login')}
-            textStyle={styles.inputText}
-          />
-        </ScrollView>
-
-        <Text style={styles.errorMessage}>{errorMessage}</Text>
-        {loading && (
-          <View style={styles.loadingView}>
-            <Spinner
-              isVisible={loading}
-              size={50}
-              type={'ThreeBounce'}
-              color={APP_COLOR}
-            />
-          </View>
-        )}
-
-        <Stack size={scale(12)} />
-        <View style={styles.footer}>
-          <Button
-            title={t('continue')}
-            size="large"
-            style={styles.forwardButton}
-            disabled={disableNextButton || loading}
-            onPress={onValidateMemberLogin}>
-            {t('continue')}
-          </Button>
+    // <KeyboardAwareScrollView>
+    <View style={[styles.container]}>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        style={styles.formContainer}>
+        <View style={[{ alignItems: 'flex-start', width: '85%' }]}>
+          <Text style={{ marginBottom: '5%', fontSize: scale(10) }}>
+            {t('login_options_text')}
+          </Text>
         </View>
+
+        <Input
+          style={[styles.input]}
+          onChangeText={text => passwordResetLogin(text)}
+          value={loginMethod.login}
+          label={() => (
+            <Text style={styles.inputLabel}>{t('login') + '*'}</Text>
+          )}
+          placeholder={t('login')}
+          textStyle={styles.inputText}
+        />
+      </ScrollView>
+
+      <Text style={styles.errorMessage}>{errorMessage}</Text>
+      {loading && (
+        <View style={styles.loadingView}>
+          <Spinner
+            isVisible={loading}
+            size={50}
+            type={'ThreeBounce'}
+            color={APP_COLOR}
+          />
+        </View>
+      )}
+
+      <View style={styles.footer}>
+        <Button
+          title={t('continue')}
+          style={styles.forwardButton}
+          disabled={disableNextButton || loading}
+          onPress={onValidateMemberLogin}>
+          <Text style={{ fontSize: moderateScale(16) }}>{t('continue')}</Text>
+        </Button>
       </View>
-    </KeyboardAwareScrollView>
+    </View>
+    // </KeyboardAwareScrollView>
   );
 };
 

@@ -5,6 +5,8 @@ import { useTranslation } from 'react-i18next';
 import Spinner from 'react-native-spinkit';
 import { APP_COLOR } from '_styles/colors';
 import { Stack } from 'react-native-spacing-system';
+import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
+
 import styles from './styles';
 import { useAccountMethods } from '_hooks';
 import HTML from 'react-native-render-html';
@@ -63,18 +65,27 @@ const Step3 = ({ getState }) => {
           textStyle={styles.inputText}
         />
 
-        <HTML
+        {/* <HTML
           source={{ html: t('password_requirements') }}
           contentWidth={contentWidth}
-        />
+        /> */}
+        <Stack size={scale(12)} />
+
+        <Text
+          style={{
+            fontSize: moderateScale(12),
+          }}>
+          {t('password_requirements')}
+        </Text>
 
         <List.Item
+          style={{ paddingBottom: 0 }}
           title={t('eight_characters_minimum')}
           titleStyle={styles.listItemTitle}
           left={props => (
             <Avatar.Icon
               {...props}
-              size={30}
+              size={scale(20)}
               color={
                 passwordRequirements.eightCharactersMinimum
                   ? SUCCESS
@@ -87,12 +98,13 @@ const Step3 = ({ getState }) => {
         />
 
         <List.Item
+          style={{ paddingBottom: 0 }}
           title={t('password_one_uppercase')}
           titleStyle={styles.listItemTitle}
           left={props => (
             <Avatar.Icon
               {...props}
-              size={30}
+              size={scale(20)}
               color={
                 passwordRequirements.oneUppercaseLetter ? SUCCESS : GRAY_LIGHT
               }
@@ -103,12 +115,13 @@ const Step3 = ({ getState }) => {
         />
 
         <List.Item
+          style={{ paddingBottom: 0 }}
           title={t('password_one_lowercase')}
           titleStyle={styles.listItemTitle}
           left={props => (
             <Avatar.Icon
               {...props}
-              size={30}
+              size={scale(20)}
               color={
                 passwordRequirements.oneLowercaseLetter ? SUCCESS : GRAY_LIGHT
               }
@@ -119,12 +132,13 @@ const Step3 = ({ getState }) => {
         />
 
         <List.Item
+          style={{ paddingBottom: 0 }}
           title={t('password_one_number')}
           titleStyle={styles.listItemTitle}
           left={props => (
             <Avatar.Icon
               {...props}
-              size={30}
+              size={scale(20)}
               color={passwordRequirements.oneNumber ? SUCCESS : GRAY_LIGHT}
               icon={'check-circle'}
               style={styles.optionsIcon}
@@ -133,12 +147,13 @@ const Step3 = ({ getState }) => {
         />
 
         <List.Item
+          style={{ paddingBottom: 0 }}
           title={t('password_one_special_symbol')}
           titleStyle={styles.listItemTitle}
           left={props => (
             <Avatar.Icon
               {...props}
-              size={30}
+              size={scale(20)}
               color={
                 passwordRequirements.oneSpecialSymbol ? SUCCESS : GRAY_LIGHT
               }
@@ -161,15 +176,14 @@ const Step3 = ({ getState }) => {
         </View>
       )}
 
-      <Stack size={12} />
       <View style={styles.footer}>
         <Button
-          title={t('validate')}
-          size="large"
           style={styles.forwardButton}
           disabled={disableNextButton || loading}
           onPress={() => updatePassword(memberLogin)}>
-          {t('update_password')}
+          <Text style={{ fontSize: moderateScale(16) }}>
+            {t('update_password')}
+          </Text>
         </Button>
       </View>
     </View>
