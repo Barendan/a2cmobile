@@ -80,7 +80,6 @@ export default StyleSheet.create({
     alignItems: 'center',
   },
   input: {
-    // fontSize: scale(14),
     height: verticalScale(44),
     paddingLeft: moderateScale(6),
     backgroundColor: WHITE,

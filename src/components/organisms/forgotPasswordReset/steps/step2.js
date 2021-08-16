@@ -5,6 +5,8 @@ import { useTranslation } from 'react-i18next';
 import Spinner from 'react-native-spinkit';
 import { APP_COLOR } from '_styles/colors';
 import { Stack } from 'react-native-spacing-system';
+import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
+
 import styles from './styles';
 import { OTPInput } from '_atoms';
 import { useAccountMethods } from '_hooks';
@@ -227,32 +229,27 @@ const Step2 = ({ back, next, getState, saveState }) => {
 
       <Stack size={12} />
       <View style={styles.footer}>
-        <Button
-          title={t('back_button')}
-          size="large"
-          appearance="outline"
-          style={styles.backButton}
-          disabled={loading}
-          onPress={goBack}>
-          {t('back_button')}
+        <Button appearance="outline" style={styles.backButton} onPress={goBack}>
+          <Text style={{ fontSize: moderateScale(16) }}>
+            {t('back_button')}
+          </Text>
         </Button>
+
         {showValidate ? (
           <Button
-            title={t('validate_temp_code')}
-            size="large"
-            style={styles.forwardButton}
             disabled={randomGenerateCode.length === 0}
+            style={styles.forwardButton}
             onPress={onValidateTemporaryCode}>
-            {t('validate_temp_code')}
+            <Text style={{ fontSize: moderateScale(16) }}>
+              {t('validate_temp_code')}
+            </Text>
           </Button>
         ) : (
           <Button
-            title="Validate"
-            size="large"
-            style={styles.forwardButton}
             disabled={disableSecurityAnswerButton || loading}
+            style={styles.forwardButton}
             onPress={onValidateSecurityAnswers}>
-            {t('continue')}
+            <Text style={{ fontSize: moderateScale(16) }}>{t('continue')}</Text>
           </Button>
         )}
       </View>

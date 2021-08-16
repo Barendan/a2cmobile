@@ -50,7 +50,7 @@ const CreateMemberAccount = props => {
         <>
           <CloseButton onPress={onPanelDismiss} />
 
-          <Inset all={16}>
+          <Inset all={moderateScale(16)}>
             <View style={styles.titleWrapper}>
               <Text style={styles.title}>{t('go_to_registration')}</Text>
             </View>
@@ -65,10 +65,7 @@ const CreateMemberAccount = props => {
                 t('go_to_next') + ': ' + steps[currentStep].name
               }
             />
-            {/* <Stack size={12} /> */}
-
             <Divider />
-            {/* <Stack size={12} /> */}
 
             <View style={styles.mainContainer}>
               <AnimatedMultistep

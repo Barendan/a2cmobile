@@ -21,7 +21,7 @@ export default StyleSheet.create({
     marginBottom: scale(50),
   },
   mainContainer: {
-    height: Platform.OS === 'ios' ? '80%' : '75%',
+    height: Platform.OS === 'ios' ? '80%' : '90%',
   },
   formContainer: {
     width: '100%',
@@ -30,7 +30,7 @@ export default StyleSheet.create({
     flex: 1,
   },
   container: {
-    height: '95%',
+    height: '78%',
     alignItems: 'center',
   },
   footer: {
@@ -40,13 +40,14 @@ export default StyleSheet.create({
     flexDirection: 'row',
   },
   backButton: {
-    height: verticalScale(40),
-    marginRight: scale(5),
+    marginRight: moderateScale(5),
+    height: moderateScale(45),
+    paddingHorizontal: moderateScale(14),
     borderRadius: 30,
   },
   forwardButton: {
     flex: 1,
-    height: verticalScale(40),
+    height: moderateScale(45),
     borderColor: '#F5F5F5',
     borderRadius: 30,
   },
@@ -64,22 +65,19 @@ export default StyleSheet.create({
   },
   listItemTitle: {
     fontWeight: 'bold',
-    fontSize: scale(14),
+    fontSize: scale(10),
   },
   optionsIcon: {
     backgroundColor: 'transparent',
-    marginLeft: scale(5),
   },
   nameGreeting: {
-    marginBottom: '5%',
+    marginBottom: '6%',
     fontSize: scale(12),
   },
   input: {
-    // width: '90%',
-    height: verticalScale(30),
     borderWidth: scale(1),
     borderRadius: scale(1),
-    marginBottom: '7%',
+    marginBottom: moderateScale(10),
     alignSelf: 'center',
   },
   inputText: {
