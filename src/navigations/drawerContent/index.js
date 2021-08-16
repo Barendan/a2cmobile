@@ -249,8 +249,8 @@ export function DrawerContent({ navigation }) {
               containerStyle={styles.containerStyle}
               iconStyle={{
                 backgroundColor: 'white',
-                marginLeft: moderateScale(10),
-                marginTop: scale(-2),
+                marginLeft: moderateScale(6),
+                marginTop: moderateScale(-6),
               }}
             />
           </Drawer.Section>
@@ -329,11 +329,13 @@ const styles = StyleSheet.create({
     marginTop: 15,
   },
   containerStyle: {
-    height: moderateScale(50),
+    height: moderateScale(30),
     marginVertical: verticalScale(6),
   },
   preference: {
-    width: '50%',
+    // width: '50%',
+    fontSize: moderateScale(13),
+    marginLeft: moderateScale(-2),
   },
   signOutContainer: {
     fontWeight: 'bold',
