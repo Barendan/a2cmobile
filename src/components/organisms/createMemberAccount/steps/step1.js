@@ -1,12 +1,11 @@
 import React from 'react';
 import { View, Text, ScrollView } from 'react-native';
+import { Input, Button } from '@ui-kitten/components';
 import { useTranslation } from 'react-i18next';
 import Spinner from 'react-native-spinkit';
-import { Stack } from 'react-native-spacing-system';
-import { Input, Button } from '@ui-kitten/components';
+import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
 
 import { useAccountMethods } from '_hooks';
-
 import { APP_COLOR } from '_styles/colors';
 import styles from './styles';
 
@@ -98,15 +97,12 @@ const Step1 = ({ next, saveState, getState }) => {
         </View>
       )}
 
-      <Stack size={12} />
       <View style={styles.footer}>
         <Button
-          title={t('validate')}
-          size="large"
           style={styles.forwardButton}
           disabled={disableNextButton || loading}
           onPress={onValidateMemberInfo}>
-          {t('validate')}
+          <Text style={{ fontSize: moderateScale(16) }}>{t('validate')}</Text>
         </Button>
       </View>
     </View>

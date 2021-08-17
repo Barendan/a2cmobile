@@ -22,16 +22,16 @@ export default StyleSheet.create({
     marginBottom: moderateScale(50),
   },
   mainContainer: {
-    height: Platform.OS === 'ios' ? '80%' : '75%',
+    height: Platform.OS === 'ios' ? '80%' : '88%',
   },
   formContainer: {
     width: '100%',
-    marginTop: '5%',
+    marginTop: Platform.OS === 'ios' ? '6%' : '3%',
     backgroundColor: '#FFFFFF',
     flex: 1,
   },
   container: {
-    height: '90%',
+    height: '78%',
     alignItems: 'center',
   },
   footer: {
@@ -41,12 +41,14 @@ export default StyleSheet.create({
     flexDirection: 'row',
   },
   backButton: {
-    height: 40,
-    marginRight: 5,
+    marginRight: moderateScale(5),
+    height: moderateScale(45),
+    paddingHorizontal: moderateScale(14),
     borderRadius: 30,
   },
   forwardButton: {
     flex: 1,
+    height: moderateScale(45),
     borderColor: '#F5F5F5',
     borderRadius: 30,
   },
@@ -89,7 +91,7 @@ export default StyleSheet.create({
     fontWeight: '500',
   },
   input: {
-    width: '90%',
+    // width: '95%',
     height: verticalScale(40),
     borderWidth: 2,
     borderRadius: 2,

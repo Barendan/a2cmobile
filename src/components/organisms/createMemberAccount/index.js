@@ -67,14 +67,16 @@ const CreateMemberAccount = props => {
             />
             <Divider />
 
-            <View style={styles.mainContainer}>
-              <AnimatedMultistep
-                steps={steps}
-                onFinish={finish}
-                onBack={onBack}
-                onNext={onNext}
-              />
-            </View>
+            <Inset all={moderateScale(16)}>
+              <View style={styles.mainContainer}>
+                <AnimatedMultistep
+                  steps={steps}
+                  onFinish={finish}
+                  onBack={onBack}
+                  onNext={onNext}
+                />
+              </View>
+            </Inset>
           </Inset>
         </>
       </DraggablePanel>
