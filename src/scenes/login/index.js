@@ -266,6 +266,7 @@ const LoginScreen = () => {
           </View>
         </View>
 
+        <Stack size={scale(20)} />
         <Inset all={scale(12)}>
           <View>
             <TextInput
@@ -295,7 +296,7 @@ const LoginScreen = () => {
               </HelperText>
             ) : null}
           </View>
-          <Stack size={scale(6)} />
+          <Stack size={scale(10)} />
           <View>
             <TextInput
               style={styles.input}
@@ -361,7 +362,7 @@ const LoginScreen = () => {
               onPress={onLogin}
             />
 
-            <Stack size={scale(6)} />
+            <Stack size={scale(10)} />
 
             <AppButton
               title={t('go_to_registration')}
@@ -370,7 +371,7 @@ const LoginScreen = () => {
               textStyle={styles.btnText}
               onPress={() => setDisplayCreateMemberAccount(true)}
             />
-            <Stack size={scale(30)} />
+            <Stack size={scale(50)} />
           </View>
 
           {loading && (
