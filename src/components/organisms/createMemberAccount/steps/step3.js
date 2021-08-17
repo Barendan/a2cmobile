@@ -222,15 +222,14 @@ const Step3 = ({ getState }) => {
         </View>
       )}
 
-      {/* <Stack size={6} /> */}
       <View style={styles.footer}>
         <Button
-          title={t('validate')}
-          size="large"
           style={styles.forwardButton}
           disabled={disableNextButton || loading}
           onPress={() => registerUser(memberRecord, memberLogin)}>
-          {t('complete_registration')}
+          <Text style={{ fontSize: moderateScale(16) }}>
+            {t('complete_registration')}
+          </Text>
         </Button>
       </View>
 

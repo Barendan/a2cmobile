@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, ScrollView, TouchableHighlight } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { Button, Input, Radio, RadioGroup } from '@ui-kitten/components';
+import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
 import Spinner from 'react-native-spinkit';
 
 import { OTPInput } from '_atoms';
@@ -61,9 +62,7 @@ const Step2 = ({ back, next, getState, saveState }) => {
             </Text>
           )}
 
-          <Stack size={12} />
-
-          <Text style={styles.nameGreeting}>{t('login_option')}</Text>
+          <Text style={{ fontSize: scale(10) }}>{t('login_option')}</Text>
 
           <View style={styles.radioGroup}>
             <RadioGroup
@@ -188,34 +187,31 @@ const Step2 = ({ back, next, getState, saveState }) => {
         </View>
       )}
 
-      <Stack size={12} />
       <View style={styles.footer}>
         <Button
-          title={t('back_button')}
-          size="large"
           appearance="outline"
           style={styles.backButton}
           disabled={loading}
           onPress={goBack}>
-          {t('back_button')}
+          <Text style={{ fontSize: moderateScale(16) }}>
+            {t('back_button')}
+          </Text>
         </Button>
         {showValidate ? (
           <Button
-            title={t('validate_temp_code')}
-            size="large"
             style={styles.forwardButton}
             disabled={randomGenerateCode.length === 0}
             onPress={onValidateTemporaryCode}>
-            {t('validate_temp_code')}
+            <Text style={{ fontSize: moderateScale(16) }}>
+              {t('validate_temp_code')}
+            </Text>
           </Button>
         ) : (
           <Button
-            title="Validate"
-            size="large"
             style={styles.forwardButton}
             disabled={disableNextButton || loading}
             onPress={onSendTempPassCode}>
-            {t('continue')}
+            <Text style={{ fontSize: moderateScale(16) }}>{t('continue')}</Text>
           </Button>
         )}
       </View>
