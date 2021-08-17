@@ -34,6 +34,7 @@ export default StyleSheet.create({
     flexWrap: 'wrap-reverse',
     alignItems: 'center',
     margin: moderateScale(4),
+    marginBottom: 0,
   },
   alternativeLogin: {
     justifyContent: 'center',
@@ -82,6 +83,7 @@ export default StyleSheet.create({
   input: {
     height: verticalScale(44),
     paddingLeft: moderateScale(6),
+    fontSize: scale(12),
     backgroundColor: WHITE,
     borderColor: GREY,
     borderWidth: scale(1),
