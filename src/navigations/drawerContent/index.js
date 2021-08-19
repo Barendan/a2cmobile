@@ -292,14 +292,14 @@ const styles = StyleSheet.create({
     paddingLeft: 20,
   },
   title: {
-    marginTop: Platform.OS === 'ios' ? 20 : 10,
+    marginTop: Platform.OS === 'ios' ? moderateScale(22) : moderateScale(12),
     fontWeight: 'bold',
     fontSize: moderateScale(18),
   },
   subTitle: {
     fontSize: moderateScale(15),
     marginVertical: verticalScale(10),
-    fontWeight: 'bold',
+    // fontWeight: 'bold',
   },
   caption: {
     fontSize: moderateScale(14),
@@ -346,8 +346,8 @@ const styles = StyleSheet.create({
   signOutTitle: {
     fontWeight: 'bold',
     color: '#ab263e',
-    fontSize: moderateScale(14),
-    lineHeight: moderateScale(14),
+    fontSize: moderateScale(15),
+    lineHeight: moderateScale(15),
   },
   image: {
     flex: 1,
@@ -363,7 +363,7 @@ const styles = StyleSheet.create({
   },
   navItem: {
     // color: '#000',
-    fontSize: moderateScale(12),
+    fontSize: moderateScale(13),
     // paddingBottom: '0.5%',
   },
 });
