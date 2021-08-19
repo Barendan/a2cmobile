@@ -67,7 +67,7 @@ const RequestNewTrip = props => {
           <View style={styles.loadingView}>
             <Spinner
               isVisible={isLoading}
-              size={50}
+              size={scale}
               type={'ThreeBounce'}
               color={APP_COLOR}
             />
@@ -79,11 +79,10 @@ const RequestNewTrip = props => {
           <>
             <CloseButton onPress={onPanelDismiss} />
 
-            <Inset all={scale(16)}>
+            <Inset all={moderateScale(16)}>
               <View style={styles.titleWrapper}>
                 <Text style={styles.title}>{t('request_new_trip')}</Text>
               </View>
-              <Stack size={12} />
 
               <ProgressBar
                 radius={30}
@@ -96,9 +95,9 @@ const RequestNewTrip = props => {
                 }
               />
               <Stack size={12} />
-
               <Divider />
-              <Stack size={12} />
+
+              <Stack size={moderateScale(12)} />
               <View style={styles.mainContainer}>
                 <AnimatedMultistep
                   steps={steps}

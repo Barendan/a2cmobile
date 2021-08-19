@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
   title: {
     fontWeight: 'bold',
     color: '#366999',
-    fontSize: moderateScale(20),
+    fontSize: scale(18),
     marginBottom: moderateScale(10),
   },
   body: {
@@ -46,6 +46,7 @@ const styles = StyleSheet.create({
     borderColor: 'black',
     borderStyle: 'solid',
     borderWidth: 1,
+    marginLeft: moderateScale(-2),
   },
 });
 
@@ -97,7 +98,7 @@ const LocationSearchPanel = props => {
           <View style={styles.titleWrapper}>
             <Text style={styles.title}>{panelHeader}</Text>
           </View>
-          <Stack size={scale(12)} />
+          <Stack size={moderateScale(12)} />
 
           <View style={styles.content} keyboardShouldPersistTaps={'handled'}>
             <LocationService.googlePlacesAutoInput
@@ -118,12 +119,12 @@ const LocationSearchPanel = props => {
                 titleStyle={{
                   color: BLUE,
                   fontSize: moderateScale(12),
-                  marginLeft: moderateScale(-10),
+                  marginLeft: moderateScale(-14),
                 }}
                 left={props => (
                   <Avatar.Icon
                     {...props}
-                    size={scale(12)}
+                    size={moderateScale(16)}
                     icon="crosshairs-gps"
                     color="black"
                     style={styles.locationIcon}
@@ -131,33 +132,56 @@ const LocationSearchPanel = props => {
                 )}
               />
               <Divider />
-              <Stack size={scale(12)} />
             </View>
           </TouchableHighlight>
 
           {savedLocations && savedLocations.length > 0 && (
             <ScrollView
-              style={styles.bodyWrapper}
+              // style={styles.bodyWrapper}
               showsVerticalScrollIndicator={false}>
               {savedLocations.map(currentLocation => (
                 <TouchableHighlight
                   onPress={() => onPlaceSelected(currentLocation.address)}>
                   <View>
                     <Card.Title
-                      style={{ backgroundColor: 'white' }}
-                      title={currentLocation.name}
+                      style={{
+                        backgroundColor: 'white',
+                        paddingVertical: moderateScale(16),
+                      }}
+                      title={
+                        <Text
+                          style={{
+                            fontSize: moderateScale(18),
+                            color: 'black',
+                          }}>
+                          {currentLocation.name}
+                        </Text>
+                      }
                       subtitle={currentLocation.address.FormattedAddress}
+                      subtitle={
+                        <Text
+                          style={{
+                            fontSize: moderateScale(12),
+                            color: 'gray',
+                          }}>
+                          {currentLocation.address.FormattedAddress}
+                        </Text>
+                      }
                       left={props => (
                         <Avatar.Icon
                           {...props}
                           icon="map-marker"
                           color="black"
-                          style={styles.locationIcon}
+                          size={moderateScale(30)}
+                          style={[
+                            styles.locationIcon,
+                            { marginLeft: moderateScale(-6) },
+                          ]}
                         />
                       )}
                     />
                     <Divider />
-                    <Stack size={scale(12)} />
+                    <Stack size={moderateScale(16)} />
                   </View>
                 </TouchableHighlight>
               ))}

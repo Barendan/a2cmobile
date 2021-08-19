@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
   },
   checkBoxHolder: {
     justifyContent: 'center',
-    // padding: moderateScale(10),
+    padding: moderateScale(8),
   },
   requiredCard: {
     borderColor: 'red',
@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
   },
   title: {
-    fontSize: moderateScale(14),
+    fontSize: moderateScale(16),
   },
 });
 

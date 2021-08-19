@@ -1,12 +1,11 @@
 import React from 'react';
 import { View, Animated, Text } from 'react-native';
 import { Button } from '@ui-kitten/components';
-import { useTranslation } from 'react-i18next';
+import { Stack } from 'react-native-spacing-system';
 import LottieView from 'lottie-react-native';
+import { scale, moderateScale } from 'react-native-size-matters';
 
 import styles from './styles';
-import { APP_COLOR } from '_styles/colors';
-import { Stack } from 'react-native-spacing-system';
 
 const StepsCompleted = props => {
   const { title, subtitle, onPress, buttonText } = props;
@@ -30,21 +29,17 @@ const StepsCompleted = props => {
           autoPlay
           loop={true}
         />
-        <Stack size={12} />
+        <Stack size={scale(12)} />
 
         <Text style={styles.title}>{title}</Text>
         <Text style={styles.body}>{subtitle}</Text>
       </View>
 
-      <Stack size={12} />
+      <Stack size={scale(12)} />
 
       <View style={styles.footer}>
-        <Button
-          title={buttonText}
-          size="large"
-          style={styles.forwardButton}
-          onPress={onPress}>
-          {buttonText}
+        <Button style={styles.forwardButton} onPress={onPress}>
+          <Text style={{ fontSize: moderateScale(16) }}>{buttonText}</Text>
         </Button>
       </View>
     </View>

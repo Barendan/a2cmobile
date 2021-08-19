@@ -67,7 +67,7 @@ export default StyleSheet.create({
   forwardButton: {
     flex: 1,
     height: moderateScale(45),
-    marginHorizontal: moderateScale(6),
+    marginHorizontal: moderateScale(12),
     borderColor: '#F5F5F5',
     borderRadius: 30,
   },
