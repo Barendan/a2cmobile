@@ -4,9 +4,7 @@ import {
   Text,
   TouchableHighlight,
   StyleSheet,
-  ScrollView,
   Animated,
-  KeyboardAvoidingView,
   Platform,
 } from 'react-native';
 import { Avatar, List } from 'react-native-paper';
@@ -16,13 +14,8 @@ import PropTypes from 'prop-types';
 import { Inset, Stack } from 'react-native-spacing-system';
 import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
 
-//organism
 import { LocationSearchPanel } from '_organisms';
-
-//helpers
 import { LocationService } from '_helpers';
-
-// styles
 import {
   GRAY_DARK,
   START_LOCATION_COLOR,
@@ -215,8 +208,6 @@ const LocationSearchCard = props => {
                       icon
                         ? {
                             backgroundColor: iconColor,
-                            // marginVertical: moderateScale(50),
-                            // marginTop: 30,
                           }
                         : stopStyle(locationIndex)
                     }

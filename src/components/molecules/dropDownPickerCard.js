@@ -52,10 +52,10 @@ const styles = StyleSheet.create({
     color: BLUE,
   },
   title: {
-    fontSize: moderateScale(14),
+    fontSize: moderateScale(16),
   },
   subtitle: {
-    fontSize: moderateScale(10),
+    fontSize: moderateScale(12),
   },
   requiredCard: {
     borderColor: 'red',

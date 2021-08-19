@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
   },
   title: {
-    fontSize: moderateScale(14),
+    fontSize: moderateScale(16),
   },
 });
 

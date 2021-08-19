@@ -354,6 +354,16 @@ const LoginScreen = () => {
           <Stack size={scale(30)} />
 
           <View style={styles.authArea}>
+            {loading && (
+              <View style={styles.loadingView}>
+                <Spinner
+                  isVisible={loading}
+                  size={scale(30)}
+                  type={'ThreeBounce'}
+                  color={APP_COLOR}
+                />
+              </View>
+            )}
             <AppButton
               title={t('sign_in')}
               color={APP_COLOR}
@@ -373,17 +383,6 @@ const LoginScreen = () => {
             />
             <Stack size={scale(50)} />
           </View>
-
-          {loading && (
-            <View style={styles.loadingView}>
-              <Spinner
-                isVisible={loading}
-                size={50}
-                type={'ThreeBounce'}
-                color={APP_COLOR}
-              />
-            </View>
-          )}
 
           <View style={styles.authArea}>
             <View style={styles.footer}>

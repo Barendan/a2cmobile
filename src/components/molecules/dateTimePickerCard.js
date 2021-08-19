@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
     fontSize: moderateScale(16),
   },
   title: {
-    fontSize: moderateScale(14),
+    fontSize: moderateScale(16),
   },
   subtitle: {
     fontSize: moderateScale(10),
