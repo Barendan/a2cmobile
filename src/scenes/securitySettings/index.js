@@ -163,11 +163,11 @@ const SecuritySettings = () => {
   };
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{ backgroundColor: 'white' }}>
       <Inset vertical={verticalScale(16)}>
         <DismissKeyboardAwareScrollView>
           <Inset horizontal={verticalScale(16)}>
-            <Text style={{ fontSize: scale(10) }}>
+            <Text style={{ fontSize: moderateScale(16) }}>
               {t('security_questions_text')}
             </Text>
           </Inset>
@@ -175,18 +175,20 @@ const SecuritySettings = () => {
 
           <Spinner
             isVisible={loading}
-            size={50}
+            size={scale(30)}
             type={'ThreeBounce'}
             color={APP_COLOR}
           />
 
-          <View style={{ height: '100%' }}>
+          <View
+            style={{
+              flex: 1,
+              height: verticalScale(480),
+            }}>
             <Layout key={'questionOne'} level="1">
               <Inset
                 horizontal={verticalScale(16)}
-                vertical={verticalScale(16)}>
-                <Stack size={verticalScale(16)} />
-
+                vertical={verticalScale(12)}>
                 <Select
                   label={() => (
                     <Text style={styles.inputLabel}>{t('question_one')}</Text>
@@ -231,7 +233,7 @@ const SecuritySettings = () => {
             <Layout key={'questionTwo'} style={styles.container} level="1">
               <Inset
                 horizontal={verticalScale(16)}
-                vertical={verticalScale(16)}>
+                vertical={verticalScale(12)}>
                 <Select
                   label={() => (
                     <Text style={styles.inputLabel}>{t('question_two')}</Text>
@@ -274,7 +276,7 @@ const SecuritySettings = () => {
             <Layout key={'questionThree'} style={styles.container} level="1">
               <Inset
                 horizontal={verticalScale(16)}
-                vertical={verticalScale(16)}>
+                vertical={verticalScale(12)}>
                 <Select
                   label={() => (
                     <Text style={styles.inputLabel}>{t('question_three')}</Text>
@@ -303,7 +305,7 @@ const SecuritySettings = () => {
                     );
                   })}
                 </Select>
-                <Stack size={verticalScale(10)} />
+                <Stack size={verticalScale(8)} />
                 <Input
                   placeholder={t('question_three_answer')}
                   value={selectedQuestion.questionThreeAnswer}
@@ -317,19 +319,19 @@ const SecuritySettings = () => {
             </Layout>
           </View>
         </DismissKeyboardAwareScrollView>
+
         <View
           style={{
-            backgroundColor: 'white',
-            flex: 1,
+            width: '100%',
             justifyContent: 'flex-end',
+            alignSelf: 'center',
+            flexDirection: 'row',
           }}>
           <Button
-            title={t('update')}
-            size="large"
             style={styles.btn}
             disabled={disableSubmit}
             onPress={updateSecurityQuestion}>
-            {t('update')}
+            <Text style={{ fontSize: moderateScale(16) }}>{t('update')}</Text>
           </Button>
         </View>
       </Inset>
@@ -339,25 +341,26 @@ const SecuritySettings = () => {
 };
 
 const styles = StyleSheet.create({
-  bottom: {
-    flex: 1,
-    justifyContent: 'flex-end',
-    marginBottom: 36,
-  },
   btn: {
-    marginTop: 10,
+    flex: 1,
+    height: moderateScale(45),
+    marginHorizontal: moderateScale(16),
+    borderColor: '#F5F5F5',
+    borderRadius: 30,
+    backgroundColor: APP_COLOR,
   },
   inputText: {
     paddingVertical: moderateScale(2),
-    fontSize: moderateScale(14),
+    fontSize: moderateScale(12),
   },
   inputLabel: {
     color: '#8F9BB3',
     paddingBottom: '0.5%',
+    fontSize: moderateScale(13),
   },
   inputPlaceholder: {
     paddingHorizontal: moderateScale(7),
-    fontSize: moderateScale(14),
+    fontSize: moderateScale(12),
     color: '#8F9BB3',
   },
 });
