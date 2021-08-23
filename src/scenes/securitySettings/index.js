@@ -1,5 +1,6 @@
 import React from 'react';
 import { StyleSheet, SafeAreaView, Text, View } from 'react-native';
+import { Divider } from 'react-native-paper';
 import { Inset, Stack } from 'react-native-spacing-system';
 import { useTranslation } from 'react-i18next';
 import {
@@ -163,7 +164,7 @@ const SecuritySettings = () => {
   };
 
   return (
-    <SafeAreaView style={{ backgroundColor: 'white' }}>
+    <SafeAreaView style={{ backgroundColor: 'white', flex: 1 }}>
       <Inset vertical={verticalScale(16)}>
         <DismissKeyboardAwareScrollView>
           <Inset horizontal={verticalScale(16)}>
@@ -172,6 +173,7 @@ const SecuritySettings = () => {
             </Text>
           </Inset>
           <Stack size={verticalScale(16)} />
+          <Divider />
 
           <Spinner
             isVisible={loading}
@@ -183,7 +185,7 @@ const SecuritySettings = () => {
           <View
             style={{
               flex: 1,
-              height: verticalScale(480),
+              // height: verticalScale(440),
             }}>
             <Layout key={'questionOne'} level="1">
               <Inset
@@ -312,22 +314,28 @@ const SecuritySettings = () => {
               <Stack size={verticalScale(16)} />
             </Layout>
           </View>
-        </DismissKeyboardAwareScrollView>
 
-        <View
-          style={{
-            width: '100%',
-            justifyContent: 'flex-end',
-            alignSelf: 'center',
-            flexDirection: 'row',
-          }}>
-          <Button
-            style={styles.btn}
-            disabled={disableSubmit}
-            onPress={updateSecurityQuestion}>
-            <Text style={{ fontSize: moderateScale(16) }}>{t('update')}</Text>
-          </Button>
-        </View>
+          <View
+            style={{
+              width: '100%',
+              justifyContent: 'flex-end',
+              alignSelf: 'center',
+              flexDirection: 'row',
+            }}>
+            <Button
+              style={styles.btn}
+              disabled={disableSubmit}
+              onPress={updateSecurityQuestion}>
+              <Text
+                style={{
+                  fontSize: moderateScale(16),
+                  lineHeight: moderateScale(18),
+                }}>
+                {t('update')}
+              </Text>
+            </Button>
+          </View>
+        </DismissKeyboardAwareScrollView>
       </Inset>
       <DropdownAlert ref={ref => (this.dropDownAlertRef = ref)} />
     </SafeAreaView>
@@ -337,11 +345,11 @@ const SecuritySettings = () => {
 const styles = StyleSheet.create({
   btn: {
     flex: 1,
-    height: moderateScale(45),
+    height: moderateScale(40),
     marginHorizontal: moderateScale(16),
+    paddingVertical: moderateScale(0),
     borderColor: '#F5F5F5',
     borderRadius: 30,
-    backgroundColor: APP_COLOR,
   },
   inputText: {
     paddingVertical: moderateScale(2),
