@@ -133,6 +133,7 @@ export function DrawerContent({ navigation }) {
             <DrawerItem
               label={() => <Text style={styles.navItem}>{t('dashboard')}</Text>}
               onPress={() => navigation.navigate('Home')}
+              style={{ marginBottom: 0 }}
               icon={() => (
                 <Avatar.Icon
                   size={moderateScale(25)}
@@ -146,6 +147,7 @@ export function DrawerContent({ navigation }) {
               label={() => (
                 <Text style={styles.navItem}>{t('saved_locations')}</Text>
               )}
+              style={{ marginBottom: 0 }}
               onPress={() => navigation.navigate('FavoriteLocations')}
               icon={() => (
                 <Avatar.Icon
@@ -160,6 +162,7 @@ export function DrawerContent({ navigation }) {
               label={() => (
                 <Text style={styles.navItem}>{t('account_settings')}</Text>
               )}
+              style={{ marginBottom: 0 }}
               onPress={() => navigation.navigate('Account')}
               icon={() => (
                 <Avatar.Icon
@@ -174,6 +177,7 @@ export function DrawerContent({ navigation }) {
               label={() => (
                 <Text style={styles.navItem}>{t('security_settings')}</Text>
               )}
+              style={{ marginBottom: 0 }}
               onPress={() => navigation.navigate('Security')}
               icon={() => (
                 <Avatar.Icon
@@ -189,6 +193,7 @@ export function DrawerContent({ navigation }) {
             title={<Text style={styles.sectionHeader}>{t('app_info')}</Text>}>
             <DrawerItem
               label={() => <Text style={styles.navItem}>{t('privacy')}</Text>}
+              style={{ marginBottom: 0 }}
               onPress={() => getLatestAppInfo(t('privacy'), 'privacy')}
               icon={() => (
                 <Avatar.Icon
@@ -201,6 +206,7 @@ export function DrawerContent({ navigation }) {
             />
             <DrawerItem
               label={() => <Text style={styles.navItem}>{t('terms')}</Text>}
+              style={{ marginBottom: 0 }}
               onPress={() => getLatestAppInfo(t('terms'), 'terms')}
               icon={() => (
                 <Avatar.Icon
@@ -213,6 +219,7 @@ export function DrawerContent({ navigation }) {
             />
             <DrawerItem
               label={() => <Text style={styles.navItem}>{t('faqs')}</Text>}
+              style={{ marginBottom: 0 }}
               onPress={() => getLatestAppInfo(t('FAQ_title'), 'faqs')}
               icon={() => (
                 <Avatar.Icon
@@ -249,7 +256,7 @@ export function DrawerContent({ navigation }) {
               containerStyle={styles.containerStyle}
               iconStyle={{
                 backgroundColor: 'white',
-                marginLeft: moderateScale(6),
+                marginLeft: moderateScale(14),
                 marginTop: moderateScale(-6),
               }}
             />
@@ -334,8 +341,8 @@ const styles = StyleSheet.create({
   },
   preference: {
     // width: '50%',
-    fontSize: moderateScale(13),
-    marginLeft: moderateScale(-2),
+    fontSize: moderateScale(14),
+    marginLeft: moderateScale(10),
   },
   signOutContainer: {
     fontWeight: 'bold',
@@ -362,8 +369,6 @@ const styles = StyleSheet.create({
     marginRight: moderateScale(-15),
   },
   navItem: {
-    // color: '#000',
     fontSize: moderateScale(13),
-    // paddingBottom: '0.5%',
   },
 });

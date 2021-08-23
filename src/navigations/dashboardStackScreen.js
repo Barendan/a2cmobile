@@ -26,8 +26,8 @@ const styles = StyleSheet.create({
   header: {
     backgroundColor: APP_COLOR,
     color: WHITE,
-    fontSize: 50,
-    height: verticalScale(40),
+    // fontSize: 50,
+    // height: verticalScale(40),
   },
 });
 
@@ -48,10 +48,10 @@ const Header = ({ scene, previous, navigation }) => {
         onPress={() => {
           navigation.openDrawer();
         }}>
-        <Ionicons name={'menu'} size={moderateScale(40)} color={WHITE} />
+        <Ionicons name={'menu'} size={moderateScale(34)} color={WHITE} />
       </TouchableOpacity>
       <Appbar.Content
-        title={<Text style={{ fontSize: scale(14) }}>{title}</Text>}
+        title={<Text style={{ fontSize: moderateScale(20) }}>{title}</Text>}
       />
     </Appbar.Header>
   );
