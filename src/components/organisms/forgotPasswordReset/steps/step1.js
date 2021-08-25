@@ -2,9 +2,7 @@ import React from 'react';
 import { View, Text, ScrollView } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { Input, Button } from '@ui-kitten/components';
-import { Stack } from 'react-native-spacing-system';
 import Spinner from 'react-native-spinkit';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
 
 import { useAccountMethods } from '_hooks';
@@ -34,13 +32,12 @@ const Step1 = ({ next, saveState }) => {
   }, [memberLogin]);
 
   return (
-    // <KeyboardAwareScrollView>
     <View style={[styles.container]}>
       <ScrollView
         showsVerticalScrollIndicator={false}
         style={styles.formContainer}>
         <View style={[{ alignItems: 'flex-start', width: '85%' }]}>
-          <Text style={{ marginBottom: '5%', fontSize: scale(10) }}>
+          <Text style={{ marginBottom: '5%', fontSize: moderateScale(14) }}>
             {t('login_options_text')}
           </Text>
         </View>
@@ -79,7 +76,6 @@ const Step1 = ({ next, saveState }) => {
         </Button>
       </View>
     </View>
-    // </KeyboardAwareScrollView>
   );
 };
 

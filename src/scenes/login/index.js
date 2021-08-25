@@ -32,7 +32,7 @@ import {
   ForgotPasswordReset,
 } from '_organisms';
 import { AppButton } from '_atoms';
-import { APP_COLOR } from '_styles/colors';
+import { APP_COLOR, BLUE } from '_styles/colors';
 import styles from './styles';
 
 const LoginScreen = () => {
@@ -270,7 +270,7 @@ const LoginScreen = () => {
         <Inset all={scale(12)}>
           <View>
             <TextInput
-              label={<Text style={{ fontSize: scale(14) }}>Login</Text>}
+              label={<Text style={{ fontSize: moderateScale(16) }}>Login</Text>}
               value={email}
               onChangeText={e => onChangeTextInput('email', e)}
               left={
@@ -296,11 +296,11 @@ const LoginScreen = () => {
               </HelperText>
             ) : null}
           </View>
-          <Stack size={scale(10)} />
+          <Stack size={scale(6)} />
           <View>
             <TextInput
               style={styles.input}
-              label={<Text style={{ fontSize: scale(14) }}>Password</Text>}
+              label={<Text style={{ fontSize: scale(16) }}>Password</Text>}
               value={password}
               secureTextEntry={!isVisible}
               onChangeText={e => onChangeTextInput('password', e)}
@@ -329,12 +329,13 @@ const LoginScreen = () => {
             </TouchableHighlight>
 
             <View style={styles.thumbContainer}>
-              <Text style={[styles.pText, { marginRight: scale(5) }]}>
+              <Text style={[styles.pText, { marginRight: moderateScale(5) }]}>
                 {t('save_login')}
               </Text>
               <Toggle checked={isEnabled} onChange={toggleSwitch} />
             </View>
           </View>
+
           {(supportTouch || supportedFaceId) && (
             <View style={styles.alternativeLogin}>
               <Text style={{ color: APP_COLOR }}>{t('or_signin_using')}</Text>
@@ -372,7 +373,7 @@ const LoginScreen = () => {
               onPress={onLogin}
             />
 
-            <Stack size={scale(10)} />
+            <Stack size={scale(4)} />
 
             <AppButton
               title={t('go_to_registration')}

@@ -10,13 +10,14 @@ import { BLUE, GRAY_DARK } from '_styles/colors';
 
 const styles = StyleSheet.create({
   surface: {
-    height: verticalScale(50),
     width: '100%',
-    elevation: 10,
-    borderWidth: 1,
+    height: verticalScale(40),
+    padding: moderateScale(10),
+    marginTop: moderateScale(4),
+    // elevation: 10,
+    // borderWidth: 1,
     borderColor: GRAY_DARK,
     borderRadius: 10,
-    padding: moderateScale(10),
     justifyContent: 'center',
     backgroundColor: 'white',
   },
@@ -33,7 +34,7 @@ const styles = StyleSheet.create({
   },
   checkBoxHolder: {
     justifyContent: 'center',
-    padding: moderateScale(8),
+    // padding: moderateScale(8),
   },
   requiredCard: {
     borderColor: 'red',
@@ -56,13 +57,14 @@ const CheckboxCard = props => {
     description,
     checkedValue,
     onChecked,
+    moddedStyle,
     ...rest
   } = props;
 
   return (
     <View>
       <TouchableOpacity onPress={() => onChecked(!checkedValue)}>
-        <Inset all={5}>
+        <Inset vertical={moderateScale(4)} horizontal={moderateScale(12)}>
           <Surface
             style={[
               styles.surface,
@@ -71,6 +73,7 @@ const CheckboxCard = props => {
                 : required
                 ? styles.requiredCard
                 : styles.solidBorderStyle,
+              props.moddedStyle ? moddedStyle : null,
             ]}>
             <List.Item
               title={title + (required ? '*' : '')}

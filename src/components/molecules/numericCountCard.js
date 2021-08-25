@@ -31,20 +31,26 @@ const styles = StyleSheet.create({
     marginLeft: moderateScale(-5),
   },
   counterHolder: {
-    marginTop: moderateScale(5),
-    height: verticalScale(20),
-    marginHorizontal: moderateScale(-5),
+    flex: 1,
+    // marginTop: moderateScale(5),
+    backgroundColor: 'red',
+    height: verticalScale(10),
+    width: verticalScale(20),
+    // marginHorizontal: moderateScale(-5),
     borderColor: BLUE,
     borderWidth: 1,
   },
   buttonTextStyle: {
     color: BLUE,
-    marginBottom: moderateScale(5),
+    backgroundColor: 'blue',
+    // marginBottom: moderateScale(5),
   },
   countTextStyle: {
     color: 'black',
     fontWeight: 'bold',
-    fontSize: moderateScale(8),
+    // fontSize: moderateScale(12),
+    // paddingLeft: 0,
+    // paddingRight: 0,
   },
   requiredCard: {
     borderColor: 'red',
@@ -77,7 +83,7 @@ const NumericCountCard = props => {
 
   return (
     <View>
-      <Inset all={5}>
+      <Inset vertical={moderateScale(4)} horizontal={moderateScale(12)}>
         <Surface
           style={[
             styles.surface,
@@ -156,4 +162,5 @@ NumericCountCard.propTypes = {
    */
   cardContentProps: PropTypes.object,
 };
+
 export default NumericCountCard;

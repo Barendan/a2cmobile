@@ -41,12 +41,14 @@ const styles = StyleSheet.create({
     margin: moderateScale(25),
     right: 0,
     bottom: 0,
-    backgroundColor: APP_COLOR,
     width: moderateScale(54),
     height: moderateScale(54),
     borderRadius: 50,
     zIndex: 1,
     elevation: 12,
+    borderWidth: 1,
+    borderStyle: 'solid',
+    borderColor: APP_COLOR,
   },
   callIcon: {
     backgroundColor: 'white',
@@ -227,12 +229,12 @@ const DashboardScreen = () => {
 
       <AppButton
         title={'+'}
-        color={APP_COLOR}
+        color={'#1976d2'}
         containerStyle={styles.fab}
         textStyle={{
           color: 'white',
           fontSize: moderateScale(36),
-          paddingHorizontal: scale(12),
+          alignSelf: 'center',
         }}
         onPress={() => setRequestNewTrip(true)}
       />

@@ -10,7 +10,7 @@ import DraggablePanel from 'react-native-draggable-panel';
 import { Inset, Stack } from 'react-native-spacing-system';
 import RenderHTML from 'react-native-render-html';
 import { CloseButton } from '_atoms';
-import { scale, verticalScale } from 'react-native-size-matters';
+import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
 
 const styles = StyleSheet.create({
   titleWrapper: {
@@ -20,8 +20,8 @@ const styles = StyleSheet.create({
   title: {
     fontWeight: 'bold',
     color: '#366999',
-    fontSize: scale(18),
-    marginBottom: 10,
+    fontSize: moderateScale(24),
+    marginBottom: moderateScale(4),
   },
   body: {
     fontWeight: 'bold',

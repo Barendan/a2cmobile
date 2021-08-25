@@ -164,7 +164,7 @@ const styles = StyleSheet.create({
   tripTitleStyle: {
     fontSize: moderateScale(15),
     color: '#47494d',
-    marginTop: moderateScale(-8),
+    // marginTop: moderateScale(-8),
   },
   startLocationIcon: {
     backgroundColor: START_LOCATION_COLOR,

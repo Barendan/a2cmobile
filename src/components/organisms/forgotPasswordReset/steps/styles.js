@@ -10,24 +10,21 @@ export default StyleSheet.create({
   title: {
     fontWeight: 'bold',
     color: '#366999',
-    fontSize: scale(18),
-    marginBottom: scale(10),
+    fontSize: moderateScale(24),
+    marginBottom: moderateScale(4),
   },
   body: {
     fontSize: scale(12),
     fontWeight: 'bold',
   },
-  bodyWrapper: {
-    marginBottom: scale(50),
-  },
   mainContainer: {
     height: Platform.OS === 'ios' ? '80%' : '90%',
   },
   formContainer: {
+    flex: 1,
     width: '100%',
     marginTop: Platform.OS === 'ios' ? '6%' : '3%',
     backgroundColor: '#FFFFFF',
-    flex: 1,
   },
   container: {
     height: '78%',
@@ -35,29 +32,33 @@ export default StyleSheet.create({
   },
   footer: {
     width: '100%',
+    paddingTop: moderateScale(6),
     justifyContent: 'space-around',
     alignSelf: 'center',
     flexDirection: 'row',
   },
   backButton: {
-    marginRight: moderateScale(5),
-    height: moderateScale(45),
-    paddingHorizontal: moderateScale(14),
+    flex: 1,
+    height: moderateScale(40),
+    paddingVertical: moderateScale(0),
     borderRadius: 30,
   },
   forwardButton: {
-    flex: 1,
-    height: moderateScale(45),
+    flex: 5,
+    marginLeft: moderateScale(6),
+    paddingVertical: moderateScale(0),
     borderColor: '#F5F5F5',
     borderRadius: 30,
   },
   errorMessage: {
     color: ERROR,
-    fontSize: scale(18),
+    fontSize: moderateScale(14),
+    paddingVertical: moderateScale(6),
+    fontWeight: 'bold',
   },
   linkText: {
     color: BLUE,
-    fontSize: scale(18),
+    fontSize: moderateScale(14),
   },
   highlightText: {
     color: BLUE,
@@ -75,13 +76,16 @@ export default StyleSheet.create({
     fontSize: scale(12),
   },
   input: {
+    flex: 1,
     borderWidth: scale(1),
     borderRadius: scale(1),
-    marginBottom: moderateScale(10),
+    marginBottom: moderateScale(14),
     alignSelf: 'center',
+    padding: 0,
   },
   inputText: {
     paddingVertical: moderateScale(2),
+    marginLeft: moderateScale(-2),
     fontSize: moderateScale(14),
   },
   inputLabel: {
