@@ -77,6 +77,11 @@ const Step2 = ({ back, next }) => {
           cardIcon={'wheelchair-accessibility'}
           title={t('need_wheelchair')}
           checkedValue={wheelchairRequired}
+          moddedStyle={{
+            height: verticalScale(50),
+            elevation: 10,
+            borderWidth: 1,
+          }}
           onChecked={value => dispatch(setRequiredWheelChair(value))}
         />
         <Stack size={moderateScale(12)} />

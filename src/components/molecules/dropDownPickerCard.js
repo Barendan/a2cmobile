@@ -105,7 +105,7 @@ const DropDownPickerCard = props => {
   return (
     <View>
       <TouchableHighlight onPress={() => setShowOptions(!showOptions)}>
-        <Inset all={5}>
+        <Inset vertical={moderateScale(4)} horizontal={moderateScale(12)}>
           <Animated.View
             style={[
               styles.surface,

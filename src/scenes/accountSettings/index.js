@@ -112,7 +112,7 @@ const AccountSettings = () => {
     <SafeAreaView>
       <Inset vertical={verticalScale(16)}>
         <Inset horizontal={verticalScale(16)}>
-          <Text style={{ fontSize: scale(16) }}>
+          <Text style={{ fontSize: moderateScale(16) }}>
             {t('account_questions_text')}
           </Text>
         </Inset>
@@ -167,15 +167,14 @@ const AccountSettings = () => {
 const styles = StyleSheet.create({
   toggleContainer: {
     alignItems: 'flex-start',
-    marginLeft: scale(36),
-    // width: '75%',
+    marginLeft: moderateScale(24),
   },
   toggleOption: {
     // backgroundColor: 'red',
     // width: '70%',
   },
   toggleText: {
-    fontSize: moderateScale(16),
+    fontSize: moderateScale(14),
   },
 });
 

@@ -94,7 +94,6 @@ const RequestNewTrip = props => {
                   t('go_to_next') + ': ' + steps[currentStep].name
                 }
               />
-              <Stack size={12} />
               <Divider />
 
               <Stack size={moderateScale(12)} />

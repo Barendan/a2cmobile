@@ -11,8 +11,8 @@ export default StyleSheet.create({
   title: {
     fontWeight: 'bold',
     color: '#366999',
-    fontSize: scale(18),
-    marginBottom: moderateScale(10),
+    fontSize: moderateScale(24),
+    marginBottom: moderateScale(4),
   },
   body: {
     fontSize: scale(12),
@@ -41,14 +41,15 @@ export default StyleSheet.create({
     flexDirection: 'row',
   },
   backButton: {
-    marginRight: moderateScale(5),
-    height: moderateScale(45),
-    paddingHorizontal: moderateScale(14),
+    flex: 1,
+    height: moderateScale(40),
+    paddingVertical: moderateScale(0),
     borderRadius: 30,
   },
   forwardButton: {
-    flex: 1,
-    height: moderateScale(45),
+    flex: 5,
+    marginLeft: moderateScale(6),
+    paddingVertical: moderateScale(0),
     borderColor: '#F5F5F5',
     borderRadius: 30,
   },
@@ -95,7 +96,7 @@ export default StyleSheet.create({
     height: verticalScale(40),
     borderWidth: 2,
     borderRadius: 2,
-    marginBottom: Platform.OS === 'ios' ? '10%' : '7%',
+    marginBottom: '10%',
     alignSelf: 'center',
   },
   inputText: {

@@ -185,6 +185,7 @@ const SecuritySettings = () => {
           <View
             style={{
               flex: 1,
+              paddingVertical: moderateScale(4),
               // height: verticalScale(440),
             }}>
             <Layout key={'questionOne'} level="1">
@@ -349,6 +350,7 @@ const styles = StyleSheet.create({
     marginHorizontal: moderateScale(16),
     paddingVertical: moderateScale(0),
     borderColor: '#F5F5F5',
+    borderColor: APP_COLOR,
     borderRadius: 30,
   },
   inputText: {
@@ -358,7 +360,7 @@ const styles = StyleSheet.create({
   inputLabel: {
     color: '#8F9BB3',
     paddingBottom: '0.5%',
-    fontSize: moderateScale(13),
+    fontSize: moderateScale(12),
   },
   inputPlaceholder: {
     paddingHorizontal: moderateScale(7),

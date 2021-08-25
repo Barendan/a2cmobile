@@ -52,7 +52,7 @@ const Step3 = ({ getState }) => {
         />
 
         <Input
-          style={styles.input}
+          style={[styles.input, { marginBottom: 0 }]}
           secureTextEntry={true}
           onChangeText={text =>
             updatePasswordInformation('confirmPassword', text)
@@ -65,11 +65,12 @@ const Step3 = ({ getState }) => {
           textStyle={styles.inputText}
         />
 
+        <Text style={styles.errorMessage}>{errorMessage}</Text>
         {/* <HTML
           source={{ html: t('password_requirements') }}
           contentWidth={contentWidth}
         /> */}
-        <Stack size={scale(12)} />
+        {/* <Stack size={scale(12)} /> */}
 
         <Text
           style={{
@@ -79,7 +80,7 @@ const Step3 = ({ getState }) => {
         </Text>
 
         <List.Item
-          style={{ paddingBottom: 0 }}
+          style={{ paddingBottom: 0, marginBottom: moderateScale(-4) }}
           title={t('eight_characters_minimum')}
           titleStyle={styles.listItemTitle}
           left={props => (
@@ -98,7 +99,7 @@ const Step3 = ({ getState }) => {
         />
 
         <List.Item
-          style={{ paddingBottom: 0 }}
+          style={{ paddingBottom: 0, marginBottom: moderateScale(-4) }}
           title={t('password_one_uppercase')}
           titleStyle={styles.listItemTitle}
           left={props => (
@@ -115,7 +116,7 @@ const Step3 = ({ getState }) => {
         />
 
         <List.Item
-          style={{ paddingBottom: 0 }}
+          style={{ paddingBottom: 0, marginBottom: moderateScale(-4) }}
           title={t('password_one_lowercase')}
           titleStyle={styles.listItemTitle}
           left={props => (
@@ -132,7 +133,7 @@ const Step3 = ({ getState }) => {
         />
 
         <List.Item
-          style={{ paddingBottom: 0 }}
+          style={{ paddingBottom: 0, marginBottom: moderateScale(-4) }}
           title={t('password_one_number')}
           titleStyle={styles.listItemTitle}
           left={props => (
@@ -147,7 +148,6 @@ const Step3 = ({ getState }) => {
         />
 
         <List.Item
-          style={{ paddingBottom: 0 }}
           title={t('password_one_special_symbol')}
           titleStyle={styles.listItemTitle}
           left={props => (
@@ -164,12 +164,11 @@ const Step3 = ({ getState }) => {
         />
       </ScrollView>
 
-      <Text style={styles.errorMessage}>{errorMessage}</Text>
       {loading && (
         <View style={styles.loadingView}>
           <Spinner
             isVisible={loading}
-            size={50}
+            size={scale(30)}
             type={'ThreeBounce'}
             color={APP_COLOR}
           />

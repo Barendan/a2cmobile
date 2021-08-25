@@ -125,7 +125,7 @@ const DateTimePickerCard = props => {
 
   return (
     <View>
-      <Inset all={5}>
+      <Inset vertical={moderateScale(4)} horizontal={moderateScale(12)}>
         <Surface
           style={[
             styles.surface,

@@ -25,14 +25,13 @@ import {
 
 const styles = StyleSheet.create({
   surface: {
-    padding: moderateScale(2),
-    height: verticalScale(80),
     width: '100%',
+    height: verticalScale(80),
+    padding: moderateScale(10),
     elevation: 10,
     borderWidth: 1,
     borderColor: GRAY_DARK,
     borderRadius: 10,
-    padding: moderateScale(10),
     justifyContent: 'center',
     backgroundColor: 'white',
   },
