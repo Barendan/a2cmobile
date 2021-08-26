@@ -78,12 +78,9 @@ const styles = StyleSheet.create({
 
 const SaveLocationPanel = props => {
   const { t } = useTranslation();
-
   const { panelHeader, displayPanel, onPanelDismiss } = props;
-
   const [loading, setLoading] = React.useState(false);
   const [savedLocations, setSavedLocations] = useState([]);
-
   const [newLocation, setNewLocation] = React.useState({
     address: null,
     name: '',

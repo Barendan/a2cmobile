@@ -8,8 +8,10 @@ import {
   Alert,
   Image,
 } from 'react-native';
+
 import MatIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import TouchID from 'react-native-touch-id';
+
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { sha256 } from 'react-native-sha256';
@@ -368,6 +370,7 @@ const LoginScreen = () => {
             <AppButton
               title={t('sign_in')}
               color={APP_COLOR}
+              color={'#1976d2'}
               containerStyle={styles.btnContainer}
               textStyle={styles.btnText}
               onPress={onLogin}
@@ -378,6 +381,7 @@ const LoginScreen = () => {
             <AppButton
               title={t('go_to_registration')}
               color={APP_COLOR}
+              color={'#1976d2'}
               containerStyle={styles.btnContainer}
               textStyle={styles.btnText}
               onPress={() => setDisplayCreateMemberAccount(true)}
