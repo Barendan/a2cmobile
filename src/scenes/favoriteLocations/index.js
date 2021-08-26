@@ -96,18 +96,21 @@ const FavoriteLocations = () => {
                       {currentLocation.name}
                     </Text>
                   }
-                  titleStyle={{ marginLeft: moderateScale(4) }}
+                  titleStyle={{
+                    marginLeft: moderateScale(-10),
+                    marginBottom: moderateScale(-6),
+                  }}
                   subtitle={
                     <Text
                       style={{ color: 'gray', fontSize: moderateScale(10) }}>
                       {currentLocation.address.FormattedAddress}
                     </Text>
                   }
-                  subtitleStyle={{ marginLeft: moderateScale(4) }}
+                  subtitleStyle={{ marginLeft: moderateScale(-10) }}
                   left={props => (
                     <Avatar.Icon
                       {...props}
-                      size={moderateScale(30)}
+                      size={moderateScale(26)}
                       icon="map-marker"
                       color="black"
                       style={styles.locationIcon}
@@ -116,12 +119,13 @@ const FavoriteLocations = () => {
                   right={props => (
                     <IconButton
                       {...props}
-                      size={moderateScale(30)}
+                      size={moderateScale(26)}
                       icon="minus"
                       onPress={() => removeLocation(currentLocation)}
                     />
                   )}
                 />
+
                 <Divider />
               </>
             ))}
@@ -131,7 +135,7 @@ const FavoriteLocations = () => {
         </Inset>
       )}
 
-      <AppButton
+      {/* <AppButton
         title={'+ ' + ' ' + t('add_saved_location')}
         color={APP_COLOR}
         containerStyle={styles.newFab}
@@ -140,6 +144,18 @@ const FavoriteLocations = () => {
           fontSize: moderateScale(16),
           paddingHorizontal: scale(16),
           textTransform: 'uppercase',
+        }}
+        onPress={() => setDisplayPanel(true)}
+      /> */}
+
+      <AppButton
+        title={'+'}
+        color={'#1976d2'}
+        containerStyle={styles.fab}
+        textStyle={{
+          color: 'white',
+          fontSize: moderateScale(36),
+          alignSelf: 'center',
         }}
         onPress={() => setDisplayPanel(true)}
       />
@@ -161,32 +177,39 @@ const styles = StyleSheet.create({
     borderColor: 'black',
     borderStyle: 'solid',
     borderWidth: 1,
+    marginLeft: moderateScale(-4),
   },
   modalContainer: {
     flex: 1,
     backgroundColor: '#dbdbdb',
   },
+  // newFab: {
+  //   backgroundColor: APP_COLOR,
+  //   position: 'absolute',
+  //   margin: moderateScale(25),
+  //   paddingHorizontal: moderateScale(4),
+  //   paddingVertical: moderateScale(8),
+  //   right: 0,
+  //   bottom: 0,
+  //   zIndex: 1,
+  //   elevation: 12,
+  //   width: moderateScale(185),
+  //   height: moderateScale(38),
+  //   borderRadius: 50,
+  // },
   fab: {
     position: 'absolute',
-    margin: 25,
-    right: 0,
-    bottom: 0,
-    backgroundColor: APP_COLOR,
-    zIndex: 1,
-  },
-  newFab: {
-    backgroundColor: APP_COLOR,
-    position: 'absolute',
     margin: moderateScale(25),
-    paddingHorizontal: moderateScale(4),
-    paddingVertical: moderateScale(8),
     right: 0,
     bottom: 0,
+    width: moderateScale(54),
+    height: moderateScale(54),
+    borderRadius: 50,
     zIndex: 1,
     elevation: 12,
-    width: moderateScale(185),
-    height: moderateScale(38),
-    borderRadius: 50,
+    borderWidth: 1,
+    borderStyle: 'solid',
+    borderColor: APP_COLOR,
   },
 });
 

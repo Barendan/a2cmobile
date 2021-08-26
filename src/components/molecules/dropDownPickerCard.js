@@ -17,12 +17,15 @@ import { BLUE, GRAY_DARK } from '_styles/colors';
 
 const styles = StyleSheet.create({
   surface: {
+    height: verticalScale(55),
     width: '100%',
-    borderWidth: 1,
+    padding: moderateScale(6),
     borderColor: GRAY_DARK,
     borderRadius: 10,
-    padding: moderateScale(10),
+    backgroundColor: 'white',
     justifyContent: 'center',
+    elevation: 10,
+    borderWidth: 1,
   },
   solidBorderStyle: {
     borderStyle: 'solid',
@@ -32,30 +35,29 @@ const styles = StyleSheet.create({
   },
   cardIcon: {
     backgroundColor: 'transparent',
-    // marginVertical: 50,
-    marginLeft: moderateScale(-5),
+    // marginLeft: moderateScale(-5),
   },
   optionsHolder: {
-    // marginVertical: 50,
     justifyContent: 'center',
     textAlign: 'center',
     flexDirection: 'row',
   },
   cardOptionsIcon: {
     backgroundColor: 'transparent',
-    marginRight: moderateScale(-8),
+    // marginRight: moderateScale(-6),
     fontSize: moderateScale(14),
   },
   optionStyleTitle: {
     fontSize: moderateScale(14),
-    // fontSize: 18,
     color: BLUE,
   },
   title: {
-    fontSize: moderateScale(16),
+    fontSize: moderateScale(14),
   },
   subtitle: {
-    fontSize: moderateScale(12),
+    fontSize: moderateScale(10),
+    marginTop: moderateScale(-2),
+    paddingBottom: moderateScale(6),
   },
   requiredCard: {
     borderColor: 'red',

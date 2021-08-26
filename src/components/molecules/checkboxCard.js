@@ -10,12 +10,9 @@ import { BLUE, GRAY_DARK } from '_styles/colors';
 
 const styles = StyleSheet.create({
   surface: {
+    height: verticalScale(55),
     width: '100%',
-    height: verticalScale(40),
-    padding: moderateScale(10),
-    marginTop: moderateScale(4),
-    // elevation: 10,
-    // borderWidth: 1,
+    padding: moderateScale(6),
     borderColor: GRAY_DARK,
     borderRadius: 10,
     justifyContent: 'center',
@@ -29,12 +26,11 @@ const styles = StyleSheet.create({
   },
   cardIcon: {
     backgroundColor: 'transparent',
-    marginVertical: 50,
-    marginLeft: moderateScale(-5),
   },
   checkBoxHolder: {
     justifyContent: 'center',
-    // padding: moderateScale(8),
+    paddingRight: moderateScale(6),
+    // flexDirection: 'row',
   },
   requiredCard: {
     borderColor: 'red',
@@ -42,7 +38,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
   },
   title: {
-    fontSize: moderateScale(16),
+    fontSize: moderateScale(14),
   },
 });
 

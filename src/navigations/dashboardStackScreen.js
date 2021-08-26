@@ -26,6 +26,7 @@ const styles = StyleSheet.create({
   header: {
     backgroundColor: APP_COLOR,
     color: WHITE,
+    // paddingRight: moderateScale(50),
     // fontSize: 50,
     // height: verticalScale(40),
   },

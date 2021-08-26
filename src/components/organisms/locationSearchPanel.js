@@ -25,28 +25,19 @@ const styles = StyleSheet.create({
   title: {
     fontWeight: 'bold',
     color: '#366999',
-    fontSize: scale(18),
-    marginBottom: moderateScale(10),
-  },
-  body: {
-    fontSize: moderateScale(12),
-    fontWeight: 'bold',
-    backgroundColor: 'green',
+    fontSize: moderateScale(24),
+    marginBottom: moderateScale(4),
   },
   content: {
     zIndex: 1,
     flexDirection: 'row',
   },
-  bodyWrapper: {
-    marginBottom: 0,
-    height: '65%',
-  },
   locationIcon: {
     backgroundColor: 'white',
+    marginRight: moderateScale(4),
     borderColor: 'black',
     borderStyle: 'solid',
     borderWidth: 1,
-    marginLeft: moderateScale(-2),
   },
 });
 
@@ -109,31 +100,31 @@ const LocationSearchPanel = props => {
           </View>
 
           <TouchableHighlight onPress={() => getCurrentDeviceLocation()}>
-            <View>
-              <Card.Title
+            <View
+              style={{
+                alignText: 'center',
+                flexDirection: 'row',
+                paddingLeft: moderateScale(6),
+                marginBottom: moderateScale(4),
+              }}>
+              <Avatar.Icon
+                {...props}
+                size={moderateScale(16)}
+                icon="crosshairs-gps"
+                color="black"
+                style={styles.locationIcon}
+              />
+              <Text
                 style={{
-                  backgroundColor: 'white',
-                  marginTop: moderateScale(-10),
-                }}
-                title={t('current_location')}
-                titleStyle={{
                   color: BLUE,
                   fontSize: moderateScale(12),
-                  marginLeft: moderateScale(-14),
-                }}
-                left={props => (
-                  <Avatar.Icon
-                    {...props}
-                    size={moderateScale(16)}
-                    icon="crosshairs-gps"
-                    color="black"
-                    style={styles.locationIcon}
-                  />
-                )}
-              />
-              <Divider />
+                  paddingBottom: moderateScale(4),
+                }}>
+                {t('current_location')}
+              </Text>
             </View>
           </TouchableHighlight>
+          <Divider />
 
           {savedLocations && savedLocations.length > 0 && (
             <ScrollView
@@ -145,41 +136,32 @@ const LocationSearchPanel = props => {
                   <View>
                     <Card.Title
                       style={{
+                        width: '100%',
                         backgroundColor: 'white',
-                        paddingVertical: moderateScale(16),
+                        marginLeft: moderateScale(-10),
                       }}
-                      title={
-                        <Text
-                          style={{
-                            fontSize: moderateScale(18),
-                            color: 'black',
-                          }}>
-                          {currentLocation.name}
-                        </Text>
-                      }
+                      title={currentLocation.name}
+                      titleStyle={{
+                        fontSize: moderateScale(16),
+                        marginLeft: moderateScale(-20),
+                        marginBottom: moderateScale(-6),
+                      }}
+                      subtitleStyle={{ marginLeft: moderateScale(-20) }}
                       subtitle={currentLocation.address.FormattedAddress}
-                      subtitle={
-                        <Text
-                          style={{
-                            fontSize: moderateScale(12),
-                            color: 'gray',
-                          }}>
-                          {currentLocation.address.FormattedAddress}
-                        </Text>
-                      }
                       left={props => (
                         <Avatar.Icon
                           {...props}
                           icon="map-marker"
                           color="black"
-                          size={moderateScale(30)}
+                          size={moderateScale(26)}
                           style={[
                             styles.locationIcon,
-                            { marginLeft: moderateScale(-6) },
+                            { marginLeft: moderateScale(-4) },
                           ]}
                         />
                       )}
                     />
+
                     <Divider />
                     <Stack size={moderateScale(16)} />
                   </View>

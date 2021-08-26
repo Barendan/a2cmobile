@@ -107,125 +107,123 @@ const Step4 = ({ back, next }) => {
   return (
     <View style={styles.container}>
       <ScrollView style={styles.formContainer}>
-        <Card>
-          <ListItem
-            title={() => (
-              <Text style={styles.summaryTitle}>
-                {`${t('pickup_address')}:`}
-              </Text>
-            )}
-            description={() => (
-              <Text style={styles.summarySubtitle}>
-                {`${pickupAddress.AddressLine1} ${pickupAddress.City},${pickupAddress.State} ${pickupAddress.ZipCode}`}
-              </Text>
-            )}
-          />
-          <Divider />
-          <ListItem
-            title={() => (
-              <Text style={styles.summaryTitle}>
-                {`${t('destination_address')}:`}
-              </Text>
-            )}
-            description={() => (
-              <Text style={styles.summarySubtitle}>
-                {`${destinationAddress.AddressLine1} ${destinationAddress.City},${destinationAddress.State} ${destinationAddress.ZipCode}`}
-              </Text>
-            )}
-          />
-          {tripStops.map((item, index) => (
-            <React.Fragment key={index}>
-              <Divider />
-              <ListItem
-                title={() => (
-                  <Text style={styles.summaryTitle}>{`Stop ${index + 1}`}</Text>
-                )}
-                description={() => (
-                  <Text style={styles.summarySubtitle}>
-                    {`${item.AddressLine1} ${item.City},${item.State} ${item.ZipCode}`}
-                  </Text>
-                )}
-              />
-            </React.Fragment>
-          ))}
-          <Divider />
-          <ListItem
-            title={() => (
-              <Text style={styles.summaryTitle}>
-                {`${t('round_trip_label')}:`}
-              </Text>
-            )}
-            description={() => (
-              <Text style={styles.summarySubtitle}>
-                {`${isRoundTrip ? t('confirm') : 'No'}`}
-              </Text>
-            )}
-          />
-          <Divider />
-          <ListItem
-            title={() => (
-              <Text style={styles.summaryTitle}>
-                {`${t('additional_passengers')}:`}
-              </Text>
-            )}
-            description={() => (
-              <Text style={styles.summarySubtitle}>
-                {`${additionalPassengers}`}
-              </Text>
-            )}
-          />
-          <Divider />
-          <ListItem
-            title={() => (
-              <Text style={styles.summaryTitle}>{`${t('wheelchair')}:`}</Text>
-            )}
-            description={() => (
-              <Text style={styles.summarySubtitle}>
-                {`${wheelchairRequired ? t('confirm') : 'No'}`}
-              </Text>
-            )}
-          />
-          <Divider />
-          <ListItem
-            title={() => (
-              <Text style={styles.summaryTitle}>{`${t('date_time')}:`}</Text>
-            )}
-            description={() => (
-              <Text style={styles.summarySubtitle}>
-                {`${
-                  appointmentDate !== null ? appointmentDate : ''
-                } ${appointmentTime}`}
-              </Text>
-            )}
-          />
-          <Divider />
-          <ListItem
-            title={() => (
-              <Text style={styles.summaryTitle}>{`${t('trip_reason')}:`}</Text>
-            )}
-            description={() => (
-              <Text style={styles.summarySubtitle}>{`${tripReason}`}</Text>
-            )}
-          />
-          <Divider />
-          {
+        {/* <Card> */}
+        <ListItem
+          title={() => (
+            <Text style={styles.summaryTitle}>{`${t('pickup_address')}:`}</Text>
+          )}
+          description={() => (
+            <Text style={styles.summarySubtitle}>
+              {`${pickupAddress.AddressLine1} ${pickupAddress.City},${pickupAddress.State} ${pickupAddress.ZipCode}`}
+            </Text>
+          )}
+        />
+        <Divider />
+        <ListItem
+          title={() => (
+            <Text style={styles.summaryTitle}>
+              {`${t('destination_address')}:`}
+            </Text>
+          )}
+          description={() => (
+            <Text style={styles.summarySubtitle}>
+              {`${destinationAddress.AddressLine1} ${destinationAddress.City},${destinationAddress.State} ${destinationAddress.ZipCode}`}
+            </Text>
+          )}
+        />
+        {tripStops.map((item, index) => (
+          <React.Fragment key={index}>
+            <Divider />
             <ListItem
               title={() => (
-                <Text style={styles.summaryTitle}>
-                  {`${t('special_needs')}:`}
-                </Text>
+                <Text style={styles.summaryTitle}>{`Stop ${index + 1}`}</Text>
               )}
-              description={`${
-                specialNeeds.length > 1 ? specialNeeds : t('none')
-              }`}
               description={() => (
                 <Text style={styles.summarySubtitle}>
-                  {`${specialNeeds.length > 1 ? specialNeeds : t('none')}`}
+                  {`${item.AddressLine1} ${item.City},${item.State} ${item.ZipCode}`}
                 </Text>
               )}
             />
-          }
-        </Card>
+          </React.Fragment>
+        ))}
+        <Divider />
+        <ListItem
+          title={() => (
+            <Text style={styles.summaryTitle}>
+              {`${t('round_trip_label')}:`}
+            </Text>
+          )}
+          description={() => (
+            <Text style={styles.summarySubtitle}>
+              {`${isRoundTrip ? t('confirm') : 'No'}`}
+            </Text>
+          )}
+        />
+        <Divider />
+        <ListItem
+          title={() => (
+            <Text style={styles.summaryTitle}>
+              {`${t('additional_passengers')}:`}
+            </Text>
+          )}
+          description={() => (
+            <Text style={styles.summarySubtitle}>
+              {`${additionalPassengers}`}
+            </Text>
+          )}
+        />
+        <Divider />
+        <ListItem
+          title={() => (
+            <Text style={styles.summaryTitle}>{`${t('wheelchair')}:`}</Text>
+          )}
+          description={() => (
+            <Text style={styles.summarySubtitle}>
+              {`${wheelchairRequired ? t('confirm') : 'No'}`}
+            </Text>
+          )}
+        />
+        <Divider />
+        <ListItem
+          title={() => (
+            <Text style={styles.summaryTitle}>{`${t('date_time')}:`}</Text>
+          )}
+          description={() => (
+            <Text style={styles.summarySubtitle}>
+              {`${
+                appointmentDate !== null ? appointmentDate : ''
+              } ${appointmentTime}`}
+            </Text>
+          )}
+        />
+        <Divider />
+        <ListItem
+          title={() => (
+            <Text style={styles.summaryTitle}>{`${t('trip_reason')}:`}</Text>
+          )}
+          description={() => (
+            <Text style={styles.summarySubtitle}>{`${tripReason}`}</Text>
+          )}
+        />
+        <Divider />
+        {
+          <ListItem
+            title={() => (
+              <Text style={styles.summaryTitle}>
+                {`${t('special_needs')}:`}
+              </Text>
+            )}
+            description={`${
+              specialNeeds.length > 1 ? specialNeeds : t('none')
+            }`}
+            description={() => (
+              <Text style={styles.summarySubtitle}>
+                {`${specialNeeds.length > 1 ? specialNeeds : t('none')}`}
+              </Text>
+            )}
+          />
+        }
+        {/* </Card> */}
       </ScrollView>
 
       <Text style={styles.errorMessage}>{errorMessage}</Text>

@@ -59,19 +59,6 @@ export default StyleSheet.create({
     flexDirection: 'row',
   },
   backButton: {
-    marginRight: moderateScale(5),
-    height: moderateScale(45),
-    paddingHorizontal: moderateScale(14),
-    borderRadius: 30,
-  },
-  forwardButton: {
-    flex: 1,
-    height: moderateScale(45),
-    marginHorizontal: moderateScale(12),
-    borderColor: '#F5F5F5',
-    borderRadius: 30,
-  },
-  backButton: {
     flex: 1,
     height: moderateScale(40),
     paddingVertical: moderateScale(0),
