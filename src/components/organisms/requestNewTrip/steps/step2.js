@@ -71,19 +71,19 @@ const Step2 = ({ back, next }) => {
           count={additionalPassengers}
           onCountChange={value => dispatch(setAdditionalPassenger(value))}
         />
-        <Stack size={moderateScale(12)} />
+        <Stack size={moderateScale(8)} />
         <CheckboxCard
           cardIcon={'wheelchair-accessibility'}
           title={t('need_wheelchair')}
           checkedValue={wheelchairRequired}
           moddedStyle={{
-            height: verticalScale(50),
-            elevation: 10,
+            height: verticalScale(55),
             borderWidth: 1,
+            elevation: 10,
           }}
           onChecked={value => dispatch(setRequiredWheelChair(value))}
         />
-        <Stack size={moderateScale(12)} />
+        <Stack size={moderateScale(8)} />
         <DateTimePickerCard
           required={!appointmentDate || !appointmentTime ? true : false}
           cardIcon={'calendar-clock'}
@@ -107,7 +107,7 @@ const Step2 = ({ back, next }) => {
             dispatch(setAppointMentSchedule({ type: type, value: value }))
           }
         />
-        <Stack size={moderateScale(12)} />
+        <Stack size={moderateScale(8)} />
         <DropDownPickerCard
           required={!tripReason ? true : false}
           cardIcon={'information-outline'}
@@ -117,7 +117,7 @@ const Step2 = ({ back, next }) => {
           selectedValue={tripReason}
           onOptionSelected={value => dispatch(setTripReason(value?.value))}
         />
-        <Stack size={moderateScale(12)} />
+        <Stack size={moderateScale(8)} />
       </ScrollView>
 
       <View style={styles.footer}>

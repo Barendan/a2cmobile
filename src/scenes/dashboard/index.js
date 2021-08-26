@@ -27,40 +27,8 @@ import {
 } from '_organisms';
 import { TripService } from '_services';
 
-// styles
 import { APP_COLOR } from '_styles/colors';
-import user from '_store';
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#ecf0f1',
-  },
-  fab: {
-    position: 'absolute',
-    margin: moderateScale(25),
-    right: 0,
-    bottom: 0,
-    width: moderateScale(54),
-    height: moderateScale(54),
-    borderRadius: 50,
-    zIndex: 1,
-    elevation: 12,
-    borderWidth: 1,
-    borderStyle: 'solid',
-    borderColor: APP_COLOR,
-  },
-  callIcon: {
-    backgroundColor: 'white',
-    borderColor: 'black',
-    borderStyle: 'solid',
-    borderWidth: 1,
-  },
-  loadingView: {
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-});
+// import user from '_store';
 
 const DashboardScreen = () => {
   const { t } = useTranslation();
@@ -120,12 +88,20 @@ const DashboardScreen = () => {
   return (
     <SafeAreaView style={{ flex: 1, justifyContent: 'flex-start' }}>
       <StatusBar barStyle="light-content" />
+
       <Card.Title
         style={{ backgroundColor: 'white' }}
-        titleStyle={{ marginLeft: moderateScale(4) }}
-        subtitleStyle={{ marginLeft: moderateScale(4) }}
+        titleStyle={{
+          marginLeft: moderateScale(-10),
+          marginBottom: moderateScale(-6),
+        }}
+        subtitleStyle={{ marginLeft: moderateScale(-10) }}
         title={
-          <Text style={{ color: 'black', fontSize: moderateScale(16) }}>
+          <Text
+            style={{
+              color: 'black',
+              fontSize: moderateScale(16),
+            }}>
             {plan.contractName}
           </Text>
         }
@@ -145,7 +121,7 @@ const DashboardScreen = () => {
                   {...props}
                   icon="phone"
                   color="black"
-                  size={moderateScale(30)}
+                  size={moderateScale(26)}
                   style={styles.callIcon}
                 />
               </TouchableHighlight>
@@ -154,7 +130,7 @@ const DashboardScreen = () => {
                 {...props}
                 icon="home"
                 color="black"
-                size={moderateScale(30)}
+                size={moderateScale(26)}
                 style={styles.callIcon}
               />
             )}
@@ -173,13 +149,14 @@ const DashboardScreen = () => {
           </>
         )}
       />
+
       <Divider />
 
       {loading && (
         <View style={styles.loadingView}>
           <Spinner
             isVisible={loading}
-            size={50}
+            size={scale(30)}
             type={'ThreeBounce'}
             color={APP_COLOR}
           />
@@ -257,5 +234,37 @@ const DashboardScreen = () => {
     </SafeAreaView>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#ecf0f1',
+  },
+  fab: {
+    position: 'absolute',
+    margin: moderateScale(25),
+    right: 0,
+    bottom: 0,
+    width: moderateScale(54),
+    height: moderateScale(54),
+    borderRadius: 50,
+    zIndex: 1,
+    elevation: 12,
+    borderWidth: 1,
+    borderStyle: 'solid',
+    borderColor: APP_COLOR,
+  },
+  callIcon: {
+    backgroundColor: 'white',
+    borderColor: 'black',
+    borderStyle: 'solid',
+    borderWidth: 1,
+    marginLeft: moderateScale(-4),
+  },
+  loadingView: {
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+});
 
 export default DashboardScreen;

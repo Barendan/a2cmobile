@@ -11,28 +11,28 @@ import { GRAY_DARK, BLUE } from '_styles/colors';
 
 const styles = StyleSheet.create({
   surface: {
-    height: verticalScale(50),
+    height: verticalScale(55),
     width: '100%',
-    elevation: 10,
+    padding: moderateScale(6),
     borderWidth: 1,
     borderColor: GRAY_DARK,
     borderRadius: 10,
-    padding: moderateScale(10),
     justifyContent: 'center',
     backgroundColor: 'white',
+    elevation: 10,
   },
-  titleStyle: {
-    flex: 1,
-    fontSize: moderateScale(16),
+  datePickerTitle: {
+    height: '100%',
+    fontSize: moderateScale(14),
   },
   title: {
-    fontSize: moderateScale(16),
+    fontSize: moderateScale(14),
   },
   subtitle: {
     fontSize: moderateScale(10),
   },
   dateTimeHolder: {
-    padding: moderateScale(10),
+    // padding: moderateScale(10),
     flexDirection: 'row',
     justifyContent: 'flex-end',
     alignItems: 'center',
@@ -48,18 +48,18 @@ const styles = StyleSheet.create({
   },
   cardIcon: {
     backgroundColor: 'transparent',
-    marginVertical: moderateScale(30),
-    marginLeft: moderateScale(-5),
+    // marginVertical: moderateScale(30),
+    // marginLeft: moderateScale(-5),
   },
   optionsHolder: {
-    marginVertical: moderateScale(30),
+    // marginVertical: moderateScale(30),
     justifyContent: 'center',
     textAlign: 'center',
     flexDirection: 'row',
   },
   cardOptionsIcon: {
     backgroundColor: 'transparent',
-    marginRight: moderateScale(-10),
+    // marginRight: moderateScale(-6),
   },
   requiredCard: {
     borderColor: 'red',

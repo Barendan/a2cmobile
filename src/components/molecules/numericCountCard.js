@@ -10,15 +10,15 @@ import { BLUE, GRAY_DARK } from '_styles/colors';
 
 const styles = StyleSheet.create({
   surface: {
-    height: verticalScale(50),
+    height: verticalScale(55),
     width: '100%',
-    elevation: 10,
+    padding: moderateScale(6),
     borderWidth: 1,
     borderColor: GRAY_DARK,
     borderRadius: 10,
-    padding: moderateScale(10),
     justifyContent: 'center',
     backgroundColor: 'white',
+    elevation: 10,
   },
   solidBorderStyle: {
     borderStyle: 'solid',
@@ -28,29 +28,23 @@ const styles = StyleSheet.create({
   },
   cardIcon: {
     backgroundColor: 'transparent',
-    marginLeft: moderateScale(-5),
+    // marginLeft: moderateScale(-5),
   },
   counterHolder: {
-    flex: 1,
-    // marginTop: moderateScale(5),
-    backgroundColor: 'red',
-    height: verticalScale(10),
-    width: verticalScale(20),
+    height: verticalScale(16),
     // marginHorizontal: moderateScale(-5),
+    // paddingVertical: 0,
     borderColor: BLUE,
     borderWidth: 1,
   },
   buttonTextStyle: {
     color: BLUE,
-    backgroundColor: 'blue',
-    // marginBottom: moderateScale(5),
+    fontSize: moderateScale(16),
   },
   countTextStyle: {
     color: 'black',
     fontWeight: 'bold',
-    // fontSize: moderateScale(12),
-    // paddingLeft: 0,
-    // paddingRight: 0,
+    fontSize: moderateScale(14),
   },
   requiredCard: {
     borderColor: 'red',
@@ -58,7 +52,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
   },
   title: {
-    fontSize: moderateScale(16),
+    fontSize: moderateScale(14),
   },
 });
 

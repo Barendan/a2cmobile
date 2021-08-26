@@ -19,8 +19,8 @@ const styles = StyleSheet.create({
   title: {
     fontWeight: 'bold',
     color: '#366999',
-    fontSize: scale(18),
-    marginBottom: moderateScale(10),
+    fontSize: moderateScale(24),
+    marginBottom: moderateScale(4),
   },
   body: {
     fontSize: moderateScale(16),
@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
     // marginBottom: 10,
   },
   input: {
-    width: '95%',
+    width: '100%',
     height: moderateScale(40),
     borderWidth: 2,
     borderRadius: 2,
@@ -52,8 +52,10 @@ const styles = StyleSheet.create({
   },
   forwardButton: {
     flex: 1,
-    height: moderateScale(45),
+    height: moderateScale(40),
     marginHorizontal: moderateScale(6),
+    marginVertical: moderateScale(10),
+    paddingVertical: moderateScale(0),
     borderColor: '#F5F5F5',
     borderRadius: 30,
   },
@@ -156,22 +158,23 @@ const SaveLocationPanel = props => {
               showsVerticalScrollIndicator={false}
               keyboardShouldPersistTaps={'handled'}>
               <Stack size={moderateScale(6)} />
-
-              <Input
-                style={[
-                  styles.input,
-                  newLocation.name.length === 0 && styles.requiredInput,
-                ]}
-                onChangeText={text => updateNewLocation('name', text)}
-                value={newLocation.name}
-                label={() => (
-                  <Text style={styles.inputLabel}>
-                    {t('enter_name_label') + '*'}
-                  </Text>
-                )}
-                placeholder={t('enter_name_label')}
-                textStyle={styles.inputText}
-              />
+              <Inset horizontal={moderateScale(12)}>
+                <Input
+                  style={[
+                    styles.input,
+                    newLocation.name.length === 0 && styles.requiredInput,
+                  ]}
+                  onChangeText={text => updateNewLocation('name', text)}
+                  value={newLocation.name}
+                  label={() => (
+                    <Text style={styles.inputLabel}>
+                      {t('enter_name_label') + '*'}
+                    </Text>
+                  )}
+                  placeholder={t('enter_name_label')}
+                  textStyle={styles.inputText}
+                />
+              </Inset>
 
               <LocationSearchCard
                 required={newLocation.address === null ? true : false}
@@ -189,7 +192,7 @@ const SaveLocationPanel = props => {
               />
             </ScrollView>
 
-            <Inset all={moderateScale(16)}>
+            <Inset all={moderateScale(8)}>
               <View style={styles.footer}>
                 <Button
                   style={styles.forwardButton}
