@@ -11,7 +11,7 @@ import {
 
 import MatIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import TouchID from 'react-native-touch-id';
-import ReactNativeBiometrics from 'react-native-biometrics';
+// import ReactNativeBiometrics from 'react-native-biometrics';
 
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
@@ -129,36 +129,55 @@ const LoginScreen = () => {
     validateSupport();
   }, []);
 
+  // Using TouchID Library
   React.useEffect(() => {
-    ReactNativeBiometrics.isSensorAvailable().then(resultObject => {
-      const { available, biometryType } = resultObject;
-
-      if (available && biometryType === ReactNativeBiometrics.TouchID) {
-        console.log('TouchID is supported');
-        setSupportedTouch(true);
-      } else if (available && biometryType === ReactNativeBiometrics.FaceID) {
-        console.log('FaceID is supported');
-        setSupportedFaceId(true);
-      } else if (
-        available &&
-        biometryType === ReactNativeBiometrics.Biometrics
-      ) {
-        console.log('Biometrics is supported');
-        setSupportedBiometry(true);
-        // ReactNativeBiometrics.biometricKeysExist().then(resultObject => {
-        //   const { keysExist } = resultObject;
-
-        //   if (keysExist) {
-        //     console.log('Keys exist');
-        //   } else {
-        //     console.log('Keys do not exist or were deleted');
-        //   }
-        // });
-      } else {
-        console.log('Biometrics not supported');
-      }
-    });
+    TouchID.isSupported()
+      .then(biometryType => {
+        if (biometryType === 'FaceID') {
+          setSupportedFaceId(true);
+        } else if (biometryType === 'TouchID') {
+          setSupportedTouch(true);
+        } else if (biometryType === true) {
+          setSupportedBiometry(true);
+        }
+      })
+      .catch(error => {
+        console.log(error);
+      });
   }, []);
+
+  // Using ReactNativeBiometrics Library
+  // React.useEffect(() => {
+  //   ReactNativeBiometrics.isSensorAvailable().then(resultObject => {
+  //     const { available, biometryType } = resultObject;
+
+  //     if (available && biometryType === ReactNativeBiometrics.TouchID) {
+  //       console.log('TouchID is supported');
+  //       setSupportedTouch(true);
+  //     } else if (available && biometryType === ReactNativeBiometrics.FaceID) {
+  //       console.log('FaceID is supported');
+  //       setSupportedFaceId(true);
+  //     } else if (
+  //       available &&
+  //       biometryType === ReactNativeBiometrics.Biometrics
+  //     ) {
+  //       console.log('Biometrics is supported');
+  //       setSupportedBiometry(true);
+
+  //       ReactNativeBiometrics.biometricKeysExist().then(resultObject => {
+  //         const { keysExist } = resultObject;
+
+  //         if (keysExist) {
+  //           console.log('Keys exist');
+  //         } else {
+  //           console.log('Keys do not exist or were deleted');
+  //         }
+  //       });
+  //     } else {
+  //       console.log('Biometrics not supported');
+  //     }
+  //   });
+  // }, []);
 
   const updatePanelDetails = React.useCallback((key, value) => {
     setPanelDetails(panelDetails => {
