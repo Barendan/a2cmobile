@@ -95,7 +95,7 @@ const Step1 = ({ next }) => {
 
       <View style={styles.footer}>
         <Button
-          style={styles.forwardButton}
+          style={[styles.forwardButton, { marginHorizontal: '3%' }]}
           disabled={isDisabled}
           onPress={nextStep}>
           <Text style={{ fontSize: moderateScale(16) }}>{t('continue')}</Text>
