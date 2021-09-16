@@ -218,7 +218,7 @@ export function DrawerContent({ navigation }) {
               )}
             />
             <DrawerItem
-              label={() => <Text style={styles.navItem}>{t('faqs')}</Text>}
+              label={() => <Text style={styles.navItem}>{t('faq')}</Text>}
               style={{ marginBottom: 0 }}
               onPress={() => getLatestAppInfo(t('FAQ_title'), 'faqs')}
               icon={() => (
