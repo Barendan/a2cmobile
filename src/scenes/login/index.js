@@ -162,15 +162,22 @@ const LoginScreen = () => {
   //       biometryType === ReactNativeBiometrics.Biometrics
   //     ) {
   //       console.log('Biometrics is supported');
-  //       setSupportedBiometry(true);
-
   //       ReactNativeBiometrics.biometricKeysExist().then(resultObject => {
   //         const { keysExist } = resultObject;
 
   //         if (keysExist) {
   //           console.log('Keys exist');
+  //           // If a key exists, show the option
+  //           setSupportedBiometry(true);
   //         } else {
   //           console.log('Keys do not exist or were deleted');
+  //           ReactNativeBiometrics.createKeys('Confirm fingerprint').then(
+  //             resultObject => {
+  //               const { publicKey } = resultObject;
+  //               console.log(publicKey);
+  //               sendPublicKeyToServer(publicKey).catch(err => console.log(err));
+  //             },
+  //           );
   //         }
   //       });
   //     } else {
