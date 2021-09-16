@@ -55,9 +55,7 @@ export default StyleSheet.create({
     height: '100%',
   },
   footer: {
-    width: '100%',
-    paddingHorizontal: moderateScale(12),
-    justifyContent: 'space-around',
+    width: '90%',
     alignSelf: 'center',
     flexDirection: 'row',
   },
@@ -69,7 +67,7 @@ export default StyleSheet.create({
     borderRadius: 30,
   },
   forwardButton: {
-    flex: 5,
+    flex: 4,
     height: moderateScale(40),
     paddingVertical: moderateScale(0),
     borderColor: '#F5F5F5',
