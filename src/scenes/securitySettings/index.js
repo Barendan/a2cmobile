@@ -175,12 +175,18 @@ const SecuritySettings = () => {
           <Stack size={verticalScale(16)} />
           <Divider />
 
-          <Spinner
-            isVisible={loading}
-            size={scale(30)}
-            type={'ThreeBounce'}
-            color={APP_COLOR}
-          />
+          <View
+            style={{
+              justifyContent: 'space-around',
+              alignSelf: 'center',
+            }}>
+            <Spinner
+              isVisible={loading}
+              size={scale(30)}
+              type={'ThreeBounce'}
+              color={APP_COLOR}
+            />
+          </View>
 
           <View
             style={{
