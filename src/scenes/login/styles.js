@@ -37,17 +37,11 @@ export default StyleSheet.create({
     marginBottom: 0,
   },
   alternativeLogin: {
-    position: 'absolute',
-    left: '35%',
-    top: '20%',
-    backgroundColor: 'gray',
-    padding: scale(10),
+    width: '50%',
+    paddingLeft: moderateScale(4),
+    flexDirection: 'row',
     // justifyContent: 'center',
-    alignItems: 'center',
-  },
-  authArea: {
-    borderBottomWidth: scale(1),
-    borderBottomColor: GREY,
+    // alignItems: 'center',
   },
   btnContent: {
     justifyContent: 'center',
@@ -55,12 +49,16 @@ export default StyleSheet.create({
     flexDirection: 'row',
   },
   altLoginBtn: {
-    margin: 5,
+    marginLeft: 5,
+  },
+  authArea: {
+    borderBottomWidth: scale(1),
+    borderBottomColor: GREY,
   },
   pText: {
     fontSize: scale(12),
     color: APP_COLOR,
-    // fontWeight: '400',
+    fontWeight: '400',
   },
   bText: {
     fontSize: scale(14),

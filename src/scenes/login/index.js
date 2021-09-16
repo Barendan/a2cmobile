@@ -318,8 +318,7 @@ const LoginScreen = () => {
           </View>
         </View>
 
-        <Stack size={scale(20)} />
-        <Inset all={scale(12)}>
+        <Inset all={scale(10)}>
           <View>
             <TextInput
               label={<Text style={{ fontSize: moderateScale(16) }}>Login</Text>}
@@ -388,43 +387,19 @@ const LoginScreen = () => {
             </View>
           </View>
 
-          {/* <View style={styles.alternativeLogin}>
-            <Text style={{ color: APP_COLOR, backgroundColor: 'red' }}>
-              {t('or_signin_using')}
-            </Text>
-            <View style={{ flexDirection: 'row' }}>
-              <View style={styles.altLoginBtn}>
-                <Button
-                  onPress={() => {
-                    console.log(
-                      'hello',
-                      supportedTouch,
-                      supportedFaceId,
-                      supportedBiometry,
-                    );
-                  }}
-                  contentStyle={styles.btnText}
-                  mode="outlined">
-                  <MatIcon size={25} name={'face-recognition'} />
-                </Button>
-              </View>
-            </View>
-          </View> */}
-
           {(supportedTouch || supportedFaceId || supportedBiometry) && (
-            <View style={styles.alternativeLogin}>
-              <Text style={{ color: APP_COLOR }}>{t('or_signin_using')}</Text>
-              <View style={{ flexDirection: 'row' }}>
+            <TouchableHighlight onPress={biometricLogin}>
+              <View style={styles.alternativeLogin}>
+                <Text style={styles.pText}>{t('or_signin_using')}</Text>
                 <View style={styles.altLoginBtn}>
-                  <Button
-                    onPress={biometricLogin}
-                    contentStyle={styles.btnContent}
-                    mode="outlined">
-                    <MatIcon size={25} name={'face-recognition'} />
-                  </Button>
+                  <MatIcon
+                    size={moderateScale(20)}
+                    color={APP_COLOR}
+                    name={'face-recognition'}
+                  />
                 </View>
               </View>
-            </View>
+            </TouchableHighlight>
           )}
 
           <Stack size={scale(30)} />
