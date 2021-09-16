@@ -350,7 +350,6 @@ const styles = StyleSheet.create({
     marginHorizontal: moderateScale(16),
     paddingVertical: moderateScale(0),
     borderColor: '#F5F5F5',
-    borderColor: APP_COLOR,
     borderRadius: 30,
   },
   inputText: {
