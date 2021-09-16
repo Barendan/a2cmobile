@@ -62,7 +62,6 @@ const PlanSelector = props => {
             <Text style={styles.title}>{t('change_plan')}</Text>
           </View>
 
-          <Stack size={moderateScale(12)} />
           {memberPlans.map(currentPlan => (
             <TouchableHighlight
               key={currentPlan.NETMember_ID}
@@ -70,14 +69,17 @@ const PlanSelector = props => {
                 dispatch(updatePlan(currentPlan));
                 onPanelDismiss();
               }}>
-              <>
+              <View
+                style={{
+                  marginLeft: moderateScale(-12),
+                }}>
                 {/* <Text style={plan.NETMember_ID === currentPlan.NETMember_ID ? styles.selectedTouchableText : styles.touchableText}>{currentPlan.contractName} ({currentPlan.NETMember_ID})</Text> */}
 
                 <Card.Title
                   title={currentPlan.contractName}
                   titleStyle={{
                     fontSize: moderateScale(16),
-                    marginBottom: moderateScale(2),
+                    marginBottom: moderateScale(-6),
                   }}
                   subtitle={
                     currentPlan.MemberID + ' (' + currentPlan.contractCode + ')'
@@ -97,7 +99,7 @@ const PlanSelector = props => {
                     )
                   }
                 />
-              </>
+              </View>
             </TouchableHighlight>
           ))}
         </Inset>
