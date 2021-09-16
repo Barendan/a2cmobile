@@ -11,13 +11,14 @@ import {
 
 import MatIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import TouchID from 'react-native-touch-id';
+import ReactNativeBiometrics from 'react-native-biometrics';
 
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { sha256 } from 'react-native-sha256';
 import Spinner from 'react-native-spinkit';
-import { TextInput, Button, HelperText } from 'react-native-paper';
-import { Toggle } from '@ui-kitten/components';
+import { TextInput, HelperText } from 'react-native-paper';
+import { Toggle, Button } from '@ui-kitten/components';
 import { Inset, Stack } from 'react-native-spacing-system';
 import { scale, moderateScale } from 'react-native-size-matters';
 
@@ -34,7 +35,7 @@ import {
   ForgotPasswordReset,
 } from '_organisms';
 import { AppButton } from '_atoms';
-import { APP_COLOR, BLUE } from '_styles/colors';
+import { APP_COLOR } from '_styles/colors';
 import styles from './styles';
 
 const LoginScreen = () => {
@@ -51,8 +52,7 @@ const LoginScreen = () => {
   const { email, password } = inputValues;
   const [isEnabled, setIsEnabled] = React.useState(false);
   const [isVisible, setVisible] = React.useState(false);
-  const [supportedFaceId, setSupportedFaceId] = React.useState(false);
-  const [supportTouch, setSupportTouch] = React.useState(false);
+
   const toggleSwitch = () => setIsEnabled(previousState => !previousState);
   const [user, setUser] = useState({});
   const [
@@ -64,6 +64,10 @@ const LoginScreen = () => {
     setDisplayForgotPasswordReset,
   ] = React.useState(false);
 
+  const [supportedFaceId, setSupportedFaceId] = React.useState(false);
+  const [supportedTouch, setSupportedTouch] = React.useState(false);
+  const [supportedBiometry, setSupportedBiometry] = React.useState(false);
+
   const [panelDetails, setPanelDetails] = React.useState({
     panelVisible: false,
     panelDataLoading: false,
@@ -74,15 +78,43 @@ const LoginScreen = () => {
 
   React.useEffect(() => {
     async function validateSupport() {
-      let storedUser = await storage.load({
-        key: 'user',
-        id: 'currentUser',
-      });
+      let storedUser = await storage
+        .load({
+          key: 'user',
+          id: 'currentUser',
+        })
+        .catch(err => {
+          // any exception including data not found
+          // goes to catch()
+          // console.warn(err.message);
+          switch (err.name) {
+            case 'NotFoundError':
+              console.log('No user to load.');
+              break;
+            case 'ExpiredError':
+              console.log('Data expired.');
+              break;
+          }
+        });
 
-      let savedUser = await storage.load({
-        key: 'savedUser',
-        id: 'userSaved',
-      });
+      let savedUser = await storage
+        .load({
+          key: 'savedUser',
+          id: 'userSaved',
+        })
+        .catch(err => {
+          // any exception including data not found
+          // goes to catch()
+          // console.warn(err.message);
+          switch (err.name) {
+            case 'NotFoundError':
+              console.log('No user to load.');
+              break;
+            case 'ExpiredError':
+              console.log('Data expired.');
+              break;
+          }
+        });
 
       if (savedUser?.email && savedUser?.password) {
         onChangeTextInput('email', savedUser.email);
@@ -92,22 +124,40 @@ const LoginScreen = () => {
 
       if (storedUser?.id) {
         setUser(storedUser);
-        const optionalConfigObject = {
-          unifiedErrors: false,
-          passcodeFallback: false,
-        };
-        TouchID.isSupported(optionalConfigObject)
-          .then(biometryType => {
-            if (biometryType === 'FaceID') {
-              setSupportedFaceId(true);
-            } else {
-              setSupportTouch(true);
-            }
-          })
-          .catch(error => {});
       }
     }
     validateSupport();
+  }, []);
+
+  React.useEffect(() => {
+    ReactNativeBiometrics.isSensorAvailable().then(resultObject => {
+      const { available, biometryType } = resultObject;
+
+      if (available && biometryType === ReactNativeBiometrics.TouchID) {
+        console.log('TouchID is supported');
+        setSupportedTouch(true);
+      } else if (available && biometryType === ReactNativeBiometrics.FaceID) {
+        console.log('FaceID is supported');
+        setSupportedFaceId(true);
+      } else if (
+        available &&
+        biometryType === ReactNativeBiometrics.Biometrics
+      ) {
+        console.log('Biometrics is supported');
+        setSupportedBiometry(true);
+        // ReactNativeBiometrics.biometricKeysExist().then(resultObject => {
+        //   const { keysExist } = resultObject;
+
+        //   if (keysExist) {
+        //     console.log('Keys exist');
+        //   } else {
+        //     console.log('Keys do not exist or were deleted');
+        //   }
+        // });
+      } else {
+        console.log('Biometrics not supported');
+      }
+    });
   }, []);
 
   const updatePanelDetails = React.useCallback((key, value) => {
@@ -187,10 +237,10 @@ const LoginScreen = () => {
   const dispatch = useDispatch();
   const [loading, setLoading] = React.useState(false);
 
-  const validateEmail = () => {
-    const re = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-    return re.test(String(email).toLocaleLowerCase());
-  };
+  // const validateEmail = () => {
+  //   const re = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+  //   return re.test(String(email).toLocaleLowerCase());
+  // };
 
   const onChangeTextInput = (field, value) => {
     setInputValues(inpValue => ({
@@ -338,7 +388,30 @@ const LoginScreen = () => {
             </View>
           </View>
 
-          {(supportTouch || supportedFaceId) && (
+          {/* <View style={styles.alternativeLogin}>
+            <Text style={{ color: APP_COLOR, backgroundColor: 'red' }}>
+              {t('or_signin_using')}
+            </Text>
+            <View style={{ flexDirection: 'row' }}>
+              <View style={styles.altLoginBtn}>
+                <Button
+                  onPress={() => {
+                    console.log(
+                      'hello',
+                      supportedTouch,
+                      supportedFaceId,
+                      supportedBiometry,
+                    );
+                  }}
+                  contentStyle={styles.btnText}
+                  mode="outlined">
+                  <MatIcon size={25} name={'face-recognition'} />
+                </Button>
+              </View>
+            </View>
+          </View> */}
+
+          {(supportedTouch || supportedFaceId || supportedBiometry) && (
             <View style={styles.alternativeLogin}>
               <Text style={{ color: APP_COLOR }}>{t('or_signin_using')}</Text>
               <View style={{ flexDirection: 'row' }}>

@@ -37,7 +37,12 @@ export default StyleSheet.create({
     marginBottom: 0,
   },
   alternativeLogin: {
-    justifyContent: 'center',
+    position: 'absolute',
+    left: '35%',
+    top: '20%',
+    backgroundColor: 'gray',
+    padding: scale(10),
+    // justifyContent: 'center',
     alignItems: 'center',
   },
   authArea: {

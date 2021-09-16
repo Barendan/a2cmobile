@@ -39,10 +39,10 @@ const FavoriteLocations = () => {
         console.warn(err.message);
         switch (err.name) {
           case 'NotFoundError':
-            // TODO;
+            console.log('No user found.');
             break;
           case 'ExpiredError':
-            // TODO
+            console.log('User expired.');
             break;
         }
       });
