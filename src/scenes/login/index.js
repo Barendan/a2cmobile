@@ -395,7 +395,7 @@ const LoginScreen = () => {
 
               <TouchableHighlight
                 onPress={() => getLatestAppInfo(t('faqs'), 'faqs')}>
-                <Text style={styles.bText}>{t('faqs')}</Text>
+                <Text style={styles.bText}>{t('faq')}</Text>
               </TouchableHighlight>
               <LanguageSelector />
               <Stack size={scale(6)} />
