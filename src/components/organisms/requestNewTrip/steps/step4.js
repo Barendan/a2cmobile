@@ -107,7 +107,6 @@ const Step4 = ({ back, next }) => {
   return (
     <View style={styles.container}>
       <ScrollView style={styles.formContainer}>
-        {/* <Card> */}
         <ListItem
           title={() => (
             <Text style={styles.summaryTitle}>{`${t('pickup_address')}:`}</Text>
@@ -223,10 +222,8 @@ const Step4 = ({ back, next }) => {
             )}
           />
         }
-        {/* </Card> */}
       </ScrollView>
 
-      <Text style={styles.errorMessage}>{errorMessage}</Text>
       {isLoading && (
         <View style={styles.loadingView}>
           <Text style={styles.loadingMessage}>{t('requesting_trip')}</Text>
@@ -239,6 +236,9 @@ const Step4 = ({ back, next }) => {
         </View>
       )}
 
+      <View style={styles.footer}>
+        <Text style={styles.errorMessage}>{errorMessage}</Text>
+      </View>
       <View style={styles.footer}>
         <Button appearance="outline" style={styles.backButton} onPress={goBack}>
           <Text

@@ -83,12 +83,14 @@ const Step1 = ({ next }) => {
           description={t('add_stop_description')}
           onAddressSelected={addr => dispatch(updateTripStop(addr))}
         />
-        <CheckboxCard
-          cardIcon={'swap-horizontal'}
-          title={t('round_trip')}
-          checkedValue={isRoundTrip}
-          onChecked={value => dispatch(roundTrip(value))}
-        />
+        <View style={{ marginTop: -10 }}>
+          <CheckboxCard
+            cardIcon={'swap-horizontal'}
+            title={t('round_trip')}
+            checkedValue={isRoundTrip}
+            onChecked={value => dispatch(roundTrip(value))}
+          />
+        </View>
       </ScrollView>
 
       <View style={styles.footer}>
