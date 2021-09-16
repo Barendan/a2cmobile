@@ -66,9 +66,10 @@ export default StyleSheet.create({
   },
   forwardButton: {
     flex: 5,
-    marginLeft: moderateScale(6),
+    height: moderateScale(40),
+    marginHorizontal: moderateScale(14),
     paddingVertical: moderateScale(0),
-    borderColor: APP_COLOR,
+    borderColor: '#F5F5F5',
     borderRadius: 30,
   },
   errorMessage: {
