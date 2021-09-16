@@ -3,7 +3,6 @@ import { View, ScrollView, Text } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button } from '@ui-kitten/components';
 import { useTranslation } from 'react-i18next';
-import { Stack } from 'react-native-spacing-system';
 import Spinner from 'react-native-spinkit';
 import moment from 'moment';
 import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
@@ -111,7 +110,7 @@ const Step3 = ({ back, next }) => {
     <View style={styles.container}>
       <ScrollView style={styles.formContainer}>
         <TextInputCard
-          required={specialNeeds.length === 0 ? true : false}
+          // required={specialNeeds.length === 0 ? true : false}
           cardIcon={'handshake'}
           title={t('special_needs')}
           placeholder={t('special_needs_required')}
@@ -132,8 +131,6 @@ const Step3 = ({ back, next }) => {
           />
         </View>
       )}
-
-      <Stack size={12} />
 
       <View style={styles.footer}>
         <Button appearance="outline" style={styles.backButton} onPress={goBack}>

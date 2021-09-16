@@ -47,6 +47,8 @@ export default StyleSheet.create({
   formContainer: {
     width: '100%',
     backgroundColor: '#FFFFFF',
+    marginTop: moderateScale(-4),
+    paddingHorizontal: moderateScale(12),
     flex: 1,
   },
   container: {
@@ -54,6 +56,7 @@ export default StyleSheet.create({
   },
   footer: {
     width: '100%',
+    paddingHorizontal: moderateScale(12),
     justifyContent: 'space-around',
     alignSelf: 'center',
     flexDirection: 'row',
@@ -62,19 +65,20 @@ export default StyleSheet.create({
     flex: 1,
     height: moderateScale(40),
     paddingVertical: moderateScale(0),
+    marginRight: moderateScale(6),
     borderRadius: 30,
   },
   forwardButton: {
     flex: 5,
     height: moderateScale(40),
-    marginHorizontal: moderateScale(14),
     paddingVertical: moderateScale(0),
     borderColor: '#F5F5F5',
     borderRadius: 30,
   },
   errorMessage: {
     color: ERROR,
-    fontSize: moderateScale(18),
+    fontSize: moderateScale(12),
+    paddingBottom: moderateScale(4),
   },
   loadingMessage: {
     color: APP_COLOR,

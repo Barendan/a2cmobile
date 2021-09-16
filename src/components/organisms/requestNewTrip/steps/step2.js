@@ -80,6 +80,7 @@ const Step2 = ({ back, next }) => {
             height: verticalScale(55),
             borderWidth: 1,
             elevation: 10,
+            backgroundColor: 'white',
           }}
           onChecked={value => dispatch(setRequiredWheelChair(value))}
         />
@@ -117,7 +118,7 @@ const Step2 = ({ back, next }) => {
           selectedValue={tripReason}
           onOptionSelected={value => dispatch(setTripReason(value?.value))}
         />
-        <Stack size={moderateScale(8)} />
+        <Stack size={moderateScale(12)} />
       </ScrollView>
 
       <View style={styles.footer}>

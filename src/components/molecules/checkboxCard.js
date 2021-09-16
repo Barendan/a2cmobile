@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
     borderColor: GRAY_DARK,
     borderRadius: 10,
     justifyContent: 'center',
-    backgroundColor: 'white',
+    backgroundColor: 'transparent',
   },
   solidBorderStyle: {
     borderStyle: 'solid',
