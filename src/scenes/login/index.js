@@ -130,21 +130,21 @@ const LoginScreen = () => {
   }, []);
 
   // Using TouchID Library
-  React.useEffect(() => {
-    TouchID.isSupported()
-      .then(biometryType => {
-        if (biometryType === 'FaceID') {
-          setSupportedFaceId(true);
-        } else if (biometryType === 'TouchID') {
-          setSupportedTouch(true);
-        } else if (biometryType === true) {
-          setSupportedBiometry(true);
-        }
-      })
-      .catch(error => {
-        console.log(error);
-      });
-  }, []);
+  // React.useEffect(() => {
+  //   TouchID.isSupported()
+  //     .then(biometryType => {
+  //       if (biometryType === 'FaceID') {
+  //         setSupportedFaceId(true);
+  //       } else if (biometryType === 'TouchID') {
+  //         setSupportedTouch(true);
+  //       } else if (biometryType === true) {
+  //         setSupportedBiometry(true);
+  //       }
+  //     })
+  //     .catch(error => {
+  //       console.log(error);
+  //     });
+  // }, []);
 
   // Using ReactNativeBiometrics Library
   // React.useEffect(() => {
