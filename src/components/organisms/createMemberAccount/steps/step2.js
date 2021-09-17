@@ -2,7 +2,10 @@ import React from 'react';
 import { View, Text, ScrollView, TouchableHighlight } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { Button, Input, Radio, RadioGroup } from '@ui-kitten/components';
+<<<<<<< HEAD
 import { useTranslation } from 'react-i18next';
+=======
+>>>>>>> 27113ef27039e6010d609661636359263d2809d5
 import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
 import Spinner from 'react-native-spinkit';
 
@@ -190,8 +193,11 @@ const Step2 = ({ back, next, getState, saveState }) => {
 
       <View style={styles.footer}>
         <Button
+<<<<<<< HEAD
           title={t('back_button')}
           size="large"
+=======
+>>>>>>> 27113ef27039e6010d609661636359263d2809d5
           appearance="outline"
           style={styles.backButton}
           disabled={loading}
