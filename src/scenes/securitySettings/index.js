@@ -204,13 +204,9 @@ const SecuritySettings = () => {
                   )}
                   value={selectedQuestion.questionOne}
                   placeholder={() => (
-<<<<<<< HEAD
                     <Text style={styles.inputPlaceholder}>
                       {t('select_option')}
                     </Text>
-=======
-                    <Text style={styles.inputPlaceholder}>Select Option</Text>
->>>>>>> 27113ef27039e6010d609661636359263d2809d5
                   )}
                   selectedIndex={selectedQuestion.questionOneIndex}
                   onSelect={index =>
@@ -253,13 +249,9 @@ const SecuritySettings = () => {
                   )}
                   value={selectedQuestion.questionTwo}
                   placeholder={() => (
-<<<<<<< HEAD
                     <Text style={styles.inputPlaceholder}>
                       {t('select_option')}
                     </Text>
-=======
-                    <Text style={styles.inputPlaceholder}>Select Option</Text>
->>>>>>> 27113ef27039e6010d609661636359263d2809d5
                   )}
                   selectedIndex={selectedQuestion.questionTwoIndex}
                   onSelect={index =>
@@ -300,13 +292,9 @@ const SecuritySettings = () => {
                   )}
                   value={selectedQuestion.questionThree}
                   placeholder={() => (
-<<<<<<< HEAD
                     <Text style={styles.inputPlaceholder}>
                       {t('select_option')}
                     </Text>
-=======
-                    <Text style={styles.inputPlaceholder}>Select Option</Text>
->>>>>>> 27113ef27039e6010d609661636359263d2809d5
                   )}
                   selectedIndex={selectedQuestion.questionThreeIndex}
                   textStyle={styles.inputText}

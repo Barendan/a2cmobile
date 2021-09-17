@@ -1,72 +1,21 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
-import React, { useState } from 'react';
-import {
-  View,
-  TextInput,
-  TouchableHighlight,
-  StyleSheet,
-  ScrollView,
-  useWindowDimensions,
-} from 'react-native';
-import {
-  Avatar,
-  Card,
-  Surface,
-  IconButton,
-  Divider,
-  List,
-} from 'react-native-paper';
-
-import Counter from 'react-native-counters';
-
-import PropTypes from 'prop-types';
-import { Inset, Stack } from 'react-native-spacing-system';
-=======
 import React from 'react';
 import { View, TextInput, StyleSheet } from 'react-native';
 import { Surface, List } from 'react-native-paper';
 import { Inset, Stack } from 'react-native-spacing-system';
 import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
 import PropTypes from 'prop-types';
->>>>>>> b1fe9eb (scale styles of each individual new trip component)
-=======
-import React from 'react';
-import { View, TextInput, StyleSheet } from 'react-native';
-import { Surface, List } from 'react-native-paper';
-import { Inset, Stack } from 'react-native-spacing-system';
-import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
-import PropTypes from 'prop-types';
->>>>>>> 27113ef27039e6010d609661636359263d2809d5
 
 import { BLUE, GRAY_DARK, GRAY_LIGHT } from '_styles/colors';
 import { GRAY_MEDIUM } from '_styles';
 
 const styles = StyleSheet.create({
   surface: {
-<<<<<<< HEAD
-<<<<<<< HEAD
-    padding: 2,
-    height: 220,
-    width: '100%',
-    // elevation: 10,
-    borderWidth: 1,
-    borderColor: GRAY_DARK,
-    borderRadius: 10,
-    // padding: 10,
-=======
-=======
->>>>>>> 27113ef27039e6010d609661636359263d2809d5
     height: verticalScale(200),
     width: '100%',
     borderWidth: 1,
     borderColor: GRAY_DARK,
     borderRadius: 10,
     padding: moderateScale(8),
-<<<<<<< HEAD
->>>>>>> b1fe9eb (scale styles of each individual new trip component)
-=======
->>>>>>> 27113ef27039e6010d609661636359263d2809d5
     justifyContent: 'flex-start',
   },
   solidBorderStyle: {
@@ -80,46 +29,15 @@ const styles = StyleSheet.create({
     marginVertical: 50,
     marginLeft: -5,
   },
-<<<<<<< HEAD
-<<<<<<< HEAD
-  counterHolder: {
-    marginVertical: 50,
-    justifyContent: 'center',
-    textAlign: 'center',
-    height: 10,
-    marginHorizontal: -8,
-    borderColor: BLUE,
-    borderWidth: 1,
-  },
-  titleStyle: {
-    marginBottom: 10,
-=======
   titleStyle: {
     fontSize: moderateScale(16),
     marginBottom: moderateScale(10),
->>>>>>> b1fe9eb (scale styles of each individual new trip component)
-=======
-  titleStyle: {
-    fontSize: moderateScale(16),
-    marginBottom: moderateScale(10),
->>>>>>> 27113ef27039e6010d609661636359263d2809d5
   },
   textInputStyleClass: {
     padding: 10,
     textAlign: 'left',
-<<<<<<< HEAD
-<<<<<<< HEAD
-    height: 150,
-    fontSize: 17,
-    color: '#000',
-=======
     height: verticalScale(120),
     fontSize: moderateScale(12),
->>>>>>> b1fe9eb (scale styles of each individual new trip component)
-=======
-    height: verticalScale(120),
-    fontSize: moderateScale(12),
->>>>>>> 27113ef27039e6010d609661636359263d2809d5
     borderWidth: 1,
     borderColor: GRAY_MEDIUM,
     borderRadius: 5,

@@ -5,10 +5,6 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 import { Inset, Stack } from 'react-native-spacing-system';
 import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
 import PropTypes from 'prop-types';
-<<<<<<< HEAD
-import { Inset, Stack } from 'react-native-spacing-system';
-=======
->>>>>>> 27113ef27039e6010d609661636359263d2809d5
 
 import { GRAY_DARK, BLUE } from '_styles/colors';
 
@@ -181,13 +177,8 @@ const DateTimePickerCard = props => {
           )}
           {show && (
             <View style={styles.dateTimeHolder}>
-<<<<<<< HEAD
               <Text style={styles.titleStyle}>
                 {mode === 'date' ? t('select_date') : t('select_time')}
-=======
-              <Text style={styles.datePickerTitle}>
-                {mode === 'date' ? 'Select Date' : 'Select Time'}
->>>>>>> 27113ef27039e6010d609661636359263d2809d5
               </Text>
               <View style={styles.dateTimePickerHolder}>
                 <DateTimePicker
