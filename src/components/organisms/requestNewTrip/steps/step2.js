@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { View, ScrollView } from 'react-native';
+import { Text, View, ScrollView } from 'react-native';
 import { Button } from '@ui-kitten/components';
 import { useTranslation } from 'react-i18next';
+import { Inset, Stack } from 'react-native-spacing-system';
+import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
+
 import {
   CheckboxCard,
   NumericCountCard,
@@ -68,12 +71,20 @@ const Step2 = ({ back, next }) => {
           count={additionalPassengers}
           onCountChange={value => dispatch(setAdditionalPassenger(value))}
         />
+        <Stack size={moderateScale(8)} />
         <CheckboxCard
           cardIcon={'wheelchair-accessibility'}
           title={t('need_wheelchair')}
           checkedValue={wheelchairRequired}
+          moddedStyle={{
+            height: verticalScale(55),
+            borderWidth: 1,
+            elevation: 10,
+            backgroundColor: 'white',
+          }}
           onChecked={value => dispatch(setRequiredWheelChair(value))}
         />
+        <Stack size={moderateScale(8)} />
         <DateTimePickerCard
           required={!appointmentDate || !appointmentTime ? true : false}
           cardIcon={'calendar-clock'}
@@ -97,6 +108,7 @@ const Step2 = ({ back, next }) => {
             dispatch(setAppointMentSchedule({ type: type, value: value }))
           }
         />
+        <Stack size={moderateScale(8)} />
         <DropDownPickerCard
           required={!tripReason ? true : false}
           cardIcon={'information-outline'}
@@ -106,24 +118,18 @@ const Step2 = ({ back, next }) => {
           selectedValue={tripReason}
           onOptionSelected={value => dispatch(setTripReason(value?.value))}
         />
+        <Stack size={moderateScale(12)} />
       </ScrollView>
 
       <View style={styles.footer}>
-        <Button
-          title={t('back')}
-          size="large"
-          appearance="outline"
-          style={styles.backButton}
-          onPress={goBack}>
-          {t('back')}
+        <Button appearance="outline" style={styles.backButton} onPress={goBack}>
+          <Text style={{ fontSize: moderateScale(16) }}>{t('back')}</Text>
         </Button>
         <Button
-          title={t('continue')}
-          size="large"
-          style={styles.forwardButton}
           disabled={isDisabled}
+          style={styles.forwardButton}
           onPress={nextStep}>
-          {t('continue')}
+          <Text style={{ fontSize: moderateScale(16) }}>{t('continue')}</Text>
         </Button>
       </View>
     </View>

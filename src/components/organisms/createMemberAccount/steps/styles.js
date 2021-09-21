@@ -1,7 +1,7 @@
 import { StyleSheet, Platform } from 'react-native';
 import { ERROR, BLUE, APP_COLOR } from '_styles/colors';
 import { FONT_SIZE_18 } from '_styles/typography';
-import { scaleFont } from '_styles/mixins';
+import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
 
 export default StyleSheet.create({
   titleWrapper: {
@@ -11,35 +11,27 @@ export default StyleSheet.create({
   title: {
     fontWeight: 'bold',
     color: '#366999',
-    fontSize: 18,
-    marginBottom: 10,
+    fontSize: moderateScale(24),
+    marginBottom: moderateScale(4),
   },
   body: {
-    fontSize: scaleFont(12),
+    fontSize: scale(12),
     fontWeight: 'bold',
   },
   bodyWrapper: {
-    marginBottom: 50,
-  },
-  input: {
-    width: '90%',
-    height: 50,
-    borderWidth: 2,
-    borderRadius: 2,
-    marginBottom: Platform.OS === 'ios' ? '10%' : '7%',
-    alignSelf: 'center',
+    marginBottom: moderateScale(50),
   },
   mainContainer: {
-    height: Platform.OS === 'ios' ? '80%' : '75%',
+    height: Platform.OS === 'ios' ? '80%' : '88%',
   },
   formContainer: {
     width: '100%',
-    marginTop: '10%',
+    marginTop: Platform.OS === 'ios' ? '6%' : '3%',
     backgroundColor: '#FFFFFF',
     flex: 1,
   },
   container: {
-    height: '100%',
+    height: '78%',
     alignItems: 'center',
   },
   footer: {
@@ -49,12 +41,15 @@ export default StyleSheet.create({
     flexDirection: 'row',
   },
   backButton: {
-    height: 40,
-    marginRight: 5,
+    flex: 1,
+    height: moderateScale(40),
+    paddingVertical: moderateScale(0),
     borderRadius: 30,
   },
   forwardButton: {
-    flex: 1,
+    flex: 5,
+    marginLeft: moderateScale(6),
+    paddingVertical: moderateScale(0),
     borderColor: '#F5F5F5',
     borderRadius: 30,
   },
@@ -76,8 +71,13 @@ export default StyleSheet.create({
   },
   listItemTitle: {
     fontWeight: 'bold',
-    fontSize: 12,
+    fontSize: scale(9),
     letterSpacing: 0.7,
+  },
+  listItemHeader: {
+    fontSize: scale(10),
+    marginBottom: '1%',
+    color: 'black',
   },
   optionsIcon: {
     backgroundColor: 'transparent',
@@ -90,5 +90,37 @@ export default StyleSheet.create({
   bText: {
     color: APP_COLOR,
     fontWeight: '500',
+  },
+  input: {
+    // width: '95%',
+    height: verticalScale(40),
+    borderWidth: 2,
+    borderRadius: 2,
+    marginBottom: '10%',
+    alignSelf: 'center',
+  },
+  inputText: {
+    paddingVertical: moderateScale(2),
+    fontSize: moderateScale(14),
+  },
+  inputLabel: {
+    color: '#8F9BB3',
+    fontSize: moderateScale(10),
+    paddingBottom: '0.5%',
+  },
+  nameGreeting: {
+    marginBottom: '5%',
+    fontSize: scale(14),
+  },
+  radioText: {
+    padding: moderateScale(2),
+    fontSize: moderateScale(12),
+    marginLeft: '3%',
+  },
+  radioGroup: {
+    marginLeft: '5%',
+  },
+  tempCode: {
+    fontSize: moderateScale(12),
   },
 });

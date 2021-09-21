@@ -1,7 +1,8 @@
 import React from 'react';
 import { View, Text } from 'react-native';
 import ProgressCircle from 'react-native-progress-circle';
-import { useTranslation } from "react-i18next";
+import { useTranslation } from 'react-i18next';
+import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
 
 const ProgressBar = ({
   currentStep,
@@ -10,51 +11,54 @@ const ProgressBar = ({
   subtitle,
   color = '#3399FF',
   shadowColor = '#999',
-  small = false
+  radius,
 }) => {
   const { t } = useTranslation();
-  const perecentage = Math.floor((currentStep / stepCount) * 100);
+  const percentage = Math.floor((currentStep / stepCount) * 100);
   return (
     <View
       style={{
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        marginTop: small ? '0%' : '5%',
-        marginLeft: '5%',
-        width: '90%'
+        margin: '5%',
+        width: '90%',
       }}>
       <ProgressCircle
-        percent={perecentage}
-        radius={small ? 30 : 40}
+        percent={percentage}
+        radius={scale(radius)}
         borderWidth={8}
         color={color}
         shadowColor={shadowColor}
         bgColor="#fff">
-        <Text style={{ fontSize: small ? 12 : 18 }}>{`${currentStep} ${t('of_text')} ${stepCount} `}</Text>
+        <Text
+          style={{
+            fontSize: radius ? scale(12) : scale(18),
+          }}>{`${currentStep} ${t('of_text')} ${stepCount} `}</Text>
       </ProgressCircle>
-      <View 
-      style={{
-        alignItems: 'flex-end'
-      }}>
+      <View
+        style={{
+          alignItems: 'flex-end',
+        }}>
         <Text
           style={{
             color: 'black',
-            fontSize: 22,
+            fontSize: scale(20),
             margin: '1%',
           }}>
           {title}
         </Text>
-        {subtitle && <Text
-          style={{
-            color: 'grey',
-            fontSize: 15,
-            margin: '1%',
-          }}>
-          {subtitle}
-        </Text>}
+        {subtitle && (
+          <Text
+            style={{
+              color: 'grey',
+              fontSize: scale(10),
+              margin: '1%',
+            }}>
+            {subtitle}
+          </Text>
+        )}
       </View>
-
     </View>
   );
 };

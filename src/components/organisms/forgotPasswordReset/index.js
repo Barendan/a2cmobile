@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, ScrollView } from 'react-native';
+import { View, Text } from 'react-native';
 import AnimatedMultistep from 'react-native-animated-multistep';
 import DraggablePanel from 'react-native-draggable-panel';
 import { Inset, Stack } from 'react-native-spacing-system';
@@ -14,6 +14,7 @@ import styles from './steps/styles';
 
 // styles
 import { APP_COLOR } from '_styles/colors';
+import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
 
 const ForgotPasswordReset = props => {
   const { t } = useTranslation();
@@ -49,7 +50,7 @@ const ForgotPasswordReset = props => {
           onPanelDismiss();
           setCurrentStep(1);
         }}
-        initialHeight={800}
+        initialHeight={verticalScale(1000)}
         expandable>
         {loading && (
           <View style={styles.loadingView}>
@@ -67,14 +68,13 @@ const ForgotPasswordReset = props => {
           <>
             <CloseButton onPress={onPanelDismiss} />
 
-            <Inset all={16}>
+            <Inset all={moderateScale(16)}>
               <View style={styles.titleWrapper}>
                 <Text style={styles.title}>{t('forgot_password')}</Text>
               </View>
-              <Stack size={12} />
 
               <ProgressBar
-                small={true}
+                radius={30}
                 currentStep={currentStep}
                 stepCount={steps.length}
                 title={steps[currentStep - 1].name}
@@ -83,21 +83,18 @@ const ForgotPasswordReset = props => {
                   t('go_to_next') + ': ' + steps[currentStep].name
                 }
               />
-              <Stack size={12} />
-
               <Divider />
-              <Stack size={12} />
-              {/* <ScrollView showsVerticalScrollIndicator={false} style={{backgroundColor:'green'}}> */}
-              <View style={styles.mainContainer}>
-              <AnimatedMultistep
-                  steps={steps}
-                  onFinish={finish}
-                  onBack={onBack}
-                  onNext={onNext}
-                />
-              </View>
 
-              {/* </ScrollView> */}
+              <Inset all={moderateScale(16)}>
+                <View style={styles.mainContainer}>
+                  <AnimatedMultistep
+                    steps={steps}
+                    onFinish={finish}
+                    onBack={onBack}
+                    onNext={onNext}
+                  />
+                </View>
+              </Inset>
             </Inset>
           </>
         )}

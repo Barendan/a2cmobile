@@ -1,14 +1,16 @@
 import React from 'react';
 import { View, Text, ScrollView, TouchableHighlight } from 'react-native';
-import { Button, Input, Radio, RadioGroup } from '@ui-kitten/components';
 import { useTranslation } from 'react-i18next';
+import { Button, Input, Radio, RadioGroup } from '@ui-kitten/components';
+import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
 import Spinner from 'react-native-spinkit';
+
+import { OTPInput } from '_atoms';
+import { useAccountMethods } from '_hooks';
+
 import { APP_COLOR } from '_styles/colors';
 import { Stack } from 'react-native-spacing-system';
 import styles from './styles';
-import { OTPInput } from '_atoms';
-
-import { useAccountMethods } from '_hooks';
 
 const Step2 = ({ back, next, getState, saveState }) => {
   const { t } = useTranslation();
@@ -40,7 +42,7 @@ const Step2 = ({ back, next, getState, saveState }) => {
   }, [memberLogin]);
 
   const goBack = () => {
-    // Go to previous step
+    saveState({ savedInfo: memberRecord });
     back();
   };
 
@@ -54,26 +56,31 @@ const Step2 = ({ back, next, getState, saveState }) => {
             { alignItems: 'flex-start', width: '85%', marginBottom: '5%' },
           ]}>
           {memberRecord && (
-            <Text category="h6" style={[{ marginBottom: '5%' }]}>
+            <Text style={styles.nameGreeting}>
               {t('greeting-text')} {memberRecord.firstName}{' '}
-              {memberRecord.lastName}
+              {memberRecord.lastName},
             </Text>
           )}
 
-          <Stack size={12} />
+          <Text style={{ fontSize: scale(10) }}>{t('login_option')}</Text>
 
-          <Text category="h6" style={[{ marginBottom: '5%' }]}>
-            {t('login_option')}
-          </Text>
-          <RadioGroup
-            selectedIndex={selectedIndex}
-            onChange={index => {
-              setSelectedIndex(index);
-              setShowValidate(false);
-            }}>
-            <Radio>{t('email')}</Radio>
-            <Radio>{t('phone_number')}</Radio>
-          </RadioGroup>
+          <View style={styles.radioGroup}>
+            <RadioGroup
+              selectedIndex={selectedIndex}
+              onChange={index => {
+                setSelectedIndex(index);
+                setShowValidate(false);
+              }}>
+              <Radio>
+                {() => <Text style={styles.radioText}>{t('email')}</Text>}
+              </Radio>
+              <Radio>
+                {() => (
+                  <Text style={styles.radioText}>{t('phone_number')}</Text>
+                )}
+              </Radio>
+            </RadioGroup>
+          </View>
         </View>
         {!showValidate && (
           <>
@@ -84,8 +91,11 @@ const Step2 = ({ back, next, getState, saveState }) => {
                     style={styles.input}
                     onChangeText={text => onLoginMethod('email', text)}
                     value={loginMethod.login}
-                    label={t('email') + '*'}
+                    label={() => (
+                      <Text style={styles.inputLabel}>{t('email') + '*'}</Text>
+                    )}
                     placeholder={t('email')}
+                    textStyle={styles.inputText}
                   />
                 ),
                 1: (
@@ -93,8 +103,13 @@ const Step2 = ({ back, next, getState, saveState }) => {
                     style={styles.input}
                     onChangeText={text => onLoginMethod('phone_number', text)}
                     value={loginMethod.login}
-                    label={t('phone_number') + '*'}
+                    label={() => (
+                      <Text style={styles.inputLabel}>
+                        {t('phone_number') + '*'}
+                      </Text>
+                    )}
                     placeholder={t('phone_number')}
+                    textStyle={styles.inputText}
                   />
                 ),
               }[selectedIndex]
@@ -103,7 +118,7 @@ const Step2 = ({ back, next, getState, saveState }) => {
         )}
 
         {showValidate && (
-          <>
+          <View style={styles.radioGroup}>
             <View
               style={[
                 { alignItems: 'flex-start', width: '85%', marginBottom: '5%' },
@@ -111,7 +126,7 @@ const Step2 = ({ back, next, getState, saveState }) => {
               {
                 {
                   0: (
-                    <Text>
+                    <Text style={styles.tempCode}>
                       {t('temp_code_email')}:{' '}
                       <Text style={styles.highlightText}>
                         {loginMethod.login}
@@ -119,7 +134,7 @@ const Step2 = ({ back, next, getState, saveState }) => {
                     </Text>
                   ),
                   1: (
-                    <Text>
+                    <Text style={styles.tempCode}>
                       {t('temp_code_text')}:{' '}
                       <Text style={styles.highlightText}>
                         {loginMethod.login}
@@ -151,10 +166,12 @@ const Step2 = ({ back, next, getState, saveState }) => {
                 { alignItems: 'center', width: '100%', marginBottom: '5%' },
               ]}>
               <TouchableHighlight onPress={() => onSendTempPassCode()}>
-                <Text style={styles.linkText}>{t('resend_temp_code')}</Text>
+                <Text style={[styles.linkText, styles.tempCode]}>
+                  {t('resend_temp_code')}
+                </Text>
               </TouchableHighlight>
             </View>
-          </>
+          </View>
         )}
       </ScrollView>
 
@@ -170,34 +187,33 @@ const Step2 = ({ back, next, getState, saveState }) => {
         </View>
       )}
 
-      <Stack size={12} />
       <View style={styles.footer}>
         <Button
-          title={t('back')}
+          // title={t('back_button')}
           size="large"
           appearance="outline"
           style={styles.backButton}
           disabled={loading}
           onPress={goBack}>
-          {t('back')}
+          <Text style={{ fontSize: moderateScale(16) }}>
+            {t('back_button')}
+          </Text>
         </Button>
         {showValidate ? (
           <Button
-            title={t('validate_temp_code')}
-            size="large"
             style={styles.forwardButton}
             disabled={randomGenerateCode.length === 0}
             onPress={onValidateTemporaryCode}>
-            {t('validate_temp_code')}
+            <Text style={{ fontSize: moderateScale(16) }}>
+              {t('validate_temp_code')}
+            </Text>
           </Button>
         ) : (
           <Button
-            title="Validate"
-            size="large"
             style={styles.forwardButton}
             disabled={disableNextButton || loading}
             onPress={onSendTempPassCode}>
-            {t('continue')}
+            <Text style={{ fontSize: moderateScale(16) }}>{t('continue')}</Text>
           </Button>
         )}
       </View>

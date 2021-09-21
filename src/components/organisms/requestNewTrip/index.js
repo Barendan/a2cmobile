@@ -1,16 +1,12 @@
 import React, { useState } from 'react';
-import {
-  View,
-  Text,
-  Button,
-  ScrollView,
-  KeyboardAvoidingView,
-} from 'react-native';
+import { View, Text } from 'react-native';
 import AnimatedMultistep from 'react-native-animated-multistep';
 import DraggablePanel from 'react-native-draggable-panel';
 import { Inset, Stack } from 'react-native-spacing-system';
 import { Divider } from 'react-native-paper';
 import { useTranslation } from 'react-i18next';
+import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
+
 import { CloseButton, ProgressBar } from '_atoms';
 import Spinner from 'react-native-spinkit';
 import Step1 from './steps/step1';
@@ -25,7 +21,7 @@ import { APP_COLOR } from '_styles/colors';
 
 const RequestNewTrip = props => {
   const { t } = useTranslation();
-  //
+
   const steps = [
     { name: t('where_are_you_going'), component: Step1 },
     { name: t('appointment_details'), component: Step2 },
@@ -65,13 +61,13 @@ const RequestNewTrip = props => {
           onPanelDismiss();
           setCurrentStep(1);
         }}
-        initialHeight={800}
+        initialHeight={verticalScale(1000)}
         expandable>
         {isLoading && (
           <View style={styles.loadingView}>
             <Spinner
               isVisible={isLoading}
-              size={50}
+              size={scale}
               type={'ThreeBounce'}
               color={APP_COLOR}
             />
@@ -83,14 +79,13 @@ const RequestNewTrip = props => {
           <>
             <CloseButton onPress={onPanelDismiss} />
 
-            <Inset all={16}>
+            <Inset all={moderateScale(16)}>
               <View style={styles.titleWrapper}>
                 <Text style={styles.title}>{t('request_new_trip')}</Text>
               </View>
-              <Stack size={12} />
 
               <ProgressBar
-                small={true}
+                radius={30}
                 currentStep={currentStep}
                 stepCount={steps.length}
                 title={steps[currentStep - 1].name}
@@ -99,12 +94,9 @@ const RequestNewTrip = props => {
                   t('go_to_next') + ': ' + steps[currentStep].name
                 }
               />
-              <Stack size={12} />
-
               <Divider />
-              <Stack size={12} />
-              {/* <ScrollView showsVerticalScrollIndicator={false} style={{backgroundColor:'green'}}> */}
-              {/* <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} style={styles.mainContainer} enabled keyboardVerticalOffset={100}> */}
+
+              <Stack size={moderateScale(12)} />
               <View style={styles.mainContainer}>
                 <AnimatedMultistep
                   steps={steps}
@@ -113,9 +105,6 @@ const RequestNewTrip = props => {
                   onNext={onNext}
                 />
               </View>
-              {/* </KeyboardAvoidingView> */}
-
-              {/* </ScrollView> */}
             </Inset>
           </>
         )}

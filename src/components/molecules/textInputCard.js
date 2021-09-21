@@ -1,41 +1,21 @@
-import React, { useState } from 'react';
-import {
-  View,
-  TextInput,
-  TouchableHighlight,
-  StyleSheet,
-  ScrollView,
-  useWindowDimensions,
-} from 'react-native';
-import {
-  Avatar,
-  Card,
-  Surface,
-  IconButton,
-  Divider,
-  List,
-} from 'react-native-paper';
-
-import Counter from 'react-native-counters';
-
-import PropTypes from 'prop-types';
+import React from 'react';
+import { View, TextInput, StyleSheet } from 'react-native';
+import { Surface, List } from 'react-native-paper';
 import { Inset, Stack } from 'react-native-spacing-system';
+import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
+import PropTypes from 'prop-types';
 
-// styles
 import { BLUE, GRAY_DARK, GRAY_LIGHT } from '_styles/colors';
-import { scaleFont } from '_styles/mixins';
 import { GRAY_MEDIUM } from '_styles';
 
 const styles = StyleSheet.create({
   surface: {
-    padding: 2,
-    height: 220,
+    height: verticalScale(200),
     width: '100%',
-    // elevation: 10,
     borderWidth: 1,
     borderColor: GRAY_DARK,
     borderRadius: 10,
-    // padding: 10,
+    padding: moderateScale(8),
     justifyContent: 'flex-start',
   },
   solidBorderStyle: {
@@ -49,24 +29,15 @@ const styles = StyleSheet.create({
     marginVertical: 50,
     marginLeft: -5,
   },
-  counterHolder: {
-    marginVertical: 50,
-    justifyContent: 'center',
-    textAlign: 'center',
-    height: 10,
-    marginHorizontal: -8,
-    borderColor: BLUE,
-    borderWidth: 1,
-  },
   titleStyle: {
-    marginBottom: 10,
+    fontSize: moderateScale(16),
+    marginBottom: moderateScale(10),
   },
   textInputStyleClass: {
     padding: 10,
     textAlign: 'left',
-    height: 150,
-    fontSize: 17,
-    color: '#000',
+    height: verticalScale(120),
+    fontSize: moderateScale(12),
     borderWidth: 1,
     borderColor: GRAY_MEDIUM,
     borderRadius: 5,

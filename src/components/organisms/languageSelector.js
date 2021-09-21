@@ -4,46 +4,45 @@ import DraggablePanel from 'react-native-draggable-panel';
 import { Inset, Stack } from 'react-native-spacing-system';
 import { useTranslation } from 'react-i18next';
 import i18next from 'i18next';
-import { PreferencesContext } from '_context';
-import { CloseButton, AvatarButton } from '_atoms';
 
-// styles
-import { APP_COLOR, WHITE } from '_styles/colors';
-import { scaleFont } from '_styles/mixins';
+import { CloseButton, AvatarButton } from '_atoms';
+import { APP_COLOR } from '_styles/colors';
+import { scale } from 'react-native-size-matters';
 
 const styles = StyleSheet.create({
   touchableContainer: {
     alignItems: 'center',
     justifyContent: 'flex-end',
     flex: 2,
-    padding: 16,
+    padding: scale(16),
   },
   touchableText: {
-    fontSize: scaleFont(18),
+    fontSize: scale(18),
     fontWeight: 'bold',
   },
   titleWrapper: {
     borderBottomColor: '#6f99bf',
-    borderBottomWidth: 2,
+    borderBottomWidth: scale(2),
   },
   title: {
     fontWeight: 'bold',
     color: '#366999',
-    fontSize: 18,
-    marginBottom: 10,
+    fontSize: scale(18),
+    marginBottom: scale(10),
   },
   headerHolder: {
     flex: 1,
     flexDirection: 'row',
   },
   icon: {
-    marginTop: 5,
-    marginLeft: 20,
     backgroundColor: 'white',
-    marginRight: -15,
+    marginTop: scale(-2),
+    fontSize: scale(40),
   },
   translateBtn: {
     color: APP_COLOR,
+    fontSize: scale(14),
+    // width: '50%',
   },
 });
 
@@ -70,17 +69,17 @@ const LanguageSelector = props => {
   };
 
   return (
-    <View>
+    <View style={props.containerStyle}>
       <AvatarButton
         icon={'translate'}
         iconColor={APP_COLOR}
-        iconStyle={props.iconStyle}
+        iconStyle={props.iconStyle ? props.iconStyle : styles.icon}
         buttonText={
           i18next.language.toLocaleLowerCase() === 'en'
             ? t('in_spanish')
             : t('in_english')
         }
-        buttonTextStyle={styles.translateBtn}
+        buttonTextStyle={[styles.translateBtn, props.headerStyle]}
         onPress={() => changeLanguage()}
       />
       <DraggablePanel
@@ -104,7 +103,7 @@ const LanguageSelector = props => {
                 <Text style={styles.touchableText}>
                   {languageMap[item].label}
                 </Text>
-                <Stack size={16} />
+                <Stack size={scale(16)} />
               </>
             </TouchableHighlight>
           ))}

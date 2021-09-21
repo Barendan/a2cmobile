@@ -1,5 +1,6 @@
 import React from 'react';
 import { StyleSheet, SafeAreaView, Text, View } from 'react-native';
+import { Divider } from 'react-native-paper';
 import { Inset, Stack } from 'react-native-spacing-system';
 import { useTranslation } from 'react-i18next';
 import {
@@ -11,14 +12,12 @@ import {
 } from '@ui-kitten/components';
 import Spinner from 'react-native-spinkit';
 import { useDispatch, useSelector } from 'react-redux';
-
 import DropdownAlert from 'react-native-dropdownalert';
-import { DismissKeyboardAwareScrollView } from '_atoms';
+import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
 
+import { DismissKeyboardAwareScrollView } from '_atoms';
 import { MemberService, AppInfoService } from '_services';
 import { update } from '_store/user';
-
-// styles
 import { APP_COLOR } from '_styles/colors';
 
 const SecuritySettings = () => {
@@ -29,7 +28,7 @@ const SecuritySettings = () => {
 
   const [loading, setLoading] = React.useState(false);
   const [disableSubmit, setDisableSubmit] = React.useState(true);
-  const [errorMessage, setErrorMessage] = React.useState(false);
+  // const [errorMessage, setErrorMessage] = React.useState(false);
 
   const [securityQuestions, setSecurityQuestions] = React.useState([]);
 
@@ -165,129 +164,219 @@ const SecuritySettings = () => {
   };
 
   return (
-    <DismissKeyboardAwareScrollView>
-      <SafeAreaView>
-        <Inset vertical={16}>
-          <Inset horizontal={16}>
-            <Text>{t('security_questions_text')}</Text>
+    <SafeAreaView style={{ backgroundColor: 'white', flex: 1 }}>
+      <Inset vertical={verticalScale(16)}>
+        <DismissKeyboardAwareScrollView>
+          <Inset horizontal={verticalScale(16)}>
+            <Text style={{ fontSize: moderateScale(16) }}>
+              {t('security_questions_text')}
+            </Text>
           </Inset>
+          <Stack size={verticalScale(16)} />
+          <Divider />
 
-          <Spinner
-            isVisible={loading}
-            size={50}
-            type={'ThreeBounce'}
-            color={APP_COLOR}
-          />
+          <View
+            style={{
+              justifyContent: 'space-around',
+              alignSelf: 'center',
+            }}>
+            <Spinner
+              isVisible={loading}
+              size={scale(30)}
+              type={'ThreeBounce'}
+              color={APP_COLOR}
+            />
+          </View>
 
-          <Stack size={16} />
-          <View>
+          <View
+            style={{
+              flex: 1,
+              paddingVertical: moderateScale(4),
+              // height: verticalScale(440),
+            }}>
             <Layout key={'questionOne'} level="1">
-              <Inset horizontal={16} vertical={16}>
+              <Inset
+                horizontal={verticalScale(16)}
+                vertical={verticalScale(12)}>
                 <Select
-                  label={t('question_one')}
-                  placeholder={t('select_option')}
+                  label={() => (
+                    <Text style={styles.inputLabel}>{t('question_one')}</Text>
+                  )}
                   value={selectedQuestion.questionOne}
+                  placeholder={() => (
+                    <Text style={styles.inputPlaceholder}>
+                      {t('select_option')}
+                    </Text>
+                  )}
                   selectedIndex={selectedQuestion.questionOneIndex}
                   onSelect={index =>
                     updateSelectedQuestion('questionOneIndex', index)
                   }>
                   {securityQuestions.map((value, index) => {
                     return (
-                      <SelectItem key={index} title={value.SecurityQuestion} />
+                      <SelectItem
+                        key={index}
+                        title={() => (
+                          <Text style={styles.inputText}>
+                            {value.SecurityQuestion}
+                          </Text>
+                        )}
+                      />
                     );
                   })}
                 </Select>
-                <Stack size={16} />
+
+                <Stack size={verticalScale(10)} />
+
                 <Input
                   placeholder={t('question_one_answer')}
                   value={selectedQuestion.questionOneAnswer}
                   onChangeText={nextValue =>
                     updateSelectedQuestion('questionOneAnswer', nextValue)
                   }
+                  textStyle={styles.inputText}
                 />
               </Inset>
             </Layout>
 
             <Layout key={'questionTwo'} style={styles.container} level="1">
-              <Inset horizontal={16} vertical={16}>
+              <Inset
+                horizontal={verticalScale(16)}
+                vertical={verticalScale(12)}>
                 <Select
-                  label={t('question_two')}
-                  placeholder={t('select_option')}
+                  label={() => (
+                    <Text style={styles.inputLabel}>{t('question_two')}</Text>
+                  )}
                   value={selectedQuestion.questionTwo}
+                  placeholder={() => (
+                    <Text style={styles.inputPlaceholder}>
+                      {t('select_option')}
+                    </Text>
+                  )}
                   selectedIndex={selectedQuestion.questionTwoIndex}
                   onSelect={index =>
                     updateSelectedQuestion('questionTwoIndex', index)
                   }>
                   {securityQuestions.map((value, index) => {
                     return (
-                      <SelectItem key={index} title={value.SecurityQuestion} />
+                      <SelectItem
+                        key={index}
+                        title={() => (
+                          <Text style={styles.inputText}>
+                            {value.SecurityQuestion}
+                          </Text>
+                        )}
+                      />
                     );
                   })}
                 </Select>
-                <Stack size={16} />
+                <Stack size={verticalScale(10)} />
                 <Input
                   placeholder={t('question_two_answer')}
                   value={selectedQuestion.questionTwoAnswer}
                   onChangeText={nextValue =>
                     updateSelectedQuestion('questionTwoAnswer', nextValue)
                   }
+                  textStyle={styles.inputText}
                 />
               </Inset>
             </Layout>
 
             <Layout key={'questionThree'} style={styles.container} level="1">
-              <Inset horizontal={16} vertical={16}>
+              <Inset
+                horizontal={verticalScale(16)}
+                vertical={verticalScale(12)}>
                 <Select
-                  label={t('question_three')}
-                  placeholder={t('select_option')}
+                  label={() => (
+                    <Text style={styles.inputLabel}>{t('question_three')}</Text>
+                  )}
                   value={selectedQuestion.questionThree}
+                  placeholder={() => (
+                    <Text style={styles.inputPlaceholder}>
+                      {t('select_option')}
+                    </Text>
+                  )}
                   selectedIndex={selectedQuestion.questionThreeIndex}
+                  textStyle={styles.inputText}
                   onSelect={index =>
                     updateSelectedQuestion('questionThreeIndex', index)
                   }>
                   {securityQuestions.map((value, index) => {
                     return (
-                      <SelectItem key={index} title={value.SecurityQuestion} />
+                      <SelectItem
+                        key={index}
+                        title={() => (
+                          <Text style={styles.inputText}>
+                            {value.SecurityQuestion}
+                          </Text>
+                        )}
+                      />
                     );
                   })}
                 </Select>
-                <Stack size={16} />
+                <Stack size={verticalScale(8)} />
                 <Input
                   placeholder={t('question_three_answer')}
                   value={selectedQuestion.questionThreeAnswer}
                   onChangeText={nextValue =>
                     updateSelectedQuestion('questionThreeAnswer', nextValue)
                   }
+                  textStyle={styles.inputText}
                 />
               </Inset>
+              <Stack size={verticalScale(16)} />
             </Layout>
           </View>
 
-          <View style={{ backgroundColor: 'white' }}>
+          <View
+            style={{
+              width: '100%',
+              justifyContent: 'flex-end',
+              alignSelf: 'center',
+              flexDirection: 'row',
+            }}>
             <Button
-              title={t('update')}
-              size="large"
               style={styles.btn}
               disabled={disableSubmit}
               onPress={updateSecurityQuestion}>
-              {t('update')}
+              <Text
+                style={{
+                  fontSize: moderateScale(16),
+                  lineHeight: moderateScale(18),
+                }}>
+                {t('update')}
+              </Text>
             </Button>
           </View>
-        </Inset>
-        <DropdownAlert ref={ref => (this.dropDownAlertRef = ref)} />
-      </SafeAreaView>
-    </DismissKeyboardAwareScrollView>
+        </DismissKeyboardAwareScrollView>
+      </Inset>
+      <DropdownAlert ref={ref => (this.dropDownAlertRef = ref)} />
+    </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
-  bottom: {
-    flex: 1,
-    justifyContent: 'flex-end',
-    marginBottom: 36,
-  },
   btn: {
-    top: 10,
+    flex: 1,
+    height: moderateScale(40),
+    marginHorizontal: moderateScale(16),
+    paddingVertical: moderateScale(0),
+    borderColor: '#F5F5F5',
+    borderRadius: 30,
+  },
+  inputText: {
+    paddingVertical: moderateScale(2),
+    fontSize: moderateScale(12),
+  },
+  inputLabel: {
+    color: '#8F9BB3',
+    paddingBottom: '0.5%',
+    fontSize: moderateScale(12),
+  },
+  inputPlaceholder: {
+    paddingHorizontal: moderateScale(7),
+    fontSize: moderateScale(12),
+    color: '#8F9BB3',
   },
 });
 

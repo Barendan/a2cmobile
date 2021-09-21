@@ -13,7 +13,6 @@ import storage from '../src/storage';
 import { login } from '_store/user';
 import { updatePlan, setMemberPlans } from '_store/plan';
 
-
 import { I18nextProvider } from 'react-i18next';
 import i18n from './../i18n';
 
@@ -57,12 +56,26 @@ const Application = () => {
   React.useEffect(() => {
     async function isLoggedIn() {
       try {
-        let storedUser = await storage.load({
-          key: 'user',
-          id: 'currentUser',
-        });
-  
-        if(storedUser?.id) {
+        let storedUser = await storage
+          .load({
+            key: 'user',
+            id: 'currentUser',
+          })
+          .catch(err => {
+            // any exception including data not found
+            // goes to catch()
+            // console.warn(err.message);
+            switch (err.name) {
+              case 'NotFoundError':
+                console.log('No user to load.');
+                break;
+              case 'ExpiredError':
+                console.log('Data expired.');
+                break;
+            }
+          });
+
+        if (storedUser?.id) {
           if (storedUser.MemberPlans && storedUser.MemberPlans.length > 0) {
             dispatch(setMemberPlans(storedUser.MemberPlans));
             dispatch(updatePlan(storedUser.MemberPlans[0])); //default to first plan

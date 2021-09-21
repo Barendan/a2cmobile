@@ -8,34 +8,37 @@ import {
   Alert,
   Image,
 } from 'react-native';
-import { Stack } from 'react-native-spacing-system';
+
+import MatIcon from 'react-native-vector-icons/MaterialCommunityIcons';
+import TouchID from 'react-native-touch-id';
+// import ReactNativeBiometrics from 'react-native-biometrics';
+
+import { useTranslation } from 'react-i18next';
+import { useDispatch, useSelector } from 'react-redux';
+import { sha256 } from 'react-native-sha256';
+import Spinner from 'react-native-spinkit';
+import { TextInput, HelperText } from 'react-native-paper';
+import { Toggle, Button } from '@ui-kitten/components';
+import { Inset, Stack } from 'react-native-spacing-system';
+import { scale, moderateScale } from 'react-native-size-matters';
+
+import { login, saveLoggedInUser } from '_store/user';
+import { updatePlan, setMemberPlans } from '_store/plan';
+import { AppInfoService, MemberService } from '_services';
+import { AppSettings } from '_utils';
+import storage from '../../storage';
+
 import {
   LanguageSelector,
   FullScreenPanel,
   CreateMemberAccount,
   ForgotPasswordReset,
 } from '_organisms';
-import TouchID from 'react-native-touch-id';
-import MatIcon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { TextInput, Button, HelperText } from 'react-native-paper';
-import { Button as KittenButton, Toggle } from '@ui-kitten/components';
-import { useTranslation } from 'react-i18next';
-import { useDispatch, useSelector } from 'react-redux';
+import { AppButton } from '_atoms';
+import { APP_COLOR } from '_styles/colors';
 import styles from './styles';
-import { APP_COLOR, GREEN } from '_styles/colors';
-import Spinner from 'react-native-spinkit';
-import { sha256 } from 'react-native-sha256';
 
-import { login, saveLoggedInUser } from '_store/user';
-import { updatePlan, setMemberPlans } from '_store/plan';
-
-// styles
-import { scaleFont } from '_styles/mixins';
-import { AppInfoService, MemberService } from '_services';
-import { AppSettings } from '_utils';
-import storage from '../../storage';
-
-const LoginScreen = ({ navigation, route }) => {
+const LoginScreen = () => {
   const { plan } = useSelector(state => state.plan);
 
   const [inputValues, setInputValues] = useState({
@@ -49,8 +52,7 @@ const LoginScreen = ({ navigation, route }) => {
   const { email, password } = inputValues;
   const [isEnabled, setIsEnabled] = React.useState(false);
   const [isVisible, setVisible] = React.useState(false);
-  const [supportedFaceId, setSupportedFaceId] = React.useState(false);
-  const [supportTouch, setSupportTouch] = React.useState(false);
+
   const toggleSwitch = () => setIsEnabled(previousState => !previousState);
   const [user, setUser] = useState({});
   const [
@@ -62,6 +64,10 @@ const LoginScreen = ({ navigation, route }) => {
     setDisplayForgotPasswordReset,
   ] = React.useState(false);
 
+  const [supportedFaceId, setSupportedFaceId] = React.useState(false);
+  const [supportedTouch, setSupportedTouch] = React.useState(false);
+  const [supportedBiometry, setSupportedBiometry] = React.useState(false);
+
   const [panelDetails, setPanelDetails] = React.useState({
     panelVisible: false,
     panelDataLoading: false,
@@ -72,15 +78,43 @@ const LoginScreen = ({ navigation, route }) => {
 
   React.useEffect(() => {
     async function validateSupport() {
-      let storedUser = await storage.load({
-        key: 'user',
-        id: 'currentUser',
-      });
+      let storedUser = await storage
+        .load({
+          key: 'user',
+          id: 'currentUser',
+        })
+        .catch(err => {
+          // any exception including data not found
+          // goes to catch()
+          // console.warn(err.message);
+          switch (err.name) {
+            case 'NotFoundError':
+              console.log('No user to load.');
+              break;
+            case 'ExpiredError':
+              console.log('Data expired.');
+              break;
+          }
+        });
 
-      let savedUser = await storage.load({
-        key: 'savedUser',
-        id: 'userSaved',
-      });
+      let savedUser = await storage
+        .load({
+          key: 'savedUser',
+          id: 'userSaved',
+        })
+        .catch(err => {
+          // any exception including data not found
+          // goes to catch()
+          // console.warn(err.message);
+          switch (err.name) {
+            case 'NotFoundError':
+              console.log('No user to load.');
+              break;
+            case 'ExpiredError':
+              console.log('Data expired.');
+              break;
+          }
+        });
 
       if (savedUser?.email && savedUser?.password) {
         onChangeTextInput('email', savedUser.email);
@@ -90,23 +124,67 @@ const LoginScreen = ({ navigation, route }) => {
 
       if (storedUser?.id) {
         setUser(storedUser);
-        const optionalConfigObject = {
-          unifiedErrors: false,
-          passcodeFallback: false,
-        };
-        TouchID.isSupported(optionalConfigObject)
-          .then(biometryType => {
-            if (biometryType === 'FaceID') {
-              setSupportedFaceId(true);
-            } else {
-              setSupportTouch(true);
-            }
-          })
-          .catch(error => {});
       }
     }
     validateSupport();
   }, []);
+
+  // Using TouchID Library
+  // React.useEffect(() => {
+  //   TouchID.isSupported()
+  //     .then(biometryType => {
+  //       if (biometryType === 'FaceID') {
+  //         setSupportedFaceId(true);
+  //       } else if (biometryType === 'TouchID') {
+  //         setSupportedTouch(true);
+  //       } else if (biometryType === true) {
+  //         setSupportedBiometry(true);
+  //       }
+  //     })
+  //     .catch(error => {
+  //       console.log(error);
+  //     });
+  // }, []);
+
+  // Using ReactNativeBiometrics Library
+  // React.useEffect(() => {
+  //   ReactNativeBiometrics.isSensorAvailable().then(resultObject => {
+  //     const { available, biometryType } = resultObject;
+
+  //     if (available && biometryType === ReactNativeBiometrics.TouchID) {
+  //       console.log('TouchID is supported');
+  //       setSupportedTouch(true);
+  //     } else if (available && biometryType === ReactNativeBiometrics.FaceID) {
+  //       console.log('FaceID is supported');
+  //       setSupportedFaceId(true);
+  //     } else if (
+  //       available &&
+  //       biometryType === ReactNativeBiometrics.Biometrics
+  //     ) {
+  //       console.log('Biometrics is supported');
+  //       ReactNativeBiometrics.biometricKeysExist().then(resultObject => {
+  //         const { keysExist } = resultObject;
+
+  //         if (keysExist) {
+  //           console.log('Keys exist');
+  //           // If a key exists, show the option
+  //           setSupportedBiometry(true);
+  //         } else {
+  //           console.log('Keys do not exist or were deleted');
+  //           ReactNativeBiometrics.createKeys('Confirm fingerprint').then(
+  //             resultObject => {
+  //               const { publicKey } = resultObject;
+  //               console.log(publicKey);
+  //               sendPublicKeyToServer(publicKey).catch(err => console.log(err));
+  //             },
+  //           );
+  //         }
+  //       });
+  //     } else {
+  //       console.log('Biometrics not supported');
+  //     }
+  //   });
+  // }, []);
 
   const updatePanelDetails = React.useCallback((key, value) => {
     setPanelDetails(panelDetails => {
@@ -185,10 +263,10 @@ const LoginScreen = ({ navigation, route }) => {
   const dispatch = useDispatch();
   const [loading, setLoading] = React.useState(false);
 
-  const validateEmail = () => {
-    const re = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-    return re.test(String(email).toLocaleLowerCase());
-  };
+  // const validateEmail = () => {
+  //   const re = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+  //   return re.test(String(email).toLocaleLowerCase());
+  // };
 
   const onChangeTextInput = (field, value) => {
     setInputValues(inpValue => ({
@@ -250,24 +328,14 @@ const LoginScreen = ({ navigation, route }) => {
           <View>
             {plan && plan.contractLogo ? (
               <Image
-                style={{
-                  resizeMode: 'contain',
-                  height: 100,
-                  width: 230,
-                  alignSelf: 'center',
-                }}
+                style={styles.logoImage}
                 source={{
                   uri: `data:image/jpg;base64,${plan.contractLogo}`,
                 }}
               />
             ) : (
               <Image
-                style={{
-                  resizeMode: 'contain',
-                  height: 100,
-                  width: 230,
-                  alignSelf: 'center',
-                }}
+                style={styles.logoImage}
                 source={require('_assets/images/A2CFullLogo.png')}
               />
             )}
@@ -275,149 +343,157 @@ const LoginScreen = ({ navigation, route }) => {
             <Text style={styles.title}>{plan && plan.contractName}</Text>
           </View>
         </View>
-        <View style={styles.spacing}>
-          <TextInput
-            label="login"
-            value={email}
-            onChangeText={e => onChangeTextInput('email', e)}
-            left={<TextInput.Icon name={'account'} />}
-            style={[
-              errors.email.length ? { borderColor: 'red', borderWidth: 1 } : {},
-              styles.input,
-            ]}
-          />
-          {errors?.email?.length ? (
-            <HelperText
-              style={errors.email.length ? { color: 'red' } : {}}
-              type="error"
-              visible={true}>
-              {errors.email}
-            </HelperText>
-          ) : null}
-        </View>
-        <View style={[styles.spacing, { marginBottom: 20 }]}>
-          <TextInput
-            label="password"
-            style={styles.input}
-            value={password}
-            secureTextEntry={!isVisible}
-            onChangeText={e => onChangeTextInput('password', e)}
-            left={<TextInput.Icon name={'lock'} />}
-            right={
-              <TextInput.Icon
-                onPress={() => setVisible(previousState => !previousState)}
-                name={isVisible ? 'eye-off-outline' : 'eye'}
-              />
-            }
-          />
-        </View>
-        <KittenButton
-          color={APP_COLOR}
-          size="large"
-          style={styles.loginBtn}
-          onPress={onLogin}
-          disabled={loading}>
-          {t('sign_in')}
-        </KittenButton>
 
-        <Stack size={12} />
-
-        <KittenButton
-          appearance="outline"
-          color={APP_COLOR}
-          size="large"
-          style={styles.signUpBtn}
-          onPress={() => setDisplayCreateMemberAccount(true)}
-          disabled={loading}>
-          {t('go_to_registration')}
-        </KittenButton>
-
-        {loading && (
-          <View style={styles.loadingView}>
-            <Spinner
-              isVisible={loading}
-              size={50}
-              type={'ThreeBounce'}
-              color={APP_COLOR}
+        <Inset all={scale(10)}>
+          <View>
+            <TextInput
+              label={<Text style={{ fontSize: moderateScale(16) }}>Login</Text>}
+              value={email}
+              onChangeText={e => onChangeTextInput('email', e)}
+              left={
+                <TextInput.Icon
+                  size={scale(18)}
+                  style={{ marginLeft: moderateScale(8) }}
+                  name={'account'}
+                />
+              }
+              style={[
+                errors.email.length
+                  ? { borderColor: 'red', borderWidth: 1 }
+                  : {},
+                styles.input,
+              ]}
+            />
+            {errors?.email?.length ? (
+              <HelperText
+                style={errors.email.length ? { color: 'red' } : {}}
+                type="error"
+                visible={true}>
+                {errors.email}
+              </HelperText>
+            ) : null}
+          </View>
+          <Stack size={scale(6)} />
+          <View>
+            <TextInput
+              style={styles.input}
+              label={<Text style={{ fontSize: scale(16) }}>Password</Text>}
+              value={password}
+              secureTextEntry={!isVisible}
+              onChangeText={e => onChangeTextInput('password', e)}
+              left={
+                <TextInput.Icon
+                  size={scale(18)}
+                  style={{ marginLeft: moderateScale(8) }}
+                  name={'lock'}
+                />
+              }
+              right={
+                <TextInput.Icon
+                  onPress={() => setVisible(previousState => !previousState)}
+                  name={isVisible ? 'eye-off-outline' : 'eye'}
+                  size={scale(12)}
+                  style={{ marginRight: 20 }}
+                />
+              }
             />
           </View>
-        )}
 
-        <View style={styles.authArea}>
-          <View style={styles.authArea}>
-            <View style={styles.forgotPass}>
-              <TouchableHighlight
-                onPress={() => setDisplayForgotPasswordReset(true)}>
-                <Text style={styles.pText}>{t('forgot_password')}</Text>
-              </TouchableHighlight>
-
-              <View style={styles.thumbContainer}>
-                <Text style={[styles.pText, { marginRight: 5 }]}>
-                  {t('save_login')}
-                </Text>
-                <Toggle checked={isEnabled} onChange={toggleSwitch} />
-              </View>
-            </View>
-            {(supportTouch || supportedFaceId) && (
-              <View style={styles.alternativeLogin}>
-                <Text style={{ color: APP_COLOR }}>{t('or_signin_using')}</Text>
-                <View style={{ flexDirection: 'row' }}>
-                  <View style={styles.altLoginBtn}>
-                    <Button
-                      onPress={biometricLogin}
-                      contentStyle={styles.btnContent}
-                      mode="outlined">
-                      <MatIcon size={25} name={'face-recognition'} />
-                    </Button>
-                  </View>
-                </View>
-              </View>
-            )}
-          </View>
-
-          <View style={styles.footer}>
-            {/* <TouchableHighlight
-            onPress={() => navigation.navigate('Registration')}
-            >
-            <Text style={styles.bText}>{t('go_to_registration')}</Text>
-          </TouchableHighlight> */}
-
-            {/* <TouchableHighlight
-              onPress={() => setDisplayCreateMemberAccount(true)}
-              >
-              <Text style={styles.bText}>{t('go_to_registration')}</Text>
-            </TouchableHighlight> */}
-
-            <Stack size={12} />
-
+          <View style={styles.forgotPass}>
             <TouchableHighlight
-              onPress={() => getLatestAppInfo(t('faqs'), 'faqs')}>
-              <Text style={styles.bText}>{t('faqs')}</Text>
+              onPress={() => setDisplayForgotPasswordReset(true)}>
+              <Text style={styles.pText}>{t('forgot_password')}</Text>
             </TouchableHighlight>
 
-            <Stack size={12} />
-
-            <LanguageSelector />
+            <View style={styles.thumbContainer}>
+              <Text style={[styles.pText, { marginRight: moderateScale(5) }]}>
+                {t('save_login')}
+              </Text>
+              <Toggle checked={isEnabled} onChange={toggleSwitch} />
+            </View>
           </View>
 
-          <ForgotPasswordReset
-            displayPanel={displayForgotPasswordReset}
-            onPanelDismiss={() => setDisplayForgotPasswordReset(false)}
-          />
+          {(supportedTouch || supportedFaceId || supportedBiometry) && (
+            <TouchableHighlight onPress={biometricLogin}>
+              <View style={styles.alternativeLogin}>
+                <Text style={styles.pText}>{t('or_signin_using')}</Text>
+                <View style={styles.altLoginBtn}>
+                  <MatIcon
+                    size={moderateScale(20)}
+                    color={APP_COLOR}
+                    name={'face-recognition'}
+                  />
+                </View>
+              </View>
+            </TouchableHighlight>
+          )}
 
-          <CreateMemberAccount
-            displayPanel={displayCreateMemberAccount}
-            onPanelDismiss={() => setDisplayCreateMemberAccount(false)}
-          />
+          <Stack size={scale(30)} />
 
-          <FullScreenPanel
-            isHTML={panelDetails.isHTML}
-            displayPanel={panelDetails.panelVisible}
-            panelHeader={panelDetails.header}
-            panelBody={panelDetails.body}
-            onPanelDismiss={onPanelDismiss}
-          />
-        </View>
+          <View style={styles.authArea}>
+            {loading && (
+              <View style={styles.loadingView}>
+                <Spinner
+                  isVisible={loading}
+                  size={scale(30)}
+                  type={'ThreeBounce'}
+                  color={APP_COLOR}
+                />
+              </View>
+            )}
+            <AppButton
+              title={t('sign_in')}
+              color={APP_COLOR}
+              color={'#1976d2'}
+              containerStyle={styles.btnContainer}
+              textStyle={styles.btnText}
+              onPress={onLogin}
+            />
+
+            <Stack size={scale(4)} />
+
+            <AppButton
+              title={t('go_to_registration')}
+              color={APP_COLOR}
+              color={'#1976d2'}
+              containerStyle={styles.btnContainer}
+              textStyle={styles.btnText}
+              onPress={() => setDisplayCreateMemberAccount(true)}
+            />
+            <Stack size={scale(50)} />
+          </View>
+
+          <View style={styles.authArea}>
+            <View style={styles.footer}>
+              <Stack size={scale(6)} />
+
+              <TouchableHighlight
+                onPress={() => getLatestAppInfo(t('faqs'), 'faqs')}>
+                <Text style={styles.bText}>{t('faq')}</Text>
+              </TouchableHighlight>
+              <LanguageSelector />
+              <Stack size={scale(6)} />
+            </View>
+
+            <ForgotPasswordReset
+              displayPanel={displayForgotPasswordReset}
+              onPanelDismiss={() => setDisplayForgotPasswordReset(false)}
+            />
+
+            <CreateMemberAccount
+              displayPanel={displayCreateMemberAccount}
+              onPanelDismiss={() => setDisplayCreateMemberAccount(false)}
+            />
+
+            <FullScreenPanel
+              isHTML={panelDetails.isHTML}
+              displayPanel={panelDetails.panelVisible}
+              panelHeader={panelDetails.header}
+              panelBody={panelDetails.body}
+              onPanelDismiss={onPanelDismiss}
+            />
+          </View>
+        </Inset>
       </View>
     </KeyboardAvoidingView>
   );

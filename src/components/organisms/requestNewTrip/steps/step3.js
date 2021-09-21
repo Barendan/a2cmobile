@@ -1,16 +1,17 @@
 import React from 'react';
 import { View, ScrollView, Text } from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
 import { Button } from '@ui-kitten/components';
 import { useTranslation } from 'react-i18next';
-import { TextInputCard } from '_molecules';
-import { useDispatch, useSelector } from 'react-redux';
-import styles from './styles';
-import { MemberService } from '_services';
-import { setSpecialNeeds } from '_store/steps';
 import Spinner from 'react-native-spinkit';
-import { APP_COLOR } from '_styles/colors';
-import { Stack } from 'react-native-spacing-system';
 import moment from 'moment';
+import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
+
+import { setSpecialNeeds } from '_store/steps';
+import { MemberService } from '_services';
+import { TextInputCard } from '_molecules';
+import { APP_COLOR } from '_styles/colors';
+import styles from './styles';
 
 const Step3 = ({ back, next }) => {
   const [isLoading, setIsLoading] = React.useState(false);
@@ -109,7 +110,7 @@ const Step3 = ({ back, next }) => {
     <View style={styles.container}>
       <ScrollView style={styles.formContainer}>
         <TextInputCard
-          required={specialNeeds.length === 0 ? true : false}
+          // required={specialNeeds.length === 0 ? true : false}
           cardIcon={'handshake'}
           title={t('special_needs')}
           placeholder={t('special_needs_required')}
@@ -131,25 +132,15 @@ const Step3 = ({ back, next }) => {
         </View>
       )}
 
-      <Stack size={12} />
-
       <View style={styles.footer}>
-        <Button
-          title={t('back')}
-          size="large"
-          appearance="outline"
-          style={styles.backButton}
-          disabled={isLoading}
-          onPress={goBack}>
-          {t('back')}
+        <Button appearance="outline" style={styles.backButton} onPress={goBack}>
+          <Text style={{ fontSize: moderateScale(16) }}>{t('back')}</Text>
         </Button>
         <Button
-          title={t('continue')}
-          size="large"
           disabled={isLoading}
           style={styles.forwardButton}
           onPress={nextStep}>
-          {t('continue')}
+          <Text style={{ fontSize: moderateScale(16) }}>{t('continue')}</Text>
         </Button>
       </View>
     </View>
