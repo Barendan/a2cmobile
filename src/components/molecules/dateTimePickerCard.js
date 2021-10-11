@@ -5,6 +5,7 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 import { Inset, Stack } from 'react-native-spacing-system';
 import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
 import PropTypes from 'prop-types';
+import { useTranslation } from 'react-i18next';
 
 import { GRAY_DARK, BLUE } from '_styles/colors';
 
@@ -86,6 +87,8 @@ const DateTimePickerCard = props => {
   const [date, setDate] = useState(new Date());
   const [mode, setMode] = useState('date');
   const [show, setShow] = useState(false);
+
+  const { t } = useTranslation();
 
   const [selectedValue, setSelectedValue] = useState(null);
 

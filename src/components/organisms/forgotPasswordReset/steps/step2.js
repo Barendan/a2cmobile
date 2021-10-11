@@ -230,9 +230,7 @@ const Step2 = ({ back, next, getState, saveState }) => {
       <Stack size={12} />
       <View style={styles.footer}>
         <Button appearance="outline" style={styles.backButton} onPress={goBack}>
-          <Text style={{ fontSize: moderateScale(16) }}>
-            {t('back_button')}
-          </Text>
+          <Text style={{ fontSize: moderateScale(16) }}>{t('back')}</Text>
         </Button>
 
         {showValidate ? (
