@@ -64,6 +64,7 @@ const DashboardScreen = () => {
         setLoading(false);
       })
       .catch(err => {
+        // console.log('next', err);
         setLoading(false);
       });
   };
@@ -76,6 +77,7 @@ const DashboardScreen = () => {
     setCurrentTrip(null);
     getLatestMemberTrips();
   };
+  
   const onRequestNewTrip = () => {
     setRequestNewTrip(false);
     getLatestMemberTrips();
