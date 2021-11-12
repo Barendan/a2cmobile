@@ -83,7 +83,19 @@ const LoginScreen = () => {
       VersionCheck.needUpdate()
       .then(async res => {
           if (res.isNeeded) {
-            Linking.openURL(res.storeUrl);  // open store if update is needed.
+            
+            Alert.alert(
+              "New Update Available",
+              "To ensure everything runs smoothly, an update to the app is required.",
+              [
+                {
+                  text: "Cancel",
+                  onPress: () => console.log("Cancel Pressed"),
+                  style: "cancel"
+                },
+                { text: "Update", onPress: () => Linking.openURL(res.storeUrl) }
+              ]
+            );
           }
       });
      }
