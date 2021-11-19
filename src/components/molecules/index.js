@@ -7,3 +7,4 @@ export { default as TextInputCard } from './textInputCard';
 export { default as LocationItem } from './LocationItem';
 export { default as SpeechToText } from './speechToText';
 export { default as EmptyStateView } from './emptyStateView';
+export { default as DraggablePanel } from './draggablePanel';
