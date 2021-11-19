@@ -1,16 +1,18 @@
 import React, { useState } from 'react';
 import { View, Text } from 'react-native';
+import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
 import AnimatedMultistep from 'react-native-animated-multistep';
-import DraggablePanel from 'react-native-draggable-panel';
 import { Inset, Stack } from 'react-native-spacing-system';
 import { Divider } from 'react-native-paper';
 import { useTranslation } from 'react-i18next';
+
 import { CloseButton, ProgressBar } from '_atoms';
+import { DraggablePanel } from '_molecules';
 import Step1 from './steps/step1';
 import Step2 from './steps/step2';
 import Step3 from './steps/step3';
+
 import styles from './steps/styles';
-import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
 
 const CreateMemberAccount = props => {
   const { t } = useTranslation();

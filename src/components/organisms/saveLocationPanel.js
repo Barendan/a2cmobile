@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, ScrollView } from 'react-native';
-import DraggablePanel from 'react-native-draggable-panel';
 import { Inset, Stack } from 'react-native-spacing-system';
 import { Input, Button } from '@ui-kitten/components';
 import { useTranslation } from 'react-i18next';
 import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
 
 import { CloseButton } from '_atoms';
+import { DraggablePanel } from '_molecules';
 import { LocationSearchCard } from '_molecules';
 // import { MemberService } from '_services';
 import storage from '_storage';
