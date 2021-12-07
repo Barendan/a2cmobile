@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
   View,
   Text,
@@ -6,18 +6,19 @@ import {
   StyleSheet,
   ScrollView,
 } from 'react-native';
-import DraggablePanel from 'react-native-draggable-panel';
+import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
 import { Inset, Stack } from 'react-native-spacing-system';
 import { Divider } from 'react-native-paper';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
-import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
 
 import { CloseButton } from '_atoms';
+import { DraggablePanel } from '_molecules';
 import { TripDetails } from '_organisms';
 import { MemberService } from '_services';
+// import user from '_store';
+
 import { CANCEL, GRAY_LIGHT, GRAY_DARK } from '_styles/colors';
-import user from '_store';
 
 const styles = StyleSheet.create({
   titleWrapper: {

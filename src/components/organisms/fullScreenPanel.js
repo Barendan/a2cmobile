@@ -6,11 +6,12 @@ import {
   ScrollView,
   useWindowDimensions,
 } from 'react-native';
-import DraggablePanel from 'react-native-draggable-panel';
+import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
 import { Inset, Stack } from 'react-native-spacing-system';
 import RenderHTML from 'react-native-render-html';
+
 import { CloseButton } from '_atoms';
-import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
+import { DraggablePanel } from '_molecules';
 
 const styles = StyleSheet.create({
   titleWrapper: {

@@ -1,24 +1,24 @@
 import React, { useState } from 'react';
 import { View, Text } from 'react-native';
+import { verticalScale, moderateScale } from 'react-native-size-matters';
 import AnimatedMultistep from 'react-native-animated-multistep';
-import DraggablePanel from 'react-native-draggable-panel';
 import { Inset, Stack } from 'react-native-spacing-system';
 import { Divider } from 'react-native-paper';
-import { useTranslation } from 'react-i18next';
-import { CloseButton, ProgressBar } from '_atoms';
 import Spinner from 'react-native-spinkit';
+import { useTranslation } from 'react-i18next';
+
+import { CloseButton, ProgressBar } from '_atoms';
+import { DraggablePanel } from '_molecules';
 import Step1 from './steps/step1';
 import Step2 from './steps/step2';
 import Step3 from './steps/step3';
-import styles from './steps/styles';
 
-// styles
 import { APP_COLOR } from '_styles/colors';
-import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
+import styles from './steps/styles';
 
 const ForgotPasswordReset = props => {
   const { t } = useTranslation();
-  //
+  
   const steps = [
     { name: t('account_login'), component: Step1 },
     { name: t('security_settings'), component: Step2 },

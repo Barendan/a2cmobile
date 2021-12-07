@@ -1,15 +1,15 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { View, Text, TouchableHighlight, StyleSheet } from 'react-native';
 import { Avatar, Card, IconButton, Divider } from 'react-native-paper';
 import { useDispatch, useSelector } from 'react-redux';
-import DraggablePanel from 'react-native-draggable-panel';
 import { Inset, Stack } from 'react-native-spacing-system';
 import { useTranslation } from 'react-i18next';
 import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
 
-import { PreferencesContext } from '_context';
+// import { PreferencesContext } from '_context';
 import { updatePlan } from '_store/plan';
 import { CloseButton } from '_atoms';
+import { DraggablePanel } from '_molecules';
 
 const styles = StyleSheet.create({
   touchableContainer: {

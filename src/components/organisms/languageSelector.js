@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import { View, Text, TouchableHighlight, StyleSheet } from 'react-native';
-import DraggablePanel from 'react-native-draggable-panel';
 import { Inset, Stack } from 'react-native-spacing-system';
+import { scale } from 'react-native-size-matters';
 import { useTranslation } from 'react-i18next';
 import i18next from 'i18next';
 
 import { CloseButton, AvatarButton } from '_atoms';
+import { DraggablePanel } from '_molecules';
+
 import { APP_COLOR } from '_styles/colors';
-import { scale } from 'react-native-size-matters';
 
 const styles = StyleSheet.create({
   touchableContainer: {

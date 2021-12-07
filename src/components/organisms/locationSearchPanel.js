@@ -6,16 +6,17 @@ import {
   ScrollView,
   TouchableHighlight,
 } from 'react-native';
+import { verticalScale, moderateScale } from 'react-native-size-matters';
 import { Avatar, Card, Divider } from 'react-native-paper';
 import { Inset, Stack } from 'react-native-spacing-system';
-import DraggablePanel from 'react-native-draggable-panel';
 import { useTranslation } from 'react-i18next';
-import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
 
 import { LocationService } from '_helpers';
 import { CloseButton } from '_atoms';
-import { CANCEL, GRAY_LIGHT, GRAY_DARK, BLUE } from '_styles/colors';
+import { DraggablePanel } from '_molecules';
 import storage from '_storage';
+
+import { CANCEL, GRAY_LIGHT, GRAY_DARK, BLUE } from '_styles/colors';
 
 const styles = StyleSheet.create({
   titleWrapper: {
