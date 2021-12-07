@@ -12,7 +12,6 @@ import {
 import MatIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import TouchID from 'react-native-touch-id';
 // import ReactNativeBiometrics from 'react-native-biometrics';
-
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { sha256 } from 'react-native-sha256';
@@ -21,6 +20,8 @@ import { TextInput, HelperText } from 'react-native-paper';
 import { Toggle, Button } from '@ui-kitten/components';
 import { Inset, Stack } from 'react-native-spacing-system';
 import { scale, moderateScale } from 'react-native-size-matters';
+import { Linking } from 'react-native';
+import VersionCheck from 'react-native-version-check';
 
 import { login, saveLoggedInUser } from '_store/user';
 import { updatePlan, setMemberPlans } from '_store/plan';
@@ -75,6 +76,42 @@ const LoginScreen = () => {
     body: '',
     isHTML: false,
   });
+  
+  React.useEffect(() => {
+    // function to redirect to play store
+    const getUpdate = () => { 
+      VersionCheck.needUpdate()
+      .then(async res => {
+          if (res.isNeeded) {
+            
+            Alert.alert(
+              "New Update Available",
+              "To ensure everything runs smoothly, an update to the app is required.",
+              [
+                {
+                  text: "Cancel",
+                  onPress: () => console.log("Cancel Pressed"),
+                  style: "cancel"
+                },
+                { text: "Update", onPress: () => Linking.openURL(res.storeUrl) }
+              ]
+            );
+          }
+      });
+     }
+     
+    // Obtain User's App Version
+    let currentVersion = VersionCheck.getCurrentVersion();
+    // Obtain latest App Version
+    VersionCheck.getLatestVersion({
+      provider: 'appStore'  // for iOS
+    })
+    .then(latestVersion => {
+      // Check if the versions are the same
+      currentVersion === latestVersion ? null : getUpdate();
+      // If yes, do nothing. If no, send to store for update
+    });
+  },[])
 
   React.useEffect(() => {
     async function validateSupport() {

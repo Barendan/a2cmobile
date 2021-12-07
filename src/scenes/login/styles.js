@@ -8,6 +8,7 @@ export default StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     marginBottom: verticalScale(20),
+    marginTop: verticalScale(60),
   },
   container: {
     flex: 1,
