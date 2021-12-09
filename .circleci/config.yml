@@ -1,0 +1,76 @@
+version: 2.1
+jobs:
+  node:
+    working_directory: ~/a2cmobileapp
+    docker:
+      - image: cimg/node:12.16
+
+    steps:
+      - run: npm install
+      - run: echo "hello world"
+
+
+  # macos-build:
+  #   working_directory: ~/a2cmobileapp
+  #   macos:
+  #     xcode: 11.3.0
+  #   environment:
+  #     FL_OUTPUT_DIR: output
+
+  #   steps:
+  #     - run: yarn install
+
+  #     - run: 
+  #         command: pod install
+  #         working_directory: ios
+
+  #     - run: 
+  #         command: bundle install
+  #         working_directory: ios
+            
+
+  # android-build:
+  #   working_directory: ~/a2cmobileapp/android
+  #   docker:
+  #     - image: circleci/android:api-29-node
+  #   steps:
+  #     - checkout:
+  #         path: ~/a2cmobileapp
+
+  #     - run: npm install
+
+  #     - attach_workspace:
+  #         at: ~/a2cmobileapp
+
+  #     - run: bundle install
+
+  # deploy:
+  #   machine:
+  #       enabled: true
+  #   working_directory: ~/a2cmobileapp
+  #   environment:
+  #     HEROKU_APP: "sleepy-refuge-55486" # define env var $HEROKU_APP
+  #   steps:
+  #     - checkout
+  #     - run:
+  #         name: Setup Heroku
+  #         command: bash .circleci/setup-heroku.sh # run a script to set up Heroku
+
+  #     - run:
+  #         command: |
+  #           git push heroku sequential-branch-filter:main
+  #           heroku run rake db:migrate
+  #           sleep 5 # sleep for 5 seconds to wait for dynos
+  #           heroku restart
+            
+
+workflows:
+  node-android-ios:
+    jobs:
+      - node
+      # - android-build:
+      #     requires:
+      #       - node
+      # - macos-build:
+      #     requires:
+      #       - node
