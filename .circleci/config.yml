@@ -1,0 +1,196 @@
+version: 2.1
+
+executors:
+  node-executor:
+    docker:
+      - image: circleci/node:lts
+      
+#####################################################
+##               ANDROID REFERENCES                ##
+#####################################################      
+
+android_dependencies: &android_dependencies
+  run:
+    name: Installing Android dependencies
+    command: cd android && ./gradlew androidDependencies     
+      
+gradle_key: &gradle_key jars-{{ checksum "android/gradle/wrapper/gradle-wrapper.properties" }}-{{ checksum "android/build.gradle" }}-{{ checksum "android/app/build.gradle" }}
+
+restore_gradle_cache: &restore_gradle_cache
+  restore_cache:
+    key: *gradle_key
+
+save_gradle_cache: &save_gradle_cache
+  save_cache:
+    key: *gradle_key
+    paths:
+      - android/.gradle
+      - android/.m2
+
+decode_android_key: &decode_android_key
+  run:
+    name: Installing Android keys
+    command: echo $FCAJKS | base64 -di | tee android/fca-key.jks android/app/fca-key.jks >/dev/null
+
+#####################################################
+##                 IOS REFERENCES                  ##
+#####################################################
+
+ios_dependencies: &ios_dependencies
+  run:
+    name: Installing pods
+    command: cd ios && pod repo update && pod install
+
+pods_key: &pods_key 1-pods-{{ checksum "ios/Podfile.lock" }}
+
+restore_pods_cache: &restore_pods_cache
+  restore_cache:
+    keys:
+      - *pods_key
+      - 1-pods-
+
+save_pods_cache: &save_pods_cache
+  save_cache:
+    key: *pods_key
+    paths:
+      - ios/Pods
+
+get_certificate: &get_certificate
+  run:
+    name: Installing iOS certificate
+    command: |
+      if [ "${CIRCLE_BRANCH}" == "staging" ]
+      then
+        echo $IOS_DISTRIBUTION | base64 -d | tee certios.p12 >/dev/null
+      else
+        echo $IOS_DEVELOPMENT | base64 -d | tee certios.p12 >/dev/null
+      fi
+      security create-keychain -p default MyKeychain.keychain
+      echo "unlocking keychain"
+      security set-keychain-settings MyKeychain.keychain
+      security unlock-keychain -p default MyKeychain.keychain
+      echo "Importing certificates"
+      security import ./certios.p12 -x -t agg -k MyKeychain.keychain -A -P ""
+      echo "appending new keychain to the list"
+      security list-keychains -d user -s MyKeychain.keychain $(security list-keychains -d user | sed s/\"//g)
+      echo "setting default keychain"
+      security default-keychain -s MyKeychain.keychain
+      echo "finding identity"
+      security find-identity -v -p codesigning
+
+#####################################################
+##                      JOBS                       ##
+#####################################################
+
+jobs:
+  Initial-setup:
+    executor: node-executor
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "package.json" }}
+              # fallback to using the latest cache if no exact match is found
+            - v1-dependencies-
+      - run:
+          name: Installing dependencies
+          command: |
+            yarn install
+            yarn add git+https://bitbucket.org/fcanalytics/fca-common-mobile.git#develop
+            if [ "${CIRCLE_BRANCH}" == "develop" ]; then
+              echo "Setting env to dev."
+              echo $ENVDEV | base64 -di | tee envs/env >/dev/null
+            elif [ "${CIRCLE_BRANCH}" == "qa" ]; then
+              echo "Setting env to qa."
+              echo $ENVQA | base64 -di | tee envs/env >/dev/null
+            elif [ "${CIRCLE_BRANCH}" == "staging" ]; then
+              echo "Setting env to staging."
+              echo $ENVSTAGING | base64 -di | tee envs/env >/dev/null
+            fi
+            yarn env
+      - save_cache:
+          paths:
+            - node_modules
+          key: v1-dependencies-{{ checksum "package.json" }}
+      - persist_to_workspace:
+          root: .
+          paths:
+            - .
+            
+  Android-Build-and-Release:
+    docker:
+      - image: circleci/android:api-30-node
+    environment:
+      _JAVA_OPTIONS: '-Xmx3g'
+      GRADLE_OPTS: '-Dorg.gradle.daemon=false -Dorg.gradle.jvmargs="-Xmx2048m"'
+    steps:
+      - attach_workspace:
+          at: .
+      - *restore_gradle_cache
+      - *android_dependencies
+      - *save_gradle_cache
+      - *decode_android_key
+      - run:
+          name: Building & releasing to AppCenter
+          command: cd android && bundle exec fastlane release
+      - store_artifacts:
+          path: android/app/build/outputs/apk/
+          destination: /apk/
+
+  iOS-Build-and-Release:
+    macos:
+      xcode: 12.5.1
+    steps:
+      - attach_workspace:
+          at: .
+      - *restore_pods_cache
+      - *ios_dependencies
+      - *save_pods_cache
+      - *get_certificate
+      - run:
+          name: Building & releasing to AppCenter
+          command: |
+            cd ios
+            if [ "${CIRCLE_BRANCH}" == "staging" ]
+            then
+              sed -i '' 's/Development_com.fca.OSRApp/"FCA OSR Ad Hoc"/' fcaOSR.xcodeproj/project.pbxproj
+              sed -i '' 's/CODE_SIGN_IDENTITY = "iPhone Developer";/CODE_SIGN_IDENTITY = "iPhone Distribution";/' fcaOSR.xcodeproj/project.pbxproj
+              bundle exec fastlane release_to_testflight
+            else
+              bundle exec fastlane release
+            fi
+          no_output_timeout: 60m
+      - store_artifacts:
+          path: ios/fcaApp.ipa
+          destination: /ipa/
+
+#####################################################
+#               WORKFLOWS DEFINITION                #
+#####################################################
+
+workflows:
+  version: 2
+
+  Build-Test-Scan:
+    jobs:
+      - Initial-setup
+      - Android-Build-and-Release:
+          requires:
+            - Initial-setup
+          filters:
+            branches:
+              only:
+                - develop
+                - qa
+                - staging
+      - iOS-Build-and-Release:
+          requires:
+            - Initial-setup
+          filters:
+            branches:
+              only:
+                - develop
+                - qa
+                - staging
+                
+                
