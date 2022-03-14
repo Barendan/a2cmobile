@@ -18,24 +18,30 @@ export default StyleSheet.create({
     fontWeight: 'bold',
   },
   mainContainer: {
-    height: Platform.OS === 'ios' ? '80%' : '90%',
+    // height: Platform.OS === 'ios' ? '80%' : '85%',
+    height: '73%',
+    paddingTop: '10%',
+    marginHorizontal: 10,
+    // backgroundColor: 'red',
   },
   formContainer: {
     flex: 1,
     width: '100%',
-    marginTop: Platform.OS === 'ios' ? '6%' : '3%',
+    // marginTop: Platform.OS === 'ios' ? '6%' : '3%',
     backgroundColor: '#FFFFFF',
   },
   container: {
-    height: '78%',
+    flex: 1,
     alignItems: 'center',
   },
   footer: {
     width: '100%',
-    paddingTop: moderateScale(6),
-    justifyContent: 'space-around',
-    alignSelf: 'center',
+    // paddingTop: moderateScale(6),
+    // justifyContent: 'space-around',
+    // alignSelf: 'center',
+    // alignItems: 'flex-end',
     flexDirection: 'row',
+    // marginBottom: 25,
   },
   backButton: {
     flex: 1,
@@ -79,7 +85,8 @@ export default StyleSheet.create({
     flex: 1,
     borderWidth: scale(1),
     borderRadius: scale(1),
-    marginBottom: moderateScale(14),
+    // marginBottom: moderateScale(14),
+    paddingVertical: 10,
     alignSelf: 'center',
     padding: 0,
   },
@@ -91,6 +98,11 @@ export default StyleSheet.create({
   inputLabel: {
     color: '#8F9BB3',
     fontSize: moderateScale(10),
-    paddingBottom: '0.5%',
+    paddingBottom: '0.6%',
   },
+
+  
+
+
+
 });

@@ -13,6 +13,7 @@ const styles = StyleSheet.create({
     height: verticalScale(55),
     width: '100%',
     padding: moderateScale(6),
+    marginBottom: moderateScale(20),
     borderColor: GRAY_DARK,
     borderRadius: 10,
     justifyContent: 'center',
@@ -60,43 +61,41 @@ const CheckboxCard = props => {
   return (
     <View>
       <TouchableOpacity onPress={() => onChecked(!checkedValue)}>
-        <Inset vertical={moderateScale(4)} horizontal={moderateScale(12)}>
-          <Surface
-            style={[
-              styles.surface,
-              props.showBorder && props.dashedBorder
-                ? styles.dashedBorderStyle
-                : required
-                ? styles.requiredCard
-                : styles.solidBorderStyle,
-              props.moddedStyle ? moddedStyle : null,
-            ]}>
-            <List.Item
-              title={title + (required ? '*' : '')}
-              titleStyle={styles.title}
-              description={description}
-              descriptionNumberOfLines={2}
-              left={props => (
-                <Avatar.Icon
-                  {...props}
-                  size={moderateScale(34)}
-                  color="black"
-                  icon={cardIcon}
-                  style={styles.cardIcon}
-                />
-              )}
-              right={props => (
-                <CheckBox
-                  style={styles.checkBoxHolder}
-                  uncheckedCheckBoxColor={BLUE}
-                  checkedCheckBoxColor={BLUE}
-                  onClick={() => onChecked(!checkedValue)}
-                  isChecked={checkedValue}
-                />
-              )}
-            />
-          </Surface>
-        </Inset>
+        <Surface
+          style={[
+            styles.surface,
+            props.showBorder && props.dashedBorder
+              ? styles.dashedBorderStyle
+              : required
+              ? styles.requiredCard
+              : styles.solidBorderStyle,
+            props.moddedStyle ? moddedStyle : null,
+          ]}>
+          <List.Item
+            title={title + (required ? '*' : '')}
+            titleStyle={styles.title}
+            description={description}
+            descriptionNumberOfLines={2}
+            left={props => (
+              <Avatar.Icon
+                {...props}
+                size={moderateScale(34)}
+                color="black"
+                icon={cardIcon}
+                style={styles.cardIcon}
+              />
+            )}
+            right={props => (
+              <CheckBox
+                style={styles.checkBoxHolder}
+                uncheckedCheckBoxColor={BLUE}
+                checkedCheckBoxColor={BLUE}
+                onClick={() => onChecked(!checkedValue)}
+                isChecked={checkedValue}
+              />
+            )}
+          />
+        </Surface>
       </TouchableOpacity>
     </View>
   );

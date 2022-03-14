@@ -7,7 +7,7 @@ export default function CloseButton(props) {
   const { t } = useTranslation();
 
   return (
-    <TouchableOpacity style={styles.container} onPress={props.onPress}>
+    <TouchableOpacity style={[styles.container, {margin: props.fixStyle ? scale(24) : scale(10)}]} onPress={props.onPress}>
       <Text style={styles.content}>{t('close')}</Text>
     </TouchableOpacity>
   );
@@ -16,7 +16,6 @@ export default function CloseButton(props) {
 const styles = StyleSheet.create({
   container: {
     position: 'absolute',
-    margin: scale(20),
     right: 0,
     zIndex: 2,
   },
@@ -24,6 +23,5 @@ const styles = StyleSheet.create({
     color: 'red',
     fontWeight: 'bold',
     fontSize: scale(10),
-    textAlign: 'right',
   },
 });

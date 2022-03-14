@@ -11,7 +11,6 @@ import { Avatar, List } from 'react-native-paper';
 import { useTranslation } from 'react-i18next';
 
 import PropTypes from 'prop-types';
-import { Inset, Stack } from 'react-native-spacing-system';
 import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
 
 import { LocationSearchPanel } from '_organisms';
@@ -171,77 +170,78 @@ const LocationSearchCard = props => {
 
   return (
     <View
-      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-      style={{ flex: 1 }}>
+      style={{ flex: 1, marginVertical: '5%' }}
+    >
+
       <TouchableHighlight
         onPress={() =>
           disableClick ? onPress() : setShowOptions(!showOptions)
-        }>
-        <Inset all={moderateScale(12)}>
-          <Animated.View
-            style={[
-              styles.surface,
-              props.showBorder && props.dashedBorder
-                ? styles.dashedBorderStyle
-                : required
-                ? styles.requiredCard
-                : styles.solidBorderStyle,
-              viewHeight,
-            ]}>
-            {!showOptions && (
-              <List.Item
-                title={title + (required ? '*' : '')}
-                titleStyle={{
-                  fontSize: moderateScale(16),
-                }}
-                description={() => (
-                  <Text style={styles.inputLabel}>{description} </Text>
-                )}
-                descriptionNumberOfLines={4}
-                left={props => (
-                  <Avatar.Icon
-                    {...props}
-                    size={moderateScale(20)}
-                    color="black"
-                    style={
-                      icon
-                        ? {
-                            backgroundColor: iconColor,
-                          }
-                        : stopStyle(locationIndex)
-                    }
-                  />
-                )}
-                right={props => (
-                  <Avatar.Icon
-                    size={scale(30)}
-                    icon={icon || 'plus'}
-                    color="black"
-                    style={styles.plusIcon}
-                  />
-                )}
-              />
-            )}
+        }
+      >
 
-            {/* 
+        <Animated.View
+          style={[
+            styles.surface,
+            props.showBorder && props.dashedBorder
+              ? styles.dashedBorderStyle
+              : required
+              ? styles.requiredCard
+              : styles.solidBorderStyle,
+            viewHeight,
+          ]}>
+          {!showOptions && (
+            <List.Item
+              title={title + (required ? '*' : '')}
+              titleStyle={{
+                fontSize: moderateScale(16),
+              }}
+              description={() => (
+                <Text style={styles.inputLabel}>{description} </Text>
+              )}
+              descriptionNumberOfLines={4}
+              left={props => (
+                <Avatar.Icon
+                  {...props}
+                  size={moderateScale(20)}
+                  color="black"
+                  style={
+                    icon
+                      ? {
+                          backgroundColor: iconColor,
+                        }
+                      : stopStyle(locationIndex)
+                  }
+                />
+              )}
+              right={props => (
+                <Avatar.Icon
+                  size={scale(30)}
+                  icon={icon || 'plus'}
+                  color="black"
+                  style={styles.plusIcon}
+                />
+              )}
+            />
+          )}
+
+          {/* 
 
 
-                        {showOptions && <View style={styles.locationSelectorView}>
+                      {showOptions && <View style={styles.locationSelectorView}>
 
-                            <View style={styles.titleWrapper}>
-                                <Text style={styles.title}>{title+ (required ? '*' : '')}</Text>
-                                <View style={styles.currentLocationView}>
-                                    <AvatarButton icon={"crosshairs-gps"} iconColor="black" buttonText={t('use_current_location')} onPress={() => LocationService.getLocation()} />
-                                </View>
-                            </View>
+                          <View style={styles.titleWrapper}>
+                              <Text style={styles.title}>{title+ (required ? '*' : '')}</Text>
+                              <View style={styles.currentLocationView}>
+                                  <AvatarButton icon={"crosshairs-gps"} iconColor="black" buttonText={t('use_current_location')} onPress={() => LocationService.getLocation()} />
+                              </View>
+                          </View>
 
-                            <Stack size={6} />
-                                
-                            <LocationService.googlePlacesAutoInput placeholder={t('search_location')} lang={'en'} onPlaceSelected={(v) => onPlaceSelected(v)} />
-                            <Stack size={6} />
-                        </View>} */}
-          </Animated.View>
-        </Inset>
+                          <Stack size={6} />
+                              
+                          <LocationService.googlePlacesAutoInput placeholder={t('search_location')} lang={'en'} onPlaceSelected={(v) => onPlaceSelected(v)} />
+                          <Stack size={6} />
+                      </View>} */}
+        </Animated.View>
       </TouchableHighlight>
 
       <LocationSearchPanel
@@ -275,7 +275,7 @@ LocationSearchCard.propTypes = {
   /**
    * The address locationIndex, from, mid or end address
    */
-  locationIndex: PropTypes.node.isRequired,
+  locationIndex: PropTypes.node,
   /**
    * Whether to show border
    */

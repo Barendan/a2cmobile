@@ -1,7 +1,6 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { Avatar, Surface, List } from 'react-native-paper';
-import { Inset, Stack } from 'react-native-spacing-system';
 import Counter from 'react-native-counters';
 import PropTypes from 'prop-types';
 import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
@@ -13,6 +12,7 @@ const styles = StyleSheet.create({
     height: verticalScale(55),
     width: '100%',
     padding: moderateScale(6),
+    marginVertical: moderateScale(20),
     borderWidth: 1,
     borderColor: GRAY_DARK,
     borderRadius: 10,
@@ -77,7 +77,6 @@ const NumericCountCard = props => {
 
   return (
     <View>
-      <Inset vertical={moderateScale(4)} horizontal={moderateScale(12)}>
         <Surface
           style={[
             styles.surface,
@@ -112,7 +111,6 @@ const NumericCountCard = props => {
             )}
           />
         </Surface>
-      </Inset>
     </View>
   );
 };

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Text, SafeAreaView, StyleSheet, ScrollView } from 'react-native';
+import { View, Text, SafeAreaView, StyleSheet, ScrollView, Alert } from 'react-native';
 import { Avatar, Card, IconButton, Divider } from 'react-native-paper';
 import { useTranslation } from 'react-i18next';
 import { Inset, Stack } from 'react-native-spacing-system';
@@ -75,6 +75,7 @@ const FavoriteLocations = () => {
 
   return (
     <SafeAreaView style={styles.container}>
+      
       {savedLocations.length === 0 && (
         <Inset all={scale(16)}>
           <ScrollView showsVerticalScrollIndicator={false}>
@@ -86,8 +87,8 @@ const FavoriteLocations = () => {
       {savedLocations.length > 0 && (
         <Inset all={scale(1)}>
           <ScrollView showsVerticalScrollIndicator={false}>
-            {savedLocations.map(currentLocation => (
-              <>
+            {savedLocations.map((currentLocation, i) => (
+              <View key={i}>
                 <Card.Title
                   style={{ backgroundColor: 'white' }}
                   title={
@@ -117,36 +118,40 @@ const FavoriteLocations = () => {
                     />
                   )}
                   right={props => (
+                    // <IconButton
+                    //   {...props}
+                    //   size={moderateScale(26)}
+                    //   icon="minus"
+                    //   onPress={() => removeLocation(currentLocation)}
+                    // />
                     <IconButton
                       {...props}
                       size={moderateScale(26)}
                       icon="minus"
-                      onPress={() => removeLocation(currentLocation)}
+                      onPress={() => Alert.alert(
+                        "Confirm Delete",
+                        "Are you sure you want to permanently delete this saved location?",
+                        [
+                          {
+                            text: "No",
+                            onPress: () => console.log("Cancel Pressed"),
+                            style: "cancel"
+                          },
+                          { text: "Yes", onPress: () => removeLocation(currentLocation) }
+                        ]
+                      )}
                     />
                   )}
                 />
 
                 <Divider />
-              </>
+              </View>
             ))}
 
             <Stack size={100} />
           </ScrollView>
         </Inset>
       )}
-
-      {/* <AppButton
-        title={'+ ' + ' ' + t('add_saved_location')}
-        color={APP_COLOR}
-        containerStyle={styles.newFab}
-        textStyle={{
-          color: 'white',
-          fontSize: moderateScale(16),
-          paddingHorizontal: scale(16),
-          textTransform: 'uppercase',
-        }}
-        onPress={() => setDisplayPanel(true)}
-      /> */}
 
       <AppButton
         title={'+'}
@@ -164,6 +169,7 @@ const FavoriteLocations = () => {
         displayPanel={displayPanel}
         onPanelDismiss={onPanelDismiss}
       />
+      
     </SafeAreaView>
   );
 };

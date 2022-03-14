@@ -59,8 +59,9 @@ const FullScreenPanel = props => {
         visible={displayPanel}
         onDismiss={onPanelDismiss}
         initialHeight={verticalScale(1000)}
-        expandable>
-        <CloseButton onPress={onPanelDismiss} />
+        expandable
+      >
+        <CloseButton onPress={onPanelDismiss} fixStyle/>
         <Inset all={verticalScale(16)}>
           <View style={styles.titleWrapper}>
             <Text style={styles.title}>{panelHeader}</Text>
@@ -74,11 +75,7 @@ const FullScreenPanel = props => {
               <RenderHTML
                 source={{ html: panelBody }}
                 contentWidth={contentWidth}
-                // defaultTextProps={{ fontSize: scale(16) }}
-                // emSize={14}
-                // tagsStyles={htmlTextStyle}
                 baseStyle={{ color: 'red', margin: 50 }}
-                // baseStyle={htmlTextStyle}
               />
             ) : (
               <Text style={styles.body}>{panelBody}</Text>
