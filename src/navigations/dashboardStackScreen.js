@@ -13,7 +13,6 @@ import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
 import DashboardScreen from '_scenes/dashboard';
 import AboutScreen from '_scenes/about';
 import AccountSettings from '_scenes/accountSettings';
-import SavedLocations from '_scenes/savedLocations';
 import FavoriteLocations from '_scenes/favoriteLocations';
 import SecuritySettings from '_scenes/securitySettings';
 
@@ -79,11 +78,6 @@ export const DashboardStack = () => {
         name="Account"
         component={AccountSettings}
         options={{ headerTitle: t('account_settings') }}
-      />
-      <Stack.Screen
-        name="Locations"
-        component={SavedLocations}
-        options={{ headerTitle: t('saved_locations') }}
       />
       <Stack.Screen
         name="FavoriteLocations"

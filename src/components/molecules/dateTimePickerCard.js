@@ -14,6 +14,7 @@ const styles = StyleSheet.create({
     height: verticalScale(55),
     width: '100%',
     padding: moderateScale(6),
+    marginBottom: moderateScale(20),
     borderWidth: 1,
     borderColor: GRAY_DARK,
     borderRadius: 10,
@@ -113,7 +114,11 @@ const DateTimePickerCard = props => {
     }
 
     if (mode === 'time') {
-      setSelectedValue(currentDate.toLocaleTimeString('en-US'));
+      let formattedTime = currentDate
+        .toLocaleTimeString('en-US')
+        .replace(/(?<=\:\d.:)\d*/, "00");
+      
+      setSelectedValue(formattedTime);
     }
   };
 
@@ -128,7 +133,6 @@ const DateTimePickerCard = props => {
 
   return (
     <View>
-      <Inset vertical={moderateScale(4)} horizontal={moderateScale(12)}>
         <Surface
           style={[
             styles.surface,
@@ -190,7 +194,7 @@ const DateTimePickerCard = props => {
                   minimumDate={minimumDate}
                   value={date}
                   mode={mode}
-                  is24Hour={true}
+                  is24Hour={false}
                   display="default"
                   onChange={onChange}
                 />
@@ -198,7 +202,6 @@ const DateTimePickerCard = props => {
             </View>
           )}
         </Surface>
-      </Inset>
     </View>
   );
 };

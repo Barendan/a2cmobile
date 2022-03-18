@@ -20,6 +20,7 @@ const styles = StyleSheet.create({
     height: verticalScale(55),
     width: '100%',
     padding: moderateScale(6),
+    marginBottom: moderateScale(20),
     borderColor: GRAY_DARK,
     borderRadius: 10,
     backgroundColor: 'white',
@@ -107,7 +108,6 @@ const DropDownPickerCard = props => {
   return (
     <View>
       <TouchableHighlight onPress={() => setShowOptions(!showOptions)}>
-        <Inset vertical={moderateScale(4)} horizontal={moderateScale(12)}>
           <Animated.View
             style={[
               styles.surface,
@@ -171,7 +171,6 @@ const DropDownPickerCard = props => {
               </>
             )}
           </Animated.View>
-        </Inset>
       </TouchableHighlight>
     </View>
   );

@@ -1,7 +1,8 @@
-import { StyleSheet, Platform } from 'react-native';
+import { StyleSheet, Platform, Dimensions } from 'react-native';
 import { ERROR, BLUE, APP_COLOR } from '_styles/colors';
-import { FONT_SIZE_18 } from '_styles/typography';
 import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
+
+// let ScreenHeight = Dimensions.get("window").height;
 
 export default StyleSheet.create({
   titleWrapper: {
@@ -22,23 +23,26 @@ export default StyleSheet.create({
     marginBottom: moderateScale(50),
   },
   mainContainer: {
-    height: Platform.OS === 'ios' ? '80%' : '88%',
+    // height: Platform.OS === 'ios' ? '80%' : '88%',
+    height: '73%',
+    marginHorizontal: 10,
   },
   formContainer: {
-    width: '100%',
-    marginTop: Platform.OS === 'ios' ? '6%' : '3%',
-    backgroundColor: '#FFFFFF',
     flex: 1,
+    width: '100%',
+    // marginTop: Platform.OS === 'ios' ? '6%' : '3%',
+    backgroundColor: '#FFFFFF',
   },
   container: {
-    height: '78%',
+    flex: 1,
+    paddingTop: '10%',
     alignItems: 'center',
   },
   footer: {
     width: '100%',
-    justifyContent: 'space-around',
-    alignSelf: 'center',
     flexDirection: 'row',
+    // marginBottom: 25,
+    // backgroundColor: 'red',
   },
   backButton: {
     flex: 1,
@@ -55,12 +59,13 @@ export default StyleSheet.create({
   },
   errorMessage: {
     color: ERROR,
-    fontSize: FONT_SIZE_18,
-    marginTop: 3,
+    fontSize: moderateScale(11),
+    lineHeight: 15
   },
   linkText: {
+    // marginTop: 3,
     color: BLUE,
-    fontSize: FONT_SIZE_18,
+    fontSize: moderateScale(10),
   },
   highlightText: {
     color: BLUE,
@@ -68,6 +73,7 @@ export default StyleSheet.create({
   },
   listItem: {
     paddingVertical: 0,
+    marginBottom: moderateScale(-10),
   },
   listItemTitle: {
     fontWeight: 'bold',
@@ -85,7 +91,7 @@ export default StyleSheet.create({
   },
   toRow: {
     flexDirection: 'row',
-    marginBottom: -10,
+    marginBottom: -6,
   },
   bText: {
     color: APP_COLOR,

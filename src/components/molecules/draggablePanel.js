@@ -2,9 +2,9 @@ import * as React from 'react';
 import { Animated, Dimensions, Modal, Platform, ScrollView, StyleSheet, TouchableWithoutFeedback, View, } from 'react-native';
 
 const SCREEN_HEIGHT = Dimensions.get('window').height;
-const DEFAULT_PANEL_HEIGHT = SCREEN_HEIGHT - 100;
+const DEFAULT_PANEL_HEIGHT = SCREEN_HEIGHT;
 
-const DraggablePanel = React.forwardRef(({ visible = false, animationDuration = 500, expandable = false, hideOnPressOutside = true, overlayBackgroundColor = 'black', overlayOpacity = 0.8, borderRadius = 0, initialHeight = DEFAULT_PANEL_HEIGHT / 2, hideOnBackButtonPressed = true, hideable = true, onDismiss, children, }, ref) => {
+const DraggablePanel = React.forwardRef(({ visible = false, animationDuration = 500, expandable = false, hideOnPressOutside = true, overlayBackgroundColor = 'black', overlayOpacity = 0.8, borderRadius = 0, initialHeight = DEFAULT_PANEL_HEIGHT / 2, hideOnBackButtonPressed = true, hideable = true, onDismiss, children, fixPanel = false }, ref) => {
     const [animatedValue] = React.useState(new Animated.Value(0));
     const [popupVisible, togglePopupVisibility] = React.useState(false);
     const [animating, setAnimating] = React.useState(false);
@@ -149,6 +149,8 @@ const DraggablePanel = React.forwardRef(({ visible = false, animationDuration = 
             style={[
               styles.popupContentContainer,
               {
+                position: fixPanel ? 'relative' : 'absolute',
+                paddingTop: fixPanel ? '0%' : '5%',
                 borderTopLeftRadius: borderRadius,
                 borderTopRightRadius: borderRadius,
                 transform: [
@@ -160,6 +162,7 @@ const DraggablePanel = React.forwardRef(({ visible = false, animationDuration = 
                   },
                 ],
               },
+
             ]}>
             <View style={styles.indicator} />
             <View
@@ -184,13 +187,12 @@ const styles = StyleSheet.create({
         ...StyleSheet.absoluteFillObject,
     },
     popupContentContainer: {
-        position: 'relative',
-        marginTop: '14%',
+        backgroundColor: 'white',
+        // position: 'relative', // add saved and add trip panels
         left: 0,
         right: 0,
-        backgroundColor: 'white',
         bottom: -DEFAULT_PANEL_HEIGHT,
-        height: DEFAULT_PANEL_HEIGHT + 100,
+        height: DEFAULT_PANEL_HEIGHT,
         alignItems: 'center',
     },
     indicator: {

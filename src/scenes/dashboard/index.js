@@ -138,18 +138,18 @@ const DashboardScreen = () => {
             )}
           </>
         )}
-        right={props => (
-          <>
-            {memberPlans.length > 0 && (
-              <IconButton
-                {...props}
-                icon="equal"
-                size={moderateScale(30)}
-                onPress={() => setViewMemberPlans(true)}
-              />
-            )}
-          </>
-        )}
+        // right={props => (
+        //   <>
+        //     {memberPlans.length > 0 && (
+        //       <IconButton
+        //         {...props}
+        //         icon="equal"
+        //         size={moderateScale(30)}
+        //         onPress={() => setViewMemberPlans(true)}
+        //       />
+        //     )}
+        //   </>
+        // )}
       />
 
       <Divider />

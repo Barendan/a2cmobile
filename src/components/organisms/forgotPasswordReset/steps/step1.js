@@ -36,6 +36,7 @@ const Step1 = ({ next, saveState }) => {
       <ScrollView
         showsVerticalScrollIndicator={false}
         style={styles.formContainer}>
+        
         <View style={[{ alignItems: 'flex-start', width: '85%' }]}>
           <Text style={{ marginBottom: '5%', fontSize: moderateScale(14) }}>
             {t('login_options_text')}
@@ -55,6 +56,7 @@ const Step1 = ({ next, saveState }) => {
       </ScrollView>
 
       <Text style={styles.errorMessage}>{errorMessage}</Text>
+      
       {loading && (
         <View style={styles.loadingView}>
           <Spinner
@@ -75,6 +77,7 @@ const Step1 = ({ next, saveState }) => {
           <Text style={{ fontSize: moderateScale(16) }}>{t('continue')}</Text>
         </Button>
       </View>
+      
     </View>
   );
 };

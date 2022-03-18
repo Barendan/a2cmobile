@@ -37,10 +37,13 @@ const Step1 = ({ next }) => {
 
   return (
     <View style={[styles.container]}>
+      
       <ScrollView
         showsVerticalScrollIndicator={false}
         style={styles.formContainer}
-        keyboardShouldPersistTaps={'handled'}>
+        keyboardShouldPersistTaps={'handled'}
+      >
+
         <LocationSearchCard
           required={!pickupAddress ? true : false}
           locationIndex={0}
@@ -52,6 +55,7 @@ const Step1 = ({ next }) => {
           }
           onAddressSelected={addr => dispatch(selectAddress(addr))}
         />
+
         {tripStops.map((currentStop, index) => (
           <>
             <LocationSearchCard
@@ -65,6 +69,7 @@ const Step1 = ({ next }) => {
             />
           </>
         ))}
+
         <LocationSearchCard
           required={!destinationAddress ? true : false}
           locationIndex={1}
@@ -76,6 +81,7 @@ const Step1 = ({ next }) => {
           }
           onAddressSelected={addr => dispatch(destinationSelect(addr))}
         />
+
         <LocationSearchCard
           showBorder={true}
           dashedBorder={true}
@@ -83,14 +89,16 @@ const Step1 = ({ next }) => {
           description={t('add_stop_description')}
           onAddressSelected={addr => dispatch(updateTripStop(addr))}
         />
-        <View style={{ marginTop: -10 }}>
+
+        {/* <View style={{ marginTop: -10 }}> */}
           <CheckboxCard
             cardIcon={'swap-horizontal'}
             title={t('round_trip')}
             checkedValue={isRoundTrip}
             onChecked={value => dispatch(roundTrip(value))}
           />
-        </View>
+        {/* </View> */}
+
       </ScrollView>
 
       <View style={styles.footer}>
@@ -101,6 +109,7 @@ const Step1 = ({ next }) => {
           <Text style={{ fontSize: moderateScale(16) }}>{t('continue')}</Text>
         </Button>
       </View>
+
     </View>
   );
 };

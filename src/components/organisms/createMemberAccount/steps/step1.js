@@ -1,15 +1,15 @@
 import React from 'react';
-import { View, Text, ScrollView } from 'react-native';
+import { View, Text, ScrollView, TouchableHighlight } from 'react-native';
 import { Input, Button } from '@ui-kitten/components';
 import { useTranslation } from 'react-i18next';
 import Spinner from 'react-native-spinkit';
-import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
+import { moderateScale } from 'react-native-size-matters';
 
 import { useAccountMethods } from '_hooks';
 import { APP_COLOR } from '_styles/colors';
 import styles from './styles';
 
-const Step1 = ({ next, saveState, getState }) => {
+const Step1 = ({ finish, next, saveState, getState }) => {
   const { t } = useTranslation();
 
   const {
@@ -50,6 +50,13 @@ const Step1 = ({ next, saveState, getState }) => {
       <ScrollView
         showsVerticalScrollIndicator={false}
         style={styles.formContainer}>
+
+        <View style={[{ alignItems: 'flex-start', width: '85%' }]}>
+          <Text style={{ marginBottom: '5%', fontSize: moderateScale(14) }}>
+            {t('register_info')}
+          </Text>
+        </View>
+
         <Input
           style={styles.input}
           onChangeText={text => updateMemberInformation('memberID', text)}
@@ -68,7 +75,7 @@ const Step1 = ({ next, saveState, getState }) => {
           label={() => (
             <Text style={styles.inputLabel}>{t('date_of_birth') + '*'}</Text>
           )}
-          placeholder={t('date_of_birth') + ': mm/dd/yyyy'}
+          placeholder='mm/dd/yyyy'
           pattern="[0-9]*"
           textStyle={styles.inputText}
         />
@@ -86,6 +93,7 @@ const Step1 = ({ next, saveState, getState }) => {
       </ScrollView>
 
       <Text style={styles.errorMessage}>{errorMessage}</Text>
+      
       {loading && (
         <View style={styles.loadingView}>
           <Spinner
@@ -102,9 +110,10 @@ const Step1 = ({ next, saveState, getState }) => {
           style={styles.forwardButton}
           disabled={disableNextButton || loading}
           onPress={onValidateMemberInfo}>
-          <Text style={{ fontSize: moderateScale(16) }}>{t('validate')}</Text>
+          <Text style={{ fontSize: moderateScale(18) }}>{t('validate')}</Text>
         </Button>
       </View>
+      
     </View>
   );
 };

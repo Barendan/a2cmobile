@@ -61,7 +61,10 @@ const RequestNewTrip = props => {
           setCurrentStep(1);
         }}
         initialHeight={verticalScale(1000)}
-        expandable>
+        expandable
+        fixPanel
+      >
+        
         {isLoading && (
           <View style={styles.loadingView}>
             <Spinner
@@ -75,37 +78,32 @@ const RequestNewTrip = props => {
         )}
 
         {!isLoading && !stepsCompleted && (
-          <>
-            <CloseButton onPress={onPanelDismiss} />
+          <View style={styles.mainContainer}>
+            <CloseButton onPress={onPanelDismiss} fixStyle />
 
-            <Inset all={moderateScale(16)}>
-              <View style={styles.titleWrapper}>
-                <Text style={styles.title}>{t('request_new_trip')}</Text>
-              </View>
+            <View style={styles.titleWrapper}>
+              <Text style={styles.title}>{t('request_new_trip')}</Text>
+            </View>
 
-              <ProgressBar
-                radius={30}
-                currentStep={currentStep}
-                stepCount={steps.length}
-                title={steps[currentStep - 1].name}
-                subtitle={
-                  currentStep !== steps.length &&
-                  t('go_to_next') + ': ' + steps[currentStep].name
-                }
-              />
-              <Divider />
+            <ProgressBar
+              radius={30}
+              currentStep={currentStep}
+              stepCount={steps.length}
+              title={steps[currentStep - 1].name}
+              subtitle={
+                currentStep !== steps.length &&
+                t('go_to_next') + ': ' + steps[currentStep].name
+              }
+            />
+            <Divider /> 
 
-              <Stack size={moderateScale(12)} />
-              <View style={styles.mainContainer}>
-                <AnimatedMultistep
-                  steps={steps}
-                  onFinish={finish}
-                  onBack={onBack}
-                  onNext={onNext}
-                />
-              </View>
-            </Inset>
-          </>
+            <AnimatedMultistep
+              steps={steps}
+              onFinish={finish}
+              onBack={onBack}
+              onNext={onNext}
+            />
+          </View>
         )}
 
         {stepsCompleted && (

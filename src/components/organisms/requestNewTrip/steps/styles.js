@@ -42,20 +42,22 @@ export default StyleSheet.create({
     alignItems: 'center',
   },
   mainContainer: {
-    height: Platform.OS === 'ios' ? '80%' : '70%',
+    height: '100%',
+    padding: '5%',
   },
   formContainer: {
+    flex: 1,
     width: '100%',
     backgroundColor: '#FFFFFF',
-    marginTop: moderateScale(-4),
-    paddingHorizontal: moderateScale(12),
-    flex: 1,
+    paddingHorizontal: moderateScale(20),
   },
   container: {
     height: '100%',
   },
   footer: {
-    width: '90%',
+    width: '100%',
+    marginBottom: '5%',
+    paddingHorizontal: '5%',
     alignSelf: 'center',
     flexDirection: 'row',
   },

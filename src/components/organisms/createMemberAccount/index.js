@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { View, Text } from 'react-native';
 import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
 import AnimatedMultistep from 'react-native-animated-multistep';
-import { Inset, Stack } from 'react-native-spacing-system';
 import { Divider } from 'react-native-paper';
 import { useTranslation } from 'react-i18next';
 
@@ -34,7 +33,9 @@ const CreateMemberAccount = props => {
   };
 
   const finish = finalState => {
-    console.log(finalState);
+    onPanelDismiss()
+    // console.log(finalState);
+    // console.log('done');
   };
 
   const { panelHeader, displayPanel, onPanelDismiss } = props;
@@ -48,39 +49,41 @@ const CreateMemberAccount = props => {
           setCurrentStep(1);
         }}
         initialHeight={verticalScale(1000)}
-        expandable>
-        <>
-          <CloseButton onPress={onPanelDismiss} />
+        expandable
+      >
 
-          <Inset all={moderateScale(16)}>
-            <View style={styles.titleWrapper}>
-              <Text style={styles.title}>{t('go_to_registration')}</Text>
+        <View style={{ height: '100%', padding: '5%'}}>
+
+          <View style={{ height: '25%'}}>
+            <CloseButton onPress={onPanelDismiss} />
+
+              <View style={styles.titleWrapper}>
+                <Text style={styles.title}>{t('go_to_registration')}</Text>
+              </View>
+
+              <ProgressBar
+                radius={35}
+                currentStep={currentStep}
+                stepCount={steps.length}
+                title={steps[currentStep - 1].name}
+                subtitle={
+                  currentStep !== steps.length &&
+                  t('go_to_next') + ': ' + steps[currentStep].name
+                }
+              />
+              <Divider />
             </View>
 
-            <ProgressBar
-              radius={35}
-              currentStep={currentStep}
-              stepCount={steps.length}
-              title={steps[currentStep - 1].name}
-              subtitle={
-                currentStep !== steps.length &&
-                t('go_to_next') + ': ' + steps[currentStep].name
-              }
-            />
-            <Divider />
+            <View style={styles.mainContainer}>
+              <AnimatedMultistep
+                steps={steps}
+                onFinish={finish}
+                onBack={onBack}
+                onNext={onNext}
+              />
+            </View>
 
-            <Inset all={moderateScale(16)}>
-              <View style={styles.mainContainer}>
-                <AnimatedMultistep
-                  steps={steps}
-                  onFinish={finish}
-                  onBack={onBack}
-                  onNext={onNext}
-                />
-              </View>
-            </Inset>
-          </Inset>
-        </>
+        </View>
       </DraggablePanel>
     </View>
   );

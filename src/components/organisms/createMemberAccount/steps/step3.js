@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, ScrollView, useWindowDimensions } from 'react-native';
+import { View, Text, ScrollView, useWindowDimensions, TouchableHighlight } from 'react-native';
 import { Input, Button } from '@ui-kitten/components';
 import { useTranslation } from 'react-i18next';
 import Spinner from 'react-native-spinkit';
@@ -14,7 +14,7 @@ import { SUCCESS, GRAY_LIGHT } from '_styles/colors';
 import styles from './styles';
 import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
 
-const Step3 = ({ getState }) => {
+const Step3 = ({ next, getState }) => {
   const { t } = useTranslation();
   const [panelDetails, setPanelDetails] = React.useState({
     panelVisible: false,
@@ -87,11 +87,14 @@ const Step3 = ({ getState }) => {
     <View style={[styles.container]}>
       <ScrollView
         showsVerticalScrollIndicator={true}
-        style={[styles.formContainer, { marginTop: '3%' }]}>
+        style={[styles.formContainer]}
+      >
+        
         <View
           style={[
             { alignItems: 'flex-start', width: '85%', marginBottom: '5%' },
-          ]}>
+          ]}
+        >
           <Text style={[styles.tempCode]}>{t('account_password_text')}</Text>
         </View>
 
@@ -208,8 +211,20 @@ const Step3 = ({ getState }) => {
           )}
         />
       </ScrollView>
+      
+      { errorMessage ? (
+        <Text style={styles.errorMessage}>
+          {errorMessage}
 
-      <Text style={styles.errorMessage}>{errorMessage}</Text>
+          { errorMessage.includes("exists") &&
+            <Text style={styles.linkText} onPress={() => next()}> 
+              : Go back to Login Screen. 
+            </Text>
+          }
+          
+        </Text>
+      ) : null }
+
 
       {loading && (
         <View style={styles.loadingView}>

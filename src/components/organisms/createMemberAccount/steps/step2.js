@@ -196,7 +196,7 @@ const Step2 = ({ back, next, getState, saveState }) => {
           disabled={loading}
           onPress={goBack}>
           <Text style={{ fontSize: moderateScale(16) }}>
-            {t('back_button')}
+            {t('back')}
           </Text>
         </Button>
         {showValidate ? (

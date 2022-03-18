@@ -505,7 +505,7 @@ const LoginScreen = () => {
               <Stack size={scale(6)} />
 
               <TouchableHighlight
-                onPress={() => getLatestAppInfo(t('faqs'), 'faqs')}>
+                onPress={() => getLatestAppInfo(t('faq'), 'faqs')}>
                 <Text style={styles.bText}>{t('faq')}</Text>
               </TouchableHighlight>
               <LanguageSelector />
@@ -520,6 +520,8 @@ const LoginScreen = () => {
             <CreateMemberAccount
               displayPanel={displayCreateMemberAccount}
               onPanelDismiss={() => setDisplayCreateMemberAccount(false)}
+              onForgotPassword={() => setDisplayForgotPasswordReset(true)}
+              // onPanelDismiss={() => console.log('test working')}
             />
 
             <FullScreenPanel

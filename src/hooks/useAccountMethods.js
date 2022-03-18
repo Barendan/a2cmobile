@@ -282,11 +282,11 @@ const useAccountMethods = () => {
     });
   }, []);
 
-  //check if valid password
+  //Check if Valid Password
   React.useEffect(() => {
     const { password, confirmPassword } = passwordInformation;
 
-    //individualRequirements check
+    //Individual Requirements Check
     updatePasswordRequirements('eightCharactersMinimum', password.length > 8);
     updatePasswordRequirements(
       'oneUppercaseLetter',
@@ -304,24 +304,24 @@ const useAccountMethods = () => {
 
     if (
       password.length === 0 ||
-      confirmPassword.length === 0 ||
-      password != confirmPassword
-    ) {
-      setDisableNextButton(true);
-    } else {
+      confirmPassword.length === 0
+    ) { setDisableNextButton(true) } 
+    else {
       const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/;
+
       if (!passwordRegex.test(password)) {
         setDisableNextButton(true);
       } else {
         setDisableNextButton(false);
       }
+      
     }
 
-    if (password != confirmPassword) {
-      setErrorMessage(t('password_mismatch_error'));
-    } else {
-      setErrorMessage('');
-    }
+    // if (password != confirmPassword) {
+    //   setErrorMessage(t('password_mismatch_error'));
+    // } else {
+    //   setErrorMessage('');
+    // }
   }, [passwordInformation]);
 
   const onValidatePasswords = () => {

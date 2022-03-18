@@ -55,20 +55,28 @@ const PlanSelector = props => {
         visible={displayPanel}
         onDismiss={onPanelDismiss}
         initialHeight={verticalScale(1000)}
-        expandable>
-        <CloseButton onPress={onPanelDismiss} />
+        expandable
+      >
+        <CloseButton onPress={onPanelDismiss} fixStyle/>
         <Inset all={moderateScale(16)}>
           <View style={styles.titleWrapper}>
             <Text style={styles.title}>{t('change_plan')}</Text>
           </View>
 
-          {memberPlans.map(currentPlan => (
+          {/* {console.log(memberPlans)} */}
+
+
+          {memberPlans.map(currentPlan => {
+            
+            (
             <TouchableHighlight
               key={currentPlan.NETMember_ID}
               onPress={() => {
                 dispatch(updatePlan(currentPlan));
                 onPanelDismiss();
-              }}>
+              }}
+            >
+
               <View
                 style={{
                   marginLeft: moderateScale(-12),
@@ -100,8 +108,10 @@ const PlanSelector = props => {
                   }
                 />
               </View>
+
             </TouchableHighlight>
-          ))}
+          )})}
+
         </Inset>
       </DraggablePanel>
     </View>

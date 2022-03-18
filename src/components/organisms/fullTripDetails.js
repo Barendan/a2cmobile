@@ -128,8 +128,11 @@ const FullTripDetails = props => {
         visible={displayPanel}
         onDismiss={onPanelDismiss}
         initialHeight={verticalScale(1000)}
-        expandable>
+        expandable
+      >
+
         <CloseButton onPress={onPanelDismiss} />
+        
         {currentTrip && (
           <Inset all={scale(16)}>
             <View style={styles.content}>

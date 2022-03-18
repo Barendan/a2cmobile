@@ -84,9 +84,14 @@ const LocationSearchPanel = props => {
         visible={displayPanel}
         onDismiss={onPanelDismiss}
         initialHeight={verticalScale(1000)}
-        expandable>
-        <CloseButton onPress={onPanelDismiss} />
+        expandable
+        fixPanel
+      >
+
+        <CloseButton onPress={onPanelDismiss} fixStyle/>
+        
         <Inset all={moderateScale(16)}>
+
           <View style={styles.titleWrapper}>
             <Text style={styles.title}>{panelHeader}</Text>
           </View>
@@ -131,23 +136,28 @@ const LocationSearchPanel = props => {
             <ScrollView
               // style={styles.bodyWrapper}
               showsVerticalScrollIndicator={false}>
-              {savedLocations.map(currentLocation => (
+
+              {savedLocations.map((currentLocation, i) => (
                 <TouchableHighlight
-                  onPress={() => onPlaceSelected(currentLocation.address)}>
+                  key={i}
+                  onPress={() => onPlaceSelected(currentLocation.address)}
+                  style={{ borderBottomWidth: 1, borderBottomColor: '#ddd'}}  
+                >
                   <View>
+
                     <Card.Title
                       style={{
                         width: '100%',
                         backgroundColor: 'white',
-                        marginLeft: moderateScale(-10),
+                        // marginLeft: moderateScale(-10),
                       }}
                       title={currentLocation.name}
                       titleStyle={{
                         fontSize: moderateScale(16),
-                        marginLeft: moderateScale(-20),
-                        marginBottom: moderateScale(-6),
+                        // marginLeft: moderateScale(-20),
+                        // marginBottom: moderateScale(-6),
                       }}
-                      subtitleStyle={{ marginLeft: moderateScale(-20) }}
+                      // subtitleStyle={{ marginLeft: moderateScale(-20) }}
                       subtitle={currentLocation.address.FormattedAddress}
                       left={props => (
                         <Avatar.Icon
@@ -163,13 +173,13 @@ const LocationSearchPanel = props => {
                       )}
                     />
 
-                    <Divider />
-                    <Stack size={moderateScale(16)} />
                   </View>
                 </TouchableHighlight>
               ))}
+              
             </ScrollView>
           )}
+
         </Inset>
       </DraggablePanel>
     </View>
