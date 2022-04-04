@@ -150,7 +150,7 @@ const DraggablePanel = React.forwardRef(({ visible = false, animationDuration = 
               styles.popupContentContainer,
               {
                 position: fixPanel ? 'relative' : 'absolute',
-                paddingTop: fixPanel ? '0%' : '5%',
+                paddingTop: fixPanel && Platform.OS === 'android' ? '0%' : '5%',
                 borderTopLeftRadius: borderRadius,
                 borderTopRightRadius: borderRadius,
                 transform: [
