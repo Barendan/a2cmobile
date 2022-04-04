@@ -94,6 +94,9 @@ const DateTimePickerCard = props => {
   const [selectedValue, setSelectedValue] = useState(null);
 
   const onChange = (event, selectedDate) => {
+    console.log('--------------')
+    console.log('expose:', event, selectedDate)
+
     const currentDate = selectedDate || date;
     setShow(false);
     setDate(currentDate);
@@ -114,9 +117,13 @@ const DateTimePickerCard = props => {
     }
 
     if (mode === 'time') {
-      let formattedTime = currentDate
+      let rawTime = currentDate
         .toLocaleTimeString('en-US')
-        .replace(/(?<=\:\d.:)\d*/, "00");
+        // .replace(/(?<=\:\d.:)\d*/, "00"); // breaks in iOS
+        .split(':');
+      
+      rawTime[2] = "00" + rawTime[2].slice(2);
+      let formattedTime = rawTime.join(':');
       
       setSelectedValue(formattedTime);
     }
@@ -124,6 +131,7 @@ const DateTimePickerCard = props => {
 
   React.useEffect(() => {
     onDateTimeChange(mode, selectedValue);
+    console.log('selectedVal', selectedValue)
   }, [selectedValue]);
 
   const showMode = currentMode => {
