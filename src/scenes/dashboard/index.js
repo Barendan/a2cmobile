@@ -8,6 +8,7 @@ import {
   StyleSheet,
   RefreshControl,
   StatusBar,
+  Platform
 } from 'react-native';
 import { Inset, Stack } from 'react-native-spacing-system';
 import { Avatar, Card, IconButton, Divider } from 'react-native-paper';
@@ -212,7 +213,7 @@ const DashboardScreen = () => {
         containerStyle={styles.fab}
         textStyle={{
           color: 'white',
-          fontSize: moderateScale(36),
+          fontSize: Platform.OS === 'android' ? moderateScale(36) : moderateScale(38),
           alignSelf: 'center',
         }}
         onPress={() => setRequestNewTrip(true)}

@@ -159,7 +159,7 @@ const FavoriteLocations = () => {
         containerStyle={styles.fab}
         textStyle={{
           color: 'white',
-          fontSize: moderateScale(36),
+          fontSize: Platform.OS === 'android' ? moderateScale(36) : moderateScale(38),
           alignSelf: 'center',
         }}
         onPress={() => setDisplayPanel(true)}
