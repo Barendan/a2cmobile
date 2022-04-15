@@ -351,7 +351,11 @@ const LoginScreen = () => {
         dispatch(login(data.user));
       })
       .catch(err => {
-        alert(err?.message || 'unable to sign in');
+        if (err?.message.split(' ').slice(-1).toString() === "passsword.") {
+          alert('You have exceeded the allowed number of retries. Please request a new password.')
+        } else {
+          alert(err?.message || 'unable to sign in');
+        }
         setLoading(false);
       });
   };
