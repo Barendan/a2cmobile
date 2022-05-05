@@ -37,11 +37,11 @@ const Step4 = ({ back, next }) => {
   const onRequestTrip = async () => {
     let formattedAppointmentDateTime = moment(
       `${appointmentDate} + ${appointmentTime}`,
-      'MM/DD/YYYY HH:mm:ss',
-    ).format();
+      'MM/DD/YYYY hh:mm:ss A',
+    ).format('YYYY-MM-DD HH:mm:ss');
 
+    // console.log('apptDT', formattedAppointmentDateTime)S
     // alert(JSON.stringify(appointmentDateTime + '-' + formattedAppointmentDateTime));
-    // return;
 
     try {
       const payload = {
