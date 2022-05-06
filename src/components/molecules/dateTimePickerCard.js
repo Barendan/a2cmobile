@@ -115,8 +115,8 @@ const DateTimePickerCard = props => {
 
     if (mode === 'time') {
       let formattedTime = currentDate
-        .toLocaleTimeString('en-US')
-        .replace(/(?<=\:\d.:)\d*/, "00");
+        .toLocaleTimeString('en-US');
+        // .replace(/(?<=\:\d.:)\d*/, "00");
       
       setSelectedValue(formattedTime);
     }

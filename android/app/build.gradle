@@ -141,8 +141,8 @@ android {
         applicationId "org.a2c.A2CMobileApp"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 9
-        versionName "9.0"
+        versionCode 17
+        versionName "17.0"
     }
     splits {
         abi {
