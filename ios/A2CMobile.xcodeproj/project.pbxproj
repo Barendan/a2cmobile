@@ -549,10 +549,11 @@
 				BUILD_LIBRARY_FOR_DISTRIBUTION = NO;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = A2CMobile/A2CMobile.entitlements;
-				CURRENT_PROJECT_VERSION = 2.062301;
+				CURRENT_PROJECT_VERSION = 2.050601;
 				DEVELOPMENT_TEAM = 96BTRK29UQ;
 				EMBED_ASSET_PACKS_IN_PRODUCT_BUNDLE = YES;
 				ENABLE_BITCODE = NO;
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
 				INFOPLIST_FILE = A2CMobile/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -562,7 +563,7 @@
 					"$(inherited)",
 					"$(SDKROOT)/usr/lib/swift",
 				);
-				MARKETING_VERSION = 2.0;
+				MARKETING_VERSION = 2.31;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -589,9 +590,10 @@
 				BUILD_LIBRARY_FOR_DISTRIBUTION = NO;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = A2CMobile/A2CMobile.entitlements;
-				CURRENT_PROJECT_VERSION = 2.062301;
+				CURRENT_PROJECT_VERSION = 2.050601;
 				DEVELOPMENT_TEAM = 96BTRK29UQ;
 				EMBED_ASSET_PACKS_IN_PRODUCT_BUNDLE = YES;
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
 				INFOPLIST_FILE = A2CMobile/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -601,7 +603,7 @@
 					"$(inherited)",
 					"$(SDKROOT)/usr/lib/swift",
 				);
-				MARKETING_VERSION = 2.0;
+				MARKETING_VERSION = 2.31;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
