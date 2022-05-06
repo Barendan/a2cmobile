@@ -99,7 +99,7 @@ const FullTripDetails = props => {
         onPanelDismiss();
       })
       .catch(err => {
-        alert(JSON.stringify(err));
+        alert(err?.message);
         setLoading(false);
       });
   };
@@ -117,7 +117,7 @@ const FullTripDetails = props => {
         onPanelDismiss();
       })
       .catch(err => {
-        alert(JSON.stringify(err));
+        alert(err?.message);
         setLoading(false);
       });
   };
