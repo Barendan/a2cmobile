@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, TouchableHighlight, StyleSheet } from 'react-native';
 import { Avatar, Surface, List } from 'react-native-paper';
-import DateTimePicker from '@react-native-community/datetimepicker';
-import { Inset, Stack } from 'react-native-spacing-system';
+import DatePicker from 'react-native-date-picker';
 import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
@@ -89,13 +88,11 @@ const DateTimePickerCard = props => {
   const [mode, setMode] = useState('date');
   const [show, setShow] = useState(false);
 
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   const [selectedValue, setSelectedValue] = useState(null);
 
-  const onChange = (event, selectedDate) => {
-    console.log('--------------')
-    console.log('expose:', event, selectedDate)
+  const onChange = (selectedDate) => {
 
     const currentDate = selectedDate || date;
     setShow(false);
@@ -131,7 +128,6 @@ const DateTimePickerCard = props => {
 
   React.useEffect(() => {
     onDateTimeChange(mode, selectedValue);
-    console.log('selectedVal', selectedValue)
   }, [selectedValue]);
 
   const showMode = currentMode => {
@@ -196,16 +192,19 @@ const DateTimePickerCard = props => {
                 {mode === 'date' ? t('select_date') : t('select_time')}
               </Text>
               <View style={styles.dateTimePickerHolder}>
-                <DateTimePicker
-                  width={100}
-                  testID="dateTimePicker"
-                  minimumDate={minimumDate}
-                  value={date}
-                  mode={mode}
-                  is24Hour={false}
-                  display="default"
-                  onChange={onChange}
+                <DatePicker
+                  modal
+                  open={show}
+                  date={date}
+                  locale={i18n.language.toLocaleLowerCase()}
+                  title={mode === 'date' ? t('select_date') : t('select_time')}
+                  mode={mode === 'date' ? "date" : "time"}
+                  minimumDate={new Date()}
+                  // maximumDate={new Date()}
+                  onConfirm={ (date) => onChange(date) }
+                  onCancel={ () => setShow(false) }
                 />
+                
               </View>
             </View>
           )}
