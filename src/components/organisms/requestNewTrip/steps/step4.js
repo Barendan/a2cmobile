@@ -113,7 +113,7 @@ const Step4 = ({ back, next }) => {
           )}
           description={() => (
             <Text style={styles.summarySubtitle}>
-              {`${pickupAddress.AddressLine1} ${pickupAddress.City},${pickupAddress.State} ${pickupAddress.ZipCode}`}
+              {`${pickupAddress.AddressLine1} ${pickupAddress.City}, ${pickupAddress.State} ${pickupAddress.ZipCode}`}
             </Text>
           )}
         />
@@ -126,7 +126,7 @@ const Step4 = ({ back, next }) => {
           )}
           description={() => (
             <Text style={styles.summarySubtitle}>
-              {`${destinationAddress.AddressLine1} ${destinationAddress.City},${destinationAddress.State} ${destinationAddress.ZipCode}`}
+              {`${destinationAddress.AddressLine1} ${destinationAddress.City}, ${destinationAddress.State} ${destinationAddress.ZipCode}`}
             </Text>
           )}
         />
@@ -139,7 +139,7 @@ const Step4 = ({ back, next }) => {
               )}
               description={() => (
                 <Text style={styles.summarySubtitle}>
-                  {`${item.AddressLine1} ${item.City},${item.State} ${item.ZipCode}`}
+                  {`${item.AddressLine1} ${item.City}, ${item.State} ${item.ZipCode}`}
                 </Text>
               )}
             />
