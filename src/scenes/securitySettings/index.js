@@ -111,7 +111,10 @@ const SecuritySettings = () => {
     if (
       selectedQuestion.questionOne.length > 0 &&
       selectedQuestion.questionTwo.length > 0 &&
-      selectedQuestion.questionThree.length > 0
+      selectedQuestion.questionThree.length > 0 &&
+      selectedQuestion.questionOneAnswer.length > 0 &&
+      selectedQuestion.questionTwoAnswer.length > 0 &&
+      selectedQuestion.questionThreeAnswer.length > 0
     ) {
       setDisableSubmit(false);
     }
@@ -119,6 +122,9 @@ const SecuritySettings = () => {
     selectedQuestion.questionOne,
     selectedQuestion.questionTwo,
     selectedQuestion.questionThree,
+    selectedQuestion.questionOneAnswer,
+    selectedQuestion.questionTwoAnswer,
+    selectedQuestion.questionThreeAnswer,
   ]);
 
   const updateSecurityQuestion = () => {
