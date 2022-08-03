@@ -220,7 +220,7 @@ export function DrawerContent({ navigation }) {
             <DrawerItem
               label={() => <Text style={styles.navItem}>{t('faq')}</Text>}
               style={{ marginBottom: 0 }}
-              onPress={() => getLatestAppInfo(t('FAQ_title'), 'faqs')}
+              onPress={() => getLatestAppInfo(t('faq'), 'faqs')}
               icon={() => (
                 <Avatar.Icon
                   size={moderateScale(25)}
