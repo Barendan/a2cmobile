@@ -208,6 +208,8 @@ const LocationSearchCard = props => {
                     icon
                       ? {
                           backgroundColor: iconColor,
+                          marginVertical: moderateScale(50),
+                          marginRight: 10,
                         }
                       : stopStyle(locationIndex)
                   }
