@@ -150,5 +150,7 @@
   "dialysis": "Dialysis",
   "other": "Other",
   "select_date": "Select Date",
-  "select_time": "Select Time"
+  "select_time": "Select Time",
+  "search": "Search",
+  "no_results": "No matches found. Please try another search."
 }

@@ -151,5 +151,7 @@
   "dialysis": "Diálisis",
   "other": "Otras Relacionadas Con la Medicina",
   "select_date": "Fije fecha",
-  "select_time": "Fije hora"
+  "select_time": "Fije hora",
+  "search": "Buscar",
+  "no_results": "No se encontraron coincidencias. Intente otra búsqueda."
 }

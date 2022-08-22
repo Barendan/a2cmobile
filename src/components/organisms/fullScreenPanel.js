@@ -10,6 +10,7 @@ import { Searchbar } from 'react-native-paper';
 import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
 import { Inset, Stack } from 'react-native-spacing-system';
 import RenderHTML from 'react-native-render-html';
+import { useTranslation } from 'react-i18next';
 
 import { CloseButton } from '_atoms';
 import { DraggablePanel } from '_molecules';
@@ -43,6 +44,7 @@ const FullScreenPanel = props => {
   } = props;
 
   const contentWidth = useWindowDimensions().width;
+  const { t } = useTranslation();
 
   const [filteredDataSource, setFilteredDataSource] = useState([]);
   const [masterDataSource, setMasterDataSource] = useState([]);
@@ -104,7 +106,7 @@ const FullScreenPanel = props => {
           { panelHeader === "faqs" || "faq" ? 
             <>
               <Searchbar 
-                placeholder="Search"
+                placeholder={t('search')}
                 style={{ elevation: 0, borderWidth: 1, borderColor: 'gray', padding: 0}}
                 inputStyle={{ marginLeft: -10 }}
                 onChangeText={(text) => onChangeSearch(text)}
@@ -133,7 +135,7 @@ const FullScreenPanel = props => {
                 </ScrollView>
               </>
             ) : (
-              <Text>No matches found. Please try another search.</Text>
+              <Text>{t('no_results')}</Text>
             )
           }
 
