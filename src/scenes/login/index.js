@@ -528,13 +528,16 @@ const LoginScreen = () => {
               // onPanelDismiss={() => console.log('test working')}
             />
 
-            <FullScreenPanel
-              isHTML={panelDetails.isHTML}
-              displayPanel={panelDetails.panelVisible}
-              panelHeader={panelDetails.header}
-              panelBody={panelDetails.body}
-              onPanelDismiss={onPanelDismiss}
-            />
+            { panelDetails.panelVisible && 
+              <FullScreenPanel
+                isHTML={panelDetails.isHTML}
+                displayPanel={panelDetails.panelVisible}
+                panelHeader={panelDetails.header}
+                panelBody={panelDetails.body}
+                onPanelDismiss={onPanelDismiss}
+              />
+            }
+            
           </View>
         </Inset>
       </View>
