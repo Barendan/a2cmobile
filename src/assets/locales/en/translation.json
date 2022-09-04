@@ -152,5 +152,6 @@
   "select_date": "Select Date",
   "select_time": "Select Time",
   "search": "Search",
-  "no_results": "No matches found. Please try another search."
+  "no_results": "No matches found. Please try another search.",
+  "loading_data": "Loading Data..."
 }

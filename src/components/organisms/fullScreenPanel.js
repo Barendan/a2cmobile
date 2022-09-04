@@ -116,9 +116,15 @@ const FullScreenPanel = props => {
             </>
           : null
           }
+
+          { masterDataSource.length < 1 && (
+              <Text>{t('loading_data')}</Text>
+          )}
           
           {
-            filteredDataSource.length > 0 ? (
+            masterDataSource.length > 0 && filteredDataSource.length < 1 ? (
+              <Text>{t('no_results')}</Text>
+            ) : (
               <>
                 <ScrollView
                   style={styles.bodyWrapper}
@@ -134,11 +140,8 @@ const FullScreenPanel = props => {
                       )}
                 </ScrollView>
               </>
-            ) : (
-              <Text>{t('no_results')}</Text>
             )
           }
-
 
         </Inset>
       </DraggablePanel>

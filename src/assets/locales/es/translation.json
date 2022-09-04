@@ -153,5 +153,6 @@
   "select_date": "Fije fecha",
   "select_time": "Fije hora",
   "search": "Buscar",
-  "no_results": "No se encontraron coincidencias. Intente otra búsqueda."
+  "no_results": "No se encontraron coincidencias. Intente otra búsqueda.",
+  "loading_data": "Cargando datos..."
 }
