@@ -44,14 +44,25 @@ const FullScreenPanel = props => {
   } = props;
 
   const contentWidth = useWindowDimensions().width;
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   const [filteredDataSource, setFilteredDataSource] = useState([]);
   const [masterDataSource, setMasterDataSource] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
-  const extractQuestions = panelBody.replace(/(<([^>]+)>)/gi, "").split('. ').map( i => {
+
+
+  const extractQuestions = i18n.language === "en" ? panelBody.replace(/(<([^>]+)>)/gi, "").split('. ').map( i => {
     const questionMarkIndex = i.indexOf('?') + 1;
+
     return i.slice(0,questionMarkIndex);
+  }) : 
+  panelBody.split('<p>').map( i => {
+    const startIndex = i.search("<strong>") +8;
+    const endIndex = i.search("</strong>");
+    // console.log('**********************')
+    // console.log('replace:', i)
+
+    return i.slice(startIndex, endIndex);
   });
   let formattedQuestions = extractQuestions.filter( element => { return element !== '' });
 
