@@ -78,40 +78,37 @@ const LoginScreen = () => {
   });
   
   React.useEffect(() => {
-    // function to redirect to play store
+    
     const getUpdate = () => { 
-      VersionCheck.needUpdate()
-      .then(async res => {
-          if (res.isNeeded) {
-            
-            Alert.alert(
-              "New Update Available",
-              "To ensure everything runs smoothly, an update to the app is required.",
-              [
-                {
-                  text: "Cancel",
-                  onPress: () => console.log("Cancel Pressed"),
-                  style: "cancel"
-                },
-                { text: "Update", onPress: () => Linking.openURL(res.storeUrl) }
-              ]
-            );
-          }
-      });
-     }
-     
-    // Obtain User's App Version
+      VersionCheck.getStoreUrl()
+      .then( url => {
+        
+        Alert.alert(
+          "New Update Available",
+          "To ensure everything runs smoothly, an update to the app is required.",
+          [
+            {
+              text: "Cancel",
+              onPress: () => console.log("Cancel Pressed"),
+              style: "cancel"
+            },
+            { text: "Update", onPress: () => Linking.openURL(url) }
+          ]
+        );
+
+      })
+      .catch( err => { console.log('Check update err:', err)})
+    }
+    
     let currentVersion = VersionCheck.getCurrentVersion();
-    // Obtain latest App Version
     VersionCheck.getLatestVersion({
       provider: 'appStore'  // for iOS
     })
     .then(latestVersion => {
-      // Check if the versions are the same
       currentVersion === latestVersion ? null : getUpdate();
-      // If yes, do nothing. If no, send to store for update
-    });
-  },[])
+    })
+
+  }, [])
 
   React.useEffect(() => {
     async function validateSupport() {
