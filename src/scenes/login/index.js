@@ -123,10 +123,10 @@ const LoginScreen = () => {
           // console.warn(err.message);
           switch (err.name) {
             case 'NotFoundError':
-              console.log('No user to load.');
+              console.log('No user in local storage.');
               break;
             case 'ExpiredError':
-              console.log('Data expired.');
+              console.log('Stored user has expired.');
               break;
           }
         });
@@ -142,10 +142,10 @@ const LoginScreen = () => {
           // console.warn(err.message);
           switch (err.name) {
             case 'NotFoundError':
-              console.log('No user to load.');
+              console.log('No saved user data.');
               break;
             case 'ExpiredError':
-              console.log('Data expired.');
+              console.log('Saved user data expired.');
               break;
           }
         });
