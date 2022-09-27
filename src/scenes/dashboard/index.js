@@ -192,14 +192,14 @@ const DashboardScreen = () => {
               />
             }>
             {memberTrips.map((currentTrip, i) => (
-              <>
+              <View key={i}>
                 <TripDetails
-                  key={i}
+                  // key={i}
                   currentTrip={currentTrip}
                   viewFullTripDetails={() => viewFullTripDetails(currentTrip)}
                 />
                 <Stack size={scale(12)} />
-              </>
+              </View>
             ))}
 
             <Stack size={scale(100)} />

@@ -99,6 +99,7 @@ const TripDetails = props => {
 
           {tripStops.map((currentStop, index) => (
             <List.Item
+              key={index}
               title={currentStop}
               titleStyle={styles.tripTitleStyle}
               style={styles.tripPathDetails}
