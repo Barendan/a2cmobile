@@ -286,6 +286,7 @@ export function DrawerContent({ navigation }) {
         panelHeader={panelDetails.header}
         panelBody={panelDetails.body}
         onPanelDismiss={onPanelDismiss}
+        staticKeyboard={true}
       />
     </View>
   );
