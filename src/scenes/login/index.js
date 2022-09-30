@@ -532,6 +532,7 @@ const LoginScreen = () => {
                 panelHeader={panelDetails.header}
                 panelBody={panelDetails.body}
                 onPanelDismiss={onPanelDismiss}
+                staticKeyboard
               />
             }
             

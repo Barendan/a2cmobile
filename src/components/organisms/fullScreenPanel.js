@@ -41,6 +41,7 @@ const FullScreenPanel = props => {
     panelBody,
     displayPanel,
     onPanelDismiss,
+    staticKeyboard
   } = props;
 
   const contentWidth = useWindowDimensions().width;
@@ -50,7 +51,6 @@ const FullScreenPanel = props => {
   const [masterDataSource, setMasterDataSource] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
 
-
   const extractQuestions = i18n.language === "en" ? panelBody.replace(/(<([^>]+)>)/gi, "").split('. ').map( i => {
     const questionMarkIndex = i.indexOf('?') + 1;
 
@@ -59,8 +59,6 @@ const FullScreenPanel = props => {
   panelBody.split('<p>').map( i => {
     const startIndex = i.search("<strong>") +8;
     const endIndex = i.search("</strong>");
-    // console.log('**********************')
-    // console.log('replace:', i)
 
     return i.slice(startIndex, endIndex);
   });
@@ -96,67 +94,66 @@ const FullScreenPanel = props => {
     }
   }
 
-
   return (
-    <View>
-      <DraggablePanel
-        visible={displayPanel}
-        onDismiss={onPanelDismiss}
-        initialHeight={verticalScale(1000)}
-        expandable
-      >
-        <CloseButton onPress={onPanelDismiss} fixStyle/>
+    <DraggablePanel
+      visible={displayPanel}
+      onDismiss={onPanelDismiss}
+      initialHeight={verticalScale(1000)}
+      expandable
+      fixPanel={staticKeyboard}
+    >
+      <CloseButton onPress={onPanelDismiss} fixStyle/>
 
-        <Inset all={verticalScale(16)}>
+      <Inset all={verticalScale(16)}>
 
-          <View style={styles.titleWrapper}>
-            <Text style={styles.title}>{panelHeader}</Text>
-          </View>
-          <Stack size={verticalScale(12)} />
+        <View style={styles.titleWrapper}>
+          <Text style={styles.title}>{panelHeader}</Text>
+        </View>
+        <Stack size={verticalScale(12)} />
 
-          { panelHeader === "faqs" || "faq" ? 
+        { panelHeader === "faqs" || "faq" ? 
+          <>
+            <Searchbar 
+              placeholder={t('search')}
+              style={{ elevation: 0, borderWidth: 1, borderColor: 'gray', padding: 0}}
+              inputStyle={{ marginLeft: -10 }}
+              onChangeText={(text) => onChangeSearch(text)}
+              value={searchQuery}
+              />  
+            
+            <Stack size={verticalScale(12)} />
+          </>
+        : null
+        }
+
+        { masterDataSource.length < 1 && (
+            <Text>{t('loading_data')}</Text>
+        )}
+        
+        {
+          masterDataSource.length > 0 && filteredDataSource.length < 1 ? (
+            <Text>{t('no_results')}</Text>
+          ) : (
             <>
-              <Searchbar 
-                placeholder={t('search')}
-                style={{ elevation: 0, borderWidth: 1, borderColor: 'gray', padding: 0}}
-                inputStyle={{ marginLeft: -10 }}
-                onChangeText={(text) => onChangeSearch(text)}
-                value={searchQuery}
-                />  
-              <Stack size={verticalScale(12)} />
+              <ScrollView
+                style={styles.bodyWrapper}
+                showsVerticalScrollIndicator={true}>
+                {isHTML ? (
+                  <RenderHTML
+                  source={{ html: filteredDataSource.join(' ') }}
+                  contentWidth={contentWidth}
+                  baseStyle={{ color: 'red', margin: 50 }}
+                  />
+                  ) : (
+                    <Text style={styles.body}>{panelBody}</Text>
+                    )}
+              </ScrollView>
             </>
-          : null
-          }
+          )
+        }
 
-          { masterDataSource.length < 1 && (
-              <Text>{t('loading_data')}</Text>
-          )}
-          
-          {
-            masterDataSource.length > 0 && filteredDataSource.length < 1 ? (
-              <Text>{t('no_results')}</Text>
-            ) : (
-              <>
-                <ScrollView
-                  style={styles.bodyWrapper}
-                  showsVerticalScrollIndicator={true}>
-                  {isHTML ? (
-                    <RenderHTML
-                    source={{ html: filteredDataSource.join(' ') }}
-                    contentWidth={contentWidth}
-                    baseStyle={{ color: 'red', margin: 50 }}
-                    />
-                    ) : (
-                      <Text style={styles.body}>{panelBody}</Text>
-                      )}
-                </ScrollView>
-              </>
-            )
-          }
-
-        </Inset>
-      </DraggablePanel>
-    </View>
+      </Inset>
+    </DraggablePanel>
   );
 };
 export default FullScreenPanel;
