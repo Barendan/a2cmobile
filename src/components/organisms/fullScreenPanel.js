@@ -111,7 +111,7 @@ const FullScreenPanel = props => {
         </View>
         <Stack size={verticalScale(12)} />
 
-        { panelHeader === "faqs" || "faq" ? 
+        { panelHeader === "FAQs" ? 
           <>
             <Searchbar 
               placeholder={t('search')}
@@ -120,10 +120,10 @@ const FullScreenPanel = props => {
               onChangeText={(text) => onChangeSearch(text)}
               value={searchQuery}
               />  
-            
+          
             <Stack size={verticalScale(12)} />
           </>
-        : null
+          : null
         }
 
         { masterDataSource.length < 1 && (
