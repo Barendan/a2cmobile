@@ -111,7 +111,7 @@ const FullScreenPanel = props => {
         </View>
         <Stack size={verticalScale(12)} />
 
-        { panelHeader === "FAQs" ? 
+        { panelHeader === "FAQs" || "Preguntas frecuentas" ? 
           <>
             <Searchbar 
               placeholder={t('search')}
