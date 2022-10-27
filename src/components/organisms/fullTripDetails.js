@@ -90,6 +90,15 @@ const FullTripDetails = props => {
 
   const { panelHeader, displayPanel, onPanelDismiss, currentTrip } = props;
 
+  const dateChanger = ( date ) => {
+    let splitDateTime = date.split('/');
+    let extractTime = splitDateTime[2].split(' ');
+    
+    let formatTime = extractTime[0] + '-' + splitDateTime[0] + '-' + splitDateTime[1] + ' ' + extractTime[1];
+
+    return new Date(formatTime).getTime();
+  }
+
   const onCancelTrip = () => {
     setLoading(true);
 
@@ -205,19 +214,23 @@ const FullTripDetails = props => {
 
                 <View>
                   <Inset all={moderateScale(16)}>
-                    <TouchableOpacity
-                      style={styles.customBtnBG}
-                      onPress={
-                        currentTrip.TransportProviderName !== null &&
-                        currentTrip.TransportProviderName.toLowerCase() ===
-                          'pending'
-                          ? onCancelOnlineTrip
-                          : onCancelTrip
-                      }>
-                      <Text style={styles.customBtnText}>
-                        {t('cancel_trip')}
-                      </Text>
-                    </TouchableOpacity>
+
+                    { dateChanger(currentTrip.ApptDateTime) > Date.now() && (
+                      <TouchableOpacity
+                        style={styles.customBtnBG}
+                        onPress={
+                          currentTrip.TransportProviderName !== null &&
+                          currentTrip.TransportProviderName.toLowerCase() ===
+                            'pending'
+                            ? onCancelOnlineTrip
+                            : onCancelTrip
+                        }>
+                        <Text style={styles.customBtnText}>
+                          {t('cancel_trip')}
+                        </Text>
+                      </TouchableOpacity>
+                    )}
+                    
                   </Inset>
                 </View>
               </View>
