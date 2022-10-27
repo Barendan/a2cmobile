@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, Platform } from 'react-native';
 import { Input, Button } from '@ui-kitten/components';
 import { useTranslation } from 'react-i18next';
 import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
@@ -24,6 +24,7 @@ const styles = StyleSheet.create({
     display: 'flex',
     height: '100%',
     padding: '5%',
+    paddingTop: Platform.OS === 'ios' ? '7%' : null,
   },
   bodyWrapper: {
     paddingHorizontal: moderateScale(10),
@@ -128,9 +129,9 @@ const SaveLocationPanel = props => {
     >
       <View style={styles.mainContainer}>
 
-        <CloseButton onPress={onPanelDismiss} fixStyle/>
-
         <View style={styles.titleWrapper}>
+          <CloseButton onPress={onPanelDismiss} />
+
           <Text style={styles.title}>{t('add_new_location')}</Text>
         </View>
         

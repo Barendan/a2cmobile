@@ -5,6 +5,7 @@ import {
   StyleSheet,
   ScrollView,
   useWindowDimensions,
+  Platform,
 } from 'react-native';
 import { Searchbar } from 'react-native-paper';
 import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
@@ -102,16 +103,18 @@ const FullScreenPanel = props => {
       expandable
       fixPanel={staticKeyboard}
     >
-      <CloseButton onPress={onPanelDismiss} fixStyle/>
 
       <Inset all={verticalScale(16)}>
+        { Platform.OS === 'ios' ? <Stack size={verticalScale(12)} /> : null }
 
         <View style={styles.titleWrapper}>
+          <CloseButton onPress={onPanelDismiss}/>
+
           <Text style={styles.title}>{panelHeader}</Text>
         </View>
         <Stack size={verticalScale(12)} />
 
-        { panelHeader === "FAQs" || "Preguntas frecuentas" ? 
+        { panelHeader === "FAQs" || panelHeader === "Preguntas frecuentes" ? 
           <>
             <Searchbar 
               placeholder={t('search')}

@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, TouchableOpacity, Text } from 'react-native';
+import { StyleSheet, TouchableOpacity, Text, Platform } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { scale } from 'react-native-size-matters';
 

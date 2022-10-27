@@ -5,6 +5,7 @@ import {
   StyleSheet,
   ScrollView,
   TouchableHighlight,
+  Platform
 } from 'react-native';
 import { verticalScale, moderateScale } from 'react-native-size-matters';
 import { Avatar, Card, Divider } from 'react-native-paper';
@@ -87,12 +88,13 @@ const LocationSearchPanel = props => {
         expandable
         fixPanel
       >
-
-        <CloseButton onPress={onPanelDismiss} fixStyle/>
         
         <Inset all={moderateScale(16)}>
+        { Platform.OS === 'ios' ? <Stack size={verticalScale(12)} /> : null }
 
           <View style={styles.titleWrapper}>
+            <CloseButton onPress={onPanelDismiss} />
+
             <Text style={styles.title}>{panelHeader}</Text>
           </View>
           <Stack size={moderateScale(12)} />

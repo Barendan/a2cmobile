@@ -79,9 +79,10 @@ const RequestNewTrip = props => {
 
         {!isLoading && !stepsCompleted && (
           <View style={styles.mainContainer}>
-            <CloseButton onPress={onPanelDismiss} fixStyle />
 
             <View style={styles.titleWrapper}>
+              <CloseButton onPress={onPanelDismiss} />
+              
               <Text style={styles.title}>{t('request_new_trip')}</Text>
             </View>
 

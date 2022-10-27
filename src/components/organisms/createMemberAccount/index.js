@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, Platform } from 'react-native';
 import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
 import AnimatedMultistep from 'react-native-animated-multistep';
 import { Divider } from 'react-native-paper';
@@ -54,10 +54,11 @@ const CreateMemberAccount = props => {
 
         <View style={{ height: '100%', padding: '5%'}}>
 
-          <View style={{ height: '25%'}}>
-            <CloseButton onPress={onPanelDismiss} />
+          <View style={{ height: '25%', paddingTop: Platform.OS === 'ios' ? '5%' : null }}>
 
               <View style={styles.titleWrapper}>
+                <CloseButton onPress={onPanelDismiss} />
+                
                 <Text style={styles.title}>{t('go_to_registration')}</Text>
               </View>
 

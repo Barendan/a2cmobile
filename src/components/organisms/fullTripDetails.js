@@ -5,6 +5,7 @@ import {
   TouchableOpacity,
   StyleSheet,
   ScrollView,
+  Platform
 } from 'react-native';
 import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
 import { Inset, Stack } from 'react-native-spacing-system';
@@ -24,6 +25,7 @@ const styles = StyleSheet.create({
   titleWrapper: {
     borderBottomColor: '#6f99bf',
     borderBottomWidth: 2,
+    paddingBottom: '2%'
   },
   title: {
     fontWeight: 'bold',
@@ -59,8 +61,11 @@ const styles = StyleSheet.create({
     backgroundColor: GRAY_LIGHT,
   },
   content: {
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    // justifyContent: 'space-between',
+    // alignItems: 'center',
+    // height: '100%',
+    // padding: '5%',
+    paddingTop: Platform.OS === 'ios' ? '5%' : null,
   },
   customBtnText: {
     fontSize: moderateScale(18),
@@ -130,14 +135,13 @@ const FullTripDetails = props => {
         initialHeight={verticalScale(1000)}
         expandable
       >
-
-        <CloseButton onPress={onPanelDismiss} />
         
         {currentTrip && (
           <Inset all={scale(16)}>
             <View style={styles.content}>
-              <View>
+
                 <View style={styles.titleWrapper}>
+                  <CloseButton onPress={onPanelDismiss} />
                   <Text style={styles.title}>{panelHeader}</Text>
                 </View>
                 <Stack size={scale(12)} />
@@ -217,7 +221,6 @@ const FullTripDetails = props => {
                   </Inset>
                 </View>
               </View>
-            </View>
           </Inset>
         )}
       </DraggablePanel>

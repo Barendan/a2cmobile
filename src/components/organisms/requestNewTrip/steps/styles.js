@@ -44,6 +44,7 @@ export default StyleSheet.create({
   mainContainer: {
     height: '100%',
     padding: '5%',
+    paddingTop: Platform.OS === 'ios' ? '7%' : null,
   },
   formContainer: {
     flex: 1,
