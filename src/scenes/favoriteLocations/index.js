@@ -78,6 +78,28 @@ const FavoriteLocations = () => {
   return (
     <SafeAreaView style={styles.container}>
       
+      <View style={styles.mapContainer}>
+        <MapView
+          // provider={PROVIDER_GOOGLE}
+          style={styles.map}
+          initialRegion={{
+            latitude: 37.78825,
+            longitude: -122.4324,
+            latitudeDelta: 0.0922,
+            longitudeDelta: 0.0421,
+          }}
+        >
+          {/* <Marker
+            key={index}
+            coordinate={marker.latlng}
+            title={marker.title}
+            description={marker.description}
+          /> */}
+        </MapView>
+      </View>
+
+
+
       {savedLocations.length === 0 && (
         <Inset all={scale(16)}>
           <ScrollView showsVerticalScrollIndicator={false}>
@@ -190,6 +212,20 @@ const styles = StyleSheet.create({
   modalContainer: {
     flex: 1,
     backgroundColor: '#dbdbdb',
+  },
+  mapContainer: {
+    ...StyleSheet.absoluteFillObject,
+    height: 400,
+    // width: 400,
+    margin: 10,
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+    borderColor: '#000000',
+    borderStyle: 'solid',
+    borderWidth: 1,
+  },
+  map: {
+    ...StyleSheet.absoluteFillObject,
   },
   // newFab: {
   //   backgroundColor: APP_COLOR,
