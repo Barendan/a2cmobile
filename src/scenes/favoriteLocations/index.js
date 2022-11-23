@@ -6,6 +6,8 @@ import { Inset, Stack } from 'react-native-spacing-system';
 import { useDispatch, useSelector } from 'react-redux';
 import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
 
+import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
+
 import { AppButton } from '_atoms';
 import { SaveLocationPanel } from '_organisms';
 import { EmptyStateView } from '_molecules';
