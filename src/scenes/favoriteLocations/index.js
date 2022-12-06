@@ -6,10 +6,9 @@ import { Inset, Stack } from 'react-native-spacing-system';
 import { useDispatch, useSelector } from 'react-redux';
 import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
 
-import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
-
 import { AppButton } from '_atoms';
 import { SaveLocationPanel } from '_organisms';
+import { ShowMapLocation } from '_organisms';
 import { EmptyStateView } from '_molecules';
 import { APP_COLOR } from '_styles/colors';
 
@@ -25,6 +24,7 @@ const FavoriteLocations = () => {
   }, []);
 
   const [displayPanel, setDisplayPanel] = useState(false);
+  const [displayMapPanel, setDisplayMapPanel] = useState(false);
 
   const loadLocations = () => {
     // load
@@ -55,6 +55,11 @@ const FavoriteLocations = () => {
     setDisplayPanel(false);
   };
 
+  const onMapPanelDismiss = () => {
+    // loadLocations();
+    setDisplayMapPanel(false);
+  };
+
   const removeLocation = location => {
     const index = savedLocations.indexOf(location);
     if (index > -1) {
@@ -77,28 +82,6 @@ const FavoriteLocations = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      
-      <View style={styles.mapContainer}>
-        <MapView
-          // provider={PROVIDER_GOOGLE}
-          style={styles.map}
-          initialRegion={{
-            latitude: 37.78825,
-            longitude: -122.4324,
-            latitudeDelta: 0.0922,
-            longitudeDelta: 0.0421,
-          }}
-        >
-          {/* <Marker
-            key={index}
-            coordinate={marker.latlng}
-            title={marker.title}
-            description={marker.description}
-          /> */}
-        </MapView>
-      </View>
-
-
 
       {savedLocations.length === 0 && (
         <Inset all={scale(16)}>
@@ -133,12 +116,20 @@ const FavoriteLocations = () => {
                   }
                   subtitleStyle={{ marginLeft: moderateScale(-10) }}
                   left={props => (
-                    <Avatar.Icon
+                    // <Avatar.Icon
+                    //   {...props}
+                    //   size={moderateScale(26)}
+                    //   icon="map-marker"
+                    //   color="black"
+                    //   style={styles.locationIcon}
+                    // />
+                    <IconButton
                       {...props}
                       size={moderateScale(26)}
                       icon="map-marker"
                       color="black"
                       style={styles.locationIcon}
+                      onPress={() => setDisplayMapPanel(true)}
                     />
                   )}
                   right={props => (
@@ -193,6 +184,11 @@ const FavoriteLocations = () => {
         displayPanel={displayPanel}
         onPanelDismiss={onPanelDismiss}
       />
+
+      <ShowMapLocation
+        displayPanel={displayMapPanel}
+        onPanelDismiss={onMapPanelDismiss}
+      />
       
     </SafeAreaView>
   );
@@ -212,20 +208,6 @@ const styles = StyleSheet.create({
   modalContainer: {
     flex: 1,
     backgroundColor: '#dbdbdb',
-  },
-  mapContainer: {
-    ...StyleSheet.absoluteFillObject,
-    height: 400,
-    // width: 400,
-    margin: 10,
-    justifyContent: 'flex-end',
-    alignItems: 'center',
-    borderColor: '#000000',
-    borderStyle: 'solid',
-    borderWidth: 1,
-  },
-  map: {
-    ...StyleSheet.absoluteFillObject,
   },
   // newFab: {
   //   backgroundColor: APP_COLOR,
