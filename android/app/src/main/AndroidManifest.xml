@@ -12,6 +12,10 @@
       android:roundIcon="@mipmap/ic_launcher_round"
       android:allowBackup="false"
       android:theme="@style/AppTheme">
+      <meta-data
+        android:name="com.google.android.geo.API_KEY"
+        android:value="AIzaSyCFzSe5_mAbmaX-nlRYRQk6Z_oRe3mQDMM"
+      />
       <activity
         android:name=".MainActivity"
         android:exported="true"
@@ -24,8 +28,5 @@
             <category android:name="android.intent.category.LAUNCHER" />
         </intent-filter>
       </activity>
-      <meta-data
-        android:name="com.google.android.geo.API_KEY"
-        android:value="AIzaSyDgB54DCNDgL2ogOLAFhE-1OgETBR4IGh0"/>
     </application>
 </manifest>
