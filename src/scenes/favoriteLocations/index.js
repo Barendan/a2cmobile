@@ -18,6 +18,7 @@ const FavoriteLocations = () => {
   const { t } = useTranslation();
 
   const [savedLocations, setSavedLocations] = useState([]);
+  const [selectedLocation, setSelectedLocation] = useState({});
 
   useEffect(() => {
     loadLocations();
@@ -49,6 +50,13 @@ const FavoriteLocations = () => {
         }
       });
   };
+
+  const updateSelectedLocation = (location) => {
+    setSelectedLocation(location);
+
+    console.log('inside', selectedLocation)
+    setDisplayMapPanel(true)
+  }
 
   const onPanelDismiss = () => {
     loadLocations();
@@ -93,9 +101,12 @@ const FavoriteLocations = () => {
 
       {savedLocations.length > 0 && (
         <Inset all={scale(1)}>
+
           <ScrollView showsVerticalScrollIndicator={false}>
             {savedLocations.map((currentLocation, i) => (
               <View key={i}>
+                { console.log('outside', selectedLocation)}
+
                 <Card.Title
                   style={{ backgroundColor: 'white' }}
                   title={
@@ -116,20 +127,13 @@ const FavoriteLocations = () => {
                   }
                   subtitleStyle={{ marginLeft: moderateScale(-10) }}
                   left={props => (
-                    // <Avatar.Icon
-                    //   {...props}
-                    //   size={moderateScale(26)}
-                    //   icon="map-marker"
-                    //   color="black"
-                    //   style={styles.locationIcon}
-                    // />
                     <IconButton
                       {...props}
                       size={moderateScale(26)}
                       icon="map-marker"
                       color="black"
                       style={styles.locationIcon}
-                      onPress={() => setDisplayMapPanel(true)}
+                      onPress={() => updateSelectedLocation(currentLocation)}
                     />
                   )}
                   right={props => (
@@ -162,8 +166,8 @@ const FavoriteLocations = () => {
                 <Divider />
               </View>
             ))}
-
             <Stack size={100} />
+
           </ScrollView>
         </Inset>
       )}
@@ -186,8 +190,11 @@ const FavoriteLocations = () => {
       />
 
       <ShowMapLocation
+        panelHeader={selectedLocation.name}
         displayPanel={displayMapPanel}
         onPanelDismiss={onMapPanelDismiss}
+        fullAddress={selectedLocation.address.FormattedAddress}
+        coords={[selectedLocation.address.Latitude, selectedLocation.address.Longitude]}
       />
       
     </SafeAreaView>

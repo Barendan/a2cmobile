@@ -42,30 +42,14 @@ const styles = StyleSheet.create({
   bodyWrapper: {
     paddingHorizontal: moderateScale(10),
     marginTop: moderateScale(24),
-  },
-  footer: {
-    marginBottom: 10,
-    flexDirection: 'row',
-  },
+  }
 });
 
 const ShowMapLocation = props => {
   const { t } = useTranslation();
-  const { panelHeader, displayPanel, onPanelDismiss } = props;
-//   const [savedLocations, setSavedLocations] = useState([]);
-//   const [newLocation, setNewLocation] = React.useState({
-//     address: null,
-//     name: '',
-//   });
-
-//   const updateNewLocation = React.useCallback((key, value) => {
-//     setNewLocation(newLocation => {
-//       return {
-//         ...newLocation,
-//         [key]: value,
-//       };
-//     });
-//   }, []);
+  const { panelHeader, displayPanel, onPanelDismiss, fullAddress, coords } = props;
+  // pass in the location name as the panelHeader and the lat/lon as coords
+  // put coords into marker
 
   return (
     <DraggablePanel
@@ -81,37 +65,36 @@ const ShowMapLocation = props => {
           <CloseButton onPress={onPanelDismiss} />
 
           {/* <Text style={styles.title}>{t('add_new_location')}</Text> */}
-          <Text style={styles.title}>Saved Location id313</Text>
+          <Text style={styles.title}>Location: {panelHeader}</Text>
         </View>
+
+        {/* {console.log('coordelia', coords[0])} */}
         
         <View style={styles.mapContainer}>
             <MapView
                 // provider={PROVIDER_GOOGLE}
                 style={styles.map}
                 initialRegion={{
-                    latitude: 37.78825,
-                    longitude: -122.4324,
+                    latitude: coords[0],
+                    longitude: coords[1],
                     latitudeDelta: 0.0922,
                     longitudeDelta: 0.0421,
                 }}
+                mapType={"standard"}
+                showsScale={true}
+                zoomEnabled={true}
             >
-            {/* <Marker
-                key={index}
-                coordinate={marker.latlng}
-                title={marker.title}
-                description={marker.description}
-            /> */}
             <Marker
                 draggable
                 coordinate={{
-                latitude: 37.78825,
-                longitude: -122.4324,
+                  latitude: coords[0],
+                  longitude: coords[1],
                 }}
                 onDragEnd={
-                (e) => alert(JSON.stringify(e.nativeEvent.coordinate))
+                  (e) => alert(JSON.stringify(e.nativeEvent.coordinate))
                 }
-                title={'Test Marker'}
-                description={'This is a description of the marker'}
+                title={`Saved Location: ${panelHeader}`}
+                description={fullAddress}
             />
             </MapView>
         </View>
