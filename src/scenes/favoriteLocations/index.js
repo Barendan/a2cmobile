@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, SafeAreaView, StyleSheet, ScrollView, Alert } from 'react-native';
-import { Avatar, Card, IconButton, Divider } from 'react-native-paper';
+import { Card, IconButton, Divider } from 'react-native-paper';
 import { useTranslation } from 'react-i18next';
 import { Inset, Stack } from 'react-native-spacing-system';
-import { useDispatch, useSelector } from 'react-redux';
-import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
+import { scale, moderateScale } from 'react-native-size-matters';
 
 import { AppButton } from '_atoms';
 import { SaveLocationPanel } from '_organisms';
@@ -54,7 +53,6 @@ const FavoriteLocations = () => {
   const updateSelectedLocation = (location) => {
     setSelectedLocation(location);
 
-    console.log('inside', selectedLocation)
     setDisplayMapPanel(true)
   }
 
@@ -64,7 +62,6 @@ const FavoriteLocations = () => {
   };
 
   const onMapPanelDismiss = () => {
-    // loadLocations();
     setDisplayMapPanel(false);
   };
 
@@ -105,7 +102,6 @@ const FavoriteLocations = () => {
           <ScrollView showsVerticalScrollIndicator={false}>
             {savedLocations.map((currentLocation, i) => (
               <View key={i}>
-                { console.log('outside', selectedLocation)}
 
                 <Card.Title
                   style={{ backgroundColor: 'white' }}
@@ -137,12 +133,6 @@ const FavoriteLocations = () => {
                     />
                   )}
                   right={props => (
-                    // <IconButton
-                    //   {...props}
-                    //   size={moderateScale(26)}
-                    //   icon="minus"
-                    //   onPress={() => removeLocation(currentLocation)}
-                    // />
                     <IconButton
                       {...props}
                       size={moderateScale(26)}
@@ -193,8 +183,7 @@ const FavoriteLocations = () => {
         panelHeader={selectedLocation.name}
         displayPanel={displayMapPanel}
         onPanelDismiss={onMapPanelDismiss}
-        fullAddress={selectedLocation.address.FormattedAddress}
-        coords={[selectedLocation.address.Latitude, selectedLocation.address.Longitude]}
+        fullAddress={selectedLocation}
       />
       
     </SafeAreaView>
