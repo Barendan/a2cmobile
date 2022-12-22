@@ -47,9 +47,11 @@ const styles = StyleSheet.create({
 
 const ShowMapLocation = props => {
   const { t } = useTranslation();
-  const { panelHeader, displayPanel, onPanelDismiss, fullAddress, coords } = props;
-  // pass in the location name as the panelHeader and the lat/lon as coords
-  // put coords into marker
+  const { panelHeader, displayPanel, onPanelDismiss, fullAddress } = props;
+
+
+  // console.log('so full', fullAddress.address.Latitude, fullAddress.address.Longitude )
+  // console.log('--------------------------')
 
   return (
     <DraggablePanel
@@ -68,15 +70,13 @@ const ShowMapLocation = props => {
           <Text style={styles.title}>Location: {panelHeader}</Text>
         </View>
 
-        {/* {console.log('coordelia', coords[0])} */}
-        
         <View style={styles.mapContainer}>
             <MapView
                 // provider={PROVIDER_GOOGLE}
                 style={styles.map}
                 initialRegion={{
-                    latitude: coords[0],
-                    longitude: coords[1],
+                    latitude: fullAddress.address ? fullAddress.address.Latitude : 37.78825,
+                    longitude: fullAddress.address ? fullAddress.address.Longitude : -122.4324,
                     latitudeDelta: 0.0922,
                     longitudeDelta: 0.0421,
                 }}
@@ -87,14 +87,14 @@ const ShowMapLocation = props => {
             <Marker
                 draggable
                 coordinate={{
-                  latitude: coords[0],
-                  longitude: coords[1],
+                  latitude: fullAddress.address ? fullAddress.address.Latitude : 37.78825,
+                  longitude: fullAddress.address ? fullAddress.address.Longitude : -122.4324,
                 }}
                 onDragEnd={
                   (e) => alert(JSON.stringify(e.nativeEvent.coordinate))
                 }
                 title={`Saved Location: ${panelHeader}`}
-                description={fullAddress}
+                // description={fullAddress}
             />
             </MapView>
         </View>
