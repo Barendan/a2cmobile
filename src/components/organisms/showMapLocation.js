@@ -50,9 +50,6 @@ const ShowMapLocation = props => {
   const { panelHeader, displayPanel, onPanelDismiss, fullAddress } = props;
 
 
-  // console.log('so full', fullAddress.address.Latitude, fullAddress.address.Longitude )
-  // console.log('--------------------------')
-
   return (
     <DraggablePanel
       visible={displayPanel}

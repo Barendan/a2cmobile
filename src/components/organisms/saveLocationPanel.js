@@ -148,12 +148,14 @@ const SaveLocationPanel = props => {
             ]}
             onChangeText={text => updateNewLocation('name', text)}
             value={newLocation.name}
+            maxLength={15}
             label={() => (
               <Text style={styles.inputLabel}>
-                {t('enter_name_label') + '*'}
+                {t('enter_name_label') + '*' + ' (maximum of 15 characters)'}
               </Text>
             )}
             placeholder={t('enter_name_label')}
+            // placeholder={"Nickname* (Maximum of 15 characters allowed)"}
             textStyle={styles.inputText}
           />
 
