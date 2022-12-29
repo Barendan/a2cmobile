@@ -155,7 +155,6 @@ const SaveLocationPanel = props => {
               </Text>
             )}
             placeholder={t('enter_name_label')}
-            // placeholder={"Nickname* (Maximum of 15 characters allowed)"}
             textStyle={styles.inputText}
           />
 
