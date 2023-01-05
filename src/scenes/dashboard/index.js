@@ -21,7 +21,7 @@ import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
 import { AppButton } from '_atoms';
 import { EmptyStateView } from '_molecules';
 import {
-  PlanSelector,
+  // PlanSelector,
   TripDetails,
   FullTripDetails,
   RequestNewTrip,
@@ -38,7 +38,7 @@ const DashboardScreen = () => {
   const [loading, setLoading] = React.useState(true);
 
   const [memberTrips, setMemberTrips] = React.useState([]);
-  const [viewMemberPlans, setViewMemberPlans] = React.useState(false);
+  // const [viewMemberPlans, setViewMemberPlans] = React.useState(false);
   const [currentTrip, setCurrentTrip] = React.useState(null);
   const [requestNewTrip, setRequestNewTrip] = React.useState(false);
 
@@ -69,6 +69,42 @@ const DashboardScreen = () => {
         setLoading(false);
       });
   };
+
+  const filterTrips = () => {
+    let newSortedTrips = [];
+
+    // console.log("PEWtripPEW", membertrips)
+    console.log("------------")
+
+    memberTrips.map( tr => {
+      // console.log("1 trip", tr.ApptDateTime) sorting by date/time
+      // console.log("1 trip", tr.Stops) filter by location; two locations separated by comma
+      console.log("1 trip address:", tr.Stops.split(',')[0]) 
+
+      // add the trip to the array
+      // newSortedTrips = [...newSortedTrips, tr]
+    })
+
+    // setMemberTrips(newSortedTrips);
+  }
+
+  // const onChangeSearch = text => {
+  //   if (text) {
+  //     let selectedArr = []; 
+  //     memberTrips.forEach( (t,i) => {
+
+  //       if (t.Stops.toUpperCase().indexOf(text.toUpperCase()) > -1) {
+  //         selectedArr.push(memberTrips[i]);
+  //       }
+  //     })
+
+  //     setFilteredDataSource(selectedArr);
+  //     setSearchQuery(text);
+  //   } else {
+  //     setFilteredDataSource(masterDataSource);
+  //     setSearchQuery(text);
+  //   }
+  // }
 
   const viewFullTripDetails = trip => {
     setCurrentTrip(trip);
@@ -135,6 +171,18 @@ const DashboardScreen = () => {
                 color="black"
                 size={moderateScale(26)}
                 style={styles.callIcon}
+              />
+            )}
+          </>
+        )}
+        right={props => (
+          <>
+            {memberPlans.length > 0 && (
+              <IconButton
+                {...props}
+                icon="equal"
+                size={moderateScale(30)}
+                onPress={() => filterTrips()}
               />
             )}
           </>
@@ -230,10 +278,10 @@ const DashboardScreen = () => {
         onPanelDismiss={onRequestNewTrip}
       />
 
-      <PlanSelector
+      {/* <PlanSelector
         displayPanel={viewMemberPlans}
         onPanelDismiss={() => setViewMemberPlans(false)}
-      />
+      /> */}
     </SafeAreaView>
   );
 };
