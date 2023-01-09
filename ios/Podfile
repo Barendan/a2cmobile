@@ -37,6 +37,13 @@ post_install do |installer|
   installer.pods_project.build_configurations.each do |config|
     config.build_settings["EXCLUDED_ARCHS[sdk=iphonesimulator*]"] = "arm64"
   end
+
+  installer.pods_project.targets.each do |target|
+    if target.name == "React-Core-AccessibilityResources"
+      target.remove_from_project
+    end
+  end
+
 end
 #post_install do |installer|
 #  installer.pods_project.targets.each do |target|
@@ -47,3 +54,14 @@ end
 #  end
 #end
 end
+
+# use_flipper!
+# post_install do |installer|
+#   flipper_post_install(installer)
+
+#   installer.pods_project.targets.each do |target|
+#     if target.name == "React-Core-60309c9c/AccessibilityResources"
+#       target.remove_from_project
+#     end
+#   end
+# end
