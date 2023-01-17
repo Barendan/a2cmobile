@@ -17,6 +17,7 @@ import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import Communications from 'react-native-communications';
 import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
+import moment from 'moment';
 
 import { AppButton } from '_atoms';
 import { EmptyStateView } from '_molecules';
@@ -36,6 +37,7 @@ const DashboardScreen = () => {
 
   const { plan, memberPlans } = useSelector(state => state.plan);
   const [loading, setLoading] = React.useState(true);
+  const [descDate, setDescDate] = React.useState(true);
 
   const [memberTrips, setMemberTrips] = React.useState([]);
   // const [viewMemberPlans, setViewMemberPlans] = React.useState(false);
@@ -45,6 +47,10 @@ const DashboardScreen = () => {
   React.useEffect(() => {
     getLatestMemberTrips();
   }, [plan]);
+  
+  React.useEffect(() => {
+    filterTrips();
+  }, [descDate])
 
   const getLatestMemberTrips = () => {
     setLoading(true);
@@ -65,46 +71,33 @@ const DashboardScreen = () => {
         setLoading(false);
       })
       .catch(err => {
-        // console.log('next', err);
         setLoading(false);
       });
   };
 
-  const filterTrips = () => {
-    let newSortedTrips = [];
+  const formatDateTime = (datetime) => {
+    const tripDateTime = datetime.split(' ');
 
-    // console.log("PEWtripPEW", membertrips)
-    console.log("------------")
+    let tripDate = tripDateTime[0];
+    let tripTime = tripDateTime[1] + tripDateTime[2];
 
-    memberTrips.map( tr => {
-      // console.log("1 trip", tr.ApptDateTime) sorting by date/time
-      // console.log("1 trip", tr.Stops) filter by location; two locations separated by comma
-      console.log("1 trip address:", tr.Stops.split(',')[0]) 
-
-      // add the trip to the array
-      // newSortedTrips = [...newSortedTrips, tr]
-    })
-
-    // setMemberTrips(newSortedTrips);
+    return moment(
+      `${tripDate} + ${tripTime}`,
+      'MM/DD/YYYY hh:mm:ss A',
+    ).format('YYYY-MM-DD HH:mm:ss');
   }
 
-  // const onChangeSearch = text => {
-  //   if (text) {
-  //     let selectedArr = []; 
-  //     memberTrips.forEach( (t,i) => {
-
-  //       if (t.Stops.toUpperCase().indexOf(text.toUpperCase()) > -1) {
-  //         selectedArr.push(memberTrips[i]);
-  //       }
-  //     })
-
-  //     setFilteredDataSource(selectedArr);
-  //     setSearchQuery(text);
-  //   } else {
-  //     setFilteredDataSource(masterDataSource);
-  //     setSearchQuery(text);
-  //   }
-  // }
+  const filterTrips = () => {
+    let sortedTrips = [...memberTrips].sort( (a,b) => {
+      const fDateTimeA = formatDateTime(a.ApptDateTime);
+      const fDateTimeB = formatDateTime(b.ApptDateTime);
+      
+      return descDate ? 
+        Date.parse(fDateTimeB) - Date.parse(fDateTimeA):
+        Date.parse(fDateTimeA) - Date.parse(fDateTimeB);
+    })
+    setMemberTrips(sortedTrips);
+  }
 
   const viewFullTripDetails = trip => {
     setCurrentTrip(trip);
@@ -180,25 +173,14 @@ const DashboardScreen = () => {
             {memberPlans.length > 0 && (
               <IconButton
                 {...props}
-                icon="equal"
+                // icon="swap-vertical"
+                icon="sort"
                 size={moderateScale(30)}
-                onPress={() => filterTrips()}
+                onPress={() => setDescDate(current => !current)}
               />
             )}
           </>
         )}
-        // right={props => (
-        //   <>
-        //     {memberPlans.length > 0 && (
-        //       <IconButton
-        //         {...props}
-        //         icon="equal"
-        //         size={moderateScale(30)}
-        //         onPress={() => setViewMemberPlans(true)}
-        //       />
-        //     )}
-        //   </>
-        // )}
       />
 
       <Divider />
