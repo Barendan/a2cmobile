@@ -9,9 +9,6 @@ import {
   Image,
 } from 'react-native';
 
-import MatIcon from 'react-native-vector-icons/MaterialCommunityIcons';
-import TouchID from 'react-native-touch-id';
-// import ReactNativeBiometrics from 'react-native-biometrics';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { sha256 } from 'react-native-sha256';
@@ -22,6 +19,9 @@ import { Inset, Stack } from 'react-native-spacing-system';
 import { scale, moderateScale } from 'react-native-size-matters';
 import { Linking } from 'react-native';
 import VersionCheck from 'react-native-version-check';
+
+import MatIcon from 'react-native-vector-icons/MaterialCommunityIcons';
+import ReactNativeBiometrics from 'react-native-biometrics';
 
 import { login, saveLoggedInUser } from '_store/user';
 import { updatePlan, setMemberPlans } from '_store/plan';
@@ -163,62 +163,64 @@ const LoginScreen = () => {
     validateSupport();
   }, []);
 
-  // Using TouchID Library
-  // React.useEffect(() => {
-  //   TouchID.isSupported()
-  //     .then(biometryType => {
-  //       if (biometryType === 'FaceID') {
-  //         setSupportedFaceId(true);
-  //       } else if (biometryType === 'TouchID') {
-  //         setSupportedTouch(true);
-  //       } else if (biometryType === true) {
-  //         setSupportedBiometry(true);
-  //       }
-  //     })
-  //     .catch(error => {
-  //       console.log(error);
-  //     });
-  // }, []);
+  React.useEffect(() => {
+    ReactNativeBiometrics.isSensorAvailable().then(resultObject => {
+      const { available, biometryType } = resultObject;
 
-  // Using ReactNativeBiometrics Library
-  // React.useEffect(() => {
-  //   ReactNativeBiometrics.isSensorAvailable().then(resultObject => {
-  //     const { available, biometryType } = resultObject;
+      if (available && biometryType === ReactNativeBiometrics.TouchID) {
+        console.log('TouchID is supported');
+        setSupportedTouch(true);
+      } else if (available && biometryType === ReactNativeBiometrics.FaceID) {
+        console.log('FaceID is supported');
+        setSupportedFaceId(true);
+      } else if ( available && biometryType === ReactNativeBiometrics.Biometrics) {
+        console.log('Biometrics is supported');
 
-  //     if (available && biometryType === ReactNativeBiometrics.TouchID) {
-  //       console.log('TouchID is supported');
-  //       setSupportedTouch(true);
-  //     } else if (available && biometryType === ReactNativeBiometrics.FaceID) {
-  //       console.log('FaceID is supported');
-  //       setSupportedFaceId(true);
-  //     } else if (
-  //       available &&
-  //       biometryType === ReactNativeBiometrics.Biometrics
-  //     ) {
-  //       console.log('Biometrics is supported');
-  //       ReactNativeBiometrics.biometricKeysExist().then(resultObject => {
-  //         const { keysExist } = resultObject;
+        ReactNativeBiometrics.biometricKeysExist().then(resultObject => {
+          const { keysExist } = resultObject;
 
-  //         if (keysExist) {
-  //           console.log('Keys exist');
-  //           // If a key exists, show the option
-  //           setSupportedBiometry(true);
-  //         } else {
-  //           console.log('Keys do not exist or were deleted');
-  //           ReactNativeBiometrics.createKeys('Confirm fingerprint').then(
-  //             resultObject => {
-  //               const { publicKey } = resultObject;
-  //               console.log(publicKey);
-  //               sendPublicKeyToServer(publicKey).catch(err => console.log(err));
-  //             },
-  //           );
-  //         }
-  //       });
-  //     } else {
-  //       console.log('Biometrics not supported');
-  //     }
-  //   });
-  // }, []);
+          if (keysExist) {
+            console.log('Keys exist');
+
+            // If a key exists, show the option
+            setSupportedBiometry(true);
+          } else {
+            console.log('Keys do not exist or were deleted');
+
+            ReactNativeBiometrics.createKeys('Confirm fingerprint').then(
+              resultObject => {
+                const { publicKey } = resultObject;
+                console.log(publicKey);
+                
+                sendPublicKeyToServer(publicKey)
+                  .catch((err) => console.log('error when sending public key to server:',err));
+              },
+            ).catch(err => console.log('create keys problem:', err))
+
+            // ReactNativeBiometrics.createSignature({
+            //   promptMessage: 'Sign in',
+            //   // payload: payload
+            // })
+            // .then((resultObject) => {
+            //   const { success, signature, error } = resultObject
+          
+            //   if (success) {
+            //     console.log(signature)
+            //     verifySignatureWithServer(signature, payload)
+            //   } else {
+            //     console.log('no success creating sig', error)
+            //   }
+            // })
+            // .catch(err => console.log('problem creating signature', err))
+
+          }
+        });
+        
+      } else {
+        console.log('Biometrics not supported');
+      }
+    });
+  }, []);
 
   const updatePanelDetails = React.useCallback((key, value) => {
     setPanelDetails(panelDetails => {
@@ -277,21 +279,42 @@ const LoginScreen = () => {
     passcodeFallback: false, // iOS - allows the device to fall back to using the passcode, if faceid/touch is not available. this does not mean that if touchid/faceid fails the first few times it will revert to passcode, rather that if the former are not enrolled, then it will use the passcode.
   };
 
-  function biometricLogin() {
-    TouchID.authenticate(t('biometric_login'), optionalConfigObject)
-      .then(success => {
-        if (user && user.MemberPlans && user.MemberPlans.length > 0) {
-          dispatch(setMemberPlans(user.MemberPlans));
-          dispatch(updatePlan(user.MemberPlans[0])); //default to first plan
-        }
-        Alert.alert(t('authenticated_successfully'));
+  // function biometricLogin() {
+  //   TouchID.authenticate(t('biometric_login'), optionalConfigObject)
+  //     .then(success => {
+  //       if (user && user.MemberPlans && user.MemberPlans.length > 0) {
+  //         dispatch(setMemberPlans(user.MemberPlans));
+  //         dispatch(updatePlan(user.MemberPlans[0])); //default to first plan
+  //       }
+  //       Alert.alert(t('authenticated_successfully'));
 
-        dispatch(login(user));
-      })
-      .catch(error => {
-        Alert.alert(t('authentication_failed'));
-      });
+  //       dispatch(login(user));
+  //     })
+  //     .catch(error => {
+  //       Alert.alert(t('authentication_failed'));
+  //     });
+  // }
+
+  const biometricLogin = () => {
+
+    ReactNativeBiometrics.simplePrompt({promptMessage: 'Confirm fingerprint'})
+    .then((resultObject) => {
+      const { success } = resultObject
+  
+      if (success) {
+        console.log('successful biometrics provided')
+      } else {
+        console.log('user cancelled biometric prompt')
+      }
+    })
+    .catch(() => {
+      console.log('biometrics failed')
+    })
+
   }
+
+
+
 
   const { t } = useTranslation();
   const dispatch = useDispatch();
@@ -451,7 +474,11 @@ const LoginScreen = () => {
             </View>
           </View>
 
-          {(supportedTouch || supportedFaceId || supportedBiometry) && (
+
+
+
+
+          {( supportedTouch || supportedFaceId || supportedBiometry) && (
             <TouchableHighlight onPress={biometricLogin}>
               <View style={styles.alternativeLogin}>
                 <Text style={styles.pText}>{t('or_signin_using')}</Text>
@@ -465,6 +492,10 @@ const LoginScreen = () => {
               </View>
             </TouchableHighlight>
           )}
+
+
+
+
 
           <Stack size={scale(30)} />
 
