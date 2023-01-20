@@ -187,15 +187,16 @@ const LoginScreen = () => {
           } else {
             console.log('Keys do not exist or were deleted');
 
-            ReactNativeBiometrics.createKeys('Confirm fingerprint').then(
+            ReactNativeBiometrics.createKeys('Confirm fingerprint')
+            .then(
               resultObject => {
                 const { publicKey } = resultObject;
                 console.log(publicKey);
                 
                 sendPublicKeyToServer(publicKey)
-                  .catch((err) => console.log('error when sending public key to server:',err));
-              },
-            ).catch(err => console.log('create keys problem:', err))
+                .catch((err) => console.log('error when sending public key to server:',err));
+              })
+            .catch(err => console.log('create keys problem:', err))
 
             // ReactNativeBiometrics.createSignature({
             //   promptMessage: 'Sign in',
@@ -267,18 +268,6 @@ const LoginScreen = () => {
       });
   };
 
-  const optionalConfigObject = {
-    title: 'Authentication Required', // Android
-    imageColor: '#e00606', // Android
-    imageErrorColor: '#ff0000', // Android
-    sensorDescription: 'Touch sensor', // Android
-    sensorErrorDescription: 'Failed', // Android
-    cancelText: 'Cancel', // Android
-    fallbackLabel: 'Show Passcode', // iOS (if empty, then label is hidden)
-    unifiedErrors: false, // use unified error messages (default false)
-    passcodeFallback: false, // iOS - allows the device to fall back to using the passcode, if faceid/touch is not available. this does not mean that if touchid/faceid fails the first few times it will revert to passcode, rather that if the former are not enrolled, then it will use the passcode.
-  };
-
   // function biometricLogin() {
   //   TouchID.authenticate(t('biometric_login'), optionalConfigObject)
   //     .then(success => {
@@ -297,18 +286,27 @@ const LoginScreen = () => {
 
   const biometricLogin = () => {
 
-    ReactNativeBiometrics.simplePrompt({promptMessage: 'Confirm fingerprint'})
+    ReactNativeBiometrics.simplePrompt({promptMessage: t('biometric_login')})
     .then((resultObject) => {
       const { success } = resultObject
   
       if (success) {
         console.log('successful biometrics provided')
+
+        if (user && user.MemberPlans && user.MemberPlans.length > 0) {
+          dispatch(setMemberPlans(user.MemberPlans));
+          dispatch(updatePlan(user.MemberPlans[0])); //default to first plan
+        }
+        Alert.alert(t('authenticated_successfully'));
+
+        // dispatch(login(user));
       } else {
         console.log('user cancelled biometric prompt')
       }
     })
-    .catch(() => {
-      console.log('biometrics failed')
+    .catch((err) => {
+      Alert.alert(t('authentication_failed'));
+      console.log('biometrics failed', err)
     })
 
   }
