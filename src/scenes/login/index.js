@@ -187,6 +187,9 @@ const LoginScreen = () => {
           } else {
             console.log('Keys do not exist or were deleted');
 
+            // Create Keys
+            // Save Keys to localstorage
+            
             ReactNativeBiometrics.createKeys('Confirm fingerprint')
             .then(
               resultObject => {
@@ -197,22 +200,6 @@ const LoginScreen = () => {
                 .catch((err) => console.log('error when sending public key to server:',err));
               })
             .catch(err => console.log('create keys problem:', err))
-
-            // ReactNativeBiometrics.createSignature({
-            //   promptMessage: 'Sign in',
-            //   // payload: payload
-            // })
-            // .then((resultObject) => {
-            //   const { success, signature, error } = resultObject
-          
-            //   if (success) {
-            //     console.log(signature)
-            //     verifySignatureWithServer(signature, payload)
-            //   } else {
-            //     console.log('no success creating sig', error)
-            //   }
-            // })
-            // .catch(err => console.log('problem creating signature', err))
 
           }
         });
@@ -268,22 +255,6 @@ const LoginScreen = () => {
       });
   };
 
-  // function biometricLogin() {
-  //   TouchID.authenticate(t('biometric_login'), optionalConfigObject)
-  //     .then(success => {
-  //       if (user && user.MemberPlans && user.MemberPlans.length > 0) {
-  //         dispatch(setMemberPlans(user.MemberPlans));
-  //         dispatch(updatePlan(user.MemberPlans[0])); //default to first plan
-  //       }
-  //       Alert.alert(t('authenticated_successfully'));
-
-  //       dispatch(login(user));
-  //     })
-  //     .catch(error => {
-  //       Alert.alert(t('authentication_failed'));
-  //     });
-  // }
-
   const biometricLogin = () => {
 
     ReactNativeBiometrics.simplePrompt({promptMessage: t('biometric_login')})
@@ -293,13 +264,8 @@ const LoginScreen = () => {
       if (success) {
         console.log('successful biometrics provided')
 
-        if (user && user.MemberPlans && user.MemberPlans.length > 0) {
-          dispatch(setMemberPlans(user.MemberPlans));
-          dispatch(updatePlan(user.MemberPlans[0])); //default to first plan
-        }
-        Alert.alert(t('authenticated_successfully'));
 
-        // dispatch(login(user));
+        Alert.alert(t('authenticated_successfully'));
       } else {
         console.log('user cancelled biometric prompt')
       }
