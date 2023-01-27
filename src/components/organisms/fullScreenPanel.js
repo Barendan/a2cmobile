@@ -2,19 +2,23 @@ import React, { useState, useEffect } from 'react';
 import {
   View,
   Text,
+  TouchableHighlight,
   StyleSheet,
   ScrollView,
   useWindowDimensions,
   Platform,
 } from 'react-native';
+
+import MatIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { Searchbar } from 'react-native-paper';
 import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
 import { Inset, Stack } from 'react-native-spacing-system';
 import RenderHTML from 'react-native-render-html';
 import { useTranslation } from 'react-i18next';
 
-import { CloseButton } from '_atoms';
+import { AppButton, CloseButton } from '_atoms';
 import { DraggablePanel } from '_molecules';
+import { APP_COLOR } from '_styles/colors';
 
 const styles = StyleSheet.create({
   titleWrapper: {
@@ -33,7 +37,32 @@ const styles = StyleSheet.create({
   bodyWrapper: {
     marginBottom: verticalScale(50),
   },
+  primaryText: {
+    fontSize: moderateScale(16),
+    letterSpacing: 1,
+  },
+  subText: {
+    fontSize: moderateScale(16),
+    letterSpacing: 1,
+  },
+  btnContainer: {
+    backgroundColor: APP_COLOR,
+    padding: moderateScale(8),
+    borderWidth: 1,
+    borderColor: '#E8E8E8',
+    borderStyle: 'solid',
+  },
+  btnText: {
+    fontSize: moderateScale(16),
+    letterSpacing: 1,
+    color: '#fff',
+    fontWeight: 'bold',
+    textAlign: 'center',
+    textTransform: 'uppercase',
+  },
 });
+
+
 
 const FullScreenPanel = props => {
   const {
@@ -42,6 +71,8 @@ const FullScreenPanel = props => {
     panelBody,
     displayPanel,
     onPanelDismiss,
+    biometricOption,
+    biometricOnClick,
     staticKeyboard
   } = props;
 
@@ -54,7 +85,6 @@ const FullScreenPanel = props => {
 
   const extractQuestions = i18n.language === "en" ? panelBody.replace(/(<([^>]+)>)/gi, "").split('. ').map( i => {
     const questionMarkIndex = i.indexOf('?') + 1;
-
     return i.slice(0,questionMarkIndex);
   }) : 
   panelBody.split('<p>').map( i => {
@@ -95,68 +125,132 @@ const FullScreenPanel = props => {
     }
   }
 
-  return (
-    <DraggablePanel
-      visible={displayPanel}
-      onDismiss={onPanelDismiss}
-      initialHeight={verticalScale(1000)}
-      expandable
-      fixPanel={staticKeyboard}
-    >
+  if (biometricOption) {
+    return (
+      <DraggablePanel
+        visible={displayPanel}
+        onDismiss={onPanelDismiss}
+        initialHeight={verticalScale(1000)}
+        expandable
+        fixPanel={staticKeyboard}
+      >
+        <Inset all={verticalScale(16)}>
+          { Platform.OS === 'ios' ? <Stack size={verticalScale(12)} /> : null }
 
-      <Inset all={verticalScale(16)}>
-        { Platform.OS === 'ios' ? <Stack size={verticalScale(12)} /> : null }
+          <View style={styles.titleWrapper}>
+            <CloseButton onPress={onPanelDismiss}/>
 
-        <View style={styles.titleWrapper}>
-          <CloseButton onPress={onPanelDismiss}/>
+            <Text style={styles.title}>{panelHeader}</Text>
+          </View>
+          <Stack size={verticalScale(12)} />
 
-          <Text style={styles.title}>{panelHeader}</Text>
-        </View>
-        <Stack size={verticalScale(12)} />
+          {/* <MatIcon
+            size={moderateScale(20)}
+            color={APP_COLOR}
+            name={ panelHeader === 'Face ID' ? 'face-recognition' : 'finger-print-outline'}
+          /> */}
 
-        { panelHeader === "FAQs" || panelHeader === "Preguntas frecuentes" ? 
-          <>
-            <Searchbar 
-              placeholder={t('search')}
-              style={{ elevation: 0, borderWidth: 1, borderColor: 'gray', padding: 0}}
-              inputStyle={{ marginLeft: -10 }}
-              onChangeText={(text) => onChangeSearch(text)}
-              value={searchQuery}
-              />  
-          
-            <Stack size={verticalScale(12)} />
-          </>
-          : null
-        }
+          <View style={styles.bodyWrapper}>
+            <MatIcon
+              size={moderateScale(20)}
+              color={APP_COLOR}
+              name={'face-recognition'}
+            />
 
-        { masterDataSource.length < 1 && (
-            <Text>{t('loading_data')}</Text>
-        )}
-        
-        {
-          masterDataSource.length > 0 && filteredDataSource.length < 1 ? (
-            <Text>{t('no_results')}</Text>
-          ) : (
+            <Text style={styles.primaryText}>{panelBody}</Text>
+            <Text style={styles.subText}>
+              {t("turn_off_bio")}
+            </Text>
+
+            <AppButton
+              // title={t('enable_text')}
+              title='Enable'
+              color={APP_COLOR}
+              color={'#1976d2'}
+              containerStyle={styles.btnContainer}
+              textStyle={styles.btnText}
+              onPress={biometricOnClick}
+            />
+
+            <TouchableHighlight
+              // onPress={() => } add link here
+            >
+              <Text style={styles.pText}>
+                Learn more about
+                { panelHeader === 'Face ID' ? 'Face ID' : 'Touch ID' }
+              </Text>
+            </TouchableHighlight>
+
+          </View>
+
+        </Inset>
+      </DraggablePanel>
+    )
+  } else {
+    return (
+      <DraggablePanel
+        visible={displayPanel}
+        onDismiss={onPanelDismiss}
+        initialHeight={verticalScale(1000)}
+        expandable
+        fixPanel={staticKeyboard}
+      >
+  
+        <Inset all={verticalScale(16)}>
+          { Platform.OS === 'ios' ? <Stack size={verticalScale(12)} /> : null }
+  
+          <View style={styles.titleWrapper}>
+            <CloseButton onPress={onPanelDismiss}/>
+  
+            <Text style={styles.title}>{panelHeader}</Text>
+          </View>
+          <Stack size={verticalScale(12)} />
+  
+          { panelHeader === "FAQs" || panelHeader === "Preguntas frecuentes" ? 
             <>
-              <ScrollView
-                style={styles.bodyWrapper}
-                showsVerticalScrollIndicator={true}>
-                {isHTML ? (
-                  <RenderHTML
-                  source={{ html: filteredDataSource.join(' ') }}
-                  contentWidth={contentWidth}
-                  baseStyle={{ color: 'red', margin: 50 }}
-                  />
-                  ) : (
-                    <Text style={styles.body}>{panelBody}</Text>
-                    )}
-              </ScrollView>
+              <Searchbar 
+                placeholder={t('search')}
+                style={{ elevation: 0, borderWidth: 1, borderColor: 'gray', padding: 0}}
+                inputStyle={{ marginLeft: -10 }}
+                onChangeText={(text) => onChangeSearch(text)}
+                value={searchQuery}
+                />  
+            
+              <Stack size={verticalScale(12)} />
             </>
-          )
-        }
-
-      </Inset>
-    </DraggablePanel>
-  );
+            : null
+          }
+  
+          { masterDataSource.length < 1 && (
+              <Text>{t('loading_data')}</Text>
+          )}
+          
+          {
+            masterDataSource.length > 0 && filteredDataSource.length < 1 ? (
+              <Text>{t('no_results')}</Text>
+            ) : (
+              <>
+                <ScrollView
+                  style={styles.bodyWrapper}
+                  showsVerticalScrollIndicator={true}>
+                  {isHTML ? (
+                    <RenderHTML
+                    source={{ html: filteredDataSource.join(' ') }}
+                    contentWidth={contentWidth}
+                    baseStyle={{ color: 'red', margin: 50 }}
+                    />
+                    ) : (
+                      <Text style={styles.body}>{panelBody}</Text>
+                      )}
+                </ScrollView>
+              </>
+            )
+          }
+  
+        </Inset>
+      </DraggablePanel>
+    );
+  }
+  
 };
 export default FullScreenPanel;

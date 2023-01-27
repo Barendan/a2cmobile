@@ -14,13 +14,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import { sha256 } from 'react-native-sha256';
 import Spinner from 'react-native-spinkit';
 import { TextInput, HelperText } from 'react-native-paper';
-import { Toggle, Button } from '@ui-kitten/components';
+import { Toggle } from '@ui-kitten/components';
 import { Inset, Stack } from 'react-native-spacing-system';
 import { scale, moderateScale } from 'react-native-size-matters';
 import { Linking } from 'react-native';
 import VersionCheck from 'react-native-version-check';
 
 import MatIcon from 'react-native-vector-icons/MaterialCommunityIcons';
+import IonIcon from 'react-native-vector-icons/Ionicons';
 import ReactNativeBiometrics from 'react-native-biometrics';
 
 import { login, saveLoggedInUser } from '_store/user';
@@ -65,9 +66,16 @@ const LoginScreen = () => {
     setDisplayForgotPasswordReset,
   ] = React.useState(false);
 
+  const { t } = useTranslation();
+  const dispatch = useDispatch();
+  const [loading, setLoading] = React.useState(false);
+
   const [supportedFaceId, setSupportedFaceId] = React.useState(false);
   const [supportedTouch, setSupportedTouch] = React.useState(false);
   const [supportedBiometry, setSupportedBiometry] = React.useState(false);
+
+  const touchIDText = t("touch_option_text");
+  const faceIDText = t("face_option_text");
 
   const [panelDetails, setPanelDetails] = React.useState({
     panelVisible: false,
@@ -75,6 +83,8 @@ const LoginScreen = () => {
     header: '',
     body: '',
     isHTML: false,
+    biometricOption: false,
+    biometricOnClick: null,
   });
   
   React.useEffect(() => {
@@ -89,7 +99,7 @@ const LoginScreen = () => {
           [
             {
               text: "Cancel",
-              onPress: () => console.log("Cancel Pressed"),
+              // onPress: () => console.log("Cancel Pressed"),
               style: "cancel"
             },
             { text: "Update", onPress: () => Linking.openURL(url) }
@@ -112,43 +122,64 @@ const LoginScreen = () => {
 
   React.useEffect(() => {
     async function validateSupport() {
+
       let storedUser = await storage
-        .load({
-          key: 'user',
-          id: 'currentUser',
-        })
-        .catch(err => {
-          // any exception including data not found
-          // goes to catch()
-          // console.warn(err.message);
-          switch (err.name) {
-            case 'NotFoundError':
-              console.log('No user in local storage.');
-              break;
-            case 'ExpiredError':
-              console.log('Stored user has expired.');
-              break;
-          }
-        });
+      .load({
+        key: 'user',
+        id: 'currentUser',
+      })
+      .catch(err => {
+        // any exception including data not found
+        // goes to catch()
+        // console.warn(err.message);
+        switch (err.name) {
+          case 'NotFoundError':
+            console.log('No user in local storage.');
+            break;
+          case 'ExpiredError':
+            console.log('Stored user has expired.');
+            break;
+        }
+      });
 
       let savedUser = await storage
-        .load({
-          key: 'savedUser',
-          id: 'userSaved',
-        })
-        .catch(err => {
-          // any exception including data not found
-          // goes to catch()
-          // console.warn(err.message);
-          switch (err.name) {
-            case 'NotFoundError':
-              console.log('No saved user data.');
-              break;
-            case 'ExpiredError':
-              console.log('Saved user data expired.');
-              break;
-          }
-        });
+      .load({
+        key: 'savedUser',
+        id: 'userSaved',
+      })
+      .catch(err => {
+        switch (err.name) {
+          case 'NotFoundError':
+            console.log('No saved user data.');
+            break;
+          case 'ExpiredError':
+            console.log('Saved user data expired.');
+            break;
+        }
+      });
+
+      // await storage.clearMapForKey('biometricUser');
+      let biometricUser = await storage
+      .load({
+        key: 'biometricUser',
+        id: 'bioSaved',
+      })
+      .catch(err => {
+        switch (err.name) {
+          case 'NotFoundError':
+            console.log('No biometrics data.');
+            break;
+          case 'ExpiredError':
+            console.log('Biometrics data expired.');
+            break;
+        }
+      });
+
+      if (biometricUser?.email) {
+        setUser(biometricUser);
+      }
+
+      // console.log('Blood user:', biometricUser)
 
       if (savedUser?.email && savedUser?.password) {
         onChangeTextInput('email', savedUser.email);
@@ -156,9 +187,6 @@ const LoginScreen = () => {
         setIsEnabled(true);
       }
 
-      if (storedUser?.id) {
-        setUser(storedUser);
-      }
     }
     validateSupport();
   }, []);
@@ -169,46 +197,28 @@ const LoginScreen = () => {
 
       if (available && biometryType === ReactNativeBiometrics.TouchID) {
         console.log('TouchID is supported');
+
         setSupportedTouch(true);
       } else if (available && biometryType === ReactNativeBiometrics.FaceID) {
         console.log('FaceID is supported');
+
         setSupportedFaceId(true);
       } else if ( available && biometryType === ReactNativeBiometrics.Biometrics) {
         console.log('Biometrics is supported');
-
-        ReactNativeBiometrics.biometricKeysExist().then(resultObject => {
-          const { keysExist } = resultObject;
-
-          if (keysExist) {
-            console.log('Keys exist');
-
-            // If a key exists, show the option
-            setSupportedBiometry(true);
-          } else {
-            console.log('Keys do not exist or were deleted');
-
-            // Create Keys
-            // Save Keys to localstorage
-            
-            ReactNativeBiometrics.createKeys('Confirm fingerprint')
-            .then(
-              resultObject => {
-                const { publicKey } = resultObject;
-                console.log(publicKey);
-                
-                sendPublicKeyToServer(publicKey)
-                .catch((err) => console.log('error when sending public key to server:',err));
-              })
-            .catch(err => console.log('create keys problem:', err))
-
-          }
-        });
-        
-      } else {
-        console.log('Biometrics not supported');
-      }
+        setSupportedBiometry(true);
+      } else { console.log('Biometrics not supported') }
     });
   }, []);
+
+
+  const biometricSave = async () => {
+    await storage.save({
+      key: 'biometricUser',
+      id: 'bioSaved',
+      data: {"email": email, "password": password},
+      expires: null
+    });
+  }
 
   const updatePanelDetails = React.useCallback((key, value) => {
     setPanelDetails(panelDetails => {
@@ -256,33 +266,28 @@ const LoginScreen = () => {
   };
 
   const biometricLogin = () => {
-
     ReactNativeBiometrics.simplePrompt({promptMessage: t('biometric_login')})
     .then((resultObject) => {
       const { success } = resultObject
   
       if (success) {
-        console.log('successful biometrics provided')
+        console.log('successful biometrics provided', user);
 
+        if (user?.email && user?.password) {
+          onChangeTextInput('email', user.email);
+          onChangeTextInput('password', user.password);
+        }
 
         Alert.alert(t('authenticated_successfully'));
       } else {
-        console.log('user cancelled biometric prompt')
+        console.log('user cancelled biometric prompt');
       }
     })
     .catch((err) => {
       Alert.alert(t('authentication_failed'));
       console.log('biometrics failed', err)
     })
-
   }
-
-
-
-
-  const { t } = useTranslation();
-  const dispatch = useDispatch();
-  const [loading, setLoading] = React.useState(false);
 
   // const validateEmail = () => {
   //   const re = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
@@ -299,6 +304,27 @@ const LoginScreen = () => {
       [field]: '',
     });
   };
+
+  const askBiometric = () => {
+    if (supportedTouch) {
+      updatePanelDetails('panelDataLoading', false);
+      updatePanelDetails('panelVisible', true);
+      updatePanelDetails('header', "Touch ID");
+      updatePanelDetails('body', touchIDText);
+      updatePanelDetails('isHTML', false);
+      updatePanelDetails('biometricOption', true);
+      updatePanelDetails('biometricOnClick', biometricSave);
+      }
+    if (supportedFaceId) {
+      updatePanelDetails('panelDataLoading', false);
+      updatePanelDetails('panelVisible', true);
+      updatePanelDetails('header', "Face ID");
+      updatePanelDetails('body', faceIDText);
+      updatePanelDetails('isHTML', false);
+      updatePanelDetails('biometricOption', true);
+      updatePanelDetails('biometricOnClick', biometricSave);
+    }
+  }
 
   const onLogin = async () => {
     // if (!validateEmail()) {
@@ -319,29 +345,29 @@ const LoginScreen = () => {
 
     setLoading(true);
     MemberService.loginUser(payload)
-      .then(data => {
-        setLoading(false);
-        if (
-          data.user &&
-          data.user.MemberPlans &&
-          data.user.MemberPlans.length > 0
-        ) {
-          dispatch(setMemberPlans(data.user.MemberPlans));
-          dispatch(updatePlan(data.user.MemberPlans[0])); //default to first plan
-        }
-        if (isEnabled) {
-          dispatch(saveLoggedInUser({ email, password }));
-        }
-        dispatch(login(data.user));
-      })
-      .catch(err => {
-        if (err?.message.split(' ').slice(-1).toString() === "passsword.") {
-          alert('You have exceeded the allowed number of retries. Please request a new password.')
-        } else {
-          alert(err?.message || 'unable to sign in');
-        }
-        setLoading(false);
-      });
+    .then(data => {
+      setLoading(false);
+      if (
+        data.user &&
+        data.user.MemberPlans &&
+        data.user.MemberPlans.length > 0
+      ) {
+        dispatch(setMemberPlans(data.user.MemberPlans));
+        dispatch(updatePlan(data.user.MemberPlans[0])); //default to first plan
+      }
+      if (isEnabled) {
+        dispatch(saveLoggedInUser({ email, password }));
+      }
+      dispatch(login(data.user));
+    })
+    .catch(err => {
+      if (err?.message.split(' ').slice(-1).toString() === "passsword.") {
+        alert('You have exceeded the allowed number of retries. Please request a new password.')
+      } else {
+        alert(err?.message || 'unable to sign in');
+      }
+      setLoading(false);
+    });
   };
 
   return (
@@ -447,11 +473,19 @@ const LoginScreen = () => {
               <View style={styles.alternativeLogin}>
                 <Text style={styles.pText}>{t('or_signin_using')}</Text>
                 <View style={styles.altLoginBtn}>
-                  <MatIcon
+                  {/* <MatIcon
                     size={moderateScale(20)}
                     color={APP_COLOR}
                     name={'face-recognition'}
+                    // name={supportedFaceId ? 'face-recognition' : 'finger-print-outline'}
+                  /> */}
+                  <IonIcon
+                    size={moderateScale(20)}
+                    color={APP_COLOR}
+                    name={'finger-print-outline'}
+                    // name={supportedFaceId ? 'face-recognition' : 'finger-print-outline'}
                   />
+                  
                 </View>
               </View>
             </TouchableHighlight>
@@ -480,7 +514,8 @@ const LoginScreen = () => {
               color={'#1976d2'}
               containerStyle={styles.btnContainer}
               textStyle={styles.btnText}
-              onPress={onLogin}
+              // onPress={onLogin}
+              onPress={supportedFaceId || supportedTouch ? askBiometric : onLogin}
             />
 
             <Stack size={scale(4)} />
@@ -491,7 +526,8 @@ const LoginScreen = () => {
               color={'#1976d2'}
               containerStyle={styles.btnContainer}
               textStyle={styles.btnText}
-              onPress={() => setDisplayCreateMemberAccount(true)}
+              // onPress={() => setDisplayCreateMemberAccount(true)}
+              onPress={biometricSave}
             />
             <Stack size={scale(50)} />
           </View>
@@ -517,7 +553,6 @@ const LoginScreen = () => {
               displayPanel={displayCreateMemberAccount}
               onPanelDismiss={() => setDisplayCreateMemberAccount(false)}
               onForgotPassword={() => setDisplayForgotPasswordReset(true)}
-              // onPanelDismiss={() => console.log('test working')}
             />
 
             { panelDetails.panelVisible && 
