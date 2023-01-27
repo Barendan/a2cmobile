@@ -2,23 +2,20 @@ import React, { useState, useEffect } from 'react';
 import {
   View,
   Text,
-  TouchableHighlight,
   StyleSheet,
   ScrollView,
   useWindowDimensions,
   Platform,
 } from 'react-native';
 
-import MatIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { Searchbar } from 'react-native-paper';
 import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
 import { Inset, Stack } from 'react-native-spacing-system';
 import RenderHTML from 'react-native-render-html';
 import { useTranslation } from 'react-i18next';
 
-import { AppButton, CloseButton } from '_atoms';
+import { CloseButton } from '_atoms';
 import { DraggablePanel } from '_molecules';
-import { APP_COLOR } from '_styles/colors';
 
 const styles = StyleSheet.create({
   titleWrapper: {
@@ -36,33 +33,8 @@ const styles = StyleSheet.create({
   },
   bodyWrapper: {
     marginBottom: verticalScale(50),
-  },
-  primaryText: {
-    fontSize: moderateScale(16),
-    letterSpacing: 1,
-  },
-  subText: {
-    fontSize: moderateScale(16),
-    letterSpacing: 1,
-  },
-  btnContainer: {
-    backgroundColor: APP_COLOR,
-    padding: moderateScale(8),
-    borderWidth: 1,
-    borderColor: '#E8E8E8',
-    borderStyle: 'solid',
-  },
-  btnText: {
-    fontSize: moderateScale(16),
-    letterSpacing: 1,
-    color: '#fff',
-    fontWeight: 'bold',
-    textAlign: 'center',
-    textTransform: 'uppercase',
-  },
+  }
 });
-
-
 
 const FullScreenPanel = props => {
   const {
@@ -71,8 +43,6 @@ const FullScreenPanel = props => {
     panelBody,
     displayPanel,
     onPanelDismiss,
-    biometricOption,
-    biometricOnClick,
     staticKeyboard
   } = props;
 
@@ -127,224 +97,68 @@ const FullScreenPanel = props => {
     }
   }
 
-  if (biometricOption) {
-    return (
-      <View style={styles.container}>
-        <Inset all={scale(10)}>
+  return (
+    <DraggablePanel
+      visible={displayPanel}
+      onDismiss={onPanelDismiss}
+      initialHeight={verticalScale(1000)}
+      expandable
+      fixPanel={staticKeyboard}
+    >
+
+      <Inset all={verticalScale(16)}>
+        { Platform.OS === 'ios' ? <Stack size={verticalScale(12)} /> : null }
+
+        <View style={styles.titleWrapper}>
+          <CloseButton onPress={onPanelDismiss}/>
+
+          <Text style={styles.title}>{panelHeader}</Text>
+        </View>
+        <Stack size={verticalScale(12)} />
+
+        { panelHeader === "FAQs" || panelHeader === "Preguntas frecuentes" ? 
+          <>
+            <Searchbar 
+              placeholder={t('search')}
+              style={{ elevation: 0, borderWidth: 1, borderColor: 'gray', padding: 0}}
+              inputStyle={{ marginLeft: -10 }}
+              onChangeText={(text) => onChangeSearch(text)}
+              value={searchQuery}
+              />  
           
-          <Stack size={scale(6)} />
-          <View>
-            <TextInput
-              style={styles.input}
-              label={<Text style={{ fontSize: scale(16) }}>Password</Text>}
-              // value={password}
-              // secureTextEntry={!isVisible}
-              // onChangeText={e => onChangeTextInput('password', e)}
-              left={
-                <TextInput.Icon
-                  size={scale(18)}
-                  style={{ marginLeft: moderateScale(8) }}
-                  name={'lock'}
-                />
-              }
-              right={
-                <TextInput.Icon
-                  // onPress={() => setVisible(previousState => !previousState)}
-                  name={isVisible ? 'eye-off-outline' : 'eye'}
-                  size={scale(12)}
-                  style={{ marginRight: 20 }}
-                />
-              }
-            />
-          </View>
+            <Stack size={verticalScale(12)} />
+          </>
+          : null
+        }
 
-          <View style={styles.forgotPass}>
-            <TouchableHighlight
-              // onPress={() => setDisplayForgotPasswordReset(true)}
-            >
-              <Text style={styles.pText}>{t('forgot_password')}</Text>
-            </TouchableHighlight>
-
-            <View style={styles.thumbContainer}>
-              <Text style={[styles.pText, { marginRight: moderateScale(5) }]}>
-                {t('save_login')}
-              </Text>
-              {/* <Toggle checked={isEnabled} onChange={toggleSwitch} /> */}
-            </View>
-          </View>
-
-          <Stack size={scale(30)} />
-
-          <View style={styles.authArea}>
-            <AppButton
-              title={t('sign_in')}
-              color={APP_COLOR}
-              color={'#1976d2'}
-              containerStyle={styles.btnContainer}
-              textStyle={styles.btnText}
-              // onPress={onLogin}
-              // onPress={supportedFaceId || supportedTouch ? askBiometric : onLogin}
-            />
-
-            <Stack size={scale(4)} />
-
-            <AppButton
-              title={t('go_to_registration')}
-              color={APP_COLOR}
-              color={'#1976d2'}
-              containerStyle={styles.btnContainer}
-              textStyle={styles.btnText}
-              // onPress={() => setDisplayCreateMemberAccount(true)}
-              // onPress={biometricSave}
-            />
-            <Stack size={scale(50)} />
-          </View>
-
-          <View style={styles.authArea}>
-            <View style={styles.footer}>
-              <Stack size={scale(6)} />
-
-              <TouchableHighlight
-                // onPress={() => getLatestAppInfo(t('faq'), 'faqs')}
-              >
-                <Text style={styles.bText}>{t('faq')}</Text>
-              </TouchableHighlight>
-              <Stack size={scale(6)} />
-            </View>
-          </View>
+        { masterDataSource.length < 1 && (
+            <Text>{t('loading_data')}</Text>
+        )}
+        
+        {
+          masterDataSource.length > 0 && filteredDataSource.length < 1 ? (
+            <Text>{t('no_results')}</Text>
+          ) : (
+            <>
+              <ScrollView
+                style={styles.bodyWrapper}
+                showsVerticalScrollIndicator={true}>
+                {isHTML ? (
+                  <RenderHTML
+                  source={{ html: filteredDataSource.join(' ') }}
+                  contentWidth={contentWidth}
+                  baseStyle={{ color: 'red', margin: 50 }}
+                  />
+                  ) : (
+                    <Text style={styles.body}>{panelBody}</Text>
+                    )}
+              </ScrollView>
+            </>
+          )
+        }
 
       </Inset>
-    </View>
+    </DraggablePanel>
   )
-      
-      
-      
-    
-    // return (
-    //   <DraggablePanel
-    //     visible={displayPanel}
-    //     onDismiss={onPanelDismiss}
-    //     initialHeight={verticalScale(1000)}
-    //     expandable
-    //     fixPanel={staticKeyboard}
-    //   >
-    //     <Inset all={verticalScale(16)}>
-    //       { Platform.OS === 'ios' ? <Stack size={verticalScale(12)} /> : null }
-
-    //       <View style={styles.titleWrapper}>
-    //         <CloseButton onPress={onPanelDismiss}/>
-
-    //         <Text style={styles.title}>{panelHeader}</Text>
-    //       </View>
-    //       <Stack size={verticalScale(12)} />
-
-    //       {/* <MatIcon
-    //         size={moderateScale(20)}
-    //         color={APP_COLOR}
-    //         name={ panelHeader === 'Face ID' ? 'face-recognition' : 'finger-print-outline'}
-    //       /> */}
-
-    //       <View style={styles.bodyWrapper}>
-    //         <MatIcon
-    //           size={moderateScale(20)}
-    //           color={APP_COLOR}
-    //           name={'face-recognition'}
-    //         />
-
-    //         <Text style={styles.primaryText}>{panelBody}</Text>
-    //         <Text style={styles.subText}>
-    //           {t("turn_off_bio")}
-    //         </Text>
-
-    //         <AppButton
-    //           // title={t('enable_text')}
-    //           title='Enable'
-    //           color={APP_COLOR}
-    //           color={'#1976d2'}
-    //           containerStyle={styles.btnContainer}
-    //           textStyle={styles.btnText}
-    //           onPress={biometricOnClick}
-    //         />
-
-    //         <TouchableHighlight
-    //           // onPress={() => } add link here
-    //         >
-    //           <Text style={styles.pText}>
-    //             Learn more about
-    //             { panelHeader === 'Face ID' ? 'Face ID' : 'Touch ID' }
-    //           </Text>
-    //         </TouchableHighlight>
-
-    //       </View>
-
-    //     </Inset>
-    //   </DraggablePanel>
-    // )
-  } else {
-    return (
-      <DraggablePanel
-        visible={displayPanel}
-        onDismiss={onPanelDismiss}
-        initialHeight={verticalScale(1000)}
-        expandable
-        fixPanel={staticKeyboard}
-      >
-  
-        <Inset all={verticalScale(16)}>
-          { Platform.OS === 'ios' ? <Stack size={verticalScale(12)} /> : null }
-  
-          <View style={styles.titleWrapper}>
-            <CloseButton onPress={onPanelDismiss}/>
-  
-            <Text style={styles.title}>{panelHeader}</Text>
-          </View>
-          <Stack size={verticalScale(12)} />
-  
-          { panelHeader === "FAQs" || panelHeader === "Preguntas frecuentes" ? 
-            <>
-              <Searchbar 
-                placeholder={t('search')}
-                style={{ elevation: 0, borderWidth: 1, borderColor: 'gray', padding: 0}}
-                inputStyle={{ marginLeft: -10 }}
-                onChangeText={(text) => onChangeSearch(text)}
-                value={searchQuery}
-                />  
-            
-              <Stack size={verticalScale(12)} />
-            </>
-            : null
-          }
-  
-          { masterDataSource.length < 1 && (
-              <Text>{t('loading_data')}</Text>
-          )}
-          
-          {
-            masterDataSource.length > 0 && filteredDataSource.length < 1 ? (
-              <Text>{t('no_results')}</Text>
-            ) : (
-              <>
-                <ScrollView
-                  style={styles.bodyWrapper}
-                  showsVerticalScrollIndicator={true}>
-                  {isHTML ? (
-                    <RenderHTML
-                    source={{ html: filteredDataSource.join(' ') }}
-                    contentWidth={contentWidth}
-                    baseStyle={{ color: 'red', margin: 50 }}
-                    />
-                    ) : (
-                      <Text style={styles.body}>{panelBody}</Text>
-                      )}
-                </ScrollView>
-              </>
-            )
-          }
-  
-        </Inset>
-      </DraggablePanel>
-    );
-  }
-  
 };
 export default FullScreenPanel;
