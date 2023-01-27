@@ -33,6 +33,7 @@ import storage from '../../storage';
 import {
   LanguageSelector,
   FullScreenPanel,
+  BiometricPanel,
   CreateMemberAccount,
   ForgotPasswordReset,
 } from '_organisms';
@@ -83,7 +84,14 @@ const LoginScreen = () => {
     header: '',
     body: '',
     isHTML: false,
-    biometricOption: false,
+  });
+
+  const [bioPanelDetails, setBioPanelDetails] = React.useState({
+    panelVisible: false,
+    panelDataLoading: false,
+    header: '',
+    body: '',
+    isHTML: false,
     biometricOnClick: null,
   });
   
@@ -210,7 +218,6 @@ const LoginScreen = () => {
     });
   }, []);
 
-
   const biometricSave = async () => {
     await storage.save({
       key: 'biometricUser',
@@ -229,8 +236,21 @@ const LoginScreen = () => {
     });
   }, []);
 
+  const updateBioPanelDetails = React.useCallback((key, value) => {
+    setBioPanelDetails(bioPanelDetails => {
+      return {
+        ...bioPanelDetails,
+        [key]: value,
+      };
+    });
+  }, []);
+
   const onPanelDismiss = () => {
     updatePanelDetails('panelVisible', false);
+  };
+
+  const onBioPanelDismiss = () => {
+    updateBioPanelDetails('panelVisible', false);
   };
 
   const getLatestAppInfo = (header, type) => {
@@ -306,23 +326,21 @@ const LoginScreen = () => {
   };
 
   const askBiometric = () => {
-    if (supportedTouch) {
-      updatePanelDetails('panelDataLoading', false);
-      updatePanelDetails('panelVisible', true);
-      updatePanelDetails('header', "Touch ID");
-      updatePanelDetails('body', touchIDText);
-      updatePanelDetails('isHTML', false);
-      updatePanelDetails('biometricOption', true);
-      updatePanelDetails('biometricOnClick', biometricSave);
+    if (supportedTouch || supportedBiometry) {
+      updateBioPanelDetails('panelDataLoading', false);
+      updateBioPanelDetails('panelVisible', true);
+      updateBioPanelDetails('header', "Touch ID");
+      updateBioPanelDetails('body', touchIDText);
+      updateBioPanelDetails('isHTML', false);
+      updateBioPanelDetails('biometricOnClick', biometricSave);
       }
     if (supportedFaceId) {
-      updatePanelDetails('panelDataLoading', false);
-      updatePanelDetails('panelVisible', true);
-      updatePanelDetails('header', "Face ID");
-      updatePanelDetails('body', faceIDText);
-      updatePanelDetails('isHTML', false);
-      updatePanelDetails('biometricOption', true);
-      updatePanelDetails('biometricOnClick', biometricSave);
+      updateBioPanelDetails('panelDataLoading', false);
+      updateBioPanelDetails('panelVisible', true);
+      updateBioPanelDetails('header', "Face ID");
+      updateBioPanelDetails('body', faceIDText);
+      updateBioPanelDetails('isHTML', false);
+      updateBioPanelDetails('biometricOnClick', biometricSave);
     }
   }
 
@@ -464,36 +482,28 @@ const LoginScreen = () => {
             </View>
           </View>
 
-
-
-
-
-          {( supportedTouch || supportedFaceId || supportedBiometry) && (
+          {( supportedTouch || supportedFaceId || supportedBiometry && user?.email) && (
             <TouchableHighlight onPress={biometricLogin}>
               <View style={styles.alternativeLogin}>
                 <Text style={styles.pText}>{t('or_signin_using')}</Text>
                 <View style={styles.altLoginBtn}>
-                  {/* <MatIcon
-                    size={moderateScale(20)}
-                    color={APP_COLOR}
-                    name={'face-recognition'}
-                    // name={supportedFaceId ? 'face-recognition' : 'finger-print-outline'}
-                  /> */}
-                  <IonIcon
-                    size={moderateScale(20)}
-                    color={APP_COLOR}
-                    name={'finger-print-outline'}
-                    // name={supportedFaceId ? 'face-recognition' : 'finger-print-outline'}
-                  />
-                  
+                  { supportedFaceId ? 
+                    <MatIcon
+                      size={moderateScale(20)}
+                      color={APP_COLOR}
+                      name={'face-recognition'}
+                    />
+                    : 
+                    <IonIcon
+                      size={moderateScale(20)}
+                      color={APP_COLOR}
+                      name={'finger-print-outline'}
+                    />
+                  }
                 </View>
               </View>
             </TouchableHighlight>
           )}
-
-
-
-
 
           <Stack size={scale(30)} />
 
@@ -514,8 +524,9 @@ const LoginScreen = () => {
               color={'#1976d2'}
               containerStyle={styles.btnContainer}
               textStyle={styles.btnText}
-              // onPress={onLogin}
-              onPress={supportedFaceId || supportedTouch ? askBiometric : onLogin}
+              // onPress={supportedFaceId || supportedTouch || supportedBiometry && 
+                // !user?.email ? askBiometric : onLogin}
+              onPress={supportedFaceId || supportedTouch || supportedBiometry ? askBiometric : onLogin}
             />
 
             <Stack size={scale(4)} />
@@ -526,8 +537,8 @@ const LoginScreen = () => {
               color={'#1976d2'}
               containerStyle={styles.btnContainer}
               textStyle={styles.btnText}
-              // onPress={() => setDisplayCreateMemberAccount(true)}
-              onPress={biometricSave}
+              onPress={() => setDisplayCreateMemberAccount(true)}
+              // onPress={biometricSave}
             />
             <Stack size={scale(50)} />
           </View>
@@ -561,6 +572,17 @@ const LoginScreen = () => {
                 displayPanel={panelDetails.panelVisible}
                 panelHeader={panelDetails.header}
                 panelBody={panelDetails.body}
+                onPanelDismiss={onPanelDismiss}
+                staticKeyboard
+              />
+            }
+
+            { bioPanelDetails.panelVisible && 
+              <BiometricPanel
+                isHTML={bioPanelDetails.isHTML}
+                displayPanel={bioPanelDetails.panelVisible}
+                panelHeader={bioPanelDetails.header}
+                panelBody={bioPanelDetails.body}
                 onPanelDismiss={onPanelDismiss}
                 staticKeyboard
               />

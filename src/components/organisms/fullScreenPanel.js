@@ -83,16 +83,18 @@ const FullScreenPanel = props => {
   const [masterDataSource, setMasterDataSource] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
 
-  const extractQuestions = i18n.language === "en" ? panelBody.replace(/(<([^>]+)>)/gi, "").split('. ').map( i => {
-    const questionMarkIndex = i.indexOf('?') + 1;
-    return i.slice(0,questionMarkIndex);
-  }) : 
-  panelBody.split('<p>').map( i => {
+  const extractQuestions = i18n.language === "en" ? 
+    panelBody.replace(/(<([^>]+)>)/gi, "").split('. ').map( i => {
+      const questionMarkIndex = i.indexOf('?') + 1;
+      return i.slice(0,questionMarkIndex);
+    }) : 
+    panelBody.split('<p>').map( i => {
     const startIndex = i.search("<strong>") +8;
     const endIndex = i.search("</strong>");
 
     return i.slice(startIndex, endIndex);
   });
+  
   let formattedQuestions = extractQuestions.filter( element => { return element !== '' });
 
   useEffect(() => {
@@ -127,65 +129,157 @@ const FullScreenPanel = props => {
 
   if (biometricOption) {
     return (
-      <DraggablePanel
-        visible={displayPanel}
-        onDismiss={onPanelDismiss}
-        initialHeight={verticalScale(1000)}
-        expandable
-        fixPanel={staticKeyboard}
-      >
-        <Inset all={verticalScale(16)}>
-          { Platform.OS === 'ios' ? <Stack size={verticalScale(12)} /> : null }
-
-          <View style={styles.titleWrapper}>
-            <CloseButton onPress={onPanelDismiss}/>
-
-            <Text style={styles.title}>{panelHeader}</Text>
-          </View>
-          <Stack size={verticalScale(12)} />
-
-          {/* <MatIcon
-            size={moderateScale(20)}
-            color={APP_COLOR}
-            name={ panelHeader === 'Face ID' ? 'face-recognition' : 'finger-print-outline'}
-          /> */}
-
-          <View style={styles.bodyWrapper}>
-            <MatIcon
-              size={moderateScale(20)}
-              color={APP_COLOR}
-              name={'face-recognition'}
+      <View style={styles.container}>
+        <Inset all={scale(10)}>
+          
+          <Stack size={scale(6)} />
+          <View>
+            <TextInput
+              style={styles.input}
+              label={<Text style={{ fontSize: scale(16) }}>Password</Text>}
+              // value={password}
+              // secureTextEntry={!isVisible}
+              // onChangeText={e => onChangeTextInput('password', e)}
+              left={
+                <TextInput.Icon
+                  size={scale(18)}
+                  style={{ marginLeft: moderateScale(8) }}
+                  name={'lock'}
+                />
+              }
+              right={
+                <TextInput.Icon
+                  // onPress={() => setVisible(previousState => !previousState)}
+                  name={isVisible ? 'eye-off-outline' : 'eye'}
+                  size={scale(12)}
+                  style={{ marginRight: 20 }}
+                />
+              }
             />
+          </View>
 
-            <Text style={styles.primaryText}>{panelBody}</Text>
-            <Text style={styles.subText}>
-              {t("turn_off_bio")}
-            </Text>
+          <View style={styles.forgotPass}>
+            <TouchableHighlight
+              // onPress={() => setDisplayForgotPasswordReset(true)}
+            >
+              <Text style={styles.pText}>{t('forgot_password')}</Text>
+            </TouchableHighlight>
 
+            <View style={styles.thumbContainer}>
+              <Text style={[styles.pText, { marginRight: moderateScale(5) }]}>
+                {t('save_login')}
+              </Text>
+              {/* <Toggle checked={isEnabled} onChange={toggleSwitch} /> */}
+            </View>
+          </View>
+
+          <Stack size={scale(30)} />
+
+          <View style={styles.authArea}>
             <AppButton
-              // title={t('enable_text')}
-              title='Enable'
+              title={t('sign_in')}
               color={APP_COLOR}
               color={'#1976d2'}
               containerStyle={styles.btnContainer}
               textStyle={styles.btnText}
-              onPress={biometricOnClick}
+              // onPress={onLogin}
+              // onPress={supportedFaceId || supportedTouch ? askBiometric : onLogin}
             />
 
-            <TouchableHighlight
-              // onPress={() => } add link here
-            >
-              <Text style={styles.pText}>
-                Learn more about
-                { panelHeader === 'Face ID' ? 'Face ID' : 'Touch ID' }
-              </Text>
-            </TouchableHighlight>
+            <Stack size={scale(4)} />
 
+            <AppButton
+              title={t('go_to_registration')}
+              color={APP_COLOR}
+              color={'#1976d2'}
+              containerStyle={styles.btnContainer}
+              textStyle={styles.btnText}
+              // onPress={() => setDisplayCreateMemberAccount(true)}
+              // onPress={biometricSave}
+            />
+            <Stack size={scale(50)} />
           </View>
 
-        </Inset>
-      </DraggablePanel>
-    )
+          <View style={styles.authArea}>
+            <View style={styles.footer}>
+              <Stack size={scale(6)} />
+
+              <TouchableHighlight
+                // onPress={() => getLatestAppInfo(t('faq'), 'faqs')}
+              >
+                <Text style={styles.bText}>{t('faq')}</Text>
+              </TouchableHighlight>
+              <Stack size={scale(6)} />
+            </View>
+          </View>
+
+      </Inset>
+    </View>
+  )
+      
+      
+      
+    
+    // return (
+    //   <DraggablePanel
+    //     visible={displayPanel}
+    //     onDismiss={onPanelDismiss}
+    //     initialHeight={verticalScale(1000)}
+    //     expandable
+    //     fixPanel={staticKeyboard}
+    //   >
+    //     <Inset all={verticalScale(16)}>
+    //       { Platform.OS === 'ios' ? <Stack size={verticalScale(12)} /> : null }
+
+    //       <View style={styles.titleWrapper}>
+    //         <CloseButton onPress={onPanelDismiss}/>
+
+    //         <Text style={styles.title}>{panelHeader}</Text>
+    //       </View>
+    //       <Stack size={verticalScale(12)} />
+
+    //       {/* <MatIcon
+    //         size={moderateScale(20)}
+    //         color={APP_COLOR}
+    //         name={ panelHeader === 'Face ID' ? 'face-recognition' : 'finger-print-outline'}
+    //       /> */}
+
+    //       <View style={styles.bodyWrapper}>
+    //         <MatIcon
+    //           size={moderateScale(20)}
+    //           color={APP_COLOR}
+    //           name={'face-recognition'}
+    //         />
+
+    //         <Text style={styles.primaryText}>{panelBody}</Text>
+    //         <Text style={styles.subText}>
+    //           {t("turn_off_bio")}
+    //         </Text>
+
+    //         <AppButton
+    //           // title={t('enable_text')}
+    //           title='Enable'
+    //           color={APP_COLOR}
+    //           color={'#1976d2'}
+    //           containerStyle={styles.btnContainer}
+    //           textStyle={styles.btnText}
+    //           onPress={biometricOnClick}
+    //         />
+
+    //         <TouchableHighlight
+    //           // onPress={() => } add link here
+    //         >
+    //           <Text style={styles.pText}>
+    //             Learn more about
+    //             { panelHeader === 'Face ID' ? 'Face ID' : 'Touch ID' }
+    //           </Text>
+    //         </TouchableHighlight>
+
+    //       </View>
+
+    //     </Inset>
+    //   </DraggablePanel>
+    // )
   } else {
     return (
       <DraggablePanel
