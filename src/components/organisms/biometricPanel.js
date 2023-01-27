@@ -11,7 +11,6 @@ import MatIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import IonIcon from 'react-native-vector-icons/Ionicons';
 import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
 import { Inset, Stack } from 'react-native-spacing-system';
-// import RenderHTML from 'react-native-render-html';
 import { useTranslation } from 'react-i18next';
 
 import { AppButton, CloseButton } from '_atoms';
@@ -38,14 +37,17 @@ const styles = StyleSheet.create({
   primaryText: {
     fontSize: moderateScale(16),
     letterSpacing: 1,
+    textAlign: 'center',
   },
   subText: {
-    fontSize: moderateScale(16),
+    fontSize: moderateScale(12),
     letterSpacing: 1,
+    textAlign: 'center',
   },
   btnContainer: {
     backgroundColor: APP_COLOR,
     padding: moderateScale(8),
+    borderRadius: 10,
     borderWidth: 1,
     borderColor: '#E8E8E8',
     borderStyle: 'solid',
@@ -58,11 +60,16 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     textTransform: 'uppercase',
   },
+  pText: {
+    fontSize: scale(14),
+    color: APP_COLOR,
+    fontWeight: '400',
+    textAlign: 'center',
+  },
 });
 
 const BiometricPanel = props => {
   const {
-    // isHTML,
     panelHeader,
     panelBody,
     displayPanel,
@@ -71,7 +78,7 @@ const BiometricPanel = props => {
     staticKeyboard
   } = props;
 
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
 
   return (
     <DraggablePanel
@@ -83,34 +90,41 @@ const BiometricPanel = props => {
     >
       <Inset all={verticalScale(16)}>
         { Platform.OS === 'ios' ? <Stack size={verticalScale(12)} /> : null }
+
         <View style={styles.titleWrapper}>
           <CloseButton onPress={onPanelDismiss}/>
 
           <Text style={styles.title}>{panelHeader}</Text>
         </View>
 
-        <Stack size={verticalScale(12)} />
-
-        { panelHeader === "Face ID" ? 
-          <MatIcon
-            size={scale(50)}
-            color={APP_COLOR}
-            name={'face-recognition'}
-          />
+        <Stack size={verticalScale(50)} />
+        <View style={{ alignItems: 'center' }}>
+          { panelHeader === "Face ID" ? 
+            <MatIcon
+              size={scale(70)}
+              color={APP_COLOR}
+              name={'face-recognition'}
+            />
           : 
-          <IonIcon
-            size={scale(80)}
-            color={APP_COLOR}
-            name={'finger-print-outline'}
-          />
-        }
+            <IonIcon
+              size={scale(70)}
+              color={APP_COLOR}
+              name={'finger-print-outline'}
+            />
+          }
+        </View>
 
-        <View style={styles.bodyWrapper}>
+        <Inset all={verticalScale(30)}>
           <Text style={styles.primaryText}>{panelBody}</Text>
+          <Stack size={verticalScale(12)} />
           <Text style={styles.subText}>
               {t("turn_off_bio")}
           </Text>
+        </Inset>
 
+        <Stack size={verticalScale(100)} />
+        
+        <Inset horizontal={verticalScale(70)}>
           <AppButton
             title={t('enable_button')}
             color={'#1976d2'}
@@ -118,7 +132,7 @@ const BiometricPanel = props => {
             textStyle={styles.btnText}
             onPress={biometricOnClick}
           />
-
+          <Stack size={verticalScale(10)} />
           <TouchableHighlight
             // onPress={() => } add link here
           >
@@ -127,7 +141,7 @@ const BiometricPanel = props => {
               { panelHeader === 'Face ID' ? ' Face ID' : ' Touch ID' }
             </Text>
           </TouchableHighlight>
-        </View>
+        </Inset>
 
       </Inset>
     </DraggablePanel>

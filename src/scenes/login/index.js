@@ -219,6 +219,8 @@ const LoginScreen = () => {
   }, []);
 
   const biometricSave = async () => {
+    updateBioPanelDetails('panelVisible', false);
+
     await storage.save({
       key: 'biometricUser',
       id: 'bioSaved',
@@ -583,7 +585,8 @@ const LoginScreen = () => {
                 displayPanel={bioPanelDetails.panelVisible}
                 panelHeader={bioPanelDetails.header}
                 panelBody={bioPanelDetails.body}
-                onPanelDismiss={onPanelDismiss}
+                onPanelDismiss={onBioPanelDismiss}
+                biometricOnClick={biometricSave}
                 staticKeyboard
               />
             }
