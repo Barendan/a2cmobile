@@ -154,5 +154,12 @@
   "select_time": "Fije hora",
   "search": "Buscar",
   "no_results": "No se encontraron coincidencias. Intente otra búsqueda.",
-  "loading_data": "Cargando datos..."
+  "loading_data": "Cargando datos...",
+  "face_option_title": "Face ID",
+  "face_option_text": "Face ID ya está disponible! Habilitar Face ID le dará un acceso más rápido a su información.",
+  "touch_option_title": "Touch ID",
+  "touch_option_text": "Habilitar Touch ID le dará un acceso más rápido a su información.",
+  "turn_off_bio": "Puede activar o desactivar esta función en cualquier momento en la configuración.",
+  "learn_more": "Aprender más sobre",
+  "enable_button": "Habilitar"
 }

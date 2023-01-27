@@ -153,5 +153,12 @@
   "select_time": "Select Time",
   "search": "Search",
   "no_results": "No matches found. Please try another search.",
-  "loading_data": "Loading Data..."
+  "loading_data": "Loading Data...",
+  "face_option_title": "Face ID",
+  "face_option_text": "Face ID is now available! Enabling Face ID will give you faster access to your information.",
+  "touch_option_title": "Touch ID",
+  "touch_option_text": "Enabling Touch ID will give you faster access to your information.",
+  "turn_off_bio": "You can turn this feature on or off at any time under settings.",
+  "learn_more": "Learn more about",
+  "enable_button": "Enable"
 }
