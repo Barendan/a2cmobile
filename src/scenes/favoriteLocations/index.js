@@ -138,15 +138,15 @@ const FavoriteLocations = () => {
                       size={moderateScale(26)}
                       icon="minus"
                       onPress={() => Alert.alert(
-                        "Confirm Delete",
-                        "Are you sure you want to permanently delete this saved location?",
+                        t('confirm_delete_title'),
+                        t('confirm_delete_location'),
                         [
                           {
-                            text: "No",
+                            text: t('cancel'),
                             onPress: () => console.log("Cancel Pressed"),
                             style: "cancel"
                           },
-                          { text: "Yes", onPress: () => removeLocation(currentLocation) }
+                          { text: t('confirm'), onPress: () => removeLocation(currentLocation) }
                         ]
                       )}
                     />

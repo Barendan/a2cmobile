@@ -161,5 +161,6 @@
   "touch_option_text": "Habilitar Touch ID le dará un acceso más rápido a su información.",
   "turn_off_bio": "Puede activar o desactivar esta función en cualquier momento en la configuración.",
   "learn_more": "Aprender más sobre",
-  "enable_button": "Habilitar"
+  "enable_button": "Habilitar",
+  "confirm_delete_location": "¿Está seguro de que desea eliminar de forma permanente esta ubicación guardada?"
 }

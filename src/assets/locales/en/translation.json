@@ -160,5 +160,6 @@
   "touch_option_text": "Enabling Touch ID will give you faster access to your information.",
   "turn_off_bio": "You can turn this feature on or off at any time under settings.",
   "learn_more": "Learn more about",
-  "enable_button": "Enable"
+  "enable_button": "Enable",
+  "confirm_delete_location": "Are you sure you want to permanently delete this saved location?"
 }

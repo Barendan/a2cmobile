@@ -5,6 +5,7 @@ import {
   TouchableHighlight,
   StyleSheet,
   Platform,
+  Linking
 } from 'react-native';
 
 import MatIcon from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -133,14 +134,21 @@ const BiometricPanel = props => {
             onPress={biometricOnClick}
           />
           <Stack size={verticalScale(10)} />
-          <TouchableHighlight
-            // onPress={() => } add link here
-          >
-            <Text style={styles.pText}>
-              Learn more about
-              { panelHeader === 'Face ID' ? ' Face ID' : ' Touch ID' }
-            </Text>
-          </TouchableHighlight>
+          { panelHeader === 'Face ID' ?  
+            <TouchableHighlight
+              onPress={() => { Linking.openURL('https://support.apple.com/en-us/HT208108')}}>
+              <Text style={styles.pText}>
+                {t('learn_more')} Face ID
+              </Text>
+            </TouchableHighlight>
+            :
+            <TouchableHighlight
+              onPress={() => { Linking.openURL('https://support.apple.com/en-us/HT204587')}}>
+              <Text style={styles.pText}>
+              {t('learn_more')} Touch ID
+              </Text>
+            </TouchableHighlight>
+          }
         </Inset>
 
       </Inset>

@@ -137,9 +137,6 @@ const LoginScreen = () => {
         id: 'currentUser',
       })
       .catch(err => {
-        // any exception including data not found
-        // goes to catch()
-        // console.warn(err.message);
         switch (err.name) {
           case 'NotFoundError':
             console.log('No user in local storage.');
@@ -166,7 +163,6 @@ const LoginScreen = () => {
         }
       });
 
-      // await storage.clearMapForKey('biometricUser');
       let biometricUser = await storage
       .load({
         key: 'biometricUser',
@@ -186,8 +182,6 @@ const LoginScreen = () => {
       if (biometricUser?.email) {
         setUser(biometricUser);
       }
-
-      // console.log('Blood user:', biometricUser)
 
       if (savedUser?.email && savedUser?.password) {
         onChangeTextInput('email', savedUser.email);
@@ -251,8 +245,17 @@ const LoginScreen = () => {
     updatePanelDetails('panelVisible', false);
   };
 
-  const onBioPanelDismiss = () => {
+  const onBioPanelDismiss = async () => {
     updateBioPanelDetails('panelVisible', false);
+
+    await storage.save({
+      key: 'biometricUser',
+      id: 'bioSaved',
+      data: {...user, "shown": true},
+      expires: null
+    });
+
+    setUser({...user, "shown": true})
   };
 
   const getLatestAppInfo = (header, type) => {
@@ -522,25 +525,24 @@ const LoginScreen = () => {
             )}
             <AppButton
               title={t('sign_in')}
-              color={APP_COLOR}
+              // color={APP_COLOR}
               color={'#1976d2'}
               containerStyle={styles.btnContainer}
               textStyle={styles.btnText}
               // onPress={supportedFaceId || supportedTouch || supportedBiometry && 
                 // !user?.email ? askBiometric : onLogin}
-              onPress={supportedFaceId || supportedTouch || supportedBiometry ? askBiometric : onLogin}
+              onPress={!user.shown && supportedBiometry ? askBiometric : onLogin}
             />
 
             <Stack size={scale(4)} />
 
             <AppButton
               title={t('go_to_registration')}
-              color={APP_COLOR}
+              // color={APP_COLOR}
               color={'#1976d2'}
               containerStyle={styles.btnContainer}
               textStyle={styles.btnText}
               onPress={() => setDisplayCreateMemberAccount(true)}
-              // onPress={biometricSave}
             />
             <Stack size={scale(50)} />
           </View>
